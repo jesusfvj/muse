@@ -1,13 +1,11 @@
-function App() {
+import { TestComponents } from "./Components/TestComponents";
 
+function App() {
   return (
     <div className="App">
-      <div className='bg-yellow-300 w-screen h-screen'>
-        <p className='text-center'>Hola inframundo</p>
-      </div>
+      <TestComponents />
     </div>
-  )
+  );
 }
 
-export default App
-
+export default App;

@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Pilonyc";
+  src: url("../public/fonts/Pilonyc\ REGULAR.otf");
+}
+
+.pilonyc {
+  font-family: "Pilonyc";
+}
+
+.lato {
+  font-family: "Lato", sans-serif;
+}
