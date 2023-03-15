@@ -1,11 +1,18 @@
+import { BrowserRouter } from "react-router-dom"
+import { Footer } from "./Components/Footer"
+import { Navbar } from "./Components/Navbar"
+import Router from "./Router/Router"
+
 function App() {
 
   return (
-    <div className="App">
-      <div className='bg-yellow-300 w-screen h-screen'>
-        <p className='text-center'>Hola inframundo</p>
-      </div>
-    </div>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Router />
+        <Footer />
+      </BrowserRouter>
+    </>
   )
 }
 
