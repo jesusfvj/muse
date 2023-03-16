@@ -11,12 +11,13 @@ import { Player } from '../Pages/Player'
 import { Playlist } from '../Pages/Playlist'
 import { Profile } from '../Pages/Profile'
 import { Search } from '../Pages/Search'
+import { MainPage } from '../Pages/MainPage';
 
 function Router() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<MainPage />} />
         {/* Protected */}
                 <Route path="/home" element={<Home />} />
         <Route path="/playlist" element={<Playlist />} />

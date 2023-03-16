@@ -3,6 +3,7 @@ export const RoundButton = ({
   background = "gray",
   icon,
   onClick,
+  margin
 }) => {
   const colors = {
     white: "text-gray-200",
@@ -14,7 +15,7 @@ export const RoundButton = ({
     gray: "bg-gray-600",
   };
 
-  const finalClassName = `w-full h-full rounded-full flex items-center justify-center bg-slate-600 ${colors[color]} ${backgrounds[background]}`;
+  const finalClassName = `w-full h-full rounded-full flex items-center justify-center bg-slate-600 ${colors[color]} ${backgrounds[background]} ${margin}`;
 
   return (
     <button className={finalClassName} onClick={onClick && onClick}>

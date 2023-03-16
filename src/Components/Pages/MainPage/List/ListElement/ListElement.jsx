@@ -1,5 +1,7 @@
 import React from 'react'
 import { Typography } from '../../../../Typography';
+import {FaPlay} from 'react-icons/fa';
+import { RoundButton } from '../../../../RoundButton';
 
 export const ListElement = ({object}) => {
   const {artist, songTitle, album, year, producer, genre, bgImage} = object;
@@ -13,10 +15,9 @@ export const ListElement = ({object}) => {
                 <div className={`w-[7rem] h-[7rem]  rounded-full ${bgImage} bg-cover bg-center bg-no-repeat`}>
             </div>
         </div>
-        <div className="absolute">
+        <div className="absolute bottom-0 right-0 w-[2rem] h-[2rem] flex items-center justify-center">
+            <RoundButton color="white" background="gray" icon={<FaPlay/>} margin="pl-1"/>
         </div>
     </div>
   )
 }
-
-/* bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 */
