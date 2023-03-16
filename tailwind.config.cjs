@@ -6,9 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'la-rosalia': "url('src/assets/images/headerPicture.jpeg')",
-      }
+    
       
     },
   },
