@@ -1,7 +1,8 @@
 import { NavItem } from "./NavItem";
 
 const navItems = [
-  { path: "/", text: "Home" },
+  { path: "/", text: "Landing Page" },
+  { path: "/home", text: "Home" },
   { path: "/playlist", text: "Playlist" },
   { path: "/album", text: "Album" },
   { path: "/myprofile", text: "My Profile" },

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import { Album } from '../Pages/Album'
 import { Artist } from '../Pages/Artist'
 import { Home } from '../Pages/Home'
+import { LandingPage } from '../Pages/LandingPage'
 import { MyLibrary } from '../Pages/MyLibrary'
 import { MyProfile } from '../Pages/MyProfile'
 import { Player } from '../Pages/Player'
@@ -14,8 +15,9 @@ function Router() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<LandingPage />} />
                 {/* Protected */}
+                <Route path="/home" element={<Home />} />
                 <Route path="/playlist" element={<Playlist />} />
                 <Route path="/album" element={<Album />} />
                 <Route path="/myprofile" element={<MyProfile />} />
