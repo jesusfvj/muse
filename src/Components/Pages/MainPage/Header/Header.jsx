@@ -6,7 +6,7 @@ const arrayTitles = [{
   type: "p1",
   color: "white",
   family: "lato",
-  styles: "my-[2rem]"
+  styles: "pb-[2rem]"
 },
 {
   text: "Listen to your",
@@ -19,7 +19,7 @@ const arrayTitles = [{
   type: "p1",
   color: "white",
   family: "lato",
-  styles: "lg:pl-[6rem] md:pl-[6rem] mt-[-0.3rem]"
+  styles: "sm:pl-[6rem] md:pl-[6rem] mt-[-0.3rem]"
 }]
 
 export const Header = () => {
