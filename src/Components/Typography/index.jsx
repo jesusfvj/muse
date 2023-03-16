@@ -22,7 +22,7 @@ export const Typography = ({
 
   const fontFamily = {
     lato: "lato",
-    pilonyc: "pilonyc",
+    pilonyc: "pilonyc tracking-wider",
   };
 
   const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]} ${styles}`;
