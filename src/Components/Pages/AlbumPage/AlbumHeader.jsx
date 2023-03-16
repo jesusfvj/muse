@@ -2,7 +2,8 @@ import React from 'react'
 import { Button } from '../../Button'
 import { Typography } from '../../Typography'
 import { AiFillCaretRight} from "react-icons/ai";
-import { IoShuffle } from "react-icons/io";
+import { RiShuffleFill } from "react-icons/ri";
+
 
 
 export const AlbumHeader = () => {
@@ -13,9 +14,9 @@ export const AlbumHeader = () => {
         <Typography text="El Mal Querer" color="primary" type="title" />
       
       </div>
-      <div className="absolute bottom-0 right-10 h-6 w-29 flex">
+      <div className="absolute bottom-0 right-10 h-6 w-29 flex gap-5">
       <Button text="Play" color="gray" icon={<AiFillCaretRight/>}></Button>
-      <Button text="Shuffle" color="gray" icon={<IoShuffle/>} ></Button>
+      <Button text="Shuffle" color="gray" icon={<RiShuffleFill/>}></Button>
       </div>
     </div>
   )

@@ -2,6 +2,6 @@ import React from 'react'
 
 export const AlbumTracks = () => {
   return (
-    <div>AlbumTracks</div>
+    <div className="h-14 bg-gradient-to-r from-cyan-500 to-blue-500">AlbumTracks</div>
   )
 }
