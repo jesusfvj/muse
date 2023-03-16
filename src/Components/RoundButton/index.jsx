@@ -1,6 +1,6 @@
 export const RoundButton = ({
   color = "white",
-  background = "white",
+  background = "gray",
   icon,
   onClick,
 }) => {
