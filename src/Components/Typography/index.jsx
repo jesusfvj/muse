@@ -3,6 +3,7 @@ export const Typography = ({
   type = "p1",
   color = "primary",
   family = "lato",
+  styles = ""
 }) => {
   const types = {
     title: `text-xl sm:text-4xl font-bold`,
@@ -24,7 +25,7 @@ export const Typography = ({
     pilonyc: "pilonyc",
   };
 
-  const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]}`;
+  const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]} ${styles}`;
 
   switch (type) {
     case "p1":

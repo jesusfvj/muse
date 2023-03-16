@@ -6,9 +6,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <Router />
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   )
