@@ -1,8 +1,7 @@
-import { FaPlay } from "react-icons/fa";
-
 export const RoundButton = ({
   color = "white",
   background = "white",
+  icon,
   onClick,
 }) => {
   const colors = {
@@ -19,7 +18,7 @@ export const RoundButton = ({
 
   return (
     <button className={finalClassName} onClick={onClick && onClick}>
-      <FaPlay />
+      {icon}
     </button>
   );
 };
