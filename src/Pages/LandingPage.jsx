@@ -7,14 +7,16 @@ export const LandingPage = () => {
     const [isRegistering, setIsRegistering] = useState(false);
     const changeLogRegister = () => setIsRegistering(!isRegistering)
     return (
-        <div className="items-center h-full bg-[url('./src/assets/images/LandBgImage.png')] bg-cover bg-center md:bg-left-bottom ">
+        <div className="items-center h-screen bg-[url('./src/assets/images/LandBgImage.png')] bg-cover bg-center md:bg-left-bottom ">
 
 
-            <div className='pt-32'>
+            <div className=' flex justify-center md:absolute w-full pt-36'>
                 <img src="" alt="" />
                 <Typography text="MUZE" type="important" />
             </div>
+            <div className='h-full'>
             {isRegistering ? <Register changeLogRegister={changeLogRegister} /> : <Login changeLogRegister={changeLogRegister} />}
+            </div>
 
 
         </div>
