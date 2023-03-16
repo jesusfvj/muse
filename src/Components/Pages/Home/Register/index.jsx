@@ -1,55 +1,37 @@
 import React, { useState } from "react";
+import { Button } from "../../../Button";
+import InputWithLabel from "../../../Form";
+import { Typography } from "../../../Typography";
 
-export const Register = () => {
+export const Register = ({ changeLogRegister }) => {
   const [registerData, setRegisterData] = useState({
     fullName: "",
     email: "",
     password: "",
     repPassword: "",
   });
-
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(registerData);
+
   };
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
-
   return (
-    <div>
-      <p>Register</p>
-      <form className="register-form">
-        <input
-          type="text"
-          placeholder="Enter Your Name"
-          name="fullName"
-          value={registerData.fullName}
-          onChange={handleInputChange}
-        />
-        <input
-          type="email"
-          placeholder="Enter Your Email"
-          name="Email"
-          value={registerData.email}
-          onChange={handleInputChange}
-        />
-        <input
-          type="password"
-          placeholder="Enter Your Password"
-          name="password"
-          value={registerData.password}
-          onChange={handleInputChange}
-        />
-        <input
-          type="password"
-          placeholder="Repeat Your Password"
-          name="repPassword"
-          value={registerData.repPassword}
-          onChange={handleInputChange}
-        />
-        <button onClick={handleRegister}>Register</button>
+    <div className="flex flex-col mt-32 md:mt-0 md:justify-center h-full w-full 2xl:w-1/4 xl:w-5/12 lg:w-2/5 md:w-2/3 md:ml-24 px-8 gap-8 ">
+      <Typography text="Register" color="primary" type="important" />
+      <form className="flex flex-col gap-8">
+        <InputWithLabel name="fullName" label="Enter Your Name" type="text" value={registerData.fullName} onInputChange={handleInputChange} />
+        <InputWithLabel name="email" label="Email" type="text" value={registerData.email} onInputChange={handleInputChange} />
+        <InputWithLabel name="password" label="Password" type="password" value={registerData.password} onInputChange={handleInputChange} />
+        <InputWithLabel name="repPassword" label=" Repeat the password" type="password" value={registerData.repPassword} onInputChange={handleInputChange} />
+        <Button onClick={handleRegister} text="Register" />
       </form>
+      <div className="flex gap-5">
+        <Typography text={"I already have an account"} type="p1" />
+        <p onClick={changeLogRegister} className="cursor-pointer self-end w-1/4 text-white">Log In!</p>
+      </div>
     </div>
   );
 };

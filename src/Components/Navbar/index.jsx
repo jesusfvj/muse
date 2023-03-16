@@ -1,7 +1,8 @@
 import { NavItem } from "./NavItem";
 
 const navItems = [
-  { path: "/", text: "Home" },
+  { path: "/", text: "Landing Page" },
+  { path: "/home", text: "Home" },
   { path: "/playlist", text: "Playlist" },
   { path: "/album", text: "Album" },
   { path: "/myprofile", text: "My Profile" },
@@ -14,7 +15,7 @@ const navItems = [
 
 export const Navbar = () => {
   return (
-    <div className="flex space-x-4 m-5">
+    <div className="flex space-x-4 p-5 absolute bg-white">
       {navItems.map((navItem) => {
         const { text, path } = navItem;
         return <NavItem key={path} text={text} path={path} />;
