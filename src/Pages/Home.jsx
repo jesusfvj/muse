@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Login, Register } from "../Components";
 
 export const Home = () => {
+  const [isRegistering, setIsRegistering] = useState(true);
   return (
     <div>
-      Home
+      <Login />
+      <Register />
     </div>
-  )
-}
+  );
+};
