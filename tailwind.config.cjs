@@ -9,6 +9,7 @@ module.exports = {
       backgroundImage: {
         'la-rosalia': "url('src/assets/images/headerPicture.jpeg')",
       }
+      
     },
   },
   plugins: [],
