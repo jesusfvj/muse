@@ -15,7 +15,7 @@ const navItems = [
 
 export const Navbar = () => {
   return (
-    <div className="flex space-x-4 m-5">
+    <div className="flex space-x-4 m-5  ">
       {navItems.map((navItem) => {
         const { text, path } = navItem;
         return <NavItem key={path} text={text} path={path} />;
