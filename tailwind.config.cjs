@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'la-rosalia': "url('src/assets/images/headerPicture.jpeg')",
+      }
+    },
   },
   plugins: [],
 }
