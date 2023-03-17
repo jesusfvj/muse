@@ -24,7 +24,7 @@ const arrayTitles = [{
 
 export const Header = () => {
   return (
-    <div className="w-[80vw] h-[20vh]">
+    <div className=" h-[20vh]">
     {arrayTitles.map(({text, type, color, family, styles}, index)=>{
       return <Typography key={index} text={text} type={type} color={color} family={family} styles={styles}/>
     })}

@@ -1,7 +1,9 @@
-import React from 'react'
+import { Layout } from '../Components/Layout'
 
 export const Profile = () => {
   return (
-    <div>Profile</div>
-  )
-}
+    <Layout>
+      <div>Artist profile</div>
+    </Layout>
+  );
+};
