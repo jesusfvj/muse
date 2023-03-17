@@ -11,15 +11,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { BsSearch } from "react-icons/bs";
 
 const navItems = [
-    // { path: "/", text: "Landing Page" },
+  { path: "/", text: "Landing Page" },
   { path: "/main", text: "Home", icon: <FaHome /> },
   { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> },
-//   { path: "/album", text: "Album" },
+  { path: "/album", text: "Album" },
   { path: "/myprofile", text: "Profile", icon: <FiUser /> },
-//   { path: "/profile", text: "Profile" },
-//   { path: "/artist", text: "Artist" },
-//   { path: "/player", text: "Player" },
-  { path: "/search", text: "Search", icon: <BsSearch/> },
+  { path: "/profile", text: "Profile" },
+  { path: "/artist", text: "Artist" },
+  { path: "/player", text: "Player" },
+  { path: "/search", text: "Search", icon: <BsSearch /> },
   { path: "/mylibrary", text: "Library", icon: <VscLibrary /> },
 ];
 
@@ -32,10 +32,10 @@ export const Navbar = () => {
 
   return (
     <div
-      className={`bg-black/[99%] h-full transition-[all] ${
+      className={`bg-black/[97.5%] h-full md:pt-24  ${
         isNavOpen
-          ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-start fixed gap-4 z-10 md:p-12 md:pt-24 duration-300"
-          : "relative"
+          ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-10  duration-300"
+          : "w-0 relative"
       } `}
     >
       {isNavOpen ? (
@@ -49,18 +49,20 @@ export const Navbar = () => {
           onClick={handleToggleNav}
         />
       )}
-      {navItems.map((navItem) => {
-        const { text, path, icon } = navItem;
-        return (
-          <NavItem
-            key={path}
-            text={text}
-            path={path}
-            icon={icon}
-            isNavOpen={isNavOpen}
-          />
-        );
-      })}
+      <div className="flex flex-col gap-8 mt-8">
+        {navItems.map((navItem) => {
+          const { text, path, icon } = navItem;
+          return (
+            <NavItem
+              key={path}
+              text={text}
+              path={path}
+              icon={icon}
+              isNavOpen={isNavOpen}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import { Layout } from "../Components/Layout";
 
 export const Album = () => {
   return (
-    <div>Album</div>
-  )
-}
+    <Layout>
+      <div>Album</div>
+    </Layout>
+  );
+};
