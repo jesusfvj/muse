@@ -4,7 +4,7 @@ import { AlbumTracks } from '../Components/Pages/AlbumPage/AlbumTracks';
 
 export const Album = () => {
   return (
-    <div>
+    <div className="w-1/3">
       <div><AlbumHeader/></div>
       <div><AlbumTracks/></div>
     
