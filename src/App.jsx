@@ -1,17 +1,20 @@
-import { BrowserRouter } from "react-router-dom"
-import { Footer, Navbar } from "./Components"
-import Router from "./Router/Router"
+import { BrowserRouter } from "react-router-dom";
+import { Footer } from "./Components";
+import { UIProvider } from "./Context/UI/UIContext";
+
+import Router from "./Router/Router";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        {/* <Navbar /> */}
-        <Router />
-        {/* <Footer /> */}
-      </BrowserRouter>
+      <UIProvider>
+        <BrowserRouter>
+          <Router />
+          <Footer />
+        </BrowserRouter>
+      </UIProvider>
     </>
-  )
+  );
 }
 
 export default App;

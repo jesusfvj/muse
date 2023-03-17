@@ -1,7 +1,9 @@
-import React from 'react'
+import { Layout } from "../Components/Layout";
 
 export const Search = () => {
   return (
-    <div>Search</div>
-  )
-}
+    <Layout>
+      <div>Search</div>
+    </Layout>
+  );
+};

@@ -1,7 +1,9 @@
-import React from 'react'
+import { Layout } from '../Components/Layout'
 
 export const Playlist = () => {
   return (
-    <div>Playlist</div>
-  )
-}
+    <Layout>
+      <div>Playlist</div>
+    </Layout>
+  );
+};

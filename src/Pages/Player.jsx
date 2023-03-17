@@ -1,7 +1,9 @@
-import React from 'react'
+import { Layout } from '../Components/Layout'
 
 export const Player = () => {
   return (
-    <div>Player</div>
-  )
-}
+    <Layout>
+      <div>Player</div>
+    </Layout>
+  );
+};

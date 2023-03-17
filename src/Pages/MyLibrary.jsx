@@ -1,7 +1,9 @@
-import React from 'react'
+import { Layout } from '../Components/Layout'
 
 export const MyLibrary = () => {
   return (
-    <div>MyLibrary</div>
+     <Layout>
+    <div>Library</div>
+    </Layout>
   )
 }
