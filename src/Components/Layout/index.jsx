@@ -2,17 +2,27 @@ import UIContext from "../../Context/UI/UIContext";
 import { useContext } from "react";
 import { MusicPlayer } from "../MusicPlayer";
 import { Navbar } from "../Navbar";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export const Layout = ({ children }) => {
-  const { setIsNavOpen } = useContext(UIContext);
+  const { isNavOpen, setIsNavOpen } = useContext(UIContext);
 
+  const handleToggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
   const handleHideNav = () => {
     setIsNavOpen(false);
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
+      {!isNavOpen && (
+        <RxHamburgerMenu
+          className="text-white text-3xl fixed top-5 left-10 cursor-pointer z-50"
+          onClick={handleToggleNav}
+        />
+      )}
       <div className="grow mb-[10vh]" onClick={handleHideNav}>
         {children}
       </div>
