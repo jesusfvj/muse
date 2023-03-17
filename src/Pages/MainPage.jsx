@@ -1,73 +1,6 @@
 import React from 'react'
-import { Header, List } from '../Components/Pages/MainPage/index.js';
-
-const arrayTodaysHits = [{
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-  {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-  {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-  {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-   {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-  {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  }
-  ,
-  {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  }
-  ]
-
-  const arraySectionTitles = ["Today's hits", "Most popular", "Most listened in the UK", "Spanish music"]
+import { Header, List, TrendingList } from '../Components/Pages/MainPage/index.js';
+import { arraySectionTitles, arrayTodaysHits } from '../data/MainPage/MainPage';
 
 export const MainPage = () => {
   return (
@@ -77,6 +10,9 @@ export const MainPage = () => {
     <div className="z-2 relative w-screen min-h-screen">
         <div className="pt-[5rem] pl-[2rem] sm:pl-[4rem] md:pl-[6rem] lg:pl-[8rem]">
             <Header/>
+        </div>
+        <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
+            <TrendingList/>
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
             {arraySectionTitles.map((section)=>{
