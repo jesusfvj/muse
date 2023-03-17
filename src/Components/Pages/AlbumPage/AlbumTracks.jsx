@@ -1,6 +1,7 @@
 import React from 'react'
 import { canciones } from '../../../data/data.js';
 import { SlOptions } from "react-icons/sl";
+import { Typography } from '../../Typography'
 
 
 export const AlbumTracks = () => {
@@ -13,10 +14,10 @@ export const AlbumTracks = () => {
             return (
               <div className="flex flex-row gap-5 items-center justify-between">
                 <div className="flex items-start justify-start gap-20">
-                <p>{id}</p>
-                <p>{nombre}</p>
+                <Typography text={id} color="white"/>
+                <Typography text={nombre} color="white"/>
                 </div>
-                <p>{<SlOptions/>}</p>
+                <Typography text={<SlOptions/>} color="white"/>
               </div>
             )
           })
