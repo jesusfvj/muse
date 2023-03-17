@@ -40,12 +40,12 @@ export const Navbar = () => {
     >
       {isNavOpen ? (
         <IoClose
-          className="text-white text-5xl absolute top-5 right-10 cursor-pointer"
+          className="text-white text-5xl absolute top-5 right-10 cursor-pointer z-50"
           onClick={handleToggleNav}
         />
       ) : (
         <RxHamburgerMenu
-          className="text-white text-3xl absolute top-5 left-10 cursor-pointer"
+          className="text-white text-3xl absolute top-5 left-10 cursor-pointer z-50"
           onClick={handleToggleNav}
         />
       )}
