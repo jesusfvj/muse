@@ -2,6 +2,7 @@ export * from "./Button";
 export * from "./Footer";
 export * from "./Form";
 export * from "./Layout";
+export * from "./MusicPlayer";
 export * from "./Navbar";
 export * from "./Pages";
 export * from "./Typography";

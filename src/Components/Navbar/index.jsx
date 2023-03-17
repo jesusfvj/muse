@@ -45,7 +45,7 @@ export const Navbar = () => {
         />
       ) : (
         <RxHamburgerMenu
-          className="text-white text-3xl absolute top-5 left-10 cursor-pointer z-50"
+          className="text-white text-3xl absolute top-5 left-10 cursor-pointer"
           onClick={handleToggleNav}
         />
       )}
