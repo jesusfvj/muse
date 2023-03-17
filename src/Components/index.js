@@ -5,5 +5,5 @@ export * from "./Layout";
 export * from "./MusicPlayer";
 export * from "./Navbar";
 export * from "./Pages";
-export * from "./Typography";
 export * from "./RoundButton";
+export * from "./Typography";

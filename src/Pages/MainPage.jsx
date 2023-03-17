@@ -1,14 +1,20 @@
-import { Header, List, TrendingList } from '../Components/Pages/MainPage/index.js';
+import {
+  Header,
+  List,
+  TrendingList,
+} from "../Components/Pages/MainPage/index.js";
 import { Layout } from "../Components/Layout/index.jsx";
 
-const arrayTodaysHits = [{
+const arrayTodaysHits = [
+  {
     artist: `Molongui!`,
     songTitle: "I rock!",
     album: "We are cool",
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
   },
   {
     artist: `Molongui!`,
@@ -17,7 +23,8 @@ const arrayTodaysHits = [{
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
   },
   {
     artist: `Molongui!`,
@@ -26,7 +33,8 @@ const arrayTodaysHits = [{
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
   },
   {
     artist: `Molongui!`,
@@ -35,16 +43,8 @@ const arrayTodaysHits = [{
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  },
-   {
-    artist: `Molongui!`,
-    songTitle: "I rock!",
-    album: "We are cool",
-    year: "2023",
-    producer: "Mololongui",
-    genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
   },
   {
     artist: `Molongui!`,
@@ -53,9 +53,9 @@ const arrayTodaysHits = [{
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  }
-  ,
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
+  },
   {
     artist: `Molongui!`,
     songTitle: "I rock!",
@@ -63,11 +63,27 @@ const arrayTodaysHits = [{
     year: "2023",
     producer: "Mololongui",
     genre: "pop",
-    bgImage: "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]"
-  }
-  ]
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
+  },
+  {
+    artist: `Molongui!`,
+    songTitle: "I rock!",
+    album: "We are cool",
+    year: "2023",
+    producer: "Mololongui",
+    genre: "pop",
+    bgImage:
+      "bg-[url('../../../../../../src/assets/images/testImages/test.jpg')]",
+  },
+];
 
-  const arraySectionTitles = ["Today's hits", "Most popular", "Most listened in the UK", "Spanish music"]
+const arraySectionTitles = [
+  "Today's hits",
+  "Most popular",
+  "Most listened in the UK",
+  "Spanish music",
+];
 
 export const MainPage = () => {
   return (
@@ -78,11 +94,17 @@ export const MainPage = () => {
           <Header />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
-            <TrendingList/>
+          <TrendingList />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
           {arraySectionTitles.map((section, i) => {
-            return <List key={`${section.artist}-${i}`} object={arrayTodaysHits} sectionTitle={section} />;
+            return (
+              <List
+                key={`${section.artist}-${i}`}
+                object={arrayTodaysHits}
+                sectionTitle={section}
+              />
+            );
           })}
         </div>
       </div>

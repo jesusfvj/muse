@@ -6,14 +6,12 @@ import Router from "./Router/Router";
 
 function App() {
   return (
-    <>
-      <UIProvider>
-        <BrowserRouter>
-          <Router />
-          <Footer />
-        </BrowserRouter>
-      </UIProvider>
-    </>
+    <UIProvider>
+      <BrowserRouter>
+        <Router />
+        <Footer />
+      </BrowserRouter>
+    </UIProvider>
   );
 }
 
