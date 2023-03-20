@@ -6,7 +6,7 @@ import InputWithLabel from "../../../Form";
 import { Typography } from "../../../Typography";
 
 export const Login = ({ changeLogRegister }) => {
-  const {login} = useContext (UserContext)
+  const { login } = useContext(UserContext)
   const [recEmail, setRecEmail] = useState(false)
   const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ export const Login = ({ changeLogRegister }) => {
   }
   const handleLogin = (e) => {
     e.preventDefault();
-    login('Berta')
-    navigate ('/', {
+    login('berta')
+    navigate('/', {
       replace: true
     })
     console.log(loginData);
@@ -36,9 +36,7 @@ export const Login = ({ changeLogRegister }) => {
     }
   };
 
- 
-  
-  
+
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
