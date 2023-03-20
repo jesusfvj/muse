@@ -8,7 +8,7 @@ export const userReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLogged: true,
-                user
+                user: action.payload 
             }
         case types.logout:
             return {

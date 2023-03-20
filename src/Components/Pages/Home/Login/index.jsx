@@ -26,7 +26,7 @@ export const Login = ({ changeLogRegister }) => {
   }
   const handleLogin = (e) => {
     e.preventDefault();
-    login('berta')
+    login('')
     navigate('/', {
       replace: true
     })
