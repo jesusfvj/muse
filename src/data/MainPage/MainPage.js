@@ -1,6 +1,8 @@
 export const arrayTodaysHits = [{
     artist: `Molongui!`,
     songTitle: "I rock!",
+    title: `Molongui!`,
+    subTitle: "I rock!",
     album: "We are cool",
     year: "2023",
     producer: "Mololongui",

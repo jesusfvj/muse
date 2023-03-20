@@ -19,7 +19,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         {/* Protected */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<MainPage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/album" element={<Album />} />

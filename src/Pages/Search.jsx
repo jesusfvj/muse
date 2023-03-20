@@ -179,16 +179,19 @@ export const Search = () => {
       </div>
       <div className='border-black border-2'>
         <div className="border-rose-600 border-2">
-        {/* <List  sectionTitle="Songs"/> */}g
+          <List object={searchData.canciones} sectionTitle="Songs" />
+
         </div>
         <div className="border-rose-600 border-2">
-        {/* <List  sectionTitle="Artists"/> */}g
+          <List object={searchData.artistas} sectionTitle="Artists" />
+
         </div>
         <div className="border-rose-600 border-2">
-        {/* <List  sectionTitle="Albums"/> */}g
+          <List object={searchData.albumes} sectionTitle="Albums" />
+
         </div>
-         <div className="border-rose-600 border-2">
-        <List  sectionTitle="Playlists"/>g
+        <div className="border-rose-600 border-2">
+          <List object={searchData.playlists} sectionTitle="Playlists" />
         </div>
       </div>
     </div>

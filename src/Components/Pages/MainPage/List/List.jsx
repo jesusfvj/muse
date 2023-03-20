@@ -1,13 +1,23 @@
 import { Typography } from "../../../Typography"
-import { ListElement } from "./ListElement/ListElement"
+import { AlbumElement, ArtistElement, PlaylistElement, SongElement } from "./ListElement"
 
-export const List = ({object, sectionTitle}) => {
+export const List = ({ object, sectionTitle, dataType }) => {
   return (
-    <div className="w-[80%] h-[40vh]">
-      <Typography text={sectionTitle} type={"p2"} color={"white"} family={"lato"} styles={"mb-[0.2rem]"}/>
-      <section className="w-[100%] h-[90%] flex flex-row gap-x-[1rem] overflow-x-scroll scroll-smooth">
-        {object.map((object, index)=>{
-          return <ListElement key={index} object={object}/>
+    <div className="w-[80%] ">
+      <Typography text={sectionTitle} type="important" color={"white"} family={"lato"} styles={"mb-[1.2rem]"} />
+      <section className="w-[100%] m flex flex-row gap-x-[2rem] overflow-x-scroll scroll-smooth">
+        {object.map((object, index) => {
+          switch (dataType) {
+            case "song":
+              return <SongElement key={index} object={object} />
+            case "album":
+              return <AlbumElement key={index} object={object} />
+            case "artist":
+              return <ArtistElement key={index} object={object} />
+            case "playlist":
+              return <PlaylistElement key={index} object={object} />
+          }
+
         })}
       </section>
     </div>
