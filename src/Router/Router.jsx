@@ -12,32 +12,30 @@ import { Playlist } from "../Pages/Playlist";
 import { Profile } from "../Pages/Profile";
 import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
-import { ProtectedRoutes } from "../ProtectedRoutes/ProtectedRoutes";
-import { UserProvider } from "../Context/UserContext/UserContext";
+import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+
 
 
 
 function Router() {
   return (
     <>
-     <UserProvider>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* Protected */}
-        <Route path="/home" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
-        <Route path="/main" element={<ProtectedRoutes><MainPage /></ProtectedRoutes>} />
-        <Route path="/playlist" element={<ProtectedRoutes><Playlist /></ProtectedRoutes>} />
-        <Route path="/album" element={<ProtectedRoutes><Album /></ProtectedRoutes>} />
-        <Route path="/myprofile" element={<ProtectedRoutes><MyProfile /></ProtectedRoutes>} />
-        <Route path="/profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
-        <Route path="/artist" element={<ProtectedRoutes><Artist /></ProtectedRoutes>} />
-        <Route path="/player" element={<ProtectedRoutes><Player /></ProtectedRoutes>} />
-        <Route path="/search" element={<ProtectedRoutes><Search /></ProtectedRoutes>} />
-        <Route path="/mylibrary" element={<ProtectedRoutes><MyLibrary /></ProtectedRoutes>} />
+        <ProtectedRoutes>
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/album" element={<Album />} />
+        <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/artist" element={<Artist />} />
+        <Route path="/player" element={<Player />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/mylibrary" element={<MyLibrary />} />
         <Route path="/test" element={<TestComponents />} />
-        {/* Protected */}
+        </ProtectedRoutes>
       </Routes>
-      </UserProvider>
     </>
   );
 }

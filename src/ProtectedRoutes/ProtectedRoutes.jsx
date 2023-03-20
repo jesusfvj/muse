@@ -1,16 +1,19 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import UserContext from '../Context/UserContext/UserContext';
-import { LandingPage } from '../Pages/LandingPage';
+import { UserContext } from '../Context/UserContext/UserContext';
 
 
+const ProtectedRoutes = ( { children }) => {
 
-export const ProtectedRoutes = ({children}) => {
-    const {isLogged} = useContext(UserContext)
-    if (!isLogged){
-     return <Navigate to={<LandingPage/>} replace={true}/>
-    }else {
-       return children
-    }
-  
+    const {isLogged} = useContext(UserContext);
+    console.log(isLogged);
+
+  return isLogged ? children : <Navigate to="/"/>
+
 }
+
+export default ProtectedRoutes
+
+
+
+

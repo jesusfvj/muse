@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../../../Context/UserContext/UserContext";
 import { Button } from "../../../Button";
 import InputWithLabel from "../../../Form";
 import { Typography } from "../../../Typography";
 
 export const Login = ({ changeLogRegister }) => {
+  const {login} = useContext (UserContext)
   const [recEmail, setRecEmail] = useState(false)
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const storedEmail = localStorage.getItem('recEmailMuse');
     if (storedEmail !== null) {
@@ -20,11 +26,19 @@ export const Login = ({ changeLogRegister }) => {
   }
   const handleLogin = (e) => {
     e.preventDefault();
+    login('Berta')
+    navigate ('/', {
+      replace: true
+    })
     console.log(loginData);
     if (recEmail) {
       localStorage.setItem("recEmailMuse", loginData.email)
     }
   };
+
+ 
+  
+  
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
