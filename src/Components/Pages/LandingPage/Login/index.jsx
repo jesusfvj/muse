@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
 
 export const Login = ({ changeLogRegister }) => {
+   const { login } = useContext(UserContext)
   const [rememberEmail, setRememberEmail] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("rememberEmail");
@@ -21,6 +25,10 @@ export const Login = ({ changeLogRegister }) => {
   };
   const handleLogin = (e) => {
     e.preventDefault();
+    login('')
+    navigate('/', {
+      replace: true
+    })
     console.log(loginData);
     if (rememberEmail) {
       localStorage.setItem("rememberEmail", loginData.email);
