@@ -11,10 +11,12 @@ import { Playlist } from "../Pages/Playlist";
 import { Profile } from "../Pages/Profile";
 import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
+import { ScrollTop } from "../Components/ScrollTop/ScrollTop";
 
 function Router() {
   return (
     <>
+    <ScrollTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         {/* Protected */}

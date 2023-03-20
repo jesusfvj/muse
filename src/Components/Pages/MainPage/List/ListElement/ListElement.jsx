@@ -3,7 +3,7 @@ import { Typography } from '../../../../Typography';
 import {FaPlay} from 'react-icons/fa';
 import { RoundButton } from '../../../../RoundButton';
 
-export const ListElement = ({object}) => {
+export const ListElement = ({object, style}) => {
   const {artist, songTitle, album, year, producer, genre, bgImage} = object;
   return (
     <div className="relative flex h-full w-full">

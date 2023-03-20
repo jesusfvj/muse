@@ -17,13 +17,14 @@ export const MainPage = () => {
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
           <TrendingList />
         </div>
-        <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
+        <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem] px-[8rem]">
           {arraySectionTitles.map((section, i) => {
             return (
               <List
                 key={`${section.artist}-${i}`}
                 object={arrayTodaysHits}
                 sectionTitle={section}
+                style="min-w-[10rem] min-h-[10rem]"
               />
             );
           })}
