@@ -1,12 +1,10 @@
-import { canciones } from '../../data/data';
-import { AlbumTrackElements, Typography } from '../../Components'
+import { AlbumTrackElements } from '../../Components'
 
-export const AlbumTracks = () => {
+export const AlbumTracks = ({songs, styles}) => {
   return (
-    <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen h-screen">
-      <div className="flex flex-col w-4/5">
+      <div className={`flex flex-col ${styles}`}>
         {
-          canciones.map((songs, idx) => {
+          songs.map((songs, idx) => {
             const { id, nombre, duration } = songs
             return (
               <AlbumTrackElements key={`${nombre}-${idx}`} id={id} nombre={nombre} duration={duration} idx={idx}/>
@@ -14,7 +12,6 @@ export const AlbumTracks = () => {
           })
         }
       </div>
-    </div>
   )
 }
 
