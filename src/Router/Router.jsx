@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { TestComponents } from "../Components/TestComponents";
 import { Album } from "../Pages/Album";
 import { Artist } from "../Pages/Artist";
-import { Home } from "../Pages/Home";
 import { LandingPage } from "../Pages/LandingPage";
 import { MyLibrary } from "../Pages/MyLibrary";
 import { MyProfile } from "../Pages/MyProfile";
@@ -12,6 +11,7 @@ import { Playlist } from "../Pages/Playlist";
 import { Profile } from "../Pages/Profile";
 import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
+import { ScrollTop } from "../Components/ScrollTop/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 
 
@@ -21,13 +21,13 @@ import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 function Router() {
   return (
     <>
+    <ScrollTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/*" element={
         <ProtectedRoutes>
           <Routes>
         <Route path="/main" element={<MainPage />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/album" element={<Album />} />
         <Route path="/myprofile" element={<MyProfile />} />

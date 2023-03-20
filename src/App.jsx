@@ -1,5 +1,4 @@
 import { BrowserRouter } from "react-router-dom";
-import { Footer } from "./Components";
 import { UIProvider } from "./Context/UI/UIContext";
 import UserProvider from "./Context/UserContext/UserProvider";
 
@@ -12,7 +11,6 @@ function App() {
       <UIProvider>
         <BrowserRouter>
           <Router />
-          <Footer />
         </BrowserRouter>
       </UIProvider>
       </UserProvider>

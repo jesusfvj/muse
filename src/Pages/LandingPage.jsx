@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Layout } from "../Components";
-import { Login, Register } from "../Components/Pages/Home";
+import { useState } from "react";
+import { Login, Register } from "../Components/Pages/LandingPage";
 
 export const LandingPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
