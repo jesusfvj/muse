@@ -1,3 +1,2 @@
-export * from './AlbumPage'
-export * from './Home'
+export * from './LandingPage'
 export * from './MainPage'

@@ -11,7 +11,7 @@ export const PlayControls = () => {
     setProgress(e.target.value);
   };
 
-  const buttonsClassName = "text-white text-2xl";
+  const buttonsClassName = "text-white text-2xl cursor-pointer";
 
   return (
     <div className="flex flex-col w-full sm:w-auto items-center justify-center">

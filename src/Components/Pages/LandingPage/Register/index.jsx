@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "../../../Button";
-import InputWithLabel from "../../../Form";
-import { Typography } from "../../../Typography";
+import { Button, InputWithLabel, Typography } from "../../../index";
 
 export const Register = ({ changeLogRegister }) => {
   const [registerData, setRegisterData] = useState({

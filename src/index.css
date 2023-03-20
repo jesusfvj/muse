@@ -18,7 +18,7 @@
 .muze-range {
   -webkit-appearance: none;
   height: 3px;
-  background-color: #b3b3b3;
+  background-color: transparent;
   border-radius: 10px;
   outline: none;
   margin: 0;
@@ -33,7 +33,7 @@
   transform: translateY(-5px);
   width: 12px;
   height: 12px;
-  background-color: #1db954;
+  background-color: #0A4148;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -48,13 +48,13 @@
 
 .muze-range::-webkit-slider-runnable-track {
   height: 3px;
-  background-color: #1db954;
+  background-color: #0A4148;
   border-radius: 10px;
 }
 
 .muze-range::-moz-range-track {
   height: 3px;
-  background-color: #1db954;
+  background-color: #0A4148;
   border-radius: 10px;
 }
 
@@ -63,9 +63,9 @@
 }
 
 .muze-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 2px #1db954;
+  box-shadow: 0 0 0 2px #0A4148;
 }
 
 .muze-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 2px #1db954;
+  box-shadow: 0 0 0 2px #0A4148;
 }

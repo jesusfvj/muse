@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../../../Button";
-import InputWithLabel from "../../../Form";
-import { Typography } from "../../../Typography";
+import { Button, InputWithLabel,Typography } from "../../../index";
+
 
 export const Login = ({ changeLogRegister }) => {
-  const [recEmail, setRecEmail] = useState(false);
+  const [rememberEmail, setRememberEmail] = useState(false);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("recEmailMuse");
+    const storedEmail = localStorage.getItem("rememberEmail");
     if (storedEmail !== null) {
       setLoginData({ ...loginData, email: [storedEmail] });
     }
@@ -17,14 +16,14 @@ export const Login = ({ changeLogRegister }) => {
     email: "",
     password: "",
   });
-  const handleRecEmailChange = (e) => {
-    setRecEmail(!recEmail);
+  const handleRememberEmailChange = (e) => {
+    setRememberEmail(!rememberEmail);
   };
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(loginData);
-    if (recEmail) {
-      localStorage.setItem("recEmailMuse", loginData.email);
+    if (rememberEmail) {
+      localStorage.setItem("rememberEmail", loginData.email);
     }
   };
   const handleLoginInputChange = (e) => {
@@ -51,9 +50,9 @@ export const Login = ({ changeLogRegister }) => {
         <div className="flex gap-4 items-center">
           <Typography text="Remember my email?" color="primary" type="p1" />
           <input
-            name="recEmail"
+            name="rememberEmail"
             type="checkbox"
-            onChange={handleRecEmailChange}
+            onChange={handleRememberEmailChange}
           />
         </div>
         <Button onClick={handleLogin} text="Log In" />
