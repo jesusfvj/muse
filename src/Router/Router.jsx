@@ -11,13 +11,22 @@ import { Playlist } from "../Pages/Playlist";
 import { Profile } from "../Pages/Profile";
 import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
+import { ScrollTop } from "../Components/ScrollTop/ScrollTop";
+import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+
+
+
+
 
 function Router() {
   return (
     <>
+    <ScrollTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* Protected */}
+        <Route path="/*" element={
+        <ProtectedRoutes>
+          <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/album" element={<Album />} />
@@ -28,10 +37,13 @@ function Router() {
         <Route path="/search" element={<Search />} />
         <Route path="/mylibrary" element={<MyLibrary />} />
         <Route path="/test" element={<TestComponents />} />
-        {/* Protected */}
+        </Routes>
+        </ProtectedRoutes>
+         } />
       </Routes>
     </>
   );
 }
+
 
 export default Router;

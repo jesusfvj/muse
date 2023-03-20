@@ -1,5 +1,5 @@
 export * from "./AlbumHeader";
-export * from "./AlbumTracks";
+export * from "./AlbumTracks/index.js";
 export * from "./Button";
 export * from "./InputWithLabel";
 export * from "./Layout";
@@ -8,3 +8,5 @@ export * from "./Navbar";
 export * from "./Pages";
 export * from "./RoundButton";
 export * from "./Typography";
+export * from "./PublicList";
+export * from "./ScrollTop";
