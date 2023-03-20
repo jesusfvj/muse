@@ -1,6 +1,6 @@
-import React from 'react'
-import { Typography } from '../../../../Typography';
-import { InputElement } from './InputElement/InputElement';
+import React from "react";
+import { Typography } from "../../../../Typography";
+import { InputElement } from "./InputElement/InputElement";
 
 export const FormWithInput = ({ text, name, type, value, nameTwo, input }) => {
 

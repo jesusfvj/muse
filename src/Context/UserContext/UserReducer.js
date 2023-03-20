@@ -1,24 +1,23 @@
-import { types } from "../Types/types"
-
+import { types } from "../Types/types";
 
 export const userReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.login:
+      return {
+        ...state,
+        isLogged: true,
+        user: action.payload,
+      };
+    case types.logout:
+      return {
+        ...state,
+        isLogged: false,
+        user: null,
+      };
 
-    switch (action.type) {
-        case types.login:
-            return {
-                ...state,
-                isLogged: true,
-                user: action.payload 
-            }
-        case types.logout:
-            return {
-                ...state,
-                isLogged: false
-            }
-
-
-        default: state;
-    }
-}
+    default:
+      state;
+  }
+};
 
 export default userReducer;
