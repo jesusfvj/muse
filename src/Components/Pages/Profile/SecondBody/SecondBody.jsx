@@ -2,7 +2,6 @@ import { Typography } from '../../../Typography';
 import { arrayTodaysHits, arraySectionTitles, arrayList } from "../../../../../src/data/Profile/Profile";
 import { List } from '../../MainPage';
 import { PublicList } from '../../../PublicList/PublicList';
-import { AlbumTracks } from '../../AlbumPage';
 
 export const SecondBody = () => {
     return (
@@ -40,7 +39,7 @@ export const SecondBody = () => {
                 })}
             </div>
             <div>
-                
+
             </div>
         </div>
     )

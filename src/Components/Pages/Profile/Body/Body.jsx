@@ -1,5 +1,4 @@
 import React from 'react'
-import InputWithLabel from '../../../Form'
 import { Typography } from '../../../Typography'
 import { FormWithInput } from './FormWithInput/FormWithInput';
 

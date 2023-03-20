@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, InputWithLabel,Typography } from "../../../index";
+import { Button, Typography, InputWithLabel } from "../../../index";
 
 
 export const Login = ({ changeLogRegister }) => {
