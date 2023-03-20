@@ -1,10 +1,11 @@
-import React from "react";
+import { AlbumHeader, AlbumTracks } from "../Components";
 import { Layout } from "../Components/Layout";
 
 export const Album = () => {
   return (
     <Layout>
-      <div>Album</div>
+      <AlbumHeader />
+      <AlbumTracks />
     </Layout>
   );
 };

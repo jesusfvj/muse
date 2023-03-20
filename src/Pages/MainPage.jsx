@@ -1,6 +1,10 @@
-import { Header, List, TrendingList } from '../Components/Pages/MainPage/index.js';
+import {
+  Header,
+  List,
+  TrendingList,
+} from "../Components/Pages/MainPage/index.js";
 import { Layout } from "../Components/Layout/index.jsx";
-import { arraySectionTitles, arrayTodaysHits } from '../data/MainPage/MainPage';
+import { arrayTodaysHits, arraySectionTitles } from "../data/MainPage/MainPage";
 
 export const MainPage = () => {
   return (
@@ -11,7 +15,7 @@ export const MainPage = () => {
           <Header />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
-            <TrendingList/>
+          <TrendingList />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem]">
           <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />

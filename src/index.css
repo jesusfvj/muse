@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Pilonyc";
-  src: url("../public/fonts/Pilonyc\ REGULAR.otf");
+  src: url("/fonts/Pilonyc\ REGULAR.otf");
 }
 
 .pilonyc {
@@ -14,3 +14,65 @@
 .lato {
   font-family: "Lato", sans-serif;
 }
+
+.muze-range {
+  -webkit-appearance: none;
+  height: 3px;
+  background-color: transparent;
+  border-radius: 10px;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.muze-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  transform: translateY(-5px);
+  width: 12px;
+  height: 12px;
+  background-color: #0a4148;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.muze-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #b3b3b3;
+  cursor: pointer;
+}
+
+.muze-range::-webkit-slider-runnable-track {
+  height: 3px;
+  background-color: #0a4148;
+  border-radius: 10px;
+}
+
+.muze-range::-moz-range-track {
+  height: 3px;
+  background-color: #0a4148;
+  border-radius: 10px;
+}
+
+.muze-range:focus {
+  outline: none;
+}
+
+.muze-range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px #0a4148;
+}
+
+.muze-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px #0a4148;
+}
+
+.react-multi-carousel-list,
+.carousel-container,
+.react-multi-carousel-track {
+  height: 100%;
+}
+

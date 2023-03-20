@@ -1,9 +1,14 @@
-import { Layout } from '../Components/Layout'
+import { Layout } from "../Components/Layout";
+import { Header, Body, SecondBody } from "../Components/Pages/Profile";
 
 export const Profile = () => {
   return (
     <Layout>
-      <div>Artist profile</div>
-    </Layout>
+      <Header />
+      <div className='w-screen min-h-screen bg-gradient-to-b from-[#4A4A4A] to-[#0A4148]'>
+        <Body />
+        <SecondBody />
+      </div>
+    </Layout >
   );
 };
