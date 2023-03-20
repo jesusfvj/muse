@@ -7,3 +7,4 @@ export * from "./Navbar";
 export * from "./Pages";
 export * from "./RoundButton";
 export * from "./Typography";
+export * from "./PublicList";

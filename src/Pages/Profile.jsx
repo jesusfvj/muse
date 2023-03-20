@@ -1,14 +1,14 @@
-import { Typography } from "../Components";
 import { Layout } from "../Components/Layout";
+import { Header, Body, SecondBody } from "../Components/Pages/Profile";
 
 export const Profile = () => {
   return (
     <Layout>
-      <div className="w-screen h-[8rem] bg-[#fef3c6]">
-        <Typography text={sectionTitle} type="p2" color="white" family="lato" styles="mb-[0.2rem]"/>
-        <Typography text={sectionTitle} type="p2" color="white" family="lato" styles="mb-[0.2rem]"/>
-        <img/>
+      <Header />
+      <div className='w-screen min-h-screen bg-gradient-to-b from-[#4A4A4A] to-[#0A4148]'>
+        <Body />
+        <SecondBody />
       </div>
-    </Layout>
+    </Layout >
   );
 };
