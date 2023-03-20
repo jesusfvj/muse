@@ -1,5 +1,5 @@
 export * from "./AlbumHeader";
-export * from "./AlbumTracks";
+export * from "./AlbumTracks/index.js";
 export * from "./Button";
 export * from "./InputWithLabel";
 export * from "./Layout";
