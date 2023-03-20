@@ -7,7 +7,6 @@ import { RiPlayListLine } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 import { VscLibrary } from "react-icons/vsc";
 import { IoClose } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { BsSearch } from "react-icons/bs";
 
 const navItems = [
@@ -32,20 +31,15 @@ export const Navbar = () => {
 
   return (
     <div
-      className={`bg-black/[97.5%] h-full md:pt-24  ${
+      className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
         isNavOpen
           ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-10  duration-300"
-          : "w-0 relative"
+          : "w-0 md:pt-24"
       } `}
     >
-      {isNavOpen ? (
+      {isNavOpen && (
         <IoClose
           className="text-white text-5xl absolute top-5 right-10 cursor-pointer z-50"
-          onClick={handleToggleNav}
-        />
-      ) : (
-        <RxHamburgerMenu
-          className="text-white text-3xl absolute top-5 left-10 cursor-pointer z-50"
           onClick={handleToggleNav}
         />
       )}
