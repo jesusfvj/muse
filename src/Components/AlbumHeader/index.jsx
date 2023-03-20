@@ -1,8 +1,8 @@
 import React from "react";
-import { RoundButton } from "../../RoundButton";
-import { Typography } from "../../Typography";
 import { AiFillCaretRight } from "react-icons/ai";
 import { RiShuffleFill } from "react-icons/ri";
+import { RoundButton } from "../RoundButton";
+import { Typography } from "../Typography";
 
 export const AlbumHeader = () => {
   return (
