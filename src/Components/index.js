@@ -8,3 +8,4 @@ export * from "./Pages";
 export * from "./RoundButton";
 export * from "./Typography";
 export * from "./PublicList";
+export * from "./ScrollTop";
