@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { TestComponents } from "../Components/TestComponents";
 import { Album } from "../Pages/Album";
 import { Artist } from "../Pages/Artist";
-import { Home } from "../Pages/Home";
 import { LandingPage } from "../Pages/LandingPage";
 import { MyLibrary } from "../Pages/MyLibrary";
 import { MyProfile } from "../Pages/MyProfile";
@@ -21,7 +20,6 @@ function Router() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         {/* Protected */}
-        <Route path="/home" element={<Home />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/album" element={<Album />} />

@@ -1,4 +1,4 @@
-function InputWithLabel({ name, label, type, value, onInputChange }) {
+export const InputWithLabel = ({ name, label, type, value, onInputChange }) => {
   return (
     <div className="relative">
       <input
@@ -18,6 +18,4 @@ function InputWithLabel({ name, label, type, value, onInputChange }) {
       </label>
     </div>
   );
-}
-
-export default InputWithLabel;
+};

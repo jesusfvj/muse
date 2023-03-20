@@ -1,11 +1,11 @@
-import UIContext from "../../Context/UI/UIContext";
-import { useContext } from "react";
+import { useUI } from "../../Context/UI/UIContext";
+
 import { MusicPlayer } from "../MusicPlayer";
 import { Navbar } from "../Navbar";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 export const Layout = ({ children }) => {
-  const { isNavOpen, setIsNavOpen } = useContext(UIContext);
+  const {isNavOpen, setIsNavOpen} = useUI();
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);

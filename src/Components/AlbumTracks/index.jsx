@@ -1,6 +1,6 @@
-import { canciones } from '../../../../data/data.js';
+import { canciones } from '../../data/data';
 import { SlOptions } from "react-icons/sl";
-import { Typography } from '../../../Typography'
+import { Typography } from '../../Components'
 
 
 export const AlbumTracks = () => {
