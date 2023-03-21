@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { List } from '../Components/Pages/MainPage'
+import { List } from '../Components'
 
 export const Search = () => {
 
