@@ -90,3 +90,6 @@ input[type="checkbox"] {
   transition: all 0.3s ease;
 }
 
+.carousel-item{
+  width: 100%!important;
+}
