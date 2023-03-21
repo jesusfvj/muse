@@ -18,9 +18,9 @@ export const SongElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis"
+            styles="max-w-[200px] sm:leading-6 truncate text-ellipsis"
           />
-          <Typography text={artist} type="p2" color="white" family="lato" />
+          <Typography text={artist} type="p2" color="white" family="lato" styles="truncate" />
         </div>
         {/* <div
           className={`w-[8rem] h-[8rem] rounded-full bg[url(${url})] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4`}
