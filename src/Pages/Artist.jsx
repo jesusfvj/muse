@@ -1,6 +1,7 @@
+import { List } from "../Components";
 import { Carousel } from "../Components/Carousel";
 import { Layout } from "../Components/Layout";
-import { ListElement } from "../Components/Pages/MainPage/List/ListElement/ListElement";
+// import { ListElement } from "../Components/Pages/MainPage/List/ListElement/ListElement";
 import { TrendingElement } from "../Components/Pages/MainPage/TrendingList/TrendingElement/TrendingElement";
 import { arrayTodaysHits } from "../data/MainPage/MainPage";
 import { arrayTrendingList } from "../data/MainPage/TrendingList";
@@ -16,9 +17,7 @@ export const Artist = () => {
             itemsTablet={2}
             itemsMobile={1}
           >
-            {arrayTodaysHits.map((object, index) => {
-              return <ListElement key={index} object={object} />;
-            })}
+             <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />
           </Carousel>
         </div>
         
@@ -29,9 +28,7 @@ export const Artist = () => {
             itemsTablet={3}
             itemsMobile={1}
           >
-            {arrayTodaysHits.map((object, index) => {
-              return <ListElement key={index} object={object} />;
-            })}
+             <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />
           </Carousel>
         </div>
 

@@ -1,5 +1,8 @@
 import { Typography } from "../../../Typography"
-import { AlbumElement, ArtistElement, PlaylistElement, SongElement } from "./ListElement"
+import { AlbumElement } from "./ListElement/AlbumElement"
+import { ArtistElement } from "./ListElement/ArtistElement"
+import { PlaylistElement } from "./ListElement/PlaylistElement"
+import { SongElement } from "./ListElement/SongElement"
 
 export const List = ({ object, sectionTitle, dataType }) => {
   return (
