@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { BsShuffle, BsPlayFill, BsRepeat } from "react-icons/bs";
+import { BsShuffle, BsPlayFill, BsRepeat, BsPauseFill } from "react-icons/bs";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { formatTime } from "../../../Utils/formatTime";
 import { Typography } from "../../index";
 
-export const PlayControls = () => {
+export const PlayControls = ({ playMusic, pauseMusic, isMusicPlaying }) => {
   const [progress, setProgress] = useState(0);
 
   const handleProgressChange = (e) => {
@@ -18,7 +18,11 @@ export const PlayControls = () => {
       <div className="flex gap-4 mb-4">
         <BsShuffle className={buttonsClassName} />
         <MdSkipPrevious className={buttonsClassName} />
-        <BsPlayFill className={buttonsClassName} />
+        {!isMusicPlaying ? (
+          <BsPlayFill className={buttonsClassName} onClick={playMusic} />
+        ) : (
+          <BsPauseFill className={buttonsClassName} onClick={pauseMusic} />
+        )}
         <MdSkipNext className={buttonsClassName} />
         <BsRepeat className={buttonsClassName} />
       </div>
