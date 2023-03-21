@@ -9,7 +9,7 @@ export const AlbumHeader = () => {
     <div className="w-screen h-[80vh] relative">
       <div className="bg-cover bg-[url('../../../src/assets/images/headerPicture.jpeg')] w-full h-full"></div>
       <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-[80vh] absolute top-0"></div>
-      <div className="flex w-screen h-52 pl-[9.5vw]">
+      <div className="flex w-screen h-34 pl-[9.5vw]">
         <div className="relative h-24 w-29 flex">
           <div className="w-24">
             <RoundButton
