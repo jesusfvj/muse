@@ -2,6 +2,7 @@ import { AlbumHeader, AlbumTracks } from "../Components";
 import { Layout } from "../Components/Layout";
 import { songs } from '../data/data.js';
 
+
 export const Album = () => {
   return (
     <Layout>

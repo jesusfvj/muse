@@ -1,5 +1,4 @@
-import { Carousel } from "../../../Carousel";
-import { Typography } from "../../../Typography";
+import { Carousel, Typography } from "../index";
 import { AlbumElement } from "./ListElement/AlbumElement";
 import { ArtistElement } from "./ListElement/ArtistElement";
 import { PlaylistElement } from "./ListElement/PlaylistElement";

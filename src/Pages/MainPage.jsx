@@ -1,8 +1,4 @@
-import {
-  Header,
-  List,
-  TrendingList,
-} from "../Components/Pages/MainPage/index.js";
+import { Header, TrendingList, List } from "../Components";
 import { Layout } from "../Components/Layout/index.jsx";
 import { arrayTodaysHits, arraySectionTitles } from "../data/MainPage/MainPage";
 
@@ -14,14 +10,35 @@ export const MainPage = () => {
         <div className="pt-[5rem] pl-[2rem] sm:pl-[4rem] md:pl-[6rem] lg:pl-[8rem]">
           <Header />
         </div>
-        <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
-          <TrendingList />
-        </div>
-        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-3/4 ">
-          <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />
-          <List object={arrayTodaysHits} sectionTitle="artists" dataType="artist" />
-          <List object={arrayTodaysHits} sectionTitle="playlists" dataType="playlist" />
-          <List object={arrayTodaysHits} sectionTitle="albums" dataType="album" />
+        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-full">
+          <div className="w-3/4">
+            <List
+              object={arrayTodaysHits}
+              sectionTitle="songs"
+              dataType="song"
+            />
+          </div>
+          <div className="w-3/4">
+            <List
+              object={arrayTodaysHits}
+              sectionTitle="artists"
+              dataType="artist"
+            />
+          </div>
+          <div className="w-3/4">
+            <List
+              object={arrayTodaysHits}
+              sectionTitle="playlists"
+              dataType="playlist"
+            />
+          </div>
+          <div className="w-3/4">
+            <List
+              object={arrayTodaysHits}
+              sectionTitle="albums"
+              dataType="album"
+            />
+          </div>
         </div>
       </div>
     </Layout>
