@@ -3,17 +3,18 @@ import { FaPlay } from "react-icons/fa";
 import { Typography, RoundButton } from "../../index";
 
 export const SongElement = ({ object }) => {
-  const { artist, songTitle, album, year, producer, genre, bgImage } = object;
+  const { name, artist, thumbnail } = object;
+
   return (
-    <div className="relative flex  my-4 min-w-fit">
+    <div className="relative flex my-4 ">
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 lg:w-[12rem] lg:h-[15rem] "
+          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
         }
       >
-        <div className="w-full mt-2 px-3 ">
+        <div className="w-full mt-2 px-3 truncate">
           <Typography
-            text={songTitle}
+            text={name}
             type="p1"
             color="white"
             family="lato"
@@ -21,9 +22,13 @@ export const SongElement = ({ object }) => {
           />
           <Typography text={artist} type="p2" color="white" family="lato" />
         </div>
-        <div
-          className={`w-[4rem] h-[4rem] m-1 sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] rounded-full ${bgImage} bg-cover bg-center bg-no-repeat lg:min-h-[8rem] sm:m-4`}
-        ></div>
+        {/* <div
+          className={`w-[8rem] h-[8rem] rounded-full bg[url(${url})] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4`}
+        ></div> */}
+        <img
+          src={thumbnail}
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4"
+        />
       </div>
       <div className="absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
         <RoundButton
