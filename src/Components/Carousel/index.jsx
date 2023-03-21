@@ -61,11 +61,11 @@ export const Carousel = ({
       showDots={false}
       arrows={false}
       responsive={responsive}
-      infinite={false}
+      infinite={true}
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px h-full mx-2 carousel-item"
+      itemClass="carousel-item-padding-40-px h-full mx-2 "
       renderButtonGroupOutside={true}
       customButtonGroup={<ButtonGroup />}
     >
