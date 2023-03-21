@@ -8,6 +8,7 @@ export const List = ({
   object,
   sectionTitle,
   dataType,
+  textType = "important",
   itemsNumber = {
     itemsSuperLarge: 5,
     itemsDesktop: 4,
@@ -17,7 +18,7 @@ export const List = ({
 }) => {
   return (
     <div>
-      <Typography type="important" text={sectionTitle} color="white" />
+      <Typography type={textType} text={sectionTitle} color="white" />
       <Carousel
         itemsSuperLarge={itemsNumber["itemsSuperLarge"]}
         itemsDesktop={itemsNumber["itemsDesktop"]}
@@ -34,6 +35,8 @@ export const List = ({
               return <ArtistElement key={index} object={object} />;
             case "playlist":
               return <PlaylistElement key={index} object={object} />;
+            default:
+            break;
           }
         })}
       </Carousel>
