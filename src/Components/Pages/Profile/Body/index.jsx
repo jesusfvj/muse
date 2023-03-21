@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography } from '../../../Typography'
-import { FormWithInput } from './FormWithInput/FormWithInput';
+import { FormWithInput } from './FormWithInput'
+
 
 const arrayInputs = [{
     text: "Change your username",

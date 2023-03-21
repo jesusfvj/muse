@@ -1,5 +1,5 @@
+import { Body, Header, SecondBody } from "../Components";
 import { Layout } from "../Components/Layout";
-import { Header, Body, SecondBody } from "../Components/Pages/Profile";
 
 export const Profile = () => {
   return (

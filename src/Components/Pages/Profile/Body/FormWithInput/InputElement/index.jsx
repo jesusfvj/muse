@@ -1,4 +1,4 @@
-import { InputWithLabel } from "../../../../../InputWithLabel";
+import { InputWithLabel } from "../../../../../index";
 import { AiFillEye } from "react-icons/ai";
 import { RxEyeClosed } from "react-icons/rx";
 import { useState } from "react";

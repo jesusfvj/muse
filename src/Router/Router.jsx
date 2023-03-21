@@ -11,7 +11,7 @@ import { Playlist } from "../Pages/Playlist";
 import { Profile } from "../Pages/Profile";
 import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
-import { ScrollTop } from "../Components/ScrollTop/ScrollTop";
+import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 
 
