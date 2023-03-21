@@ -37,11 +37,11 @@ export const Carousel = ({
 }) => {
   const responsive = {
     superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
+      breakpoint: { max: 4000, min: 1480 },
       items: itemsSuperLarge,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 1480, min: 1024 },
       items: itemsDesktop,
     },
     tablet: {

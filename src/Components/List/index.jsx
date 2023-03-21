@@ -10,10 +10,10 @@ export const List = ({
   dataType,
   textType = "important",
   itemsNumber = {
-    itemsSuperLarge: 5,
-    itemsDesktop: 4,
+    itemsSuperLarge: 8,
+    itemsDesktop: 5,
     itemsTablet: 3,
-    itemsMobile: 1,
+    itemsMobile: 2,
   },
 }) => {
   return (
