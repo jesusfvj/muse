@@ -18,7 +18,7 @@ export const PlaylistElement = ({ object }) => {
     }
     const [randomColor, setRandomColor] = useState(colors[`bg${getRandomNumber()}`]);
     return (
-        <div>
+        <div className="select-none">
             <div className={`relative flex my-4 ${randomColor} overflow-hidden min-w-fit`}>
                 <div className={' flex flex-col  place-content-between items-center p-2 w-[12rem] h-[15rem]'}>
                     <div className="w-full mt-2 px-3">
