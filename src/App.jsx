@@ -1,19 +1,23 @@
+import Router from "./Router/Router";
 import { BrowserRouter } from "react-router-dom";
 import { UIProvider } from "./Context/UI/UIContext";
 import UserProvider from "./Context/UserContext/UserProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import Router from "./Router/Router";
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
-    <UserProvider>
-      <UIProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </UIProvider>
-      </UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <UserProvider>
+          <UIProvider>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </UIProvider>
+        </UserProvider>
+      </QueryClientProvider>
     </>
   );
 }
