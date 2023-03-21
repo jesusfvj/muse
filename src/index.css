@@ -76,3 +76,17 @@
   height: 100%;
 }
 
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] {
+  display: inline-block !important;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+

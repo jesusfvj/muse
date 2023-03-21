@@ -56,12 +56,13 @@ export const Login = ({ changeLogRegister }) => {
           onInputChange={handleLoginInputChange}
         />
         <div className="flex gap-4 items-center">
-          <Typography text="Remember my email?" color="primary" type="p1" />
           <input
             name="rememberEmail"
             type="checkbox"
             onChange={handleRememberEmailChange}
+            className="checkbox"
           />
+          <Typography text="Remember my email?" color="primary" type="p1" />
         </div>
         <Button onClick={handleLogin} text="Log In" />
       </form>
