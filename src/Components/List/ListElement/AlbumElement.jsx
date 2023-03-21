@@ -1,7 +1,7 @@
 import React from 'react'
-import { Typography } from '../../../../Typography';
+import { Typography, RoundButton } from '../../index'
 import {FaPlay} from 'react-icons/fa';
-import { RoundButton } from '../../../../RoundButton';
+
 
 export const AlbumElement = ({object}) => {
   const {artist, songTitle, album, year, producer, genre, bgImage} = object;

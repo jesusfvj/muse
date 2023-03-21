@@ -1,7 +1,7 @@
 import { List } from "../Components";
 import { Carousel } from "../Components/Carousel";
 import { Layout } from "../Components/Layout";
-import { SongElement } from "../Components/Pages/MainPage/List/ListElement/SongElement";
+// import { SongElement } from "../Components/Pages/MainPage/List/ListElement/SongElement";
 // import { ListElement } from "../Components/Pages/MainPage/List/ListElement/ListElement";
 import { TrendingElement } from "../Components/Pages/MainPage/TrendingList/TrendingElement/TrendingElement";
 import { arrayTodaysHits } from "../data/MainPage/MainPage";

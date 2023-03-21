@@ -1,6 +1,5 @@
-import { Typography } from '../../../Typography';
+import { Typography, List } from '../../../index';
 import { arrayTodaysHits, arraySectionTitles, arrayList } from "../../../../data/Profile/Profile";
-import { List } from '../../MainPage';
 import { PublicList } from '../../../PublicList/PublicList';
 import { AlbumTracks } from '../../../AlbumTracks';
 import { songs } from '../../../../data/data.js';
