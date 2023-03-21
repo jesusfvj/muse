@@ -1,15 +1,20 @@
 import { BrowserRouter } from "react-router-dom";
 import { UIProvider } from "./Context/UI/UIContext";
+import UserProvider from "./Context/UserContext/UserProvider";
 
 import Router from "./Router/Router";
 
 function App() {
   return (
-    <UIProvider>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </UIProvider>
+    <>
+    <UserProvider>
+      <UIProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </UIProvider>
+      </UserProvider>
+    </>
   );
 }
 

@@ -1,11 +1,13 @@
 import { Typography } from '../../../Typography';
-import { arrayTodaysHits, arraySectionTitles, arrayList } from "../../../../../src/data/Profile/Profile";
+import { arrayTodaysHits, arraySectionTitles, arrayList } from "../../../../data/Profile/Profile";
 import { List } from '../../MainPage';
 import { PublicList } from '../../../PublicList/PublicList';
+import { AlbumTracks } from '../../../AlbumTracks';
+import { songs } from '../../../../data/data.js';
 
 export const SecondBody = () => {
     return (
-        <div className='min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] ml-[5rem] mt-[8rem] rounded-tl-[3rem] pl-[4rem]'>
+        <div className='min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] sm:ml-[5rem] mt-[8rem] sm:rounded-tl-[3rem] sm:pl-[4rem]'>
             <div className="w-full h-full pt-[3rem]">
                 <Typography text="Following" type="big" color="white" family="lato" />
             </div>
@@ -39,7 +41,7 @@ export const SecondBody = () => {
                 })}
             </div>
             <div>
-
+                <AlbumTracks songs={songs} styles="sm:pr-[3rem] pb-[6rem]"/>
             </div>
         </div>
     )

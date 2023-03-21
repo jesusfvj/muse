@@ -6,9 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      /* fontSize: {
-        '6xl': '5rem'
-      } */
+      screens: {
+        'xs': '450px',
+      },
     },
   },
   plugins: [require('@tailwindcss/line-clamp')],

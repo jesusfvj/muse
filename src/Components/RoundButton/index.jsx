@@ -14,6 +14,7 @@ export const RoundButton = ({
   const backgrounds = {
     white: "bg-gray-200",
     gray: "bg-gray-600",
+    dgray: "bg-gray-500",
     gradient: "bg-[url('../../../src/assets/textures/circularGradient.png')] bg-cover bg-center bg-no-repeat"
   };
 
