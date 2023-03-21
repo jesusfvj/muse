@@ -17,7 +17,7 @@ export const List = ({
   },
 }) => {
   return (
-    <>
+    <div>
       <Typography type="important" text={sectionTitle} color="white" />
       <Carousel
         itemsSuperLarge={itemsNumber["itemsSuperLarge"]}
@@ -38,6 +38,6 @@ export const List = ({
           }
         })}
       </Carousel>
-    </>
+    </div>
   );
 };

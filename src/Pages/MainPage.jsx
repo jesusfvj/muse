@@ -17,7 +17,7 @@ export const MainPage = () => {
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
           <TrendingList />
         </div>
-        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem]">
+        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-3/4 ">
           <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />
           <List object={arrayTodaysHits} sectionTitle="artists" dataType="artist" />
           <List object={arrayTodaysHits} sectionTitle="playlists" dataType="playlist" />
