@@ -6,9 +6,9 @@ import { SongElement } from "./ListElement/SongElement"
 
 export const List = ({ object, sectionTitle, dataType }) => {
   return (
-    <div className="w-[80%] ">
+    <div className="w-[80%]">
       <Typography text={sectionTitle} type="important" color={"white"} family={"lato"} styles={"mb-[1.2rem]"} />
-      <section className="w-[100%] m flex flex-row gap-x-[2rem] overflow-x-scroll scroll-smooth">
+      <section className="w-[100%] m flex flex-row gap-x-[2rem] ">
         {object.map((object, index) => {
           switch (dataType) {
             case "song":
