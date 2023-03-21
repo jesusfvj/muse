@@ -65,7 +65,7 @@ export const Carousel = ({
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px h-full w-full mx-2"
+      itemClass="carousel-item-padding-40-px h-full mx-2 carousel-item"
       renderButtonGroupOutside={true}
       customButtonGroup={<ButtonGroup />}
     >

@@ -38,19 +38,19 @@ export const Body = () => {
                             <Typography text="25 followed & 13 followers" type="p1" color="secondary" family="lato" />
                         </div>
                     </div>
-                    <div className="w-[8rem] h-[8rem] flex justify-center items-center xs:w-[22rem] xs:h-[15rem] bg-[#373737] rounded-full drop-shadow-lg cursor-pointer mt-[3rem] xs:mt-0">
-                        <div className="w-[3rem] h-[3rem] xs:w-[8rem] xs:h-[8rem] bg-[url('../../../../src/assets/icons/userIcon.png')] hover:bg-[url('../../../../src/assets/icons/editIcon.png')] bg-no-repeat bg-cover bg-center"></div>
+                    <div className="w-[10rem] h-[10rem] flex justify-center items-center xs:w-[22rem] xs:h-[15rem] bg-[#373737] rounded-full drop-shadow-lg cursor-pointer mt-[3rem] xs:mt-0">
+                        <div className="w-[3rem] h-[3rem] xs:w-[8rem] xs:h-[8rem] hover:xs:w-[5rem] hover:xs:h-[5rem] bg-[url('../../../../src/assets/icons/userIcon.png')] hover:bg-[url('../../../../src/assets/icons/editIcon.png')] bg-no-repeat bg-cover bg-center"></div>
                     </div>
                 </div>
-                <div className='pt-[2rem] flex justify-center items-center xs:justify-start xs:items-center'>
-                    <Typography text="Settings" type="big" color="white" family="lato" />
+                <div className='pt-[4rem] pb-[3rem] flex justify-center items-center xs:justify-start xs:items-center'>
+                    <Typography text="Settings" type="big" color="white" family="lato" styles="text-4xl"/>
                 </div>
-                <div className='flex flex-col xs:flex-row justify-between items-center xs:pr-[2rem]'>
+                <div className='flex flex-col xs:flex-row gap-16 justify-between items-center'>
                     {arrayInputs.map(({ text, name, type, value, nameTwo, input }, index) => {
                         return <FormWithInput key={`input-${index}`} text={text} name={name} nameTwo={nameTwo} type={type} value={value} input={input} />
                     })}
-                    <div className="">
-                        <Typography text="Payment details" type="p1" color="white" family="lato" />
+                    <div className="xs:self-start w-[90%] sm:w-[30%]">
+                        <Typography text="Payment details" type="p1" color="white" family="lato" styles="text-lg mb-[1rem] text-left"/>
                     </div>
                 </div>
             </div>

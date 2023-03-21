@@ -80,6 +80,7 @@ body {
   height: 100%;
 }
 
+<<<<<<< HEAD
 
 ::-webkit-scrollbar {
   width: 10px; 
@@ -95,3 +96,22 @@ body {
   background-image: linear-gradient(to bottom, #02040C, #0A4148);
 }
 
+=======
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] {
+  display: inline-block !important;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-item{
+  width: 100%!important;
+}
+>>>>>>> 03f26ab9a063208d137d5eb9e36fdeba10ec7c4f
