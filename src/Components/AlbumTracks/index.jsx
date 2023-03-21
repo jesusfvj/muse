@@ -1,4 +1,4 @@
-import { AlbumTrackElements } from '../../Components'
+import { AlbumTrackElements } from './AlbumTrackElements'
 
 export const AlbumTracks = ({songs, styles}) => {
   return (

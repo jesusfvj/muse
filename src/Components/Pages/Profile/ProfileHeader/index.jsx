@@ -1,6 +1,7 @@
-import { Typography } from "../../../../Components";
+import { Typography } from "../../../Typography"
 
-export const Header = () => {
+
+export const ProfileHeader = () => {
   return (
     <div className="w-screen h-[4rem] xs:h-[8rem] bg-[#fef3c6] flex flex-col justify-center items-center relative cursor-pointer drop-shadow-xl">
         <Typography text="Donate" type="important" color="secondary" family="lato"/>

@@ -2,11 +2,11 @@ import { SlOptions } from "react-icons/sl";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { Typography } from "../../Typography";
-import { useState } from 'react';
+import { useState } from "react";
 
 export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
-    const [clicked, setClicked] = useState(false)
-    const [hovered, setHovered] = useState(false)
+  const [clicked, setClicked] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
     return (
         <div className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${idx === 0 && "border-t-2"}`}

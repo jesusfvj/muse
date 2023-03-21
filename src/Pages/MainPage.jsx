@@ -17,17 +17,11 @@ export const MainPage = () => {
         <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem]">
           <TrendingList />
         </div>
-        <div className="flex flex-col justify-center items-center gap-y-[2rem] pt-[4rem] px-[8rem]">
-          {arraySectionTitles.map((section, i) => {
-            return (
-              <List
-                key={`${section.artist}-${i}`}
-                object={arrayTodaysHits}
-                sectionTitle={section}
-                style="min-w-[10rem] min-h-[10rem]"
-              />
-            );
-          })}
+        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-3/4 ">
+          <List object={arrayTodaysHits} sectionTitle="songs" dataType="song" />
+          <List object={arrayTodaysHits} sectionTitle="artists" dataType="artist" />
+          <List object={arrayTodaysHits} sectionTitle="playlists" dataType="playlist" />
+          <List object={arrayTodaysHits} sectionTitle="albums" dataType="album" />
         </div>
       </div>
     </Layout>
