@@ -8,11 +8,11 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   } = rest;
 
   return (
-    <div className="relative top-[-50%]">
+    <div className="relative translate-y-[-22.5vh]">
       <BsChevronLeft
         className={`${
           currentSlide === 0 && "disable"
-        } absolute left-[-35px]  cursor-pointer text-2xl text-white`}
+        } absolute left-[-35px] cursor-pointer text-2xl text-white`}
         onClick={() => {
           previous();
         }}
