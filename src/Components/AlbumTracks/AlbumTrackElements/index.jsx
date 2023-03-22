@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { DropDownMenu } from "../../Dropdown";
 
 export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
-    const [clicked, setClicked] = useState(false)
-    const [hovered, setHovered] = useState(false)
+  const [clicked, setClicked] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
     return (
-        <div className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 ${idx === 0 && "border-t-2"} border-white/20 py-5`}
+        <div className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${idx === 0 && "border-t-2"}`}
             onMouseEnter={()=> setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >

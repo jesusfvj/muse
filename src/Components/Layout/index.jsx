@@ -3,9 +3,12 @@ import { useUI } from "../../Context/UI/UIContext";
 import { MusicPlayer } from "../MusicPlayer";
 import { Navbar } from "../Navbar";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 export const Layout = ({ children }) => {
   const {isNavOpen, setIsNavOpen} = useUI();
+  const location = useLocation()
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -13,6 +16,11 @@ export const Layout = ({ children }) => {
   const handleHideNav = () => {
     setIsNavOpen(false);
   };
+
+  useEffect(() => {
+    setIsNavOpen(false);
+  }, [location])
+  
 
   return (
     <div className="min-h-screen">

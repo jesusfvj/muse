@@ -8,11 +8,11 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   } = rest;
 
   return (
-    <div className="relative top-[-50%]">
+    <div className="relative translate-y-[-22.5vh]">
       <BsChevronLeft
         className={`${
           currentSlide === 0 && "disable"
-        } absolute left-[-35px]  cursor-pointer text-2xl text-white`}
+        } absolute left-[-35px] cursor-pointer text-2xl text-white`}
         onClick={() => {
           previous();
         }}
@@ -37,11 +37,11 @@ export const Carousel = ({
 }) => {
   const responsive = {
     superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
+      breakpoint: { max: 4000, min: 1480 },
       items: itemsSuperLarge,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 1480, min: 1024 },
       items: itemsDesktop,
     },
     tablet: {
@@ -61,11 +61,11 @@ export const Carousel = ({
       showDots={false}
       arrows={false}
       responsive={responsive}
-      infinite={false}
+      infinite={true}
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px h-full w-full mx-2"
+      itemClass="carousel-item-padding-40-px h-full mx-2 "
       renderButtonGroupOutside={true}
       customButtonGroup={<ButtonGroup />}
     >

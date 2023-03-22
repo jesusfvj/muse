@@ -1,3 +1,3 @@
-export * from './Header';
-export * from './Body/index.js';
-export * from './SecondBody/index.js';
+export * from './ProfileHeader';
+export * from './Body';
+export * from './SecondBody';

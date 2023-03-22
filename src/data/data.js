@@ -1,4 +1,4 @@
-export const canciones = [
+export const songs = [
     { id: 1, nombre: "Malamente", duration: "3:20" },
     { id: 2, nombre: "Pienso en tu mirá", duration: "3:20" },
     { id: 3, nombre: "Con altura (con J Balvin)", duration: "3:20" },
