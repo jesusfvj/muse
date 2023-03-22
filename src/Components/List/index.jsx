@@ -2,11 +2,8 @@ import { Carousel, Typography } from "../index";
 import { AlbumElement } from "./ListElement/AlbumElement";
 import { ArtistElement } from "./ListElement/ArtistElement";
 import { PlaylistElement } from "./ListElement/PlaylistElement";
-import { SkeletonPlaylistElement } from "../Skeletons/SkeletonPlaylistElement";
-import { SkeletonAlbumElement } from "../Skeletons/SkeletonAlbumElement";
+import { SkeletonPlaylistElement, SkeletonAlbumElement, SkeletonArtistElement, SkeletonSongElement } from "../Skeletons";
 import { SongElement } from "./ListElement/SongElement";
-import { SkeletonArtistElement } from "../Skeletons/SkeletonArtistElement";
-import { SkeletonSongElement } from "../Skeletons/SkeletonSongElement";
 
 export const List = ({
   object,

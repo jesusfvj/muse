@@ -1,4 +1,4 @@
-import { Typography } from "../index";
+import { Typography } from "../../index";
 
 export const SkeletonPlaylistElement = () => {
   return (

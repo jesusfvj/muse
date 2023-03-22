@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, RoundButton } from "../index";
+import { Typography, RoundButton } from "../../index";
 import { FaPlay } from "react-icons/fa";
 
 export const SkeletonAlbumElement = () => {
