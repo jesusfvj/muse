@@ -1,8 +1,8 @@
-import { SlOptions } from "react-icons/sl";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { Typography } from "../../Typography";
 import { useState } from 'react';
+import { DropDownMenu } from "../../Dropdown";
 
 export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
     const [clicked, setClicked] = useState(false)
@@ -28,7 +28,7 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
                             <Typography text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />} color="white" styles="hidden xs:flex"/>
                         </div>
                         <div className={`cursor-pointer ${hovered ? 'visible' : 'sm:invisible'}`}>
-                            <Typography text={<SlOptions />} color="white" />
+                            <DropDownMenu id={id} color="white"/>
                         </div>
             </div>
         </div>
