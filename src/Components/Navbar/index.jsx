@@ -14,8 +14,7 @@ const navItems = [
   { path: "/main", text: "Home", icon: <FaHome /> },
   { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> },
   { path: "/album", text: "Album" },
-  { path: "/myprofile", text: "Profile", icon: <FiUser /> },
-  { path: "/profile", text: "Profile" },
+  { path: "/profile", text: "Profile", icon: <FiUser /> },
   { path: "/artist", text: "Artist" },
   { path: "/player", text: "Player" },
   { path: "/search", text: "Search", icon: <BsSearch /> },
@@ -33,7 +32,7 @@ export const Navbar = () => {
     <div
       className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
         isNavOpen
-          ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-10  duration-300"
+          ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50  duration-300"
           : "w-0 md:pt-24"
       } `}
     >

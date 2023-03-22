@@ -34,7 +34,7 @@ export const Layout = ({ children }) => {
       <div className="grow mb-[10vh]" onClick={handleHideNav}>
         {children}
       </div>
-      <div className="fixed w-screen bottom-0 min-h-[10vh] z-50 p-[1vh] bg-black">
+      <div className="fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black">
         <MusicPlayer />
       </div>
     </div>

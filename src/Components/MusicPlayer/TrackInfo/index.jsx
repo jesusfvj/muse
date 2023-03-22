@@ -5,7 +5,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 export const TrackInfo = () => {
   return (
     <div className="h-full hidden sm:flex gap-4">
-      <img className="h-[8vh] w-[8vh] object-cover z-50" src={testImg} />
+      <img className="h-[8vh] w-[8vh] object-cover z-40" src={testImg} />
       <div className="flex flex-col items-start justify-between">
         <div>
           <Typography color="white" text="Song name" />
