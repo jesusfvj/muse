@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSongs } from "../API/MusicApi/MusicApi";
+import { getAlbums, getArtists, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 
 import { Header, List, Layout } from "../Components";
 import { arrayTodaysHits } from "../data/MainPage/MainPage";
@@ -7,10 +7,24 @@ import { arrayTodaysHits } from "../data/MainPage/MainPage";
 export const MainPage = () => {
   const {
     data: songs,
-    isLoading,
-    error,
+    isLoading: isLoadingSongs,
+    error: errorSongs,
   } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
-
+  const {
+    data: albums,
+    isLoading: isLoadingAlbums,
+    error: errorAlbums,
+  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+  const {
+    data: artists,
+    isLoading: isLoadingArtists,
+    error: errorArtists,
+  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  const {
+    data: playlists,
+    isLoading: isLoadingPlaylists,
+    error: errorPlaylists,
+  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
   return (
     <Layout>
       <div className="z-0 fixed top-0 left-0 right-0 h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148]"></div>
@@ -34,26 +48,50 @@ export const MainPage = () => {
               />
             )}
           </div>
-          <div className="w-3/4">
+          <div className="w-full md:w-5/6">
+             {artists && (
             <List
-              object={arrayTodaysHits}
-              sectionTitle="artists"
-              dataType="artist"
-            />
+                object={artists}
+                sectionTitle="artists"
+                dataType="artist"
+                itemsNumber={{
+                  itemsSuperLarge: 8,
+                  itemsDesktop: 6,
+                  itemsTablet: 3,
+                  itemsMobile: 2,
+                }}
+              />
+              )}
           </div>
-          <div className="w-3/4">
+          <div className="w-full md:w-5/6">
+             {albums && (
             <List
-              object={arrayTodaysHits}
-              sectionTitle="playlists"
-              dataType="playlist"
-            />
+                object={albums}
+                sectionTitle="albums"
+                dataType="album"
+                itemsNumber={{
+                  itemsSuperLarge: 8,
+                  itemsDesktop: 6,
+                  itemsTablet: 3,
+                  itemsMobile: 2,
+                }}
+              />
+              )}
           </div>
-          <div className="w-3/4">
-            <List
-              object={arrayTodaysHits}
-              sectionTitle="albums"
-              dataType="album"
-            />
+          <div className="w-full md:w-5/6">
+             {playlists && (
+           <List
+                object={playlists}
+                sectionTitle="playlists"
+                dataType="playlist"
+                itemsNumber={{
+                  itemsSuperLarge: 8,
+                  itemsDesktop: 6,
+                  itemsTablet: 3,
+                  itemsMobile: 2,
+                }}
+              />
+              )}
           </div>
         </div>
       </div>

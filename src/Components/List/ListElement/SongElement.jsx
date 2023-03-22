@@ -6,7 +6,7 @@ export const SongElement = ({ object }) => {
   const { name, artist, thumbnail } = object;
 
   return (
-    <div className="relative flex my-4 ">
+    <div className="relative flex my-4 select-none">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
@@ -27,7 +27,7 @@ export const SongElement = ({ object }) => {
         ></div> */}
         <img
           src={thumbnail}
-          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4"
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none"
         />
       </div>
       <div className="absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
