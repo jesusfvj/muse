@@ -2,7 +2,11 @@ import { Carousel, Typography } from "../index";
 import { AlbumElement } from "./ListElement/AlbumElement";
 import { ArtistElement } from "./ListElement/ArtistElement";
 import { PlaylistElement } from "./ListElement/PlaylistElement";
+import { SkeletonPlaylistElement } from "../Skeletons/SkeletonPlaylistElement";
+import { SkeletonAlbumElement } from "../Skeletons/SkeletonAlbumElement";
 import { SongElement } from "./ListElement/SongElement";
+import { SkeletonArtistElement } from "../Skeletons/SkeletonArtistElement";
+import { SkeletonSongElement } from "../Skeletons/SkeletonSongElement";
 
 export const List = ({
   object,
@@ -35,6 +39,14 @@ export const List = ({
               return <ArtistElement key={index} object={object} />;
             case "playlist":
               return <PlaylistElement key={index} object={object} />;
+            case "skeletonPlaylist":
+              return <SkeletonPlaylistElement key={index} object={object} />;
+            case "skeletonAlbum":
+              return <SkeletonAlbumElement key={index} object={object} />;
+            case "skeletonArtist":
+              return <SkeletonArtistElement key={index} object={object} />;
+            case "skeletonSong":
+              return <SkeletonSongElement key={index} object={object} />;
             default:
             break;
           }

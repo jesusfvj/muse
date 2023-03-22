@@ -1,8 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAlbums, getArtists, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
+import {
+  getAlbums,
+  getArtists,
+  getPlaylists,
+  getSongs,
+} from "../API/MusicApi/MusicApi";
 
 import { Header, List, Layout } from "../Components";
 import { arrayTodaysHits } from "../data/MainPage/MainPage";
+
+const skeletonData = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
 
 export const MainPage = () => {
   const {
@@ -32,9 +69,9 @@ export const MainPage = () => {
         <div className="pt-[5rem] pl-[2rem] sm:pl-[4rem] md:pl-[6rem] lg:pl-[8rem]">
           <Header />
         </div>
-        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-full">
+        <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
           <div className="w-full md:w-5/6">
-            {songs && (
+            {songs ? (
               <List
                 object={songs}
                 sectionTitle="songs"
@@ -46,11 +83,19 @@ export const MainPage = () => {
                   itemsMobile: 2,
                 }}
               />
+            ) : isLoadingSongs ? (
+              <List
+                dataType="skeletonSong"
+                object={skeletonData}
+                sectionTitle="songs"
+              />
+            ) : (
+              "error"
             )}
           </div>
           <div className="w-full md:w-5/6">
-             {artists && (
-            <List
+            {artists ? (
+              <List
                 object={artists}
                 sectionTitle="artists"
                 dataType="artist"
@@ -61,11 +106,19 @@ export const MainPage = () => {
                   itemsMobile: 2,
                 }}
               />
-              )}
+            ) : isLoadingArtists ? (
+              <List
+                dataType="skeletonArtist"
+                object={skeletonData}
+                sectionTitle="artists"
+              />
+            ) : (
+              "error"
+            )}
           </div>
           <div className="w-full md:w-5/6">
-             {albums && (
-            <List
+            {albums ? (
+              <List
                 object={albums}
                 sectionTitle="albums"
                 dataType="album"
@@ -76,11 +129,19 @@ export const MainPage = () => {
                   itemsMobile: 2,
                 }}
               />
-              )}
+            ) : isLoadingAlbums ? (
+              <List
+                dataType="skeletonAlbum"
+                object={skeletonData}
+                sectionTitle="albums"
+              />
+            ) : (
+              "error"
+            )}
           </div>
           <div className="w-full md:w-5/6">
-             {playlists && (
-           <List
+            {playlists ? (
+              <List
                 object={playlists}
                 sectionTitle="playlists"
                 dataType="playlist"
@@ -91,7 +152,15 @@ export const MainPage = () => {
                   itemsMobile: 2,
                 }}
               />
-              )}
+            ) : isLoadingPlaylists ? (
+              <List
+                dataType="skeletonPlaylist"
+                object={skeletonData}
+                sectionTitle="playlists"
+              />
+            ) : (
+              "error"
+            )}
           </div>
         </div>
       </div>
