@@ -41,7 +41,7 @@ export const MainPage = () => {
                 dataType="song"
                 itemsNumber={{
                   itemsSuperLarge: 8,
-                  itemsDesktop: 6,
+                  itemsDesktop: 5,
                   itemsTablet: 3,
                   itemsMobile: 2,
                 }}
