@@ -6,7 +6,7 @@ import {FaPlay} from 'react-icons/fa';
 export const AlbumElement = ({object}) => {
   const {artist, songTitle, album, year, producer, genre, bgImage} = object;
   return (
-    <div className="relative flex my-4">
+    <div className="relative flex my-4 select-none">
         <div className={' bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-[12rem] h-[15rem] '}>
             <div className="w-full mt-2 px-3 ">
                 <Typography text={songTitle} type="p1" color="white" family="lato" styles='max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis'/>

@@ -1,20 +1,37 @@
-import { arrayList } from "../../../../../../src/data/Profile/Profile";
-import { PublicList } from "../../../../PublicList/PublicList";
-import { Typography } from "../../../../Typography";
+import { SecondBodySectionElement } from "../FollowingSection/SecondBodySectionElement";
+import { arrayTodaysHits } from "../../../../../../src/data/Profile/Profile";
+import { useEffect, useState } from "react";
+
+const url = "http://localhost:3000/tracks";
 
 export const YourListsSection = () => {
+    const [dataFetch, setDataFetch] = useState([])
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return setDataFetch(data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchImages();
+    }, [])
+
     return (
-        <div className="flex flex-col justify-center items-center gap-y-[2rem] pl-[4rem]">
-            {arrayList.map((list, i) => {
-                return (
-                    <div key={`${list}-${i}`} className="relative">
-                        <PublicList list={list} />
-                        <div className="absolute top-[-0.5rem] right-[0.75rem] cursor-pointer">
-                            <Typography text="Show all" type="p1" color="white" family="lato" />
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
+        <div className="flex flex-col gap-[5rem]">
+        <SecondBodySectionElement
+        object={dataFetch}
+        sectionTitle="Your public lists"
+        datatype="song"
+        />
+        <SecondBodySectionElement
+        object={arrayTodaysHits}
+        sectionTitle="Your private lists"
+        datatype="playlist"
+        />
+    </div>
     )
 }

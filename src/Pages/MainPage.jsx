@@ -1,8 +1,16 @@
-import { Header, TrendingList, List } from "../Components";
-import { Layout } from "../Components/Layout/index.jsx";
-import { arrayTodaysHits, arraySectionTitles } from "../data/MainPage/MainPage";
+import { useQuery } from "@tanstack/react-query";
+import { getSongs } from "../API/MusicApi/MusicApi";
+
+import { Header, List, Layout } from "../Components";
+import { arrayTodaysHits } from "../data/MainPage/MainPage";
 
 export const MainPage = () => {
+  const {
+    data: songs,
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+
   return (
     <Layout>
       <div className="z-0 fixed top-0 left-0 right-0 h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148]"></div>
@@ -11,12 +19,20 @@ export const MainPage = () => {
           <Header />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] w-full">
-          <div className="w-3/4">
-            <List
-              object={arrayTodaysHits}
-              sectionTitle="songs"
-              dataType="song"
-            />
+          <div className="w-full md:w-5/6">
+            {songs && (
+              <List
+                object={songs}
+                sectionTitle="songs"
+                dataType="song"
+                itemsNumber={{
+                  itemsSuperLarge: 8,
+                  itemsDesktop: 5,
+                  itemsTablet: 3,
+                  itemsMobile: 2,
+                }}
+              />
+            )}
           </div>
           <div className="w-3/4">
             <List
