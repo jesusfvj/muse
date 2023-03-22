@@ -7,7 +7,6 @@ export const SongElement = ({ object }) => {
 
   return (
     <div className="relative flex my-4 select-none">
-    <div className="relative flex my-4 select-none">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
