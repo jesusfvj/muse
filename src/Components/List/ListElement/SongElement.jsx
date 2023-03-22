@@ -27,8 +27,7 @@ export const SongElement = ({ object }) => {
         ></div> */}
         <img
           src={thumbnail}
-          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4"
-          draggable="false"
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none"
         />
       </div>
       <div className="absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
