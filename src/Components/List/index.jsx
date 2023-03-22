@@ -2,7 +2,12 @@ import { Carousel, Typography } from "../index";
 import { AlbumElement } from "./ListElement/AlbumElement";
 import { ArtistElement } from "./ListElement/ArtistElement";
 import { PlaylistElement } from "./ListElement/PlaylistElement";
-import { SkeletonPlaylistElement, SkeletonAlbumElement, SkeletonArtistElement, SkeletonSongElement } from "../Skeletons";
+import {
+  SkeletonPlaylistElement,
+  SkeletonAlbumElement,
+  SkeletonArtistElement,
+  SkeletonSongElement,
+} from "../Skeletons";
 import { SongElement } from "./ListElement/SongElement";
 
 export const List = ({
@@ -45,7 +50,7 @@ export const List = ({
             case "skeletonSong":
               return <SkeletonSongElement key={index} object={object} />;
             default:
-            break;
+              break;
           }
         })}
       </Carousel>

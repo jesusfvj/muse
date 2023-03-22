@@ -26,7 +26,11 @@ export const MusicPlayer = () => {
         ref={playAudio}
       />
       <TrackInfo currentTrack={currentTrack} playAudio={playAudio} />
-      <PlayControls playMusic={playMusic} pauseMusic={pauseMusic} isMusicPlaying={isMusicPlaying}/>
+      <PlayControls
+        playMusic={playMusic}
+        pauseMusic={pauseMusic}
+        isMusicPlaying={isMusicPlaying}
+      />
       <VolumeControls />
     </div>
   );

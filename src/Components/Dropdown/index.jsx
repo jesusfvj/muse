@@ -1,6 +1,6 @@
 import React from "react";
 
-export const DropDownMenu = ({id}) => {
+export const DropDownMenu = ({ id }) => {
   return (
     <div>
       <button

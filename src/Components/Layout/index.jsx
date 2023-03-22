@@ -7,8 +7,8 @@ import { useLocation } from "react-router";
 import { useEffect } from "react";
 
 export const Layout = ({ children }) => {
-  const {isNavOpen, setIsNavOpen} = useUI();
-  const location = useLocation()
+  const { isNavOpen, setIsNavOpen } = useUI();
+  const location = useLocation();
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -19,8 +19,7 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     setIsNavOpen(false);
-  }, [location])
-  
+  }, [location]);
 
   return (
     <div className="min-h-screen">
