@@ -10,6 +10,7 @@ export const MainPage = () => {
     isLoading: isLoadingSongs,
     error: errorSongs,
   } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+  console.log(songs);
   const {
     data: albums,
     isLoading: isLoadingAlbums,

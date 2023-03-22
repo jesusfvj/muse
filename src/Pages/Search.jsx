@@ -1,197 +1,134 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react'
+import { getAlbums, getArtists, getPlaylists, getSongs } from '../API/MusicApi/MusicApi'
 import { List } from '../Components'
 
 export const Search = () => {
+  const {
+    data: songs,
+    isLoading: isLoadingSongs,
+    error: errorSongs,
+  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+  const {
+    data: albums,
+    isLoading: isLoadingAlbums,
+    error: errorAlbums,
+  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+  const {
+    data: artists,
+    isLoading: isLoadingArtists,
+    error: errorArtists,
+  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  const {
+    data: playlists,
+    isLoading: isLoadingPlaylists,
+    error: errorPlaylists,
+  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
 
-  const searchData =
-  {
-    "canciones": [
-      {
-        "id": "1",
-        "titulo": "Bohemian Rhapsody",
-        "artista": "Queen",
-        "album": "A Night at the Opera"
-      },
-      {
-        "id": "2",
-        "titulo": "Stairway to Heaven",
-        "artista": "Led Zeppelin",
-        "album": "Led Zeppelin IV"
-      },
-      {
-        "id": "3",
-        "titulo": "Hotel California",
-        "artista": "Eagles",
-        "album": "Hotel California"
-      },
-      {
-        "id": "4",
-        "titulo": "Imagine",
-        "artista": "John Lennon",
-        "album": "Imagine"
-      },
-      {
-        "id": "5",
-        "titulo": "Smells Like Teen Spirit",
-        "artista": "Nirvana",
-        "album": "Nevermind"
-      }
-    ],
-    "artistas": [
-      {
-        "id": "1",
-        "nombre": "Queen",
-        "popularidad": 90
-      },
-      {
-        "id": "2",
-        "nombre": "Led Zeppelin",
-        "popularidad": 85
-      },
-      {
-        "id": "3",
-        "nombre": "Eagles",
-        "popularidad": 80
-      },
-      {
-        "id": "4",
-        "nombre": "John Lennon",
-        "popularidad": 75
-      },
-      {
-        "id": "5",
-        "nombre": "Nirvana",
-        "popularidad": 70
-      }
-    ],
-    "albumes": [
-      {
-        "id": "1",
-        "titulo": "A Night at the Opera",
-        "artista": "Queen",
-        "lanzamiento": "1975"
-      },
-      {
-        "id": "2",
-        "titulo": "Led Zeppelin IV",
-        "artista": "Led Zeppelin",
-        "lanzamiento": "1971"
-      },
-      {
-        "id": "3",
-        "titulo": "Hotel California",
-        "artista": "Eagles",
-        "lanzamiento": "1976"
-      },
-      {
-        "id": "4",
-        "titulo": "Imagine",
-        "artista": "John Lennon",
-        "lanzamiento": "1971"
-      },
-      {
-        "id": "5",
-        "titulo": "Nevermind",
-        "artista": "Nirvana",
-        "lanzamiento": "1991"
-      }
-    ],
-    "playlists": [
-      {
-        "id": "1",
-        "nombre": "Classic Rock",
-        "canciones": [
-          {
-            "id": "1",
-            "titulo": "Bohemian Rhapsody",
-            "artista": "Queen",
-            "album": "A Night at the Opera"
-          },
-          {
-            "id": "2",
-            "titulo": "Stairway to Heaven",
-            "artista": "Led Zeppelin",
-            "album": "Led Zeppelin IV"
-          },
-          {
-            "id": "3",
-            "titulo": "Hotel California",
-            "artista": "Eagles",
-            "album": "Hotel California"
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "nombre": "90's Pop",
-        "canciones": [
-          {
-            "id": "6",
-            "titulo": "Wannabe",
-            "artista": "Spice Girls",
-            "album": "Spice"
-          },
-          {
-            "id": "7",
-            "titulo": "I Will Always Love You",
-            "artista": "Whitney Houston",
-            "album": "The Bodyguard Soundtrack"
-          },
-          {
-            "id": "8",
-            "titulo": "Baby One More Time",
-            "artista": "Britney Spears",
-            "album": "Baby One More Time"
-          }
-        ]
-      },
-      {
-        "id": "3",
-        "nombre": "Chillout",
-        "canciones": [
-          {
-            "id": "9",
-            "titulo": "Breathe Me",
-            "artista": "Sia",
-            "album": "Colour the Small One"
-          },
-          {
-            "id": "10",
-            "titulo": "Mad World",
-            "artista": "Gary Jules",
-            "album": "Donnie Darko Soundtrack"
-          },
-          {
-            "id": "11",
-            "titulo": "Skinny Love",
-            "artista": "Bon Iver",
-            "album": "For Emma, Forever Ago"
-          }
-        ]
-      }
-    ]
+  const [searchInput, setSearchInput] = useState("")
+  const [searchResults, setsearchResults] = useState({
+    searchResultsSongs: {},
+    searchResultsPlaylists: {},
+    searchResultsAlbums: {},
+    searchResultsArtists: {},
+  })
+
+
+  const handleChange = (e) => {
+    setSearchInput(e.target.value)
+    // timeout 300ms no input
+    filter(e.target.value)
+    console.log(e.target.value);
   }
+  const filter = (searchQuery) => {
+  const searchResultsSongs = {};
+  const searchResultsPlaylists = {};
+  const searchResultsAlbums = {};
+  const searchResultsArtists = {};
+
+  songs.forEach((element) => {
+    if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
+      searchResultsSongs[element.id] = element;
+      console.log(element);
+    }
+  });
+
+  playlists.forEach((element) => {
+    if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
+      searchResultsPlaylists[element.id] = element;
+      console.log(element);
+    }
+  });
+
+  albums.forEach((element) => {
+    if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
+      searchResultsAlbums[element.id] = element;
+      console.log(element);
+    }
+  });
+
+  artists.forEach((element) => {
+    if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
+      searchResultsArtists[element.id] = element;
+      console.log(element);
+    }
+  });
+
+  setsearchResults({
+    searchResultsSongs:{searchResultsSongs},
+    searchResultsPlaylists:{searchResultsPlaylists},
+    searchResultsAlbums:{searchResultsAlbums},
+    searchResultsArtists:{searchResultsArtists},
+  });
+  console.log(searchResults.searchResultsSongs); 
+
+};
+
+  // const filter = (searchQuery) => {
+  //   console.log(songs);
+  //   const searchResultsSongs = songs.filter((element) => {
+  //     console.log(element.name.toString());
+  //     if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) { return element }
+  //   })
+  //   const searchResultsPlaylists = playlists.filter((element) => {
+  //     if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) { return element }
+  //   })
+  //   const searchResultsAlbums = albums.filter((element) => {
+  //     if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) { return element }
+  //   })
+  //   const searchResultsArtists = artists.filter((element) => {
+  //     if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) { return element }
+  //   })
+  //   setsearchResults({
+  //     searchResultsSongs: {searchResultsSongs},
+  //     searchResultsPlaylists: {searchResultsPlaylists},
+  //     searchResultsAlbums: {searchResultsAlbums},
+  //     searchResultsArtists: {searchResultsArtists},
+  //   })
+  //   console.log();
+  // }
 
   return (
     <div>
       <div className='border-black border-2 flex justify-center m-9'>
-        <input type="text" placeholder="Buscar" className="border-rose-600 border-2 h-12 w-4/12" />
+        <input type="text" placeholder="Buscar" value={searchInput} className="border-rose-600 border-2 h-12 w-4/12" onChange={(e) => handleChange(e)} />
       </div>
       <div className='border-black border-2'>
         <div className="border-rose-600 border-2">
-          <List object={searchData.canciones} sectionTitle="Songs" />
+
+         { searchInput ? <List object={searchResults.searchResultsSongs} sectionTitle="Songs" dataType="song" />:null }
 
         </div>
         <div className="border-rose-600 border-2">
-          <List object={searchData.artistas} sectionTitle="Artists" />
+          {/* <List object={searchData.artistas} sectionTitle="Artists" /> */}
 
         </div>
         <div className="border-rose-600 border-2">
-          <List object={searchData.albumes} sectionTitle="Albums" />
+          {/* <List object={searchData.albumes} sectionTitle="Albums" /> */}
 
         </div>
         <div className="border-rose-600 border-2">
-          <List object={searchData.playlists} sectionTitle="Playlists" />
+          {/* <List object={searchData.playlists} sectionTitle="Playlists" /> */}
         </div>
       </div>
     </div>
