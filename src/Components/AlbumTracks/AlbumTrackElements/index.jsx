@@ -42,7 +42,9 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
           />
         </div>
         <div
-          className={`cursor-pointer mt-[0.4rem] ${hovered ? "visible" : "sm:invisible"}`}
+          className={`cursor-pointer mt-[0.4rem] ${
+            hovered ? "visible" : "sm:invisible"
+          }`}
         >
           <DropDownMenu id={id} color="white" />
         </div>
