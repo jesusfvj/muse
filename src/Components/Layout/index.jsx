@@ -7,8 +7,8 @@ import { useLocation } from "react-router";
 import { useEffect } from "react";
 
 export const Layout = ({ children }) => {
-  const {isNavOpen, setIsNavOpen} = useUI();
-  const location = useLocation()
+  const { isNavOpen, setIsNavOpen } = useUI();
+  const location = useLocation();
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -19,8 +19,7 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     setIsNavOpen(false);
-  }, [location])
-  
+  }, [location]);
 
   return (
     <div className="min-h-screen">
@@ -34,7 +33,7 @@ export const Layout = ({ children }) => {
       <div className="grow mb-[10vh]" onClick={handleHideNav}>
         {children}
       </div>
-      <div className="fixed w-screen bottom-0 min-h-[10vh] z-50 p-[1vh] bg-black">
+      <div className="fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black">
         <MusicPlayer />
       </div>
     </div>
