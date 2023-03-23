@@ -8,7 +8,7 @@ export const TrackInfo = () => {
       <img className="h-[8vh] w-[8vh] object-cover z-40" src={testImg} />
       <div className="flex flex-col items-start justify-between">
         <div>
-          <Typography color="white" text="Song name" />
+          <Typography color="white" text="Song name"/>
           <Typography color="white" text="Artits name" type="p2" />
         </div>
         <AiOutlineHeart className="text-white text-2xl cursor-pointer mb-1" />
