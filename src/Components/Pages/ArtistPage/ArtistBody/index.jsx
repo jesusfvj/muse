@@ -56,6 +56,7 @@ export const ArtistBody = () => {
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
   } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+  
   return (
     <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
       <div className="w-full md:w-5/6">

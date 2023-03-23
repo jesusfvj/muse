@@ -1,6 +1,5 @@
 import { Layout } from "../Components";
-import { ArtistInfo } from "../Components/Pages/ArtistPage";
-import { ArtistBody } from "../Components/Pages/ArtistPage/ArtitstBody";
+import { ArtistInfo, ArtistBody } from "../Components/Pages/ArtistPage";
 
 export const Artist = () => {
   return (

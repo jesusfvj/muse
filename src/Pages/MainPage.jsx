@@ -1,14 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import {
-  getAlbums,
-  getArtists,
-  getPlaylists,
-  getSongs,
-} from "../API/MusicApi/MusicApi";
-
-import { Header, List, Layout } from "../Components";
-import { ArtistBody } from "../Components/Pages/ArtistPage/ArtitstBody";
-import { arrayTodaysHits } from "../data/MainPage/MainPage";
+import { Header, Layout } from "../Components";
+import { ArtistBody } from "../Components/Pages/ArtistPage";
 
 export const MainPage = () => {
   return (
