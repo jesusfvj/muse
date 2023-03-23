@@ -1,5 +1,3 @@
-import React from "react";
-
 export const DropDownMenu = ({ id }) => {
   return (
     <div>
@@ -8,6 +6,8 @@ export const DropDownMenu = ({ id }) => {
         data-dropdown-toggle={id}
         className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none dark:text-white dark:bg-gray-800"
         type="button"
+        data-dropdown-trigger="hover"
+        data-dropdown-delay={400}
       >
         <svg
           className="w-6 h-6 text-white"
