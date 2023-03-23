@@ -63,7 +63,7 @@ export const ArtistBody = () => {
         {songs ? (
           <List
             object={songs}
-            sectionTitle="songs"
+            sectionTitle="Songs"
             dataType="song"
             itemsNumber={{
               itemsSuperLarge: 8,
@@ -76,7 +76,7 @@ export const ArtistBody = () => {
           <List
             dataType="skeletonSong"
             object={skeletonData}
-            sectionTitle="songs"
+            sectionTitle="Songs"
           />
         ) : (
           "error"
@@ -86,7 +86,7 @@ export const ArtistBody = () => {
         {artists ? (
           <List
             object={artists}
-            sectionTitle="artists"
+            sectionTitle="Artists"
             dataType="artist"
             itemsNumber={{
               itemsSuperLarge: 8,
@@ -99,7 +99,7 @@ export const ArtistBody = () => {
           <List
             dataType="skeletonArtist"
             object={skeletonData}
-            sectionTitle="artists"
+            sectionTitle="Artists"
           />
         ) : (
           "error"
@@ -109,7 +109,7 @@ export const ArtistBody = () => {
         {albums ? (
           <List
             object={albums}
-            sectionTitle="albums"
+            sectionTitle="Albums"
             dataType="album"
             itemsNumber={{
               itemsSuperLarge: 8,
@@ -122,7 +122,7 @@ export const ArtistBody = () => {
           <List
             dataType="skeletonAlbum"
             object={skeletonData}
-            sectionTitle="albums"
+            sectionTitle="Albums"
           />
         ) : (
           "error"
@@ -132,7 +132,7 @@ export const ArtistBody = () => {
         {playlists ? (
           <List
             object={playlists}
-            sectionTitle="playlists"
+            sectionTitle="Playlists"
             dataType="playlist"
             itemsNumber={{
               itemsSuperLarge: 8,
@@ -145,7 +145,7 @@ export const ArtistBody = () => {
           <List
             dataType="skeletonPlaylist"
             object={skeletonData}
-            sectionTitle="playlists"
+            sectionTitle="Playlists"
           />
         ) : (
           "error"
