@@ -2,11 +2,8 @@ import { Layout } from "../Components/Layout";
 import { arrayTodaysHits } from "../../src/data/Profile/Profile";
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
 import { Typography } from "../Components";
-import { AiOutlinePlus } from 'react-icons/ai'
-import { useState } from "react";
 
 export const MyLibrary = () => {
-  const [hovered, setHovered] = useState(false)
   const zStyles = "z-3 relative";
   return (
     <Layout>
@@ -24,15 +21,6 @@ export const MyLibrary = () => {
         <MosaicElements object={arrayTodaysHits} dataType="song" />
 
         <Typography type="important" text="Your lists" color="white" styles={zStyles} />
-        <div className={`flex justify-center items-center border-[0.1rem] border-gray-600 hover:border-white w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem] cursor-pointer text-gray-600 hover:text-white ${zStyles}`}>
-          <div
-          className="h-[3rem] w-[3rem] text-6xl flex justify-center items-center"
-          onMouseEnter={()=>setHovered(true)}
-          onMouseLeave={()=>setHovered(false)}>
-            <AiOutlinePlus />
-            {hovered && <Typography color="white" text="Create your own list" styles={zStyles}/>}
-          </div>
-        </div>
         <Typography type="big" text="Your public lists" color="white" styles={zStyles} />
         <MosaicElements object={arrayTodaysHits} dataType="playlist" />
         <Typography type="big" text="Your private lists" color="white" styles={zStyles} />
