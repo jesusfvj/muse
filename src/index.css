@@ -19,7 +19,7 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-.muze-range {
+input[type="range"] {
   -webkit-appearance: none;
   height: 3px;
   background-color: transparent;
@@ -31,46 +31,53 @@ body {
   margin: 0;
 }
 
-.muze-range::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
   transform: translateY(-5px);
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background-color: #0a4148;
   border-radius: 50%;
   cursor: pointer;
 }
-
-.muze-range::-moz-range-thumb {
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  border: 1px solid #b3b3b3;
+  background-color: #0a4148;
   cursor: pointer;
+  border-radius: 50%;
 }
 
-.muze-range::-webkit-slider-runnable-track {
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
   height: 3px;
   background-color: #0a4148;
   border-radius: 10px;
 }
 
-.muze-range::-moz-range-track {
+input[type="range"]::-moz-range-track {
   height: 3px;
   background-color: #0a4148;
   border-radius: 10px;
 }
 
-.muze-range:focus {
+input[type="range"]:focus {
   outline: none;
 }
 
-.muze-range:focus::-webkit-slider-thumb {
+input[type="range"]:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 2px #0a4148;
 }
 
-.muze-range:focus::-moz-range-thumb {
+input[type="range"]:focus::-moz-range-thumb {
   box-shadow: 0 0 0 2px #0a4148;
 }
 
@@ -80,19 +87,18 @@ body {
   height: 100%;
 }
 
-
 ::-webkit-scrollbar {
-  width: 10px; 
+  width: 10px;
   height: 50px;
 }
 
 ::-webkit-scrollbar-track {
   background-color: black;
-} 
+}
 
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background-image: linear-gradient(to bottom, #02040C, #0A4148);
+  background-image: linear-gradient(to bottom, #02040c, #0a4148);
 }
 
 input[type="checkbox"] {
@@ -109,18 +115,22 @@ input[type="checkbox"] {
   transition: all 0.3s ease;
 }
 
-.carousel-item{
-  width: 100%!important;
+.carousel-item {
+  width: 100% !important;
 }
 
-input:not([type="checkbox"]){
-  border: none!important;
+input:not([type="checkbox"]) {
+  border: none !important;
   border-bottom: 1px solid white !important;
 }
 
 input:not([type="checkbox"]):focus {
-  outline: none!important;
-  border: none!important;
+  outline: none !important;
+  border: none !important;
   border-bottom: 1px solid white !important;
   box-shadow: 0 0 0 transparent !important;
+}
+
+input[type="range"] {
+  border-bottom: none !important;
 }
