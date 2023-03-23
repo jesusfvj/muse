@@ -112,3 +112,15 @@ input[type="checkbox"] {
 .carousel-item{
   width: 100%!important;
 }
+
+input:not([type="checkbox"]){
+  border: none!important;
+  border-bottom: 1px solid white !important;
+}
+
+input:not([type="checkbox"]):focus {
+  outline: none!important;
+  border: none!important;
+  border-bottom: 1px solid white !important;
+  box-shadow: 0 0 0 transparent !important;
+}
