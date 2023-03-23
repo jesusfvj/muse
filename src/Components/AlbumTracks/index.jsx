@@ -1,17 +1,20 @@
-import { AlbumTrackElements } from './AlbumTrackElements'
+import { AlbumTrackElements } from "./AlbumTrackElements";
 
-export const AlbumTracks = ({songs, styles}) => {
+export const AlbumTracks = ({ songs, styles }) => {
   return (
-      <div className={`flex flex-col ${styles}`}>
-        {
-          songs.map((songs, idx) => {
-            const { id, nombre, duration } = songs
-            return (
-              <AlbumTrackElements key={`${nombre}-${idx}`} id={id} nombre={nombre} duration={duration} idx={idx}/>
-            )
-          })
-        }
-      </div>
-  )
-}
-
+    <div className={`flex flex-col ${styles}`}>
+      {songs.map((songs, idx) => {
+        const { id, nombre, duration } = songs;
+        return (
+          <AlbumTrackElements
+            key={`${nombre}-${idx}`}
+            id={id}
+            nombre={nombre}
+            duration={duration}
+            idx={idx}
+          />
+        );
+      })}
+    </div>
+  );
+};

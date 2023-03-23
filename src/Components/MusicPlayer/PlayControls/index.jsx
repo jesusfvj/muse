@@ -16,6 +16,7 @@ export const PlayControls = ({ playAudio, isPlaying, setIsPlaying, currentTrack,
 
   const handleProgressChange = (e) => {
     // setProgress(e.target.value);
+    
     let width = clickRef.current.clientWidth;
     const offset = e.nativeEvent.offsetX;
 

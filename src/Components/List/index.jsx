@@ -2,22 +2,31 @@ import { Carousel, Typography } from "../index";
 import { AlbumElement } from "./ListElement/AlbumElement";
 import { ArtistElement } from "./ListElement/ArtistElement";
 import { PlaylistElement } from "./ListElement/PlaylistElement";
+import {
+  SkeletonPlaylistElement,
+  SkeletonAlbumElement,
+  SkeletonArtistElement,
+  SkeletonSongElement,
+} from "../Skeletons";
 import { SongElement } from "./ListElement/SongElement";
 
 export const List = ({
   object,
   sectionTitle,
   dataType,
+  textType = "important",
   itemsNumber = {
-    itemsSuperLarge: 5,
-    itemsDesktop: 4,
+    itemsSuperLarge: 8,
+    itemsDesktop: 5,
     itemsTablet: 3,
-    itemsMobile: 1,
+    itemsMobile: 2,
   },
 }) => {
   return (
     <div>
-      <Typography type="important" text={sectionTitle} color="white" />
+      <div className="ml-8">
+        <Typography type={textType} text={sectionTitle} color="white" />
+      </div>
       <Carousel
         itemsSuperLarge={itemsNumber["itemsSuperLarge"]}
         itemsDesktop={itemsNumber["itemsDesktop"]}
@@ -34,6 +43,16 @@ export const List = ({
               return <ArtistElement key={index} object={object} />;
             case "playlist":
               return <PlaylistElement key={index} object={object} />;
+            case "skeletonPlaylist":
+              return <SkeletonPlaylistElement key={index} object={object} />;
+            case "skeletonAlbum":
+              return <SkeletonAlbumElement key={index} object={object} />;
+            case "skeletonArtist":
+              return <SkeletonArtistElement key={index} object={object} />;
+            case "skeletonSong":
+              return <SkeletonSongElement key={index} object={object} />;
+            default:
+              break;
           }
         })}
       </Carousel>

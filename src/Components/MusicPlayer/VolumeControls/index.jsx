@@ -6,10 +6,10 @@ export const VolumeControls = ({playAudio}) => {
   const [isMuted, setIsMuted] = useState(false);
   
 
-  // const handleMutePlayer = () => {
-  //   setIsMuted(!isMuted);
+  const handleMutePlayer = () => {
+    setIsMuted(!isMuted);
 
-  // };
+  };
 
   const handleSetVolume = (e) =>{
     setVolume(parseInt(e.target.value))
@@ -24,17 +24,17 @@ export const VolumeControls = ({playAudio}) => {
 
   return (
     <div className="px-4 py-[1vh] w-full sm:w-auto flex items-center justify-center h-full gap-2">
-      {isMuted ? (
+      {isMuted ? 
         <IoMdVolumeMute
           className="text-white text-2xl cursor-pointer"
-          // onClick={handleMutePlayer}
+          onClick={handleMutePlayer}
         />
-      ) : (
+       : 
         <IoMdVolumeHigh
           className="text-white text-2xl cursor-pointer"
-          // onClick={handleMutePlayer}
+          onClick={handleMutePlayer}
         />
-      )}
+      }
       <input type="range" className="w-1/2 sm:w-auto muze-range"  onChange={handleSetVolume} value={volume} min={0} max={100}/>
     </div>
   );

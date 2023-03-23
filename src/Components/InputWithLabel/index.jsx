@@ -7,7 +7,7 @@ export const InputWithLabel = ({ name, label, type, value, onInputChange }) => {
         type={type}
         value={value}
         onChange={onInputChange}
-        className="peer h-10 w-full border-b-2 border-gray-300 text-white placeholder-transparent focus:outline-none bg-transparent"
+        className="peer h-10 w-full border-b-1 border-gray-300 text-white placeholder-transparent bg-transparent"
         placeholder=" "
       />
       <label

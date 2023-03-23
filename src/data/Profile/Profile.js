@@ -67,6 +67,24 @@ export const arrayPublicList = [{
   }
 ]
 
+export const arrayInputs = [{
+  text: "Change your username",
+  name: "your username",
+  type: "text",
+  value: "your username",
+  nameTwo: "new username",
+  input: "text"
+},
+{
+  text: "Change your password",
+  name: "your password",
+  type: "password",
+  value: "your password",
+  nameTwo: "new password",
+  input: "password"
+}
+]
+
 export const arraySectionTitles = [
     "Artists",
     "Albums"
