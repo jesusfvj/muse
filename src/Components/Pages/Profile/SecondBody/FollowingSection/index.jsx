@@ -9,11 +9,6 @@ export const FollowingSection = () => {
         sectionTitle="Artists"
         datatype="artist"
         />
-        <SecondBodySectionElement
-        object={arrayTodaysHits}
-        sectionTitle="Albums"
-        datatype="album"
-        />
     </div>
     )
 }
