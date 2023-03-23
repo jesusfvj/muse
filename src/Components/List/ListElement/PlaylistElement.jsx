@@ -35,7 +35,7 @@ export const PlaylistElement = ({ object }) => {
               type="p1"
               color="white"
               family="lato"
-              styles="max-w-[200px] line-clamp-2 text-ellipsis"
+              styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
           </div>
           <img

@@ -21,7 +21,7 @@ export const ArtistElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles=" sm:leading-6 line-clamp-2 text-ellipsis"
+            styles=" sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
         </div>
       </div>
