@@ -19,7 +19,13 @@ export const AlbumElement = ({ object }) => {
             family="lato"
             styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
-          <Typography text={artist} type="p2" color="white" family="lato" styles="truncate"/>
+          <Typography
+            text={artist}
+            type="p2"
+            color="white"
+            family="lato"
+            styles="truncate"
+          />
         </div>
         {/* <div className={`w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] ${bgImage} bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4`}>
                     </div> */}

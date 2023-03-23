@@ -24,7 +24,9 @@ export const List = ({
 }) => {
   return (
     <div>
-      <Typography type={textType} text={sectionTitle} color="white" />
+      <div className="ml-8">
+        <Typography type={textType} text={sectionTitle} color="white" />
+      </div>
       <Carousel
         itemsSuperLarge={itemsNumber["itemsSuperLarge"]}
         itemsDesktop={itemsNumber["itemsDesktop"]}
