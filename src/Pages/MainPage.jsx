@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import { getAlbums, getArtists, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 import { Header, Layout } from "../Components";
 import { ArtistBody } from "../Components/Pages/ArtistPage";
 

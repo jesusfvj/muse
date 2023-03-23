@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getAlbums, getArtists, getPlaylists, getSongs } from '../API/MusicApi/MusicApi'
 import { Layout, List, Typography } from '../Components'
 
 export const Search = () => {
-  const { query } = useParams();
-  useParams
+  const query = ""
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -110,22 +109,22 @@ export const Search = () => {
   return (
     <Layout>
       <div className='h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col'>
-        <div className='border-black border-2 flex justify-center p-9'>
-          <input type="text" placeholder="Buscar" value={searchInput} className="border-rose-600 border-2 rounded-3xl h-12 w-4/12" onChange={(e) => handleChange(e)} />
+        <div className=' flex justify-center p-9'>
+          <input type="text" placeholder="Buscar" value={searchInput} className=" rounded-3xl h-12 w-4/12" onChange={(e) => handleChange(e)} />
         </div>
-        <div className='border-black border-2 flex flex-col items-center gap-y-[4rem] pt-[4rem] w-full h-full'>
+        <div className=' flex flex-col items-center gap-y-[4rem] pt-[4rem] w-full h-full'>
           {searchInput.length <= 2 ? <Typography text="Nothing here, try to search your favorite artist!!" type='big' family='lato' color='white' /> : null}
-          {searchInput.length >= 3 && searchResults.searchResultsSongs.length > 0 ? <div className="border-rose-600 border-2 w-full md:w-5/6">
+          {searchInput.length >= 3 && searchResults.searchResultsSongs.length > 0 ? <div className=" w-full md:w-5/6">
 
             <List object={searchResults.searchResultsSongs.filter(Boolean)} sectionTitle="Songs" dataType="song" />
           </div> : null}
-          {searchInput.length >= 3 && searchResults.searchResultsArtists.length > 0 ? <div className="border-rose-600 border-2 w-full md:w-5/6">
+          {searchInput.length >= 3 && searchResults.searchResultsArtists.length > 0 ? <div className=" w-full md:w-5/6">
             {searchInput.length >= 3 ? <List object={searchResults.searchResultsArtists.filter(Boolean)} sectionTitle="Artists" dataType="artist" /> : null}
           </div> : null}
-          {searchInput.length >= 3 && searchResults.searchResultsAlbums.length > 0 ? <div className="border-rose-600 border-2 w-full md:w-5/6">
+          {searchInput.length >= 3 && searchResults.searchResultsAlbums.length > 0 ? <div className=" w-full md:w-5/6">
             {searchInput.length >= 3 ? <List object={searchResults.searchResultsAlbums.filter(Boolean)} sectionTitle="Albums" dataType="album" /> : null}
           </div> : null}
-          {searchInput.length >= 3 && searchResults.searchResultsPlaylists.length > 0 ? <div className="border-rose-600 border-2 w-full md:w-5/6">
+          {searchInput.length >= 3 && searchResults.searchResultsPlaylists.length > 0 ? <div className=" w-full md:w-5/6">
             {searchInput.length >= 3 ? <List object={searchResults.searchResultsPlaylists.filter(Boolean)} sectionTitle="Playlists" dataType="playlist" /> : null}
           </div> : null}
         </div>
