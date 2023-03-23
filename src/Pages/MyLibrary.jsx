@@ -11,20 +11,34 @@ export const MyLibrary = () => {
       <div className="p-[1rem] sm:p-[4rem] lg:p-[5rem] flex flex-col gap-[2rem]">
 
         <Typography type="important" text="Following" color="white" styles={zStyles} />
-        <Typography type="big" text="Artists" color="white" styles={zStyles} />
-        <MosaicElements object={arrayTodaysHits} dataType="artist" />
+        <section id="Artists">
+          <Typography type="big" text="Artists" color="white" styles={zStyles} />
+          <MosaicElements object={arrayTodaysHits} dataType="artist" />
+        </section>
+        
 
         <Typography type="important" text="Loved ones" color="white" styles={zStyles} />
-        <Typography type="big" text="Albums" color="white" styles={zStyles} />
-        <MosaicElements object={arrayTodaysHits} dataType="album" />
-        <Typography type="big" text="Songs" color="white" styles={zStyles} />
-        <MosaicElements object={arrayTodaysHits} dataType="song" />
+        <section id="Albums">
+          <Typography type="big" text="Albums" color="white" styles={zStyles} />
+          <MosaicElements object={arrayTodaysHits} dataType="album" />
+        </section>
+
+        <section id="Songs">
+          <Typography type="big" text="Songs" color="white" styles={zStyles} />
+          <MosaicElements object={arrayTodaysHits} dataType="song" />
+        </section>
+
 
         <Typography type="important" text="Your lists" color="white" styles={zStyles} />
-        <Typography type="big" text="Your public lists" color="white" styles={zStyles} />
-        <MosaicElements object={arrayTodaysHits} dataType="playlist" />
-        <Typography type="big" text="Your private lists" color="white" styles={zStyles} />
-        <MosaicElements object={arrayTodaysHits} dataType="playlist" />
+        <section id="Your public lists">
+          <Typography type="big" text="Your public lists" color="white" styles={zStyles} />
+          <MosaicElements object={arrayTodaysHits} dataType="playlist" />
+        </section>
+
+        <section id="Your private lists">
+          <Typography type="big" text="Your private lists" color="white" styles={zStyles} />
+          <MosaicElements object={arrayTodaysHits} dataType="playlist" />
+        </section>
 
       </div>
     </Layout>
