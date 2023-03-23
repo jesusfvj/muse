@@ -3,6 +3,7 @@ import { ArtistElement } from "../../../List/ListElement/ArtistElement";
 import { PlaylistElement } from "../../../List/ListElement/PlaylistElement";
 import { SongElement } from "../../../List/ListElement/SongElement";
 import { SkeletonAlbumElement, SkeletonArtistElement, SkeletonPlaylistElement, SkeletonSongElement } from "../../../Skeletons";
+import { CreateListButton } from "../CreateListButton";
 
 export const MosaicElements = ({object, dataType}) => {
     return (
@@ -16,7 +17,10 @@ export const MosaicElements = ({object, dataType}) => {
                     case "artist":
                         return <ArtistElement key={index} object={object} />;
                     case "playlist":
-                        return <PlaylistElement key={index} object={object} />;
+                        return (<>
+                        {index == 0 && <CreateListButton />}
+                        <PlaylistElement key={index} object={object} />
+                        </>)
                     case "skeletonPlaylist":
                         return <SkeletonPlaylistElement key={index} object={object} />;
                     case "skeletonAlbum":
