@@ -3,7 +3,7 @@ export const Typography = ({
   type = "p1",
   color = "primary",
   family = "lato",
-  styles = ""
+  styles = "",
 }) => {
   const types = {
     title: `text-xl sm:text-4xl font-bold`,
@@ -14,7 +14,7 @@ export const Typography = ({
     p1: `text-sm sm:text-lg font-normal`,
     p2: `text-xs sm:text-md font-normal`,
     section: `text-2xl sm:text-4xl font-bold`,
-    subSection: `text-2xl sm:text-lg font-normal`
+    subSection: `text-2xl sm:text-lg font-normal`,
   };
 
   const colors = {
