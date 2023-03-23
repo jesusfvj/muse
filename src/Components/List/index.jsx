@@ -25,7 +25,6 @@ export const List = ({
         itemsTablet={itemsNumber["itemsTablet"]}
         itemsMobile={itemsNumber["itemsMobile"]}
       >
-       { console.log(object)};
         {object.map((object, index) => {
           switch (dataType) {
             case "song":
