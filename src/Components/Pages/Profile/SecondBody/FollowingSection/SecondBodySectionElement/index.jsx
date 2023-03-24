@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom"
+import { HashLink } from 'react-router-hash-link';
 import { List, Typography } from "../../../../.."
 
 export const SecondBodySectionElement = ({ object, sectionTitle, datatype }) => {
@@ -11,9 +13,11 @@ export const SecondBodySectionElement = ({ object, sectionTitle, datatype }) => 
           dataType={datatype}
         />
       </div>
-      <div className="absolute top-[1rem] right-4 cursor-pointer">
-        <Typography text="Show all" type="p1" color="white" family="lato" />
+      <HashLink to={`/mylibrary#${sectionTitle}`}>
+      <div className="absolute top-[1rem] right-4 xs:right-[4.75rem] cursor-pointer">
+        <Typography text="Show all" type="p1" color="white" family="lato"/>
       </div>
+      </HashLink>
     </div>
   )
 }

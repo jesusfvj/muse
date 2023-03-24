@@ -8,6 +8,7 @@ import { FiUser } from "react-icons/fi";
 import { VscLibrary } from "react-icons/vsc";
 import { IoClose } from "react-icons/io5";
 import { BsSearch } from "react-icons/bs";
+import { Typography } from "../Typography";
 
 const navItems = [
   /* { path: "/", text: "Landing Page" }, */
@@ -55,6 +56,9 @@ export const Navbar = () => {
             />
           );
         })}
+        <div className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md">
+        <Typography text="LOGOUT" />
+        </div>
       </div>
     </div>
   );

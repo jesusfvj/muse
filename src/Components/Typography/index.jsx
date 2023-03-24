@@ -18,6 +18,7 @@ export const Typography = ({
   };
 
   const colors = {
+    black: "text-black",
     white: "text-white",
     primary: "text-gray-400",
     secondary: "text-gray-500",

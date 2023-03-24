@@ -134,3 +134,10 @@ input:not([type="checkbox"]):focus {
 input[type="range"] {
   border-bottom: none !important;
 }
+
+input[type="range"]:focus {
+  outline: none !important;
+  border: none !important;
+  border-bottom:none !important;
+  box-shadow: 0 0 0 transparent !important;
+}
