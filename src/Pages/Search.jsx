@@ -40,9 +40,7 @@ export const Search = () => {
   useEffect(() => {
     if (!isLoadingSongs && !isLoadingAlbums && !isLoadingArtists && !isLoadingPlaylists && query) {
       setTimeout(() => {
-        console.log(query);
         setSearchInput(query)
-        console.log(isLoadingSongs);
         FilterData(query)
       }, 2500)
     }
@@ -61,28 +59,24 @@ export const Search = () => {
     songs.forEach((element) => {
       if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
         searchResultsSongs[element.id] = element;
-        console.log(element);
       }
     });
 
     playlists.forEach((element) => {
       if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
         searchResultsPlaylists[element.id] = element;
-        console.log(element);
       }
     });
 
     albums.forEach((element) => {
       if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase()) || element.artist.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
         searchResultsAlbums[element.id] = element;
-        console.log(element);
       }
     });
 
     artists.forEach((element) => {
       if (element.name.toString().toLowerCase().includes(searchQuery.toLowerCase())) {
         searchResultsArtists[element.id] = element;
-        console.log(element);
       }
     });
 
@@ -99,10 +93,6 @@ export const Search = () => {
       }
 
     );
-    console.log(searchResults.searchResultsSongs);
-    console.log(searchResults.searchResultsPlaylists);
-    console.log(searchResults.searchResultsAlbums);
-    console.log(searchResults.searchResultsArtists);
 
   }
 
