@@ -1,12 +1,11 @@
-import React from "react";
-
-export const DropDownMenu = ({ id }) => {
+export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
+  const isActive = activeDropdown == id;
   return (
-    <div>
+    <div className="relative">
       <button
+        onClick={() => handleToggleDropdown(id)}
         id="dropdownMenuIconHorizontalButton"
-        data-dropdown-toggle={id}
-        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none dark:text-white dark:bg-gray-800"
+        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none "
         type="button"
       >
         <svg
@@ -22,16 +21,18 @@ export const DropDownMenu = ({ id }) => {
 
       <div
         id={id}
-        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        className={`z-10 ${
+          !isActive && "hidden"
+        } absolute right-[0px] divide-y rounded-lg shadow w-44 bg-gray-700 divide-gray-600 `}
       >
         <ul
-          className="py-2 text-sm text-gray-700 dark:text-gray-200"
+          className="py-2 text-sm text-white "
           aria-labelledby="dropdownMenuIconHorizontalButton"
         >
           <li>
             <a
               href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2  hover:bg-gray-600 "
             >
               Play Next
             </a>
@@ -39,7 +40,7 @@ export const DropDownMenu = ({ id }) => {
           <li>
             <a
               href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2  hover:bg-gray-600 "
             >
               Go to Artist
             </a>
@@ -47,19 +48,19 @@ export const DropDownMenu = ({ id }) => {
           <li>
             <a
               href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2  hover:bg-gray-600 "
             >
               Go to Album
             </a>
           </li>
         </ul>
         <div className="py-2">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          <button
+          onClick={handleToggleModal}
+            className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
           >
-            Add to library
-          </a>
+            Add to list
+          </button>
         </div>
       </div>
     </div>

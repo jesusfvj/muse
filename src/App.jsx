@@ -1,7 +1,7 @@
 import Router from "./Router/Router";
 import { BrowserRouter } from "react-router-dom";
 import { UIProvider } from "./Context/UI/UIContext";
-import UserProvider from "./Context/UserContext/UserProvider";
+import { UserProvider } from "./Context/UserContext/UserProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

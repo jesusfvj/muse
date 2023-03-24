@@ -1,198 +1,201 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { List } from "../Components";
+import { useLocation, useParams } from "react-router-dom";
+import {
+  getAlbums,
+  getArtists,
+  getPlaylists,
+  getSongs,
+} from "../API/MusicApi/MusicApi";
+import { Layout, List, Typography } from "../Components";
+import logo from "../assets/logo/logowhite.png";
 
 export const Search = () => {
-  const searchData = {
-    canciones: [
-      {
-        id: "1",
-        titulo: "Bohemian Rhapsody",
-        artista: "Queen",
-        album: "A Night at the Opera",
-      },
-      {
-        id: "2",
-        titulo: "Stairway to Heaven",
-        artista: "Led Zeppelin",
-        album: "Led Zeppelin IV",
-      },
-      {
-        id: "3",
-        titulo: "Hotel California",
-        artista: "Eagles",
-        album: "Hotel California",
-      },
-      {
-        id: "4",
-        titulo: "Imagine",
-        artista: "John Lennon",
-        album: "Imagine",
-      },
-      {
-        id: "5",
-        titulo: "Smells Like Teen Spirit",
-        artista: "Nirvana",
-        album: "Nevermind",
-      },
-    ],
-    artistas: [
-      {
-        id: "1",
-        nombre: "Queen",
-        popularidad: 90,
-      },
-      {
-        id: "2",
-        nombre: "Led Zeppelin",
-        popularidad: 85,
-      },
-      {
-        id: "3",
-        nombre: "Eagles",
-        popularidad: 80,
-      },
-      {
-        id: "4",
-        nombre: "John Lennon",
-        popularidad: 75,
-      },
-      {
-        id: "5",
-        nombre: "Nirvana",
-        popularidad: 70,
-      },
-    ],
-    albumes: [
-      {
-        id: "1",
-        titulo: "A Night at the Opera",
-        artista: "Queen",
-        lanzamiento: "1975",
-      },
-      {
-        id: "2",
-        titulo: "Led Zeppelin IV",
-        artista: "Led Zeppelin",
-        lanzamiento: "1971",
-      },
-      {
-        id: "3",
-        titulo: "Hotel California",
-        artista: "Eagles",
-        lanzamiento: "1976",
-      },
-      {
-        id: "4",
-        titulo: "Imagine",
-        artista: "John Lennon",
-        lanzamiento: "1971",
-      },
-      {
-        id: "5",
-        titulo: "Nevermind",
-        artista: "Nirvana",
-        lanzamiento: "1991",
-      },
-    ],
-    playlists: [
-      {
-        id: "1",
-        nombre: "Classic Rock",
-        canciones: [
-          {
-            id: "1",
-            titulo: "Bohemian Rhapsody",
-            artista: "Queen",
-            album: "A Night at the Opera",
-          },
-          {
-            id: "2",
-            titulo: "Stairway to Heaven",
-            artista: "Led Zeppelin",
-            album: "Led Zeppelin IV",
-          },
-          {
-            id: "3",
-            titulo: "Hotel California",
-            artista: "Eagles",
-            album: "Hotel California",
-          },
-        ],
-      },
-      {
-        id: "2",
-        nombre: "90's Pop",
-        canciones: [
-          {
-            id: "6",
-            titulo: "Wannabe",
-            artista: "Spice Girls",
-            album: "Spice",
-          },
-          {
-            id: "7",
-            titulo: "I Will Always Love You",
-            artista: "Whitney Houston",
-            album: "The Bodyguard Soundtrack",
-          },
-          {
-            id: "8",
-            titulo: "Baby One More Time",
-            artista: "Britney Spears",
-            album: "Baby One More Time",
-          },
-        ],
-      },
-      {
-        id: "3",
-        nombre: "Chillout",
-        canciones: [
-          {
-            id: "9",
-            titulo: "Breathe Me",
-            artista: "Sia",
-            album: "Colour the Small One",
-          },
-          {
-            id: "10",
-            titulo: "Mad World",
-            artista: "Gary Jules",
-            album: "Donnie Darko Soundtrack",
-          },
-          {
-            id: "11",
-            titulo: "Skinny Love",
-            artista: "Bon Iver",
-            album: "For Emma, Forever Ago",
-          },
-        ],
-      },
-    ],
+  const query = "";
+  const {
+    data: songs,
+    isLoading: isLoadingSongs,
+    error: errorSongs,
+  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+  const {
+    data: albums,
+    isLoading: isLoadingAlbums,
+    error: errorAlbums,
+  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+  const {
+    data: artists,
+    isLoading: isLoadingArtists,
+    error: errorArtists,
+  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  const {
+    data: playlists,
+    isLoading: isLoadingPlaylists,
+    error: errorPlaylists,
+  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setsearchResults] = useState({});
+
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+    if (e.target.value.length >= 3) {
+      FilterData(e.target.value);
+    }
   };
 
+  useEffect(() => {
+    if (
+      !isLoadingSongs &&
+      !isLoadingAlbums &&
+      !isLoadingArtists &&
+      !isLoadingPlaylists &&
+      query
+    ) {
+      setTimeout(() => {
+        setSearchInput(query);
+        FilterData(query);
+      }, 2500);
+    }
+  }, [isLoadingSongs, isLoadingAlbums, isLoadingArtists, isLoadingPlaylists]);
+
+  function FilterData(searchQuery) {
+    const searchResultsSongs = [];
+    const searchResultsPlaylists = [];
+    const searchResultsAlbums = [];
+    const searchResultsArtists = [];
+
+    songs.forEach((element) => {
+      if (
+        element.name
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        element.artist
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ) {
+        searchResultsSongs[element.id] = element;
+      }
+    });
+
+    playlists.forEach((element) => {
+      if (
+        element.name
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ) {
+        searchResultsPlaylists[element.id] = element;
+      }
+    });
+
+    albums.forEach((element) => {
+      if (
+        element.name
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        element.artist
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ) {
+        searchResultsAlbums[element.id] = element;
+      }
+    });
+
+    artists.forEach((element) => {
+      if (
+        element.name
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ) {
+        searchResultsArtists[element.id] = element;
+      }
+    });
+
+    setsearchResults({
+      searchResultsSongs: searchResultsSongs,
+      searchResultsPlaylists: searchResultsPlaylists,
+      searchResultsAlbums: searchResultsAlbums,
+      searchResultsArtists: searchResultsArtists,
+    });
+  }
+
   return (
-    <div>
-      <div className="border-black border-2 flex justify-center m-9">
-        <input
-          type="text"
-          placeholder="Buscar"
-          className="border-rose-600 border-2 h-12 w-4/12"
-        />
+    <Layout>
+      <div className="h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+        <div className=" flex justify-center p-9">
+          <input
+            type="text"
+            placeholder="Buscar"
+            value={searchInput}
+            className=" rounded-3xl h-12 w-4/12"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div className=" flex flex-col items-center gap-y-[4rem] pt-[4rem] w-full h-full">
+          {searchInput.length <= 2 ? (
+            <Typography
+              text="Nothing here, try to search your favorite artist!!"
+              type="big"
+              family="lato"
+              color="white"
+            />
+          ) : null}
+          {searchInput.length >= 3 &&
+          searchResults.searchResultsSongs.length > 0 ? (
+            <div className=" w-full md:w-5/6">
+              <List
+                object={searchResults.searchResultsSongs.filter(Boolean)}
+                sectionTitle="Songs"
+                dataType="song"
+              />
+            </div>
+          ) : null}
+          {searchInput.length >= 3 &&
+          searchResults.searchResultsArtists.length > 0 ? (
+            <div className=" w-full md:w-5/6">
+              {searchInput.length >= 3 ? (
+                <List
+                  object={searchResults.searchResultsArtists.filter(Boolean)}
+                  sectionTitle="Artists"
+                  dataType="artist"
+                />
+              ) : null}
+            </div>
+          ) : null}
+          {searchInput.length >= 3 &&
+          searchResults.searchResultsAlbums.length > 0 ? (
+            <div className=" w-full md:w-5/6">
+              {searchInput.length >= 3 ? (
+                <List
+                  object={searchResults.searchResultsAlbums.filter(Boolean)}
+                  sectionTitle="Albums"
+                  dataType="album"
+                />
+              ) : null}
+            </div>
+          ) : null}
+          {searchInput.length >= 3 &&
+          searchResults.searchResultsPlaylists.length > 0 ? (
+            <div className=" w-full md:w-5/6">
+              {searchInput.length >= 3 ? (
+                <List
+                  object={searchResults.searchResultsPlaylists.filter(Boolean)}
+                  sectionTitle="Playlists"
+                  dataType="playlist"
+                />
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+        <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
+          <img src={logo} className="z-50 w-[70vw] mix-blend-overlay" />
+        </div>
       </div>
-      <div className="border-black border-2">
-        <div className="border-rose-600 border-2">
-          <List object={searchData.canciones} sectionTitle="Songs" />
-        </div>
-        <div className="border-rose-600 border-2">
-          <List object={searchData.artistas} sectionTitle="Artists" />
-        </div>
-        <div className="border-rose-600 border-2">
-          <List object={searchData.albumes} sectionTitle="Albums" />
-        </div>
-        <div className="border-rose-600 border-2">
-          <List object={searchData.playlists} sectionTitle="Playlists" />
-        </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
