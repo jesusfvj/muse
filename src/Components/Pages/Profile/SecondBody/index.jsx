@@ -3,6 +3,7 @@ import { songs } from '../../../../data/data.js';
 import { TitleSection } from './TitleSection';
 import { FollowingSection } from './FollowingSection';
 import { YourListsSection } from './YourListsSection';
+import { LovedSection } from './LovedSection';
 
 export const SecondBody = () => {
     return (
@@ -12,8 +13,16 @@ export const SecondBody = () => {
                 <FollowingSection />
             </div>
             <div>
+                <TitleSection titleSection="Loved ones" />
+                <LovedSection />
+            </div>
+            <div>
                 <TitleSection titleSection="Your lists" />
                 <YourListsSection />
+            </div>
+            <div>
+                <TitleSection titleSection="Most listened songs this week" />
+                <AlbumTracks songs={songs} styles="sm:pr-[3rem] pb-[6rem]" />
             </div>
             <div>
                 <TitleSection titleSection="Most listened songs this month" />

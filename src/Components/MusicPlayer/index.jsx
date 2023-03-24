@@ -1,37 +1,54 @@
 import { TrackInfo } from "./TrackInfo";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { tracks } from "../../data/SongsData/SongsData";
 
 export const MusicPlayer = () => {
-  const [currentTrack, setCurrentTrack] = useState([0]);
+  const [track, setTracks] = useState(tracks);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(tracks[1]);
+  const [progress, setProgress] = useState(0);
+
   const playAudio = useRef();
 
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  useEffect(() => {
+    if (isPlaying) {
+      playAudio.current.play();
+    } else {
+      playAudio.current.pause();
+    }
+  }, [isPlaying, currentTrack]);
 
-  const playMusic = () => {
-    playAudio.current.play();
-    setIsMusicPlaying(true);
+  const onPlaying = () => {
+    const duration = playAudio.current.duration;
+    const ct = playAudio.current.currentTime;
+    setCurrentTrack({ ...currentTrack, progress: ct, length: duration });
   };
-  const pauseMusic = () => {
-    playAudio.current.pause();
-    setIsMusicPlaying(false);
+
+  const handleProgressChange = (e) => {
+    const ct = e.target.value;
+    playAudio.current.currentTime = ct;
+    setProgress(ct);
   };
+
   return (
     <div className="h-full flex flex-col sm:flex-row items-center justify-between">
-      <audio
-        className="hidden"
-        src="https://res.cloudinary.com/dmkdsujzh/video/upload/v1644586627/tracks-dev/A8_MUSIC_PRODUCTIONS_-_Better_umwfkh.mp3"
-        controls
-        ref={playAudio}
-      />
-      <TrackInfo currentTrack={currentTrack} playAudio={playAudio} />
+      <audio src={currentTrack.url} ref={playAudio} onTimeUpdate={onPlaying} />
+      <TrackInfo />
       <PlayControls
-        playMusic={playMusic}
-        pauseMusic={pauseMusic}
-        isMusicPlaying={isMusicPlaying}
+        handleProgressChange={handleProgressChange}
+        progress={progress}
+        track={track}
+        setTracks={setTracks}
+        currentTrack={currentTrack}
+        setCurrentTrack={setCurrentTrack}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        playAudio={playAudio}
+        setProgress={setProgress}
       />
-      <VolumeControls />
+      <VolumeControls playAudio={playAudio} />
     </div>
   );
 };

@@ -30,7 +30,9 @@ function Router() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/artist" element={<Artist />} />
                 <Route path="/player" element={<Player />} />
-                <Route path="/search" element={<Search />} />
+                <Route path="/search" element={<Search />} >
+                <Route path=":query" element={<Search />} />
+              </Route>
                 <Route path="/mylibrary" element={<MyLibrary />} />
                 <Route path="/test" element={<TestComponents />} />
               </Routes>
@@ -41,5 +43,6 @@ function Router() {
     </>
   );
 }
+
 
 export default Router;

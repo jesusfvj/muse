@@ -32,7 +32,7 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
       </div>
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
-          className="cursor-pointer"
+          className="cursor-pointer flex justify-center items-center"
           onClick={() => (clicked ? setClicked(false) : setClicked(true))}
         >
           <Typography
@@ -42,7 +42,9 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
           />
         </div>
         <div
-          className={`cursor-pointer ${hovered ? "visible" : "sm:invisible"}`}
+          className={`cursor-pointer mt-[0.4rem] ${
+            hovered ? "visible" : "sm:invisible"
+          }`}
         >
           <DropDownMenu id={id} color="white" />
         </div>
