@@ -28,7 +28,7 @@ export const Login = ({ changeLogRegister }) => {
     navigate("/", {
       replace: true,
     });
-    console.log(loginData);
+
     if (rememberEmail) {
       localStorage.setItem("rememberEmail", loginData.email);
     }
