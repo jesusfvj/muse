@@ -35,7 +35,7 @@ export const MusicPlayer = () => {
   return (
     <div className="h-full flex flex-col sm:flex-row items-center justify-between">
       <audio src={currentTrack.url} ref={playAudio} onTimeUpdate={onPlaying} />
-      <TrackInfo />
+      <TrackInfo currentTrack={currentTrack}/>
       <PlayControls
         handleProgressChange={handleProgressChange}
         progress={progress}

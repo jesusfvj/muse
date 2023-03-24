@@ -70,6 +70,7 @@ export const PlayControls = ({
           }
           type="p2"
           color={!currentTrack.progress ? "black" : "primary"}
+          styles="select-none"
         />
         <input
           type="range"
@@ -87,6 +88,7 @@ export const PlayControls = ({
           }
           type="p2"
           color={!currentTrack.progress ? "black" : "primary"}
+          styles="select-none"
         />
       </div>
     </div>
