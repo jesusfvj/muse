@@ -4,8 +4,7 @@ import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
-  console.log(id);
+export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -32,7 +31,13 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
         <div className="w-[10rem] lg:w-[15rem]">
           <Typography text={artist} color="white" styles="truncate" />
         </div>
-        <Typography text={`${Math.floor(duration/60)}:${duration-(Math.floor(duration/60)*60)}`} color="white" styles="hidden xs:flex" />
+        <Typography
+          text={`${Math.floor(duration / 60)}:${
+            duration - Math.floor(duration / 60) * 60
+          }`}
+          color="white"
+          styles="hidden xs:flex"
+        />
       </div>
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
@@ -46,9 +51,17 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
           />
         </div>
         <div
-          className={`cursor-pointer mt-[0.4rem] ${hovered ? "visible" : "sm:invisible"}`}
+          className={`cursor-pointer mt-[0.4rem] ${
+            hovered ? "visible" : "sm:invisible"
+          }`}
         >
-          <DropDownMenu id={id} color="white" />
+          <DropDownMenu
+            id={id}
+            color="white"
+            activeDropdown={activeDropdown}
+            handleToggleDropdown={handleToggleDropdown}
+            handleToggleModal={handleToggleModal}
+          />
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
   const [hovered, setHovered] = useState(false);
 
   const handleAddToList = (e) => {
-    console.log("adding");
     e.stopPropagation();
   };
 
