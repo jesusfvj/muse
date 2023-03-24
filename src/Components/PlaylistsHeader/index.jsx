@@ -4,11 +4,15 @@ import { RiShuffleFill } from "react-icons/ri";
 import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
 
-export const PlaylistsHeader = ({name}) => {
+export const PlaylistsHeader = ({ name, thumbnail }) => {
   return (
-    <div className="w-screen h-[80vh] relative">
-      <div className="bg-cover bg-[url('../../../src/assets/images/headerPicture.jpeg')] w-full h-full"></div>
-      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-[80vh] absolute top-0"></div>
+    <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
+      <div className="w-full h-full relative overflow-hidden">
+        <img src={thumbnail} alt={name} className="object-cover w-full h-full blur-md" />
+        <img src={thumbnail} alt={name} className="absolute top-0 bottom-0 left-0 right-0 m-auto z-10 w-2/6" />
+      </div>
+      {/* <div className={`bg-cover bg-[url('${thumbnail}')] w-full h-full`}></div> */}
+      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
       <div className="flex w-screen h-34 pl-[9.5vw]">
         <div className="relative h-24 w-29 flex">
           <div className="w-24">
@@ -28,8 +32,7 @@ export const PlaylistsHeader = ({name}) => {
           </div>
         </div>
         <div className="h-16 flex flex-col ml-12">
-          <Typography text="LA ROSALÍA" color="white" type="important" />
-          <Typography text="El Mal Querer" color="primary" type="title" />
+          <Typography text={name} color="white" type="important" />
         </div>
       </div>
     </div>

@@ -4,7 +4,8 @@ import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx }) => {
+export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
+  console.log(id);
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -28,7 +29,10 @@ export const PlaylistsElements = ({ id, duration, nombre, idx }) => {
         <div className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
         </div>
-        <Typography text={duration} color="white" styles="hidden xs:flex" />
+        <div className="w-[10rem] lg:w-[15rem]">
+          <Typography text={artist} color="white" styles="truncate" />
+        </div>
+        <Typography text={`${Math.floor(duration/60)}:${duration-(Math.floor(duration/60)*60)}`} color="white" styles="hidden xs:flex" />
       </div>
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
