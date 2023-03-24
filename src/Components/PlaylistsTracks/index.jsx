@@ -5,7 +5,7 @@ export const PlaylistsTracks = ({ songs, styles }) => {
   return (
     <div className={`flex flex-col ${styles}`}>
       {songs.map((songs, idx) => {
-        const { id, name, duration, artist} = songs;
+        const { id, name, duration, artist } = songs;
         return (
           <PlaylistsElements
             key={`${name}-${idx}`}
