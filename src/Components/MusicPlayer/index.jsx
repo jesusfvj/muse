@@ -4,7 +4,7 @@ import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
 import { tracks } from "../../data/SongsData/SongsData";
 
-export const MusicPlayer = () => {
+export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const [track, setTracks] = useState(tracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[1]);
@@ -19,6 +19,12 @@ export const MusicPlayer = () => {
       playAudio.current.pause();
     }
   }, [isPlaying, currentTrack]);
+
+  useEffect(() => {
+    if (!isMusicPlayerVisible) {
+      setIsPlaying(false);
+    }
+  }, [isMusicPlayerVisible]);
 
   const onPlaying = () => {
     const duration = playAudio.current.duration;
@@ -35,7 +41,7 @@ export const MusicPlayer = () => {
   return (
     <div className="h-full flex flex-col sm:flex-row items-center justify-between">
       <audio src={currentTrack.url} ref={playAudio} onTimeUpdate={onPlaying} />
-      <TrackInfo currentTrack={currentTrack}/>
+      <TrackInfo currentTrack={currentTrack} />
       <PlayControls
         handleProgressChange={handleProgressChange}
         progress={progress}
