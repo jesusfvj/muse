@@ -8,7 +8,7 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   } = rest;
 
   return (
-    <div className="relative translate-y-[-125px]">
+    <div className="relative translate-y-[-125px] hidden sm:block">
       <BsChevronLeft
         className={`${
           currentSlide === 0 && "disable"

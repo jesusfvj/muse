@@ -9,7 +9,7 @@ export const NavItem = ({ path, text, icon, isNavOpen }) => {
           `${isActive ? "text-white font-bold" : "text-gray-400"} `
         }
       >
-        <p className="text-2xl flex items-center gap-4 lato">
+        <p className="text-lg 2xl:text-2xl flex items-center gap-4 lato">
           {icon}
           {text}
         </p>

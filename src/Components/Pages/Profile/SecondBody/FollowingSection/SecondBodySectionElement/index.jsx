@@ -4,7 +4,7 @@ import { List, Typography } from "../../../../.."
 
 export const SecondBodySectionElement = ({ object, sectionTitle, datatype }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-y-[2rem] pr-[2rem] relative">
+    <div className="flex flex-col justify-center items-center gap-y-[2rem] relative">
       <div className="w-[95%]">
         <List
           object={object}

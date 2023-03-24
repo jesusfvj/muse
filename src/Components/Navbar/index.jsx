@@ -11,13 +11,13 @@ import { BsSearch } from "react-icons/bs";
 import { Typography } from "../Typography";
 
 const navItems = [
-  { path: "/", text: "Landing Page" },
+  /* { path: "/", text: "Landing Page" }, */
   { path: "/main", text: "Home", icon: <FaHome /> },
-  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> },
-  { path: "/album", text: "Album" },
+ /*  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> }, */
+  // { path: "/album", text: "Album" },
   { path: "/profile", text: "Profile", icon: <FiUser /> },
-  { path: "/artist", text: "Artist" },
-  { path: "/player", text: "Player" },
+  // { path: "/artist", text: "Artist" },
+  // { path: "/player", text: "Player" },
   { path: "/search", text: "Search", icon: <BsSearch /> },
   { path: "/mylibrary", text: "Library", icon: <VscLibrary /> },
 ];
@@ -39,7 +39,7 @@ export const Navbar = () => {
     >
       {isNavOpen && (
         <IoClose
-          className="text-white text-5xl absolute top-5 right-10 cursor-pointer z-50"
+          className="text-white text-2xl absolute top-5 right-10 cursor-pointer z-50"
           onClick={handleToggleNav}
         />
       )}
