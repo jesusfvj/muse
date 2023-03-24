@@ -4,7 +4,6 @@ import { UserContext } from "../Context/UserContext/UserContext";
 
 const ProtectedRoutes = ({ children }) => {
   const { isLogged } = useContext(UserContext);
-  // console.log(isLogged);
 
   return isLogged ? children : <Navigate to="/" />;
 };

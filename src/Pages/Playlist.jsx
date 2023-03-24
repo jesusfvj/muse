@@ -8,7 +8,8 @@ import { PlaylistsTracks } from "../Components/PlaylistsTracks";
 
 export const Playlist = () => {
   const [songs, setSongs] = useState();
-  const { playlistId } = useParams();
+  const { playlistId = 1} = useParams();
+  
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,

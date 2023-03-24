@@ -1,7 +1,6 @@
 import { PlaylistsElements } from "./PlaylistsElements";
 
 export const PlaylistsTracks = ({ songs, styles }) => {
-  console.log(songs);
   return (
     <div className={`flex flex-col ${styles}`}>
       {songs.map((songs, idx) => {
