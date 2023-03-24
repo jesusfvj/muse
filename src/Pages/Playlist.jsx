@@ -18,7 +18,7 @@ export const Playlist = () => {
     if (!isLoadingPlaylists && playlistId) {
 
       playlists.forEach((element) => {
-        if (element.id.toString().toLowerCase().includes(playlistId)) {
+        if (element.id==playlistId) {
 
           setSongs({
             name: element.name,
