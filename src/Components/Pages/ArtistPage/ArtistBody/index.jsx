@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getAlbums, getArtists, getPlaylists, getSongs } from "../../../../API/MusicApi/MusicApi";
+import {
+  getAlbums,
+  getArtists,
+  getPlaylists,
+  getSongs,
+} from "../../../../API/MusicApi/MusicApi";
 import { List } from "../../../List";
 
 const skeletonData = [
@@ -56,7 +61,7 @@ export const ArtistBody = () => {
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
   } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
-  
+
   return (
     <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
       <div className="w-full md:w-5/6">
@@ -82,29 +87,7 @@ export const ArtistBody = () => {
           "error"
         )}
       </div>
-      <div className="w-full md:w-5/6">
-        {artists ? (
-          <List
-            object={artists}
-            sectionTitle="Artists"
-            dataType="artist"
-            itemsNumber={{
-              itemsSuperLarge: 8,
-              itemsDesktop: 6,
-              itemsTablet: 3,
-              itemsMobile: 2,
-            }}
-          />
-        ) : isLoadingArtists ? (
-          <List
-            dataType="skeletonArtist"
-            object={skeletonData}
-            sectionTitle="Artists"
-          />
-        ) : (
-          "error"
-        )}
-      </div>
+
       <div className="w-full md:w-5/6">
         {albums ? (
           <List
@@ -123,6 +106,29 @@ export const ArtistBody = () => {
             dataType="skeletonAlbum"
             object={skeletonData}
             sectionTitle="Albums"
+          />
+        ) : (
+          "error"
+        )}
+      </div>
+      <div className="w-full md:w-5/6">
+        {artists ? (
+          <List
+            object={artists}
+            sectionTitle="Artists"
+            dataType="artist"
+            itemsNumber={{
+              itemsSuperLarge: 8,
+              itemsDesktop: 6,
+              itemsTablet: 3,
+              itemsMobile: 2,
+            }}
+          />
+        ) : isLoadingArtists ? (
+          <List
+            dataType="skeletonArtist"
+            object={skeletonData}
+            sectionTitle="Artists"
           />
         ) : (
           "error"
