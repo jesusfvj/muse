@@ -152,20 +152,20 @@ export const MyLibrary = () => {
           <p>nothing to show</p>
         )}
         {isLoadingPlaylists ? (
-          <section id="Playlisys">
+          <section id="Playlists">
             <Typography
               type="big"
-              text="Playlisys"
+              text="Playlists"
               color="white"
               styles={zStyles}
             />
             <MosaicElements object={skeletonData} dataType="skeletonPlaylist" />
           </section>
         ) : playlists && !isLoadingPlaylists ? (
-          <section id="Playlisys">
+          <section id="Playlists">
             <Typography
               type="big"
-              text="Playlisys"
+              text="Playlists"
               color="white"
               styles={zStyles}
             />
@@ -190,7 +190,7 @@ export const MyLibrary = () => {
               />
             </section>
           ) : playlists && !isLoadingPlaylists ? (
-            <section id="Playlisys">
+            <section id="Playlists">
               <Typography
                 type="big"
                 text="Your Public Lists"
@@ -209,7 +209,7 @@ export const MyLibrary = () => {
             <section id="Your private lists">
               <Typography
                 type="big"
-                text="Playlisys"
+                text="Playlists"
                 color="white"
                 styles={zStyles}
               />
