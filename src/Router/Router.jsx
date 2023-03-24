@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { TestComponents } from "../Components/TestComponents";
 import { Album } from "../Pages/Album";
 import { Artist } from "../Pages/Artist";
@@ -12,11 +12,22 @@ import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
 import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+import { MusicPlayer } from "../Components";
 
 function Router() {
+  const location = useLocation();
+  const isMusicPlayerVisible = location.pathname !== "/";
+
   return (
     <>
       <ScrollTop />
+      <div
+        className={`${
+          !isMusicPlayerVisible && "hidden"
+        } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
+      >
+        <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible}/>
+      </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
@@ -45,6 +56,5 @@ function Router() {
     </>
   );
 }
-
 
 export default Router;

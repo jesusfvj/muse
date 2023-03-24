@@ -4,37 +4,57 @@ import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
 import { tracks } from "../../data/SongsData/SongsData";
 
-
-export const MusicPlayer = () => {
+export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const [track, setTracks] = useState(tracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[1]);
+  const [progress, setProgress] = useState(0);
 
   const playAudio = useRef();
 
   useEffect(() => {
-    
     if (isPlaying) {
       playAudio.current.play();
-    }
-    else {
+    } else {
       playAudio.current.pause();
     }
-  }, [isPlaying, currentTrack])
+  }, [isPlaying, currentTrack]);
+
+  useEffect(() => {
+    if (!isMusicPlayerVisible) {
+      setIsPlaying(false);
+    }
+  }, [isMusicPlayerVisible]);
 
   const onPlaying = () => {
     const duration = playAudio.current.duration;
     const ct = playAudio.current.currentTime;
+    setCurrentTrack({ ...currentTrack, progress: ct, length: duration });
+  };
 
-    setCurrentTrack({ ...currentTrack, "progress": ct, "length": duration })
-  }
+  const handleProgressChange = (e) => {
+    const ct = e.target.value;
+    playAudio.current.currentTime = ct;
+    setProgress(ct);
+  };
 
   return (
     <div className="h-full flex flex-col sm:flex-row items-center justify-between">
       <audio src={currentTrack.url} ref={playAudio} onTimeUpdate={onPlaying} />
-      <TrackInfo />
-      <PlayControls track={track} setTracks={setTracks} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} isPlaying={isPlaying} setIsPlaying={setIsPlaying} playAudio={playAudio} />
-      <VolumeControls playAudio={playAudio}/>
+      <TrackInfo currentTrack={currentTrack} />
+      <PlayControls
+        handleProgressChange={handleProgressChange}
+        progress={progress}
+        track={track}
+        setTracks={setTracks}
+        currentTrack={currentTrack}
+        setCurrentTrack={setCurrentTrack}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        playAudio={playAudio}
+        setProgress={setProgress}
+      />
+      <VolumeControls playAudio={playAudio} />
     </div>
   );
 };

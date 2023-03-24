@@ -4,7 +4,14 @@ import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 
-export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
+export const AlbumTrackElements = ({
+  id,
+  duration,
+  nombre,
+  idx,
+  activeDropdown,
+  handleToggleDropdown,
+}) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -14,7 +21,10 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => {
+        setHovered(false);
+        handleToggleDropdown(null);
+      }}
     >
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
@@ -42,9 +52,16 @@ export const AlbumTrackElements = ({ id, duration, nombre, idx }) => {
           />
         </div>
         <div
-          className={`cursor-pointer mt-[0.4rem] ${hovered ? "visible" : "sm:invisible"}`}
+          className={`cursor-pointer mt-[0.4rem] ${
+            hovered ? "visible" : "sm:invisible"
+          }`}
         >
-          <DropDownMenu id={id} color="white" />
+          <DropDownMenu
+            id={id}
+            color="white"
+            activeDropdown={activeDropdown}
+            handleToggleDropdown={handleToggleDropdown}
+          />
         </div>
       </div>
     </div>
