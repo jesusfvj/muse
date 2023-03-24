@@ -1,13 +1,12 @@
-export const DropDownMenu = ({ id }) => {
+export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown }) => {
+  const isActive = activeDropdown == id;
   return (
-    <div>
+    <div className="relative">
       <button
+        onClick={ () => handleToggleDropdown(id) }
         id="dropdownMenuIconHorizontalButton"
-        data-dropdown-toggle={id}
-        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none dark:text-white dark:bg-gray-800"
+        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none dark:text-white"
         type="button"
-        data-dropdown-trigger="hover"
-        data-dropdown-delay={400}
       >
         <svg
           className="w-6 h-6 text-white"
@@ -22,7 +21,7 @@ export const DropDownMenu = ({ id }) => {
 
       <div
         id={id}
-        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        className={`z-10 ${!isActive && "hidden"} absolute right-[0px] bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
       >
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
