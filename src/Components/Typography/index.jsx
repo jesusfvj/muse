@@ -9,7 +9,7 @@ export const Typography = ({
     title: `text-xl sm:text-4xl font-bold`,
     subtitle: `text-base sm:text-2xl font-medium`,
     important: `text-2xl sm:text-5xl font-bold`,
-    headline: `text-5xl sm:text-8xl font-bold`,
+    headline: `text-5xl xs:text-7xl sm:text-8xl font-bold`,
     big: `text-xl sm:text-4xl font-bold`,
     p1: `text-sm sm:text-lg font-normal`,
     p2: `text-xs sm:text-md font-normal`,

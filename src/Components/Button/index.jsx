@@ -30,6 +30,11 @@ export const Button = ({
       outlined:
         "border border-gray-500/90 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-gray-900 to-gray-500",
     },
+    black: {
+      fill: "bg-gradient-to-tl from-[#02050d] to-gray-700 text-gray-300  enabled:hover:brightness-105",
+      outlined:
+        "border border-gray-500/90 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-gray-900 to-gray-500",
+    },
   };
 
   const sizes = {

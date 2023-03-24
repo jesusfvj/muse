@@ -3,7 +3,7 @@ import { Typography } from "../../../../Typography"
 
 export const TitleSection = ({titleSection, styles=""}) => {
     return (
-        <div className={`w-full h-full pt-[2rem] p-[1rem] xs:py-[3rem] sm:px-0 ${styles}`}>
+        <div className={`w-full h-full pl-[1rem] xs:mb-[1rem] md:mb-[3rem] ${styles}`}>
             <Typography text={titleSection} type="section" color="white" family="lato" styles="text-left" />
         </div>
     )
