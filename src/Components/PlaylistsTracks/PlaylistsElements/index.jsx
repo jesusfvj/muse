@@ -4,7 +4,7 @@ import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
+export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -55,7 +55,13 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist }) => {
             hovered ? "visible" : "sm:invisible"
           }`}
         >
-          <DropDownMenu id={id} color="white" />
+          <DropDownMenu
+            id={id}
+            color="white"
+            activeDropdown={activeDropdown}
+            handleToggleDropdown={handleToggleDropdown}
+            handleToggleModal={handleToggleModal}
+          />
         </div>
       </div>
     </div>
