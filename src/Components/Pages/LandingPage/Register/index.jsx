@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, InputWithLabel, Typography } from "../../../index";
 
 export const Register = ({ changeLogRegister }) => {
+  
   const [registerData, setRegisterData] = useState({
     fullName: "",
     email: "",
@@ -10,13 +11,16 @@ export const Register = ({ changeLogRegister }) => {
   });
   const [newData, setNewData] = useState (
     JSON.parse(localStorage.getItem("register-data")) || [] 
-  )
+    )
+    useEffect(() => {
+      localStorage.setItem("register-data", JSON.stringify(newData) )
+    }, [newData])
 
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(registerData);
     setNewData([...newData, registerData])
-    localStorage.setItem("register-data", JSON.stringify(newData) )
+   
   };
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
