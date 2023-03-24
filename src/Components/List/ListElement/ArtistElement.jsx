@@ -5,7 +5,7 @@ import { Typography, RoundButton } from "../../index";
 export const ArtistElement = ({ object }) => {
   const { name, photoUrl } = object;
   return (
-    <div className="relative flex my-4 min-w-fit select-none">
+    <div className="relative flex my-4 select-none">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
@@ -21,7 +21,7 @@ export const ArtistElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles=" sm:leading-6 line-clamp-2 text-ellipsis truncate"
+            styles="sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
         </div>
       </div>

@@ -3,8 +3,55 @@ import { arrayTodaysHits } from "../../src/data/Profile/Profile";
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
 import { Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
+import {
+  getAlbums,
+  getArtists,
+  getPlaylists,
+  getSongs,
+} from "../API/MusicApi/MusicApi";
+import { useQuery } from "@tanstack/react-query";
+
+const skeletonData = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
 
 export const MyLibrary = () => {
+  const {
+    data: songs,
+    isLoading: isLoadingSongs,
+    error: errorSongs,
+  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+  const {
+    data: albums,
+    isLoading: isLoadingAlbums,
+    error: errorAlbums,
+  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+  const {
+    data: artists,
+    isLoading: isLoadingArtists,
+    error: errorArtists,
+  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  const {
+    data: playlists,
+    isLoading: isLoadingPlaylists,
+    error: errorPlaylists,
+  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+
   const zStyles = "z-3 relative";
   return (
     <Layout>
@@ -19,15 +66,38 @@ export const MyLibrary = () => {
           color="white"
           styles={zStyles}
         />
-        <section id="Artists">
+        {isLoadingArtists ? (
+          <section id="Artists">
+            <Typography
+              type="big"
+              text="Artists"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={skeletonData} dataType="skeletonArtist" />
+          </section>
+        ) : artists && !isLoadingArtists ? (
+          <section id="Artists">
+            <Typography
+              type="big"
+              text="Artists"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={artists} dataType="artist" />
+          </section>
+        ) : (
+          <p>nothing to show</p>
+        )}
+        {/* <section id="Artists">
           <Typography
             type="big"
             text="Artists"
             color="white"
             styles={zStyles}
           />
-          <MosaicElements object={arrayTodaysHits} dataType="artist" />
-        </section>
+          <MosaicElements object={artists} dataType="artist" />
+        </section> */}
 
         <Typography
           type="important"
@@ -35,40 +105,132 @@ export const MyLibrary = () => {
           color="white"
           styles={zStyles}
         />
-        <section id="Albums">
-          <Typography type="big" text="Albums" color="white" styles={zStyles} />
-          <MosaicElements object={arrayTodaysHits} dataType="album" />
-        </section>
+        {isLoadingAlbums ? (
+          <section id="Albums">
+            <Typography
+              type="big"
+              text="Albums"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={skeletonData} dataType="skeletonAlbum" />
+          </section>
+        ) : albums && !isLoadingAlbums ? (
+          <section id="Albums">
+            <Typography
+              type="big"
+              text="Albums"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={albums} dataType="album" />
+          </section>
+        ) : (
+          <p>nothing to show</p>
+        )}
+        {isLoadingSongs ? (
+          <section id="Songs">
+            <Typography
+              type="big"
+              text="Songs"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={skeletonData} dataType="skeletonSong" />
+          </section>
+        ) : songs && !isLoadingSongs ? (
+          <section id="Songs">
+            <Typography
+              type="big"
+              text="Songs"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={songs} dataType="song" />
+          </section>
+        ) : (
+          <p>nothing to show</p>
+        )}
+        {isLoadingPlaylists ? (
+          <section id="Playlisys">
+            <Typography
+              type="big"
+              text="Playlisys"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={skeletonData} dataType="skeletonPlaylist" />
+          </section>
+        ) : playlists && !isLoadingPlaylists ? (
+          <section id="Playlisys">
+            <Typography
+              type="big"
+              text="Playlisys"
+              color="white"
+              styles={zStyles}
+            />
+            <MosaicElements object={playlists} dataType="playlist" />
+          </section>
+        ) : (
+          <p>nothing to show</p>
+        )}
 
-        <section id="Songs">
-          <Typography type="big" text="Songs" color="white" styles={zStyles} />
-          <MosaicElements object={arrayTodaysHits} dataType="song" />
-        </section>
-
-        <Typography
-          type="important"
-          text="Your lists"
-          color="white"
-          styles={zStyles}
-        />
         <section id="Your public lists">
-          <Typography
-            type="big"
-            text="Your public lists"
-            color="white"
-            styles={zStyles}
-          />
-          <MosaicElements object={arrayTodaysHits} dataType="playlist" />
+          {isLoadingPlaylists ? (
+            <section id="Your Public Lists">
+              <Typography
+                type="big"
+                text="Your Public Lists"
+                color="white"
+                styles={zStyles}
+              />
+              <MosaicElements
+                object={skeletonData}
+                dataType="skeletonPlaylist"
+              />
+            </section>
+          ) : playlists && !isLoadingPlaylists ? (
+            <section id="Playlisys">
+              <Typography
+                type="big"
+                text="Your Public Lists"
+                color="white"
+                styles={zStyles}
+              />
+              <MosaicElements object={playlists} dataType="playlist" />
+            </section>
+          ) : (
+            <p>nothing to show</p>
+          )}
         </section>
 
         <section id="Your private lists">
-          <Typography
-            type="big"
-            text="Your private lists"
-            color="white"
-            styles={zStyles}
-          />
-          <MosaicElements object={arrayTodaysHits} dataType="playlist" />
+          {isLoadingPlaylists ? (
+            <section id="Your private lists">
+              <Typography
+                type="big"
+                text="Playlisys"
+                color="white"
+                styles={zStyles}
+              />
+              <MosaicElements
+                object={skeletonData}
+                dataType="skeletonPlaylist"
+              />
+            </section>
+          ) : playlists && !isLoadingPlaylists ? (
+            <section id="Your private lists">
+              <Typography
+                type="big"
+                text="Playlists"
+                color="white"
+                styles={zStyles}
+              />
+              <MosaicElements object={playlists} dataType="playlist" />
+            </section>
+          ) : (
+            <p>nothing to show</p>
+          )}
         </section>
       </div>
     </Layout>
