@@ -1,4 +1,4 @@
-export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown }) => {
+export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
   const isActive = activeDropdown == id;
   return (
     <div className="relative">
@@ -55,12 +55,12 @@ export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown }) => {
           </li>
         </ul>
         <div className="py-2">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-white hover:bg-gray-600  "
+          <button
+          onClick={handleToggleModal}
+            className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
           >
-            Add to library
-          </a>
+            Add to list
+          </button>
         </div>
       </div>
     </div>

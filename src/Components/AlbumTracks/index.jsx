@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlbumTrackElements } from "./AlbumTrackElements";
 
-export const AlbumTracks = ({ songs, styles }) => {
+export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
   const [activeDropdown, setActiveDropdown] = useState(null)
   const handleToggleDropdown = (id) => {
     if (activeDropdown == id) {
@@ -23,6 +23,7 @@ export const AlbumTracks = ({ songs, styles }) => {
             idx={idx}
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
+            handleToggleModal={handleToggleModal}
           />
         );
       })}
