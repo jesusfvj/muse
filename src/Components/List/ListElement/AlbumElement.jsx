@@ -5,7 +5,7 @@ import { FaPlay } from "react-icons/fa";
 export const AlbumElement = ({ object }) => {
   const { name, imageUrl, artist } = object;
   return (
-    <div className="relative flex my-4">
+    <div className="relative flex my-4 mx-2">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"

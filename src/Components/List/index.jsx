@@ -9,6 +9,7 @@ import {
   SkeletonSongElement,
 } from "../Skeletons";
 import { SongElement } from "./ListElement/SongElement";
+import { useState } from "react";
 
 export const List = ({
   object,
@@ -16,12 +17,14 @@ export const List = ({
   dataType,
   textType = "important",
   itemsNumber = {
-    itemsSuperLarge: 8,
+    itemsSuperLarge: 7,
     itemsDesktop: 5,
     itemsTablet: 3,
     itemsMobile: 2,
   },
 }) => {
+  const [isSwipping, setIsSwipping] = useState(false);
+
   return (
     <div>
       <div className="ml-8">
@@ -32,6 +35,7 @@ export const List = ({
         itemsDesktop={itemsNumber["itemsDesktop"]}
         itemsTablet={itemsNumber["itemsTablet"]}
         itemsMobile={itemsNumber["itemsMobile"]}
+        setIsSwipping={setIsSwipping}
       >
         {object.map((object, index) => {
           switch (dataType) {
@@ -42,7 +46,7 @@ export const List = ({
             case "artist":
               return <ArtistElement key={index} object={object} />;
             case "playlist":
-              return <PlaylistElement key={index} object={object} />;
+              return <PlaylistElement key={index} object={object} isSwipping={isSwipping}/>;
             case "skeletonPlaylist":
               return <SkeletonPlaylistElement key={index} object={object} />;
             case "skeletonAlbum":
