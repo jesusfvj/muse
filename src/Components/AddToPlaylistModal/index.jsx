@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getPlaylists } from "../../API/MusicApi/MusicApi";
 import { Typography } from "../Typography";
-import { CreateListButton } from "../Pages/MyLibrary/CreateListButton";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export const AddToPlaylistModal = ({ handleToggleModal }) => {

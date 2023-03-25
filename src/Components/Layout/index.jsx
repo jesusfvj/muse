@@ -1,6 +1,4 @@
 import { useUI } from "../../Context/UI/UIContext";
-
-import { MusicPlayer } from "../MusicPlayer";
 import { Navbar } from "../Navbar";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useLocation } from "react-router";
