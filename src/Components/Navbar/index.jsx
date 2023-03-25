@@ -3,17 +3,17 @@ import { useContext } from "react";
 
 import { NavItem } from "./NavItem";
 import { FaHome } from "react-icons/fa";
-import { RiPlayListLine } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 import { VscLibrary } from "react-icons/vsc";
 import { IoClose } from "react-icons/io5";
 import { BsSearch } from "react-icons/bs";
 import { Typography } from "../Typography";
+import { UserContext } from "../../Context/UserContext/UserContext";
 
 const navItems = [
   /* { path: "/", text: "Landing Page" }, */
   { path: "/main", text: "Home", icon: <FaHome /> },
- /*  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> }, */
+  /*  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> }, */
   // { path: "/album", text: "Album" },
   { path: "/profile", text: "Profile", icon: <FiUser /> },
   // { path: "/artist", text: "Artist" },
@@ -24,9 +24,14 @@ const navItems = [
 
 export const Navbar = () => {
   const { isNavOpen, setIsNavOpen } = useContext(UIContext);
+  const { logout } = useContext(UserContext);
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -56,8 +61,11 @@ export const Navbar = () => {
             />
           );
         })}
-        <div className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md">
-        <Typography text="LOGOUT" />
+        <div
+          className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md"
+          onClick={handleLogout}
+        >
+          <Typography text="LOGOUT" />
         </div>
       </div>
     </div>
