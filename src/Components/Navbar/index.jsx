@@ -1,5 +1,4 @@
-import UIContext from "../../Context/UI/UIContext";
-import { useContext } from "react";
+import { useUI } from "../../Context/UI/UIContext";
 
 import { NavItem } from "./NavItem";
 import { FaHome } from "react-icons/fa";
@@ -8,7 +7,7 @@ import { VscLibrary } from "react-icons/vsc";
 import { IoClose } from "react-icons/io5";
 import { BsSearch } from "react-icons/bs";
 import { Typography } from "../Typography";
-import { UserContext } from "../../Context/UserContext/UserContext";
+import { useUser } from "../../Context/UserContext/UserContext";
 
 const navItems = [
   /* { path: "/", text: "Landing Page" }, */
@@ -23,8 +22,8 @@ const navItems = [
 ];
 
 export const Navbar = () => {
-  const { isNavOpen, setIsNavOpen } = useContext(UIContext);
-  const { logout } = useContext(UserContext);
+  const { isNavOpen, setIsNavOpen } = useUI();
+  const { logout } = useUser();
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);

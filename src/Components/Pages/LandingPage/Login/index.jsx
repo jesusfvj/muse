@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../../../Context/UserContext/UserContext";
+import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
 export const Login = ({ changeLogRegister }) => {
   const navigate = useNavigate();
-  const { login } = useContext(UserContext);
+  const { login } = useUser();
   const [rememberEmail, setRememberEmail] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
@@ -22,15 +22,15 @@ export const Login = ({ changeLogRegister }) => {
   const handleRememberEmailChange = (e) => {
     setRememberEmail(!rememberEmail);
   };
-  
+
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
-  
+
   const handleLogin = (e) => {
     e.preventDefault();
     login(loginData);
-    navigate("/main")
+    navigate("/main");
   };
 
   return (
@@ -63,7 +63,7 @@ export const Login = ({ changeLogRegister }) => {
         <Button onClick={handleLogin} text="Log In" />
       </form>
       <div className="flex gap-5">
-        <Typography text={"I don't have an account"} type="p1" />
+        <Typography text="I don't have an account" type="p1" />
         <p
           onClick={changeLogRegister}
           className="cursor-pointer self-end w-1/4 text-white"

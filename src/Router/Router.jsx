@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { TestComponents } from "../Components/TestComponents";
 import { Album } from "../Pages/Album";
 import { Artist } from "../Pages/Artist";
 import { LandingPage } from "../Pages/LandingPage";
@@ -47,7 +46,6 @@ function Router() {
                   <Route path=":query" element={<Search />} />
                 </Route>
                 <Route path="/mylibrary" element={<MyLibrary />} />
-                <Route path="/test" element={<TestComponents />} />
               </Routes>
             </ProtectedRoutes>
           }

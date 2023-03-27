@@ -17,5 +17,5 @@ export const LandingPage = () => {
       )}
     </div>
   );
- };
-// bg-[url('./src/assets/images/LandBgImage.jpg')] 
+};
+// bg-[url('./src/assets/images/LandBgImage.jpg')]

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../../Context/UserContext/UserContext";
+import { useState } from "react";
+import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, InputWithLabel, Typography } from "../../../index";
 
 export const Register = ({ changeLogRegister }) => {
-  const { register } = useContext(UserContext);
+  const { register } = useUser();
 
   const [registerData, setRegisterData] = useState({
     fullName: "",
@@ -11,12 +11,6 @@ export const Register = ({ changeLogRegister }) => {
     password: "",
     repPassword: "",
   });
-  const [newData, setNewData] = useState(
-    JSON.parse(localStorage.getItem("register-data")) || []
-  );
-  useEffect(() => {
-    localStorage.setItem("register-data", JSON.stringify(newData));
-  }, [newData]);
 
   const handleRegister = (e) => {
     e.preventDefault();

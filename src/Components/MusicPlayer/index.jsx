@@ -28,14 +28,14 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
 
   const onPlaying = () => {
     const duration = playAudio.current.duration;
-    const ct = playAudio.current.currentTime;
-    setCurrentTrack({ ...currentTrack, progress: ct, length: duration });
+    const currentTime = playAudio.current.currentTime;
+    setCurrentTrack({ ...currentTrack, progress: currentTime, length: duration });
   };
 
   const handleProgressChange = (e) => {
-    const ct = e.target.value;
-    playAudio.current.currentTime = ct;
-    setProgress(ct);
+    const currentTime = e.target.value;
+    playAudio.current.currentTime = currentTime;
+    setProgress(currentTime);
   };
 
   return (
