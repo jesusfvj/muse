@@ -1,8 +1,8 @@
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { FaPlay } from "react-icons/fa";
-import { Typography } from "../../Typography";
 import { useState } from "react";
-import { DropDownMenu } from "../../Dropdown";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { Typography, DropDownMenu } from "../../index";
+
+import { TrackInfo } from "./TrackInfo";
 
 export const AlbumTrackElements = ({
   id,
@@ -29,20 +29,12 @@ export const AlbumTrackElements = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={hadleMouseOut}
     >
-      <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
-        <div
-          className={`hidden sm:flex cursor-pointer mt-1 ${
-            hovered ? "visible" : "invisible"
-          }`}
-        >
-          <Typography text={<FaPlay />} color="white" />
-        </div>
-        <Typography text={id} color="white" styles="hidden xs:flex" />
-        <div className="w-[10rem] lg:w-[15rem]">
-          <Typography text={nombre} color="white" styles="truncate" />
-        </div>
-        <Typography text={duration} color="white" styles="hidden xs:flex" />
-      </div>
+      <TrackInfo
+        hovered={hovered}
+        id={id}
+        nombre={nombre}
+        duration={duration}
+      />
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"

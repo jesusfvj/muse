@@ -1,4 +1,9 @@
-export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
+export const DropDownMenu = ({
+  id,
+  activeDropdown,
+  handleToggleDropdown,
+  handleToggleModal,
+}) => {
   const isActive = activeDropdown == id;
   return (
     <div className="relative">
@@ -30,33 +35,24 @@ export const DropDownMenu = ({ id, activeDropdown, handleToggleDropdown, handleT
           aria-labelledby="dropdownMenuIconHorizontalButton"
         >
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2  hover:bg-gray-600 "
-            >
+            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
               Play Next
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2  hover:bg-gray-600 "
-            >
+            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
               Go to Artist
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2  hover:bg-gray-600 "
-            >
+            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
               Go to Album
             </a>
           </li>
         </ul>
         <div className="py-2">
           <button
-          onClick={handleToggleModal}
+            onClick={handleToggleModal}
             className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
           >
             Add to list
