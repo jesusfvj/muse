@@ -10,6 +10,7 @@ import {
   getSongs,
 } from "../API/MusicApi/MusicApi";
 import { useQuery } from "@tanstack/react-query";
+import { EmptyDefault } from "../Components/EmptyDefault";
 
 const skeletonData = [
   "",
@@ -87,7 +88,7 @@ export const MyLibrary = () => {
             <MosaicElements object={artists} dataType="artist" />
           </section>
         ) : (
-          <p>nothing to show</p>
+          <EmptyDefault text="Artists" styles={zStyles} />
         )}
         <Typography
           type="important"
@@ -116,7 +117,7 @@ export const MyLibrary = () => {
             <MosaicElements object={albums} dataType="album" />
           </section>
         ) : (
-          <p>nothing to show</p>
+          <EmptyDefault text="Albums" styles={zStyles} />
         )}
         {isLoadingSongs ? (
           <section id="Songs">
@@ -139,7 +140,7 @@ export const MyLibrary = () => {
             <MosaicElements object={songs} dataType="song" />
           </section>
         ) : (
-          <p>nothing to show</p>
+          <EmptyDefault text="Songs" styles={zStyles} />
         )}
         {isLoadingPlaylists ? (
           <section id="Playlists">
@@ -162,7 +163,7 @@ export const MyLibrary = () => {
             <MosaicElements object={playlists} dataType="playlist" />
           </section>
         ) : (
-          <p>nothing to show</p>
+          <EmptyDefault text="Playlists" styles={zStyles} />
         )}
 
         <section id="Your public lists">
@@ -194,7 +195,7 @@ export const MyLibrary = () => {
                 dataType="playlist" />
             </section>
           ) : (
-            <p>nothing to show</p>
+            <EmptyDefault text="Your public lists" styles={zStyles} />
           )}
         </section>
 
@@ -227,7 +228,7 @@ export const MyLibrary = () => {
                 dataType="playlist" />
             </section>
           ) : (
-            <p>nothing to show</p>
+            <EmptyDefault text="Your private lists" styles={zStyles} />
           )}
         </section>
       </div>
