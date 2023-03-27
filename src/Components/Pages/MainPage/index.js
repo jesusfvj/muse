@@ -1,2 +1,1 @@
-export * from './Header/Header';
-export * from './TrendingList/TrendingList';
+export * from './Header';

@@ -1,3 +1,5 @@
 export * from './LandingPage'
+export * from './MyLibrary'
+export * from './ArtistPage'
 export * from './MainPage'
 export * from './Profile'

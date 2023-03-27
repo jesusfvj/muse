@@ -89,16 +89,6 @@ export const MyLibrary = () => {
         ) : (
           <p>nothing to show</p>
         )}
-        {/* <section id="Artists">
-          <Typography
-            type="big"
-            text="Artists"
-            color="white"
-            styles={zStyles}
-          />
-          <MosaicElements object={artists} dataType="artist" />
-        </section> */}
-
         <Typography
           type="important"
           text="Loved ones"

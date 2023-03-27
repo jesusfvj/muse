@@ -2,14 +2,14 @@ import { useState } from "react";
 import { AlbumTrackElements } from "./AlbumTrackElements";
 
 export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
-  const [activeDropdown, setActiveDropdown] = useState(null)
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const handleToggleDropdown = (id) => {
     if (activeDropdown == id) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
-      setActiveDropdown(id)
+      setActiveDropdown(id);
     }
-  }
+  };
   return (
     <div className={`flex flex-col ${styles}`}>
       {songs.map((songs, idx) => {

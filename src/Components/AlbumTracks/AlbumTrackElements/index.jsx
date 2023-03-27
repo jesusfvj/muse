@@ -11,10 +11,15 @@ export const AlbumTrackElements = ({
   idx,
   activeDropdown,
   handleToggleDropdown,
-  handleToggleModal
+  handleToggleModal,
 }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
+
+  const hadleMouseOut = () => {
+    setHovered(false);
+    handleToggleDropdown(null);
+  };
 
   return (
     <div
@@ -22,10 +27,7 @@ export const AlbumTrackElements = ({
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-        handleToggleDropdown(null);
-      }}
+      onMouseLeave={hadleMouseOut}
     >
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
