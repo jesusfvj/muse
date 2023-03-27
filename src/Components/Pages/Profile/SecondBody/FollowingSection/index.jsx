@@ -1,11 +1,10 @@
-import { arrayTodaysHits } from "../../../../../../src/data/Profile/Profile";
 import { SecondBodySectionElement } from "./SecondBodySectionElement";
 
-export const FollowingSection = () => {
+export const FollowingSection = ({object}) => {
     return (
     <div className="flex flex-col gap-[5rem]">
         <SecondBodySectionElement
-        object={arrayTodaysHits}
+        object={object}
         sectionTitle="Artists"
         datatype="artist"
         />
