@@ -2,7 +2,7 @@ import { Typography } from "../../index";
 
 export const SkeletonPlaylistElement = () => {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse mx-2">
       <div
         className={`relative flex my-4 bg-gray-400 overflow-hidden select-none`}
       >

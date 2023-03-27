@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
 
-export const PlaylistElement = ({ object }) => {
+export const PlaylistElement = ({ object, isSwipping }) => {
+  const navigate = useNavigate();
   const { name, thumbnail, id } = object;
   const colors = {
     bg1: "bg-green-500",
@@ -17,38 +18,43 @@ export const PlaylistElement = ({ object }) => {
   function getRandomNumber() {
     return Math.floor(Math.random() * 7) + 1;
   }
-  const [randomColor, setRandomColor] = useState(
-    colors[`bg${getRandomNumber()}`]
-  );
+  const randomColor = useMemo(() => colors[`bg${getRandomNumber()}`], []);
+
+  const handleNavigate = () => {
+    if (!isSwipping) {
+      navigate(`/playlist/${id}`);
+    }
+  };
+
   return (
     <div>
-      <Link to={`/playlist/${id}`}>
+      <div
+        className={`relative flex my-4 ${randomColor} overflow-hidden select-none m-2 cursor-pointer`}
+        onClick={handleNavigate}
+      >
         <div
-          className={`relative flex my-4 ${randomColor} overflow-hidden select-none`}
+          className={
+            " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
+          }
         >
-          <div
-            className={
-              " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
-            }
-          >
-            <div className="w-full mt-2 px-3">
-              <Typography
-                text={name}
-                type="p1"
-                color="white"
-                family="lato"
-                styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
-              />
-            </div>
-            <img
-              src={thumbnail}
-              className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
+          <div className="w-full mt-2 px-3">
+            <Typography
+              text={name}
+              type="p1"
+              color="white"
+              family="lato"
+              styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
-            {/* <div className={`w-[4rem] h-[4rem] m-1 sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] ${bgImage} bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)]`}>
-                    </div> */}
           </div>
+          <img
+            src={thumbnail}
+            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
+          />
+          {/* <div className={`w-[4rem] h-[4rem] m-1 sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] ${bgImage} bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)]`}>
+                    </div> */}
         </div>
-      </Link>
+      </div>
+
       <div className="relative">
         <div className="absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
           <RoundButton

@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../Context/UserContext/UserContext";
 import { Button, InputWithLabel, Typography } from "../../../index";
 
 export const Register = ({ changeLogRegister }) => {
+  const { register } = useContext(UserContext);
+
   const [registerData, setRegisterData] = useState({
     fullName: "",
     email: "",
     password: "",
     repPassword: "",
   });
+  const [newData, setNewData] = useState(
+    JSON.parse(localStorage.getItem("register-data")) || []
+  );
+  useEffect(() => {
+    localStorage.setItem("register-data", JSON.stringify(newData));
+  }, [newData]);
+
   const handleRegister = (e) => {
     e.preventDefault();
+    register(registerData);
   };
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });

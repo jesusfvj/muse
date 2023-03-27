@@ -4,9 +4,13 @@ import { UserContext } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
 export const Login = ({ changeLogRegister }) => {
+  const navigate = useNavigate();
   const { login } = useContext(UserContext);
   const [rememberEmail, setRememberEmail] = useState(false);
-  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("rememberEmail");
@@ -15,26 +19,18 @@ export const Login = ({ changeLogRegister }) => {
     }
   }, []);
 
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
   const handleRememberEmailChange = (e) => {
     setRememberEmail(!rememberEmail);
   };
-  const handleLogin = (e) => {
-    e.preventDefault();
-    login("");
-    navigate("/", {
-      replace: true,
-    });
-
-    if (rememberEmail) {
-      localStorage.setItem("rememberEmail", loginData.email);
-    }
-  };
+  
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
+  
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login(loginData);
+    navigate("/main")
   };
 
   return (

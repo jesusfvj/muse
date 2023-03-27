@@ -2,7 +2,7 @@ import { Typography } from "../../index";
 
 export const SkeletonArtistElement = () => {
   return (
-    <div className="relative flex my-4 min-w-fit select-none animate-pulse">
+    <div className="relative flex my-4 min-w-fit select-none mx-2 animate-pulse">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "

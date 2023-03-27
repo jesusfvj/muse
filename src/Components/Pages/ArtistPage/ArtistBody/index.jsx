@@ -71,7 +71,7 @@ export const ArtistBody = () => {
             sectionTitle="Songs"
             dataType="song"
             itemsNumber={{
-              itemsSuperLarge: 8,
+              itemsSuperLarge: 7,
               itemsDesktop: 5,
               itemsTablet: 3,
               itemsMobile: 2,
@@ -95,8 +95,8 @@ export const ArtistBody = () => {
             sectionTitle="Albums"
             dataType="album"
             itemsNumber={{
-              itemsSuperLarge: 8,
-              itemsDesktop: 6,
+              itemsSuperLarge: 7,
+              itemsDesktop: 5,
               itemsTablet: 3,
               itemsMobile: 2,
             }}
@@ -118,8 +118,8 @@ export const ArtistBody = () => {
             sectionTitle="Artists"
             dataType="artist"
             itemsNumber={{
-              itemsSuperLarge: 8,
-              itemsDesktop: 6,
+              itemsSuperLarge: 7,
+              itemsDesktop: 5,
               itemsTablet: 3,
               itemsMobile: 2,
             }}
@@ -141,8 +141,8 @@ export const ArtistBody = () => {
             sectionTitle="Playlists"
             dataType="playlist"
             itemsNumber={{
-              itemsSuperLarge: 8,
-              itemsDesktop: 6,
+              itemsSuperLarge: 7,
+              itemsDesktop: 4,
               itemsTablet: 3,
               itemsMobile: 2,
             }}

@@ -34,6 +34,7 @@ export const Carousel = ({
   itemsDesktop = 4,
   itemsTablet = 3,
   itemsMobile = 1,
+  setIsSwipping
 }) => {
   const responsive = {
     superLargeDesktop: {
@@ -53,11 +54,13 @@ export const Carousel = ({
       items: itemsMobile,
     },
   };
-
+ 
   return (
     <MultiCarousel
       swipeable={true}
       draggable={true}
+      beforeChange={() => setIsSwipping(true)}
+      afterChange={() => setIsSwipping(false)}
       showDots={false}
       arrows={false}
       responsive={responsive}
@@ -65,7 +68,7 @@ export const Carousel = ({
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px h-full mx-2 "
+      itemClass="carousel-item-padding-40-px h-full  "
       renderButtonGroupOutside={true}
       customButtonGroup={<ButtonGroup />}
     >

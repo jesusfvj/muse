@@ -1,10 +1,8 @@
-import React from "react";
-import { Typography, RoundButton } from "../../index";
-import { FaPlay } from "react-icons/fa";
+import { Typography } from "../../index";
 
 export const SkeletonAlbumElement = () => {
   return (
-    <div className="relative flex my-4 animate-pulse">
+    <div className="relative flex my-4 mx-2 animate-pulse">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"
