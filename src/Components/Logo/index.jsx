@@ -36,7 +36,7 @@ export const Logo = ({
         alt="muze logo"
         className={size}
       />
-      <Typography text="Muze" type={fontType} color="white" family="lato" />
+      <Typography text="muze" type={fontType} color="white" family="lato" />
     </div>
   );
 };

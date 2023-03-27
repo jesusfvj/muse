@@ -180,11 +180,12 @@ export const MyLibrary = () => {
             <section id="Your Public Lists">
               <Typography
                 type="big"
-                text="Your Public Lists"
+                text="Your public lists"
                 color="white"
                 styles={zStyles}
               />
               <MosaicElements
+                list="yes"
                 object={skeletonData}
                 dataType="skeletonPlaylist"
               />
@@ -193,11 +194,14 @@ export const MyLibrary = () => {
             <section id="Playlists">
               <Typography
                 type="big"
-                text="Your Public Lists"
+                text="Your public lists"
                 color="white"
                 styles={zStyles}
               />
-              <MosaicElements object={playlists} dataType="playlist" />
+              <MosaicElements
+                list="yes"
+                object={playlists}
+                dataType="playlist" />
             </section>
           ) : (
             <p>nothing to show</p>
@@ -209,11 +213,12 @@ export const MyLibrary = () => {
             <section id="Your private lists">
               <Typography
                 type="big"
-                text="Playlists"
+                text="Your private lists"
                 color="white"
                 styles={zStyles}
               />
               <MosaicElements
+                list="yes"
                 object={skeletonData}
                 dataType="skeletonPlaylist"
               />
@@ -222,11 +227,14 @@ export const MyLibrary = () => {
             <section id="Your private lists">
               <Typography
                 type="big"
-                text="Playlists"
+                text="Your private lists"
                 color="white"
                 styles={zStyles}
               />
-              <MosaicElements object={playlists} dataType="playlist" />
+              <MosaicElements
+                list="yes"
+                object={playlists}
+                dataType="playlist" />
             </section>
           ) : (
             <p>nothing to show</p>
