@@ -8,7 +8,7 @@ export const AlbumElement = ({ object }) => {
   const [hovered, setHovered] = useState(false);
   const { name, imageUrl, artist } = object;
   return (
-    <div className="relative flex my-4 mx-2"
+    <div className="relative flex my-4 mx-2 shadow-md"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}>
       <div

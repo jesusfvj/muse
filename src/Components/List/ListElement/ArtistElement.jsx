@@ -8,7 +8,7 @@ export const ArtistElement = ({ object }) => {
   const [hovered, setHovered] = useState(false);
   const { name, photoUrl } = object;
   return (
-    <div className="relative flex my-4 mx-2 select-none"
+    <div className="relative flex my-4 mx-2 select-none shadow-md"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}>
       <div
