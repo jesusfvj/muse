@@ -6,7 +6,7 @@ export const EmptyDefault = ({ text, height, styles, error = false }) => {
       <Typography type="big" text={text} color="white" styles={styles} />
       <div className="w-full h-[6rem] sm:h-[10rem] md:h-[13rem] mt-[1rem]">
         <div
-          className={`h-full w-full text-center flex justify-center items-center border border-gray-500 ${styles}`}
+          className={`h-full w-full text-center flex justify-center items-center bg-gray-400/20 shadow-md ${styles}`}
         >
           <Typography
             color="secondary"

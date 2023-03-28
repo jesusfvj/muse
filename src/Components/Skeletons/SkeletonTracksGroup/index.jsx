@@ -24,7 +24,7 @@ const skeletonData = [
   "",
 ];
 
-export const SkeletonAlbumTracks = () => {
+export const SkeletonTracksGroup = () => {
   return (
     <div className={`flex flex-col w-4/5`}>
       {skeletonData.map((songs, idx) => {

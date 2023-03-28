@@ -31,7 +31,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   return (
     <div>
       <div
-        className={`relative flex my-4 ${randomColor} overflow-hidden select-none m-2 cursor-pointer`}
+        className={`relative flex my-4 ${randomColor} shadow-md overflow-hidden select-none m-2 cursor-pointer`}
         onClick={handleNavigate}
       >
         <div

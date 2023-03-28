@@ -4,7 +4,7 @@ import { getSongs } from "../API/MusicApi/MusicApi";
 import { AlbumHeader, AlbumTracks } from "../Components";
 import { AddToPlaylistModal } from "../Components/AddToPlaylistModal";
 import { Layout } from "../Components/Layout";
-import { SkeletonAlbumTracks } from "../Components/Skeletons";
+import { SkeletonTracksGroup } from "../Components/Skeletons";
 
 export const Album = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +30,7 @@ export const Album = () => {
             handleToggleModal={handleToggleModal}
           />
         ) : isLoadingSongs ? (
-          <SkeletonAlbumTracks />
+          <SkeletonTracksGroup />
         ) : errorSongs ? (
           "error"
         ) : (
