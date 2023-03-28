@@ -6,9 +6,12 @@ import { Typography, RoundButton } from "../../index";
 export const SongElement = ({ object }) => {
   const { name, artist, thumbnail } = object;
   const [clicked, setClicked] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="relative flex my-4 mx-2 select-none">
+    <div className="relative flex my-4 mx-2 select-none"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}>
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
@@ -41,11 +44,12 @@ export const SongElement = ({ object }) => {
       <div className="absolute bottom-2 left-4 cursor-pointer flex justify-center items-center" onClick={() => (clicked ? setClicked(false) : setClicked(true))}>
         <Typography
           text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
-          color="white"
+          color={!clicked ? 'secondary': 'white'}
           styles="hidden xs:flex"
         />
-        </div>
-      <div className="absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
+      </div>
+      <div className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
+      ${hovered?'flex animation-pop-glow':'hidden'}`}>
         <RoundButton
           color="gray"
           background="gradient"
