@@ -11,6 +11,7 @@ import { FollowingSection } from "./FollowingSection";
 import { YourListsSection } from "./YourListsSection";
 import { LovedSection } from "./LovedSection";
 import { useQuery } from "@tanstack/react-query";
+import { EmptyDefault } from "../../../EmptyDefault";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
@@ -46,7 +47,7 @@ export const FavoriteMusic = () => {
             object={!isLoadingArtists ? artists : skeletonData}
           />
         ) : (
-          "error"
+          <EmptyDefault error={true} text="Following" />
         )}
       </div>
 
@@ -60,7 +61,10 @@ export const FavoriteMusic = () => {
             object2={!isLoadingSongs ? songs : skeletonData}
           />
         ) : (
-          "error"
+          <>
+            <EmptyDefault error={true} text="Albums" />
+            <EmptyDefault error={true} text="Songs" />
+          </>
         )}
       </div>
       <div>
@@ -71,7 +75,7 @@ export const FavoriteMusic = () => {
             object={!isLoadingPlaylists ? playlists : skeletonData}
           />
         ) : (
-          "error"
+          <EmptyDefault error={true} />
         )}
       </div>
 
