@@ -12,6 +12,7 @@ import { MainPage } from "../Pages/MainPage";
 import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import { MusicPlayer } from "../Components";
+import PublicRoute from "../PublicRoute";
 
 function Router() {
   const location = useLocation();
@@ -28,7 +29,7 @@ function Router() {
         <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible}/>
       </div>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute> }/>
         <Route
           path="/*"
           element={
