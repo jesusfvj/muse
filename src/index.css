@@ -141,3 +141,21 @@ input[type="range"]:focus {
   border-bottom:none !important;
   box-shadow: 0 0 0 transparent !important;
 }
+
+@keyframes pop {
+  0% {transform: translateY(-1rem);}
+  100% {transform: translateY(0rem);}
+}
+
+@keyframes glow {
+  0% {box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);}
+  50% {box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);}
+  100% {box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);}
+}
+
+.animation-pop-glow{
+  animation-name: pop, glow;
+  animation-duration: 300ms, 3s;
+  animation-iteration-count: 1, infinite;
+  animation-delay: 0s, 200ms;
+}

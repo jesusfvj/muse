@@ -77,7 +77,21 @@ export const MyLibrary = () => {
             />
             <MosaicElements object={skeletonData} dataType="skeletonArtist" />
           </section>
-        ) : artists && !isLoadingArtists ? (
+        ) : !isLoadingArtists && errorArtists ? (
+          <section id="Artists">
+            <Typography
+              type="big"
+              text="Artists"
+              color="white"
+              styles={zStyles}
+            />
+            <Typography
+              text="Ooops... Something bad happened..."
+              color="secondary"
+              styles={`${zStyles} p-4`}
+            />
+          </section>
+        ) : artists?.length && !isLoadingArtists ? (
           <section id="Artists">
             <Typography
               type="big"
@@ -106,7 +120,21 @@ export const MyLibrary = () => {
             />
             <MosaicElements object={skeletonData} dataType="skeletonAlbum" />
           </section>
-        ) : albums && !isLoadingAlbums ? (
+        ) : errorAlbums ? (
+          <section id="Albums">
+            <Typography
+              type="big"
+              text="Albums"
+              color="white"
+              styles={zStyles}
+            />
+            <Typography
+              text="Ooops... Something bad happened..."
+              color="secondary"
+              styles={`${zStyles} p-4`}
+            />
+          </section>
+        ) : albums?.length && !isLoadingAlbums ? (
           <section id="Albums">
             <Typography
               type="big"
@@ -129,7 +157,21 @@ export const MyLibrary = () => {
             />
             <MosaicElements object={skeletonData} dataType="skeletonSong" />
           </section>
-        ) : songs && !isLoadingSongs ? (
+        ) : errorSongs ? (
+          <section id="Songs">
+            <Typography
+              type="big"
+              text="Songs"
+              color="white"
+              styles={zStyles}
+            />
+            <Typography
+              text="Ooops... Something bad happened..."
+              color="secondary"
+              styles={`${zStyles} p-4`}
+            />
+          </section>
+        ) : songs?.length && !isLoadingSongs ? (
           <section id="Songs">
             <Typography
               type="big"
@@ -152,7 +194,21 @@ export const MyLibrary = () => {
             />
             <MosaicElements object={skeletonData} dataType="skeletonPlaylist" />
           </section>
-        ) : playlists && !isLoadingPlaylists ? (
+        ) : errorPlaylists ? (
+          <section id="Playlists">
+            <Typography
+              type="big"
+              text="Playlists"
+              color="white"
+              styles={zStyles}
+            />
+            <Typography
+              text="Ooops... Something bad happened..."
+              color="secondary"
+              styles={`${zStyles} p-4`}
+            />
+          </section>
+        ) : playlists?.length && !isLoadingPlaylists ? (
           <section id="Playlists">
             <Typography
               type="big"
@@ -181,7 +237,21 @@ export const MyLibrary = () => {
                 dataType="skeletonPlaylist"
               />
             </section>
-          ) : playlists && !isLoadingPlaylists ? (
+          ) : errorPlaylists ? (
+            <section id="Playlists">
+              <Typography
+                type="big"
+                text="Playlists"
+                color="white"
+                styles={zStyles}
+              />
+              <Typography
+                text="Ooops... Something bad happened..."
+                color="secondary"
+                styles={`${zStyles} p-4`}
+              />
+            </section>
+          ) : playlists?.length && !isLoadingPlaylists ? (
             <section id="Playlists">
               <Typography
                 type="big"
@@ -192,7 +262,8 @@ export const MyLibrary = () => {
               <MosaicElements
                 list="yes"
                 object={playlists}
-                dataType="playlist" />
+                dataType="playlist"
+              />
             </section>
           ) : (
             <EmptyDefault text="Your public lists" styles={zStyles} />
@@ -214,7 +285,21 @@ export const MyLibrary = () => {
                 dataType="skeletonPlaylist"
               />
             </section>
-          ) : playlists && !isLoadingPlaylists ? (
+          ) : errorPlaylists ? (
+            <section id="Playlists">
+              <Typography
+                type="big"
+                text="Playlists"
+                color="white"
+                styles={zStyles}
+              />
+              <Typography
+                text="Ooops... Something bad happened..."
+                color="secondary"
+                styles={`${zStyles} p-4`}
+              />
+            </section>
+          ) : playlists?.length && !isLoadingPlaylists ? (
             <section id="Your private lists">
               <Typography
                 type="big"
@@ -225,7 +310,8 @@ export const MyLibrary = () => {
               <MosaicElements
                 list="yes"
                 object={playlists}
-                dataType="playlist" />
+                dataType="playlist"
+              />
             </section>
           ) : (
             <EmptyDefault text="Your private lists" styles={zStyles} />

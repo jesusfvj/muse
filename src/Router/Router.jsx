@@ -21,13 +21,7 @@ function Router() {
   return (
     <>
       <ScrollTop />
-      <div
-        className={`${
-          !isMusicPlayerVisible && "hidden"
-        } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
-      >
-        <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible}/>
-      </div>
+      <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible} />
       <Routes>
         <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute> }/>
         <Route
@@ -36,14 +30,14 @@ function Router() {
             <ProtectedRoutes>
               <Routes>
                 <Route path="/main" element={<MainPage />} />
-                <Route path="/playlist" element={<Playlist />} >
+                <Route path="/playlist" element={<Playlist />}>
                   <Route path=":playlistId" element={<Playlist />} />
                 </Route>
                 <Route path="/album" element={<Album />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/artist" element={<Artist />} />
                 <Route path="/player" element={<Player />} />
-                <Route path="/search" element={<Search />} >
+                <Route path="/search" element={<Search />}>
                   <Route path=":query" element={<Search />} />
                 </Route>
                 <Route path="/mylibrary" element={<MyLibrary />} />

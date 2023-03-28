@@ -13,7 +13,6 @@ export const FormWithInput = ({ text, name, type, value, nameTwo, input }) => {
             <form className='flex flex-col gap-4 pt-[1rem]'>
                 <InputElement text={text} name={name} type={type} value={value} input={input}/>
                 <InputElement text={text} name={nameTwo} type={type} input={input}/>
-                <Button text="Submit" color="black" size="sm" onClick={handleClick}/>
             </form>
         </div>
     )
