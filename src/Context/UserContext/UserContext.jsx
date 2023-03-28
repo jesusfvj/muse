@@ -2,7 +2,7 @@ import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
 import { loginUser, registerUser } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
-import {userReducer} from './UserReducer'
+import { userReducer } from "./UserReducer";
 
 export const UserContext = createContext();
 
