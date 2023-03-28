@@ -48,7 +48,6 @@ export const SkeletonTracksGroup = () => {
               <div className="w-[10rem] lg:w-[15rem]">
                 <Typography text=". . ." color="white" styles="truncate p-1" type="subSection" />
               </div>
-              <Typography text=". . ." color="white" styles="hidden xs:flex p-1" type="subSection" />
             </div>
             <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
               <div className="cursor-pointer flex justify-center items-center">

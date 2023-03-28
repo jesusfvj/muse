@@ -5,13 +5,12 @@ import {
   getPlaylists,
   getSongs,
 } from "../../../../API/MusicApi/MusicApi";
-import { songs2 } from "../../../../data/data.js";
 import { TitleSection } from "./TitleSection";
 import { FollowingSection } from "./FollowingSection";
-import { YourListsSection } from "./YourListsSection";
 import { LovedSection } from "./LovedSection";
 import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../../../EmptyDefault";
+import { SkeletonTracksGroup } from "../../../Skeletons";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
@@ -81,11 +80,27 @@ export const FavoriteMusic = () => {
 
       <div>
         <TitleSection titleSection="Most listened songs this week" />
-        <AlbumTracks songs={songs2} styles="sm:pr-[3rem]" />
+        {!isLoadingSongs && songs?.length ? (
+          <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
+        ) : errorSongs ? (
+          <EmptyDefault error={true} />
+        ) : isLoadingSongs ? (
+          <SkeletonTracksGroup />
+        ) : (
+          <EmptyDefault />
+        )}
       </div>
-      <div>
+      <div className="pb-12">
         <TitleSection titleSection="Most listened songs this month" />
-        <AlbumTracks songs={songs2} styles="sm:pr-[3rem] pb-[6rem]" />
+        {!isLoadingSongs && songs?.length ? (
+          <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
+        ) : errorSongs ? (
+          <EmptyDefault error={true} />
+        ) : isLoadingSongs ? (
+          <SkeletonTracksGroup />
+        ) : (
+          <EmptyDefault />
+        )}
       </div>
     </div>
   );
