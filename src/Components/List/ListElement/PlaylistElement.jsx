@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
+  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
   const { name, thumbnail, id } = object;
   const colors = {
@@ -54,7 +56,13 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                     </div> */}
         </div>
       </div>
-
+      <div className="absolute bottom-6 left-5 cursor-pointer flex justify-center items-center" onClick={() => (clicked ? setClicked(false) : setClicked(true))}>
+        <Typography
+          text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+          color="white"
+          styles="hidden xs:flex"
+        />
+        </div>
       <div className="relative">
         <div className="absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center">
           <RoundButton

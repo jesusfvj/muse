@@ -6,7 +6,7 @@ import {
   getPlaylists,
   getSongs,
 } from "../../../../API/MusicApi/MusicApi";
-import { List } from "../../../List";
+import { EmptyDefault, List } from "../../../index";
 
 const skeletonData = [
   "",
@@ -84,7 +84,7 @@ export const ArtistBody = () => {
             sectionTitle="Songs"
           />
         ) : (
-          "error"
+          <EmptyDefault text="Songs" />
         )}
       </div>
 
@@ -108,7 +108,7 @@ export const ArtistBody = () => {
             sectionTitle="Albums"
           />
         ) : (
-          "error"
+          <EmptyDefault text="Albums" />
         )}
       </div>
       <div className="w-full md:w-5/6">
@@ -131,7 +131,7 @@ export const ArtistBody = () => {
             sectionTitle="Artists"
           />
         ) : (
-          "error"
+          <EmptyDefault text="Artists" />
         )}
       </div>
       <div className="w-full md:w-5/6">
@@ -154,7 +154,7 @@ export const ArtistBody = () => {
             sectionTitle="Playlists"
           />
         ) : (
-          "error"
+          <EmptyDefault text="Playlists" />
         )}
       </div>
     </div>
