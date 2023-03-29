@@ -11,17 +11,12 @@ import { Search } from "../Pages/Search";
 import { MainPage } from "../Pages/MainPage";
 import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
-import { MusicPlayer } from "../Components";
 import PublicRoute from "../PublicRoute";
 
 function Router() {
-  const location = useLocation();
-  const isMusicPlayerVisible = location.pathname !== "/";
-
   return (
     <>
       <ScrollTop />
-      <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible} />
       <Routes>
         <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute> }/>
         <Route
