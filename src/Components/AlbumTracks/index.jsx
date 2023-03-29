@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatTime } from "../../Utils/formatTime";
 import { AlbumTrackElements } from "./AlbumTrackElements";
 
 export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
@@ -13,13 +14,13 @@ export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
   return (
     <div className={`flex flex-col ${styles}`}>
       {songs.map((songs, idx) => {
-        const { id, nombre, duration } = songs;
+        const { id, name, duration } = songs;
         return (
           <AlbumTrackElements
-            key={`${nombre}-${idx}`}
+            key={`${name}-${idx}`}
             id={id}
-            nombre={nombre}
-            duration={duration}
+            nombre={name}
+            duration={formatTime(duration)}
             idx={idx}
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}

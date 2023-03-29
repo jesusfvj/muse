@@ -132,7 +132,7 @@ export const Search = () => {
             type="text"
             placeholder="Buscar"
             value={searchInput}
-            className=" rounded-3xl h-12 w-4/12"
+            className=" rounded-3xl py-2 px-8 "
             onChange={(e) => handleChange(e)}
           />
         </div>

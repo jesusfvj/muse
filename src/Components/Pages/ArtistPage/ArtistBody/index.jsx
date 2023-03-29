@@ -65,7 +65,7 @@ export const ArtistBody = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
       <div className="w-full md:w-5/6">
-        {songs ? (
+        {songs?.length ? (
           <List
             object={songs}
             sectionTitle="Songs"
@@ -83,13 +83,15 @@ export const ArtistBody = () => {
             object={skeletonData}
             sectionTitle="Songs"
           />
+        ) : errorSongs ? (
+          <EmptyDefault error text="Songs" />
         ) : (
           <EmptyDefault text="Songs" />
         )}
       </div>
 
       <div className="w-full md:w-5/6">
-        {albums ? (
+        {albums?.length ? (
           <List
             object={albums}
             sectionTitle="Albums"
@@ -107,12 +109,14 @@ export const ArtistBody = () => {
             object={skeletonData}
             sectionTitle="Albums"
           />
+        ) : errorAlbums ? (
+          <EmptyDefault error text="Albums" />
         ) : (
           <EmptyDefault text="Albums" />
         )}
       </div>
       <div className="w-full md:w-5/6">
-        {artists ? (
+        {artists?.length ? (
           <List
             object={artists}
             sectionTitle="Artists"
@@ -130,12 +134,14 @@ export const ArtistBody = () => {
             object={skeletonData}
             sectionTitle="Artists"
           />
+        ) : errorArtists ? (
+          <EmptyDefault error text="Artists" />
         ) : (
           <EmptyDefault text="Artists" />
         )}
       </div>
       <div className="w-full md:w-5/6">
-        {playlists ? (
+        {playlists?.length ? (
           <List
             object={playlists}
             sectionTitle="Playlists"
@@ -153,6 +159,8 @@ export const ArtistBody = () => {
             object={skeletonData}
             sectionTitle="Playlists"
           />
+        ) : errorPlaylists ? (
+          <EmptyDefault error text="Playlists" />
         ) : (
           <EmptyDefault text="Playlists" />
         )}

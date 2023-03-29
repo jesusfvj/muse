@@ -1,14 +1,14 @@
-import { SecondBodySectionElement } from "../FollowingSection/SecondBodySectionElement";
+import { FavoriteMusicElement } from "../FavoriteMusicElement";
 
 export const YourListsSection = ({object}) => {
     return (
         <div className="flex flex-col gap-[5rem]">
-        <SecondBodySectionElement
+        <FavoriteMusicElement
         object={object}
         sectionTitle="Your public lists"
         datatype="song"
         />
-        <SecondBodySectionElement
+        <FavoriteMusicElement
         object={object}
         sectionTitle="Your private lists"
         datatype="playlist"

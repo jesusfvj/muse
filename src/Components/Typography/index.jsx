@@ -11,6 +11,7 @@ export const Typography = ({
     important: `text-2xl sm:text-5xl font-bold`,
     headline: `text-5xl xs:text-7xl sm:text-8xl font-bold`,
     big: `text-xl sm:text-4xl font-bold`,
+    p0: `text-xl sm:text-2xl font-normal`,
     p1: `text-sm sm:text-lg font-normal`,
     p2: `text-xs sm:text-md font-normal`,
     section: `text-2xl sm:text-4xl font-bold`,
@@ -32,6 +33,7 @@ export const Typography = ({
   const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]} ${styles}`;
 
   switch (type) {
+    case "p0":
     case "p1":
     case "p2":
     case "important":
