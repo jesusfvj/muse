@@ -4,8 +4,8 @@ import { useUser } from '../Context/UserContext/UserContext';
 
 
 function PublicRoute({ children }) {
-    const {isLogged} = useUser()
-    if (isLogged){
+    const {user} = useUser()
+    if (user){
      return <Navigate to='/main' /> 
     }
      return children;   

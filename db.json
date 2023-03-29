@@ -2315,14 +2315,6 @@
   ],
   "user": [
     {
-      "id": 1,
-      "first_name": "Assembler",
-      "last_name": "Institute",
-      "email": "music@assemblerschool.com",
-      "profilePicture": "https://robohash.org/suntvoluptasnisi.png?size=50x50&set=set1",
-      "isLoggedin": false
-    },
-    {
       "fullName": "Miquel",
       "email": "m@m.com",
       "password": "m",
@@ -2370,6 +2362,13 @@
       "password": "123",
       "repPassword": "123",
       "id": 6
+    },
+    {
+      "fullName": "berta",
+      "email": "b@b.com",
+      "password": "1234",
+      "repPassword": "1234",
+      "id": 7
     }
   ],
   "albums": [

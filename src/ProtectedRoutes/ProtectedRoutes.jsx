@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useUser } from "../Context/UserContext/UserContext";
 
 const ProtectedRoutes = ({ children }) => {
-  const { isLogged } = useUser();
+  const { user } = useUser();
 
-  return isLogged ? children : <Navigate to="/" />;
+  return user ? children : <Navigate to="/" />;
 };
 
 export default ProtectedRoutes;

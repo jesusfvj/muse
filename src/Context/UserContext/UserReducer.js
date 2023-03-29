@@ -5,19 +5,16 @@ export const userReducer = (state = {}, action) => {
     case types.register:
       return {
         ...state,
-        isLogged: true,
         user: { ...action.payload },
       };
     case types.login:
       return {
         ...state,
-        isLogged: true,
         user: {...action.payload},
       };
     case types.logout:
       return {
         ...state,
-        isLogged: false,
         user: null,
       };
 

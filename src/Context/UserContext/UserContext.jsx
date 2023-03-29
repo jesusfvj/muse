@@ -14,8 +14,7 @@ export const useUser = () => {
 const init = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return {
-    isLogged: !!user,
-    user,
+    user
   };
 };
 
