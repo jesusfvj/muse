@@ -1,5 +1,19 @@
 import { BsThreeDots } from "react-icons/bs";
 import { Typography } from "../Typography";
+import { DropdownElement } from "./DropdownElement";
+
+const items = [{
+  text: "Play Next",
+  path: null,
+},
+{
+  text: "Go to Artist",
+  path: "/artist",
+},
+{
+  text: "Go to Album",
+  path: "/album",
+}]
 
 export const DropDownMenu = ({
   id,
@@ -29,21 +43,10 @@ export const DropDownMenu = ({
           className="py-2 text-sm text-white "
           aria-labelledby="dropdownMenuIconHorizontalButton"
         >
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Play Next
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Go to Artist
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Go to Album
-            </a>
-          </li>
+        { items.map((item) => {
+          const { text,path } = item
+          return <DropdownElement key={text} text={text} path={path} />
+        }) }
         </ul>
         <div className="py-2">
           <button
