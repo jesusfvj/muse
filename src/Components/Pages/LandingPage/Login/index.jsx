@@ -58,7 +58,7 @@ export const Login = ({ changeLogRegister }) => {
             onChange={handleRememberEmailChange}
             className="checkbox"
           />
-          <Typography text="Remember my email?" color="primary" type="p1" />
+          <Typography text="Remember credentials?" color="primary" type="p1" />
         </div>
         <Button onClick={handleLogin} text="Log In" />
       </form>
