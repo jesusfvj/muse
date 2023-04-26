@@ -15,8 +15,8 @@ export const Playlist = () => {
   };
 
   const [songs, setSongs] = useState();
-  const { playlistId = 1} = useParams();
-  
+  const { playlistId = 1 } = useParams();
+
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,
@@ -40,9 +40,14 @@ export const Playlist = () => {
     <Layout>
       {songs && (
         <>
-          <PlaylistsHeader name={songs.name} thumbnail={songs.thumbnail} isFollowed={songs.isFollowed}/>
-          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen py-48">
-            <PlaylistsTracks handleToggleModal={handleToggleModal} songs={songs.tracks} styles="w-full md:w-4/5" />
+          <PlaylistsHeader name={songs.name} thumbnail={songs.thumbnail} />
+          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen py-20 md:py-48">
+            <PlaylistsTracks
+              handleToggleModal={handleToggleModal}
+              songs={songs.tracks}
+              isFollowed={songs.isFollowed}
+              styles="w-full md:w-4/5"
+            />
           </div>
         </>
       )}
