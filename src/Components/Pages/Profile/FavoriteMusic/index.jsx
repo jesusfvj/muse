@@ -14,7 +14,7 @@ import { SkeletonTracksGroup } from "../../../Skeletons";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
-export const FavoriteMusic = () => {
+export const FavoriteMusic = ({handleToggleModal}) => {
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -81,7 +81,7 @@ export const FavoriteMusic = () => {
       <div>
         <TitleSection titleSection="Loved songs" />
         {!isLoadingSongs && songs?.length ? (
-          <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
+          <AlbumTracks songs={songs} styles="sm:pr-[3rem]" handleToggleModal={handleToggleModal}/>
         ) : errorSongs ? (
           <EmptyDefault error={true} />
         ) : isLoadingSongs ? (
