@@ -60,12 +60,14 @@ export const Navbar = () => {
             />
           );
         })}
-        <div
-          className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md"
-          onClick={handleLogout}
-        >
-          <Typography text="LOGOUT" />
-        </div>
+        {isNavOpen && (
+          <div
+            className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md"
+            onClick={handleLogout}
+          >
+            <Typography text="LOGOUT" />
+          </div>
+        )}
       </div>
     </div>
   );

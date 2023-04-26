@@ -23,6 +23,7 @@ export const Typography = ({
     white: "text-white",
     primary: "text-gray-400",
     secondary: "text-gray-500",
+    transparent: "text-gray-500/0",
   };
 
   const fontFamily = {

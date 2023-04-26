@@ -33,7 +33,7 @@ export const Layout = ({ children }) => {
     setIsNavOpen(false);
   }, [location]);
 
-  const isMusicPlayerVisible = location.pathname !== "/";
+  const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/player";
   const isContextMenuVisible = location.pathname !== "/";
 
   return (
@@ -53,7 +53,7 @@ export const Layout = ({ children }) => {
           onClick={handleToggleNav}
         />
       )}
-      <div className="grow mb-[10vh]" onClick={handleHideNav}>
+      <div className={`grow ${isMusicPlayerVisible && "mb-[10vh]"}`} onClick={handleHideNav}>
         {children}
       </div>
     </div>
