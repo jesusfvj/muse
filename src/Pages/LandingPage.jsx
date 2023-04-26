@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Typography } from "../Components";
 import { Logo } from "../Components/Logo";
 import { Login, Register } from "../Components/Pages/LandingPage";
 
