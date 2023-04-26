@@ -5,7 +5,6 @@ import { Typography, RoundButton } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Dropdown } from "../Dropdown";
-import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
