@@ -5,7 +5,12 @@ export const FollowingSection = ({object, datatype}) => {
     <div className="flex flex-col gap-[5rem]">
         <FavoriteMusicElement
         object={object}
-        sectionTitle="Artists"
+        sectionTitle="Public lists"
+        datatype={datatype}
+        />
+        <FavoriteMusicElement
+        object={object}
+        sectionTitle="Private lists"
         datatype={datatype}
         />
     </div>

@@ -10,7 +10,7 @@ export const LovedSection = ({ object1, object2, datatype1, datatype2 }) => {
       />
       <FavoriteMusicElement
         object={object2}
-        sectionTitle="Songs"
+        sectionTitle="Uploaded songs"
         datatype={datatype2}
       />
     </div>

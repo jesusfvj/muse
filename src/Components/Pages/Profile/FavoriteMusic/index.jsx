@@ -79,7 +79,7 @@ export const FavoriteMusic = () => {
       </div>
 
       <div>
-        <TitleSection titleSection="Most listened songs this week" />
+        <TitleSection titleSection="Loved songs" />
         {!isLoadingSongs && songs?.length ? (
           <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
         ) : errorSongs ? (
@@ -90,7 +90,7 @@ export const FavoriteMusic = () => {
           <EmptyDefault />
         )}
       </div>
-      <div className="pb-12">
+      {/* <div className="pb-12">
         <TitleSection titleSection="Most listened songs this month" />
         {!isLoadingSongs && songs?.length ? (
           <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
@@ -101,7 +101,7 @@ export const FavoriteMusic = () => {
         ) : (
           <EmptyDefault />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
