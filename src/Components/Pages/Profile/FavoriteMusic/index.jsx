@@ -14,7 +14,7 @@ import { SkeletonTracksGroup } from "../../../Skeletons";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
-export const FavoriteMusic = () => {
+export const FavoriteMusic = ({ handleToggleModal }) => {
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -42,8 +42,12 @@ export const FavoriteMusic = () => {
         <TitleSection titleSection="Following" />
         {!errorArtists ? (
           <FollowingSection
-            datatype={!isLoadingArtists ? "artist" : "skeletonArtist"}
-            object={!isLoadingArtists ? artists : skeletonData}
+            datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
+            object1={!isLoadingArtists ? artists : skeletonData}
+            title1="Artists"
+            datatype2={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
+            object2={!isLoadingPlaylists ? playlists : skeletonData}
+            title2="Playlists"
           />
         ) : (
           <EmptyDefault error={true} text="Following" />
@@ -67,11 +71,15 @@ export const FavoriteMusic = () => {
         )}
       </div>
       <div>
-        <TitleSection titleSection="Your lists" />
+        <TitleSection titleSection="Your playlists" />
         {!errorPlaylists ? (
           <FollowingSection
-            datatype={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
-            object={!isLoadingPlaylists ? playlists : skeletonData}
+            title1="Public"
+            datatype1={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
+            object1={!isLoadingPlaylists ? playlists : skeletonData}
+            datatype2={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
+            object2={!isLoadingPlaylists ? playlists : skeletonData}
+            title2="Private"
           />
         ) : (
           <EmptyDefault error={true} />
@@ -79,9 +87,13 @@ export const FavoriteMusic = () => {
       </div>
 
       <div>
-        <TitleSection titleSection="Most listened songs this week" />
+        <TitleSection titleSection="Loved songs" />
         {!isLoadingSongs && songs?.length ? (
-          <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
+          <AlbumTracks
+            songs={songs}
+            styles="sm:pr-[3rem]"
+            handleToggleModal={handleToggleModal}
+          />
         ) : errorSongs ? (
           <EmptyDefault error={true} />
         ) : isLoadingSongs ? (
@@ -90,7 +102,7 @@ export const FavoriteMusic = () => {
           <EmptyDefault />
         )}
       </div>
-      <div className="pb-12">
+      {/* <div className="pb-12">
         <TitleSection titleSection="Most listened songs this month" />
         {!isLoadingSongs && songs?.length ? (
           <AlbumTracks songs={songs} styles="sm:pr-[3rem]" />
@@ -101,7 +113,7 @@ export const FavoriteMusic = () => {
         ) : (
           <EmptyDefault />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
