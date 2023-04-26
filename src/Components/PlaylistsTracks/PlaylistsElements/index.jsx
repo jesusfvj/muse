@@ -23,6 +23,7 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
           }`}
         >
           <Typography text={<FaPlay />} color="white" />
+
         </div>
         <Typography text={id} color="white" styles="hidden xs:flex" />
         <div className="w-[10rem] lg:w-[15rem]">
@@ -45,7 +46,7 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
           onClick={() => (clicked ? setClicked(false) : setClicked(true))}
         >
           <Typography
-            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart /> }
             color="white"
             styles="hidden xs:flex"
           />

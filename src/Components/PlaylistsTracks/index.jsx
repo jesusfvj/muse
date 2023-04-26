@@ -9,6 +9,7 @@ export const PlaylistsTracks = ({
   styles,
   handleToggleModal,
   isFollowed,
+  isPublic,
 }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const handleToggleDropdown = (id) => {
