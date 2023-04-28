@@ -3,6 +3,7 @@ import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
 import { tracks } from "../../../../data/SongsData/SongsData";
 import { Typography } from "../../../Typography";
+import { Link } from "react-router-dom";
 
 export const MusicPlayer = () => {
   const [track, setTracks] = useState(tracks);
