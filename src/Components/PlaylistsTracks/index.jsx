@@ -8,9 +8,7 @@ import { AddSongsModal } from "../Pages/Playlist";
 export const PlaylistsTracks = ({
   songs,
   styles,
-  handleToggleModal,
   isFollowed,
-  isPublic,
 }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isAddSongsModalOpen, setIsAddSongsModalOpen] = useState(false);
@@ -44,7 +42,6 @@ export const PlaylistsTracks = ({
             key={`${name}-${idx}`}
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
             id={id}
             artist={artist}
             nombre={name}

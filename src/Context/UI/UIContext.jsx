@@ -10,7 +10,7 @@ export const useUI = () => {
 export const UIProvider = ({ children }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] =
-    useState(true);
+    useState(false);
 
   const handleTogglePlaylistModal = () => {
     setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);

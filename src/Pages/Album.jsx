@@ -7,17 +7,11 @@ import { Layout } from "../Components/Layout";
 import { SkeletonTracksGroup } from "../Components/Skeletons";
 
 export const Album = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
   } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
-
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   return (
     <Layout>
@@ -27,7 +21,6 @@ export const Album = () => {
           <AlbumTracks
             songs={songs}
             styles="w-4/5"
-            handleToggleModal={handleToggleModal}
           />
         ) : isLoadingSongs ? (
           <SkeletonTracksGroup />
@@ -37,9 +30,6 @@ export const Album = () => {
           "No tracks"
         )}
       </div>
-      {isModalOpen && (
-        <AddToPlaylistModal handleToggleModal={handleToggleModal} />
-      )}
     </Layout>
   );
 };

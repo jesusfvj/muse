@@ -11,9 +11,6 @@ export const PlaylistsElements = ({
   nombre,
   idx,
   artist,
-  activeDropdown,
-  handleToggleDropdown,
-  handleToggleModal,
 }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
