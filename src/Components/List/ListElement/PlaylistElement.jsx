@@ -7,6 +7,7 @@ import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Dropdown } from "../Dropdown";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
   const [clicked, setClicked] = useState(false);
@@ -71,7 +72,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
             " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
           }
         >
-          <div className="w-full mt-2 px-3">
+          <Link to="/playlist" className="w-full mt-2 px-3">
             <Typography
               text={name}
               type="p1"
@@ -79,8 +80,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               family="lato"
               styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
-          </div>
-          {/* {location.pathname === "/mylibrary" && ( */}
+          </Link>
             <div className="absolute top-3 right-3">
             <button onClick={handleIconClick}>
               <Typography

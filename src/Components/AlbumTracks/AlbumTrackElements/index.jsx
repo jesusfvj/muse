@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Typography, DropDownMenu } from "../../index";
 
 import { TrackInfo } from "./TrackInfo";

@@ -40,7 +40,10 @@ export const MusicPlayer = () => {
     <div className="w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] flex items-center justify-center">
       <div className="h-full w-full md:w-fit flex flex-col items-center justify-between gap-6 md:gap-8 p-4">
         <div className="flex flex-col items-center">
+          <Link to="/artist">
           <Typography text="LA ROSALÍA" color="white" type="important" />
+          </Link>
+          {/* this is the song, no the album */}
           <Typography text="El Mal Querer" color="primary" type="title" />
         </div>
 

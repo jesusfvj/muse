@@ -3,6 +3,7 @@ import { FaPlay } from "react-icons/fa";
 import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
+import { Link } from "react-router-dom";
 
 export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
   const [clicked, setClicked] = useState(false);
@@ -26,12 +27,12 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
 
         </div>
         <Typography text={id} color="white" styles="hidden xs:flex" />
-        <div className="w-[10rem] lg:w-[15rem]">
+        <Link to="/player" className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
-        </div>
-        <div className="w-[10rem] lg:w-[15rem]">
+        </Link>
+        <Link to="/artist" className="w-[10rem] lg:w-[15rem]">
           <Typography text={artist} color="white" styles="truncate" />
-        </div>
+        </Link>
         <Typography
           text={`${Math.floor(duration / 60)}:${
             duration - Math.floor(duration / 60) * 60

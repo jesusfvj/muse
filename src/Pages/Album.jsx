@@ -22,7 +22,7 @@ export const Album = () => {
   return (
     <Layout>
       <AlbumHeader />
-      <div className="flex items-start pt-[10vh] justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-screen">
+      <div className="flex items-start pt-[15vh] justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-screen">
         {songs?.length ? (
           <AlbumTracks
             songs={songs}
