@@ -11,6 +11,8 @@ export const PlaylistsElements = ({
   nombre,
   idx,
   artist,
+  activeDropdown,
+  handleToggleDropdown,
 }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -21,7 +23,10 @@ export const PlaylistsElements = ({
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => {
+        setHovered(false);
+        handleToggleDropdown();
+      }}
     >
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
@@ -55,6 +60,18 @@ export const PlaylistsElements = ({
             text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
             color="white"
             styles="hidden xs:flex"
+          />
+        </div>
+        <div
+          className={`cursor-pointer mt-[0.4rem] ${
+            hovered ? "visible" : "sm:invisible"
+          }`}
+        >
+          <DropDownMenu
+            id={id}
+            color="white"
+            activeDropdown={activeDropdown}
+            handleToggleDropdown={handleToggleDropdown}
           />
         </div>
       </div>
