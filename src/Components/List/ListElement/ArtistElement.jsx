@@ -2,8 +2,7 @@ import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
 
 export const ArtistElement = ({ object }) => {
   const [clicked, setClicked] = useState(false);
@@ -72,7 +71,7 @@ export const ArtistElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

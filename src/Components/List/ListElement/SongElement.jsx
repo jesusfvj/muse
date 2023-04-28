@@ -2,8 +2,8 @@ import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
+import { AddToPlaylistModal } from "../../AddToPlaylistModal";
 
 export const SongElement = ({ object }) => {
   const { name, artist, thumbnail } = object;
@@ -79,7 +79,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

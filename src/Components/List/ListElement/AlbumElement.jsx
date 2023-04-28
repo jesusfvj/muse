@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Typography, RoundButton } from "../../index";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { Dropdown } from "../Dropdown";
 import { Link } from "react-router-dom";
 
 export const AlbumElement = ({ object }) => {
@@ -80,7 +79,7 @@ export const AlbumElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

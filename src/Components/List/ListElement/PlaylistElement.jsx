@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { Typography, RoundButton } from "../../index";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
-import { Dropdown } from "../Dropdown";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -123,7 +122,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-12 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );
