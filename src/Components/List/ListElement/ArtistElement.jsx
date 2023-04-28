@@ -68,11 +68,6 @@ export const ArtistElement = ({ object }) => {
           margin="pl-1"
         />
       </div>
-      <div
-        className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
-      >
-        <DropDownMenu />
-      </div>
     </div>
   );
 };

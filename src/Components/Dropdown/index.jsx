@@ -1,27 +1,30 @@
 import { BsThreeDots } from "react-icons/bs";
 import { Typography } from "../Typography";
 import { DropdownElement } from "./DropdownElement";
+import { useUI } from "../../Context/UI/UIContext";
 
-const items = [{
-  text: "Play Next",
-  path: null,
-},
-{
-  text: "Go to Artist",
-  path: "/artist",
-},
-{
-  text: "Go to Album",
-  path: "/album",
-}]
+const items = [
+  {
+    text: "Play Next",
+    path: null,
+  },
+  {
+    text: "Go to Artist",
+    path: "/artist",
+  },
+  {
+    text: "Go to Album",
+    path: "/album",
+  },
+];
 
 export const DropDownMenu = ({
   id,
   activeDropdown,
   handleToggleDropdown,
-  handleToggleModal,
 }) => {
   const isActive = activeDropdown == id;
+  const { handleTogglePlaylistModal } = useUI();
   return (
     <div className="relative">
       <button
@@ -43,14 +46,14 @@ export const DropDownMenu = ({
           className="py-2 text-sm text-white "
           aria-labelledby="dropdownMenuIconHorizontalButton"
         >
-        { items.map((item) => {
-          const { text,path } = item
-          return <DropdownElement key={text} text={text} path={path} />
-        }) }
+          {items.map((item) => {
+            const { text, path } = item;
+            return <DropdownElement key={text} text={text} path={path} />;
+          })}
         </ul>
         <div className="py-2">
           <button
-            onClick={handleToggleModal}
+            onClick={handleTogglePlaylistModal}
             className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
           >
             Add to list

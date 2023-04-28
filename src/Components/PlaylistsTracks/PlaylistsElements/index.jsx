@@ -5,7 +5,16 @@ import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 import { Link } from "react-router-dom";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
+export const PlaylistsElements = ({
+  id,
+  duration,
+  nombre,
+  idx,
+  artist,
+  activeDropdown,
+  handleToggleDropdown,
+  handleToggleModal,
+}) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -24,7 +33,6 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
           }`}
         >
           <Typography text={<FaPlay />} color="white" />
-
         </div>
         <Typography text={id} color="white" styles="hidden xs:flex" />
         <Link to="/player" className="w-[10rem] lg:w-[15rem]">
@@ -47,22 +55,9 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
           onClick={() => (clicked ? setClicked(false) : setClicked(true))}
         >
           <Typography
-            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart /> }
+            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
             color="white"
             styles="hidden xs:flex"
-          />
-        </div>
-        <div
-          className={`cursor-pointer mt-[0.4rem] ${
-            hovered ? "visible" : "sm:invisible"
-          }`}
-        >
-          <DropDownMenu
-            id={id}
-            color="white"
-            activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
           />
         </div>
       </div>

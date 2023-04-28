@@ -52,7 +52,7 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
               className="px-2 py-1 w-4/5 bg-transparent outline-none text-gray-300"
             />
             <div className="w-3/5">
-              <Button text="Create" color="gray"/>
+              <Button text="Create" color="gray" />
             </div>
           </form>
         ) : !hovered ? (

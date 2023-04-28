@@ -5,9 +5,10 @@ import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { MusicPlayer } from "../MusicPlayer";
 import { ContextMenu } from "../ContextMenu";
+import { AddToPlaylistModal } from "../AddToPlaylistModal";
 
 export const Layout = ({ children }) => {
-  const { isNavOpen, setIsNavOpen } = useUI();
+  const { isNavOpen, setIsNavOpen, handleTogglePlaylistModal, isAddToPlaylistModalOpen } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -25,7 +26,6 @@ export const Layout = ({ children }) => {
   };
 
   const handleCloseContextMenu = () => {
-    console.log("here");
     setIsContextMenuOpen(false);
   };
 
@@ -33,7 +33,8 @@ export const Layout = ({ children }) => {
     setIsNavOpen(false);
   }, [location]);
 
-  const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/player";
+  const isMusicPlayerVisible =
+    location.pathname !== "/" && location.pathname !== "/player";
   const isContextMenuVisible = location.pathname !== "/";
 
   return (
@@ -53,9 +54,13 @@ export const Layout = ({ children }) => {
           onClick={handleToggleNav}
         />
       )}
-      <div className={`grow ${isMusicPlayerVisible && "mb-[10vh]"}`} onClick={handleHideNav}>
+      <div
+        className={`grow ${isMusicPlayerVisible && "mb-[10vh]"}`}
+        onClick={handleHideNav}
+      >
         {children}
       </div>
+      {isAddToPlaylistModalOpen && <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />}
     </div>
   );
 };

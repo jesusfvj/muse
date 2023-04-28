@@ -9,12 +9,20 @@ export const useUI = () => {
 
 export const UIProvider = ({ children }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] =
+    useState(true);
+
+  const handleTogglePlaylistModal = () => {
+    setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);
+  };
 
   return (
     <UIContext.Provider
       value={{
         isNavOpen,
         setIsNavOpen,
+        handleTogglePlaylistModal,
+        isAddToPlaylistModalOpen
       }}
     >
       {children}
