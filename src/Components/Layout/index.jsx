@@ -6,9 +6,16 @@ import { useEffect, useState } from "react";
 import { MusicPlayer } from "../MusicPlayer";
 import { ContextMenu } from "../ContextMenu";
 import { AddToPlaylistModal } from "../AddToPlaylistModal";
+import { CreatePlaylistModal } from "../CreatePlaylistModal";
 
 export const Layout = ({ children }) => {
-  const { isNavOpen, setIsNavOpen, handleTogglePlaylistModal, isAddToPlaylistModalOpen } = useUI();
+  const {
+    isNavOpen,
+    setIsNavOpen,
+    handleTogglePlaylistModal,
+    isAddToPlaylistModalOpen,
+    isCreatePlaylistModalOpen,
+  } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -60,7 +67,10 @@ export const Layout = ({ children }) => {
       >
         {children}
       </div>
-      {isAddToPlaylistModalOpen && <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />}
+      {isAddToPlaylistModalOpen && (
+        <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />
+      )}
+      {isCreatePlaylistModalOpen && <CreatePlaylistModal />}
     </div>
   );
 };

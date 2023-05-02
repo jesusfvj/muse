@@ -4,8 +4,10 @@ import { getPlaylists } from "../../API/MusicApi/MusicApi";
 import { Typography } from "../Typography";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Button } from "../Button";
+import { useUI } from "../../Context/UI/UIContext";
 
 export const AddToPlaylistModal = ({ handleToggleModal }) => {
+  const { handleToggleCreatePlaylistModal } = useUI();
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,
@@ -13,7 +15,6 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
   } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
 
   const [hovered, setHovered] = useState(false);
-  const [isInputVisible, setIsInputVisible] = useState(false);
   const [listName, setListName] = useState("");
 
   const handleAddToList = (e) => {
@@ -40,25 +41,10 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
         onMouseLeave={() => setHovered(false)}
         onClick={handleAddToList}
       >
-        {isInputVisible ? (
-          <form
-            onSubmit={handleCreateList}
-            className="w-full flex flex-col items-center gap-4"
-          >
-            <input
-              value={listName}
-              onChange={handleInputChange}
-              placeholder="List name"
-              className="px-2 py-1 w-4/5 bg-transparent outline-none text-gray-300"
-            />
-            <div className="w-3/5">
-              <Button text="Create" color="gray" />
-            </div>
-          </form>
-        ) : !hovered ? (
+        {!hovered ? (
           <AiOutlinePlus className="text-5xl font-bold text-white" />
         ) : (
-          <div onClick={() => setIsInputVisible(!isInputVisible)}>
+          <div onClick={handleToggleCreatePlaylistModal}>
             <Typography
               color="white"
               text="Create a new list"

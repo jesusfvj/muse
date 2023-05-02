@@ -9,11 +9,18 @@ export const useUI = () => {
 
 export const UIProvider = ({ children }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+
   const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] =
+    useState(false);
+
+  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] =
     useState(false);
 
   const handleTogglePlaylistModal = () => {
     setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);
+  };
+  const handleToggleCreatePlaylistModal = () => {
+    setIsCreatePlaylistModalOpen(!isCreatePlaylistModalOpen);
   };
 
   return (
@@ -22,7 +29,9 @@ export const UIProvider = ({ children }) => {
         isNavOpen,
         setIsNavOpen,
         handleTogglePlaylistModal,
-        isAddToPlaylistModalOpen
+        isAddToPlaylistModalOpen,
+        handleToggleCreatePlaylistModal,
+        isCreatePlaylistModalOpen
       }}
     >
       {children}
