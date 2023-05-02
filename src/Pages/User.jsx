@@ -3,8 +3,8 @@ import { Body, FavoriteMusic, ProfileHeader } from "../Components";
 import { Layout } from "../Components/Layout";
 import { AddToPlaylistModal } from "../Components/AddToPlaylistModal";
 
-export const Profile = () => {
-
+export const User = () => {
+  const { userId = 1 } = useParams();
   return (
     <Layout>
       <ProfileHeader />
