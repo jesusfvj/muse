@@ -1,38 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 import { Typography, RoundButton } from "../../index";
 import { Dropdown } from "../Dropdown";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export const UserElement = ({ object }) => {
+  const { fullName, profilePic, id, followedBy } = object;
+  const navigate = useNavigate();
+  const loggedUserId = 5 // User logeado
   const [clicked, setClicked] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
+  const handleNavigate = () => {
+    navigate(`/user/${id}`)
+  };
+  // Aparece siguiendo si le sigue el user logeado
+  useEffect(() => {
+    if (followedBy.includes(loggedUserId)) { setClicked(true) }
+    // lo de abajo no haria falta en si
+    else {
+      setClicked(false)
+    }
+  }, [])
+  const followClicked = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
 
-  const handleOpenDropdown = (e) => {
-     e.stopPropagation()
-    e.preventDefault();
-    setIsDropdownActive(true);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
   };
 
-  const handleMouseLeave = () => {
-    setHovered(false);
-    setIsDropdownActive(false);
-  };
-  const { fullName, profilePic, id } = object;
   return (
-    // <Link to={`/profile/${id}`}> </Link> 
     <div
       className="relative flex my-4 mx-2 select-none shadow-md"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onContextMenu={handleOpenDropdown}
-    >
+      >
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
+          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full cursor-pointer "
         }
+        onClick={handleNavigate}
       >
         <img
           src={profilePic}
@@ -50,26 +62,16 @@ export const UserElement = ({ object }) => {
       </div>
       <div
         className="absolute top-2 right-2 cursor-pointer flex justify-center items-center z-10"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        onClick={followClicked}
       >
         <Typography
-          text={!clicked ? <RiUserFollowLine /> : <RiUserFollowFill />}
+          text={clicked ? <RiUserFollowFill /> : <RiUserFollowLine />}
           type="p0"
-          color={!clicked ? "secondary" : "white"}
+          color={clicked ? "white" : "secondary"}
           styles="hidden xs:flex"
         />
       </div>
-      {/* <div
-        className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
-      ${hovered ? "flex animation-pop-glow" : "hidden"}`}
-      >
-        <RoundButton
-          color="gray"
-          background="gradient"
-          icon={<FaPlay />}
-          margin="pl-1"
-        />
-      </div> */}
+     
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >

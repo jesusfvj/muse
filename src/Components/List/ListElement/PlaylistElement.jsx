@@ -8,6 +8,7 @@ import { Dropdown } from "../Dropdown";
 export const PlaylistElement = ({ object, isSwipping }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
   const { name, thumbnail, id } = object;
   const colors = {
@@ -43,6 +44,18 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     setIsDropdownActive(false);
   };
 
+  const likedClicked = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   return (
     <div
       className="relative"
@@ -76,10 +89,10 @@ export const PlaylistElement = ({ object, isSwipping }) => {
       </div>
       <div
         className="absolute bottom-2 left-5 cursor-pointer flex justify-center items-center"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        onClick={likedClicked}
       >
         <Typography
-          text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
           type="big"
           color="white"
           styles="hidden xs:flex"

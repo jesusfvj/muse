@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, setState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 import { Typography, RoundButton } from "../../index";
@@ -7,23 +7,37 @@ import { Dropdown } from "../Dropdown";
 export const ArtistElement = ({ object }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
   const handleOpenDropdown = (e) => {
      e.stopPropagation()
     e.preventDefault();
     setIsDropdownActive(true);
-  };
+  }; 
 
   const handleMouseLeave = () => {
-    setHovered(false);
+    setHovered(false); 
     setIsDropdownActive(false);
+  };
+
+  const followClicked = () => { 
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+ 
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    } 
   };
   const { name, photoUrl } = object;
   return (
     <div
       className="relative flex my-4 mx-2 select-none shadow-md"
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => setHovered(true)} 
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleOpenDropdown}
     >
@@ -48,12 +62,12 @@ export const ArtistElement = ({ object }) => {
       </div>
       <div
         className="absolute top-2 right-2 cursor-pointer flex justify-center items-center"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        onClick={followClicked}
       >
         <Typography
-          text={!clicked ? <RiUserFollowLine /> : <RiUserFollowFill />}
+          text={clicked ? <RiUserFollowFill /> : <RiUserFollowLine />}
           type="p0"
-          color={!clicked ? "secondary" : "white"}
+          color={clicked ? "white" : "secondary"}
           styles="hidden xs:flex"
         />
       </div>
