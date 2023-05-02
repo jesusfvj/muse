@@ -1,34 +1,29 @@
-import { TrackInfo } from "./TrackInfo";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
-import { tracks } from "../../data/SongsData/SongsData";
+import { tracks } from "../../../../data/SongsData/SongsData";
+import { Typography } from "../../../Typography";
+import { Link } from "react-router-dom";
 
-export const MusicPlayer = ({ isMusicPlayerVisible }) => {
+export const MusicPlayer = () => {
   const [track, setTracks] = useState(tracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[1]);
   const [progress, setProgress] = useState(0);
 
-  const playAudio = useRef();
+  const playAudioPlayer = useRef();
 
   useEffect(() => {
     if (isPlaying) {
-      playAudio.current.play();
+      playAudioPlayer.current.play();
     } else {
-      playAudio.current.pause();
+      playAudioPlayer.current.pause();
     }
   }, [isPlaying, currentTrack]);
 
-  useEffect(() => {
-    if (!isMusicPlayerVisible) {
-      setIsPlaying(false);
-    }
-  }, [isMusicPlayerVisible]);
-
   const onPlaying = () => {
-    const duration = playAudio.current.duration;
-    const currentTime = playAudio.current.currentTime;
+    const duration = playAudioPlayer.current.duration;
+    const currentTime = playAudioPlayer.current.currentTime;
     setCurrentTrack({
       ...currentTrack,
       progress: currentTime,
@@ -38,24 +33,26 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
 
   const handleProgressChange = (e) => {
     const currentTime = e.target.value;
-    playAudio.current.currentTime = currentTime;
+    playAudioPlayer.current.currentTime = currentTime;
     setProgress(currentTime);
   };
 
   return (
-    <div
-      className={`${
-        !isMusicPlayerVisible && "hidden"
-      } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
-    >
-      <div className="h-full flex flex-col sm:flex-row items-center justify-between">
+    <div className="w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] flex items-center justify-center">
+      <div className="h-full w-full md:w-fit flex flex-col items-center justify-between gap-6 md:gap-8 p-4">
+        <div className="flex flex-col items-center">
+          <Link to="/artist">
+          <Typography text="LA ROSALÍA" color="white" type="important" />
+          </Link>
+          {/* this is the song, no the album */}
+          <Typography text="El Mal Querer" color="primary" type="title" />
+        </div>
+
         <audio
           src={currentTrack.url}
-          ref={playAudio}
+          ref={playAudioPlayer}
           onTimeUpdate={onPlaying}
         />
-
-        <TrackInfo currentTrack={currentTrack} />
         <PlayControls
           handleProgressChange={handleProgressChange}
           progress={progress}
@@ -65,10 +62,10 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
           setCurrentTrack={setCurrentTrack}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
-          playAudio={playAudio}
+          playAudio={playAudioPlayer}
           setProgress={setProgress}
         />
-        <VolumeControls playAudio={playAudio} />
+        <VolumeControls playAudio={playAudioPlayer} />
       </div>
     </div>
   );

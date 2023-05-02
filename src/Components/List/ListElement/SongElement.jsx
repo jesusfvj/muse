@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
-import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { Link } from "react-router-dom";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
+import { AddToPlaylistModal } from "../../AddToPlaylistModal";
 
 export const SongElement = ({ object }) => {
   const { name, artist, thumbnail } = object;
@@ -46,7 +47,7 @@ export const SongElement = ({ object }) => {
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
         }
       >
-        <div className="w-full mt-2 px-3 truncate">
+        <Link to="/player" className="w-full mt-2 px-3 truncate">
           <Typography
             text={name}
             type="p1"
@@ -61,7 +62,7 @@ export const SongElement = ({ object }) => {
             family="lato"
             styles="truncate"
           />
-        </div>
+        </Link>
         <img
           src={thumbnail}
           className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none"
@@ -91,7 +92,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { BsShuffle, BsPlayFill, BsRepeat, BsPauseFill } from "react-icons/bs";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
-import { formatTime } from "../../../Utils/formatTime";
-import { Typography } from "../../index";
+import { formatTime } from "../../../../../Utils/formatTime";
+import { Typography } from "../../../../Typography";
 
 export const PlayControls = ({
   playAudio,
@@ -22,21 +22,14 @@ export const PlayControls = ({
   };
 
   const skipBack = () => {
-    if (currentTrack.progress > 5) {
-      playAudio.current.currentTime = 0;
-      currentTrack.progress = 0;
-      setProgress(0);
-      return;
+    const index = track.findIndex((x) => x.name == currentTrack.name);
+    if (index == 0) {
+      setCurrentTrack(track[track.length - 1]);
     } else {
-      const index = track.findIndex((x) => x.name == currentTrack.name);
-      if (index == 0) {
-        setCurrentTrack(track[track.length - 1]);
-      } else {
-        setCurrentTrack(track[index - 1]);
-      }
-      playAudio.current.currentTime = 0;
-      setProgress(0);
+      setCurrentTrack(track[index - 1]);
     }
+    playAudio.current.currentTime = 0;
+    setProgress(0);
   };
 
   const skiptoNext = () => {
@@ -51,7 +44,7 @@ export const PlayControls = ({
     setProgress(0);
   };
 
-  const buttonsClassName = "text-white text-2xl cursor-pointer";
+  const buttonsClassName = "text-white text-2xl md:text-5xl cursor-pointer";
 
   return (
     <div className="flex flex-col w-full sm:w-auto items-center justify-center">
@@ -68,7 +61,7 @@ export const PlayControls = ({
         <BsRepeat className={buttonsClassName} />
       </div>
 
-      <div className="flex items-center justify-between gap-4 w-3/4 sm:w-auto">
+      <div className="flex items-center justify-between gap-4 md:w-3/4 w-full">
         <Typography
           text={
             currentTrack.progress
@@ -76,7 +69,7 @@ export const PlayControls = ({
               : "0:00"
           }
           type="p2"
-          color={!currentTrack.progress ? "black" : "primary"}
+          color={!currentTrack.progress ? "transparent" : "primary"}
           styles="select-none"
         />
         <input
@@ -94,7 +87,7 @@ export const PlayControls = ({
               : "0:00"
           }
           type="p2"
-          color={!currentTrack.progress ? "black" : "primary"}
+          color={!currentTrack.progress ? "transparent" : "primary"}
           styles="select-none"
         />
       </div>

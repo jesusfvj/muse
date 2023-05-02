@@ -145,7 +145,7 @@ export const Search = () => {
 
   return (
     <Layout>
-      <div className="h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+      <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
         <div className=" flex justify-center p-9">
           <input
             type="text"

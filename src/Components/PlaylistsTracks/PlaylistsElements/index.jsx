@@ -3,8 +3,17 @@ import { FaPlay } from "react-icons/fa";
 import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
+import { Link } from "react-router-dom";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
+export const PlaylistsElements = ({
+  id,
+  duration,
+  nombre,
+  idx,
+  artist,
+  activeDropdown,
+  handleToggleDropdown,
+}) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -14,7 +23,10 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => {
+        setHovered(false);
+        handleToggleDropdown();
+      }}
     >
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
@@ -25,12 +37,12 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
           <Typography text={<FaPlay />} color="white" />
         </div>
         <Typography text={id} color="white" styles="hidden xs:flex" />
-        <div className="w-[10rem] lg:w-[15rem]">
+        <Link to="/player" className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
-        </div>
-        <div className="w-[10rem] lg:w-[15rem]">
+        </Link>
+        <Link to="/artist" className="w-[10rem] lg:w-[15rem]">
           <Typography text={artist} color="white" styles="truncate" />
-        </div>
+        </Link>
         <Typography
           text={`${Math.floor(duration / 60)}:${
             duration - Math.floor(duration / 60) * 60
@@ -60,7 +72,6 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
             color="white"
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
           />
         </div>
       </div>

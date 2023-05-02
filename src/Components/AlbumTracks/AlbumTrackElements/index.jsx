@@ -56,7 +56,6 @@ export const AlbumTrackElements = ({
             color="white"
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
           />
         </div>
       </div>

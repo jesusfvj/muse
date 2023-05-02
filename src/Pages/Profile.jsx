@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Body, FavoriteMusic, ProfileHeader } from "../Components";
 import { Layout } from "../Components/Layout";
+import { AddToPlaylistModal } from "../Components/AddToPlaylistModal";
 
 export const Profile = () => {
+
   return (
     <Layout>
       <ProfileHeader />

@@ -1,8 +1,8 @@
 import { useState, setState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
-import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { Link } from "react-router-dom";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
 
 export const ArtistElement = ({ object }) => {
   const [clicked, setClicked] = useState(false);
@@ -50,7 +50,7 @@ export const ArtistElement = ({ object }) => {
           src={photoUrl}
           className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none"
         />
-        <div className="w-full mb-5 px-3 text-center">
+        <Link to="/artist" className="w-full mb-5 px-3 text-center">
           <Typography
             text={name}
             type="p1"
@@ -58,7 +58,7 @@ export const ArtistElement = ({ object }) => {
             family="lato"
             styles="sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
-        </div>
+        </Link>
       </div>
       <div
         className="absolute top-2 right-2 cursor-pointer flex justify-center items-center"
@@ -81,11 +81,6 @@ export const ArtistElement = ({ object }) => {
           icon={<FaPlay />}
           margin="pl-1"
         />
-      </div>
-      <div
-        className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
-      >
-        <Dropdown />
       </div>
     </div>
   );

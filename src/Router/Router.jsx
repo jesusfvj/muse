@@ -19,9 +19,7 @@ function Router() {
       <ScrollTop />
       <Routes>
         <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute> }/>
-        <Route
-          path="/*"
-          element={
+        <Route path="/*" element={
             <ProtectedRoutes>
               <Routes>
                 <Route path="/main" element={<MainPage />} />

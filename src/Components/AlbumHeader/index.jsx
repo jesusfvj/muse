@@ -1,6 +1,7 @@
 import React from "react";
 import { AiFillCaretRight } from "react-icons/ai";
 import { RiShuffleFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
 
@@ -28,7 +29,9 @@ export const AlbumHeader = () => {
           </div>
         </div>
         <div className="h-16 flex flex-col ml-[1rem] sm:ml-[3rem]">
+          <Link to="/artist">
           <Typography text="LA ROSALÍA" color="white" type="important" />
+          </Link>
           <Typography text="El Mal Querer" color="primary" type="title" />
         </div>
       </div>
