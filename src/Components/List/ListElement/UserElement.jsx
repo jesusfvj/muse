@@ -1,67 +1,67 @@
-import { useState, setState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { Typography, RoundButton, DropDownMenu } from "../../index";
+import { Typography, RoundButton } from "../../index";
+import { DropDownMenu } from "../../Dropdown";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
-export const ArtistElement = ({ object }) => {
+export const UserElement = ({ object }) => {
+  const { fullName, profilePic, id, followedBy } = object;
+  const navigate = useNavigate();
+  const loggedUserId = 5 // User logeado
   const [clicked, setClicked] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
-
-  const handleOpenDropdown = (e) => {
-     e.stopPropagation()
-    e.preventDefault();
-    setIsDropdownActive(true);
-  }; 
-
-  const handleMouseLeave = () => {
-    setHovered(false); 
-    setIsDropdownActive(false);
+  const handleNavigate = () => {
+    navigate(`/user/${id}`)
   };
-
-  const followClicked = () => { 
+  // Aparece siguiendo si le sigue el user logeado
+  useEffect(() => {
+    if (followedBy.includes(loggedUserId)) { setClicked(true) }
+    // lo de abajo no haria falta en si
+    else {
+      setClicked(false)
+    }
+  }, [])
+  const followClicked = () => {
     console.log(clicked);
     if (!buttonDisabled) {
       setClicked(!clicked);
- 
+
       setButtonDisabled(true);
       setTimeout(() => {
         console.log(clicked);
         setButtonDisabled(false);
       }, 1500);
-    } 
+    }
   };
-  const { name, photoUrl } = object;
+
   return (
     <div
       className="relative flex my-4 mx-2 select-none shadow-md"
-      onMouseEnter={() => setHovered(true)} 
-      onMouseLeave={handleMouseLeave}
-      onContextMenu={handleOpenDropdown}
-    >
+      >
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
+          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full cursor-pointer "
         }
+        onClick={handleNavigate}
       >
         <img
-          src={photoUrl}
+          src={profilePic}
           className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none"
         />
-        <Link to="/artist" className="w-full mb-5 px-3 text-center">
+        <div className="w-full mb-5 px-3 text-center">
           <Typography
-            text={name}
+            text={fullName}
             type="p1"
             color="white"
             family="lato"
             styles="sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
-        </Link>
+        </div>
       </div>
       <div
-        className="absolute top-2 right-2 cursor-pointer flex justify-center items-center"
+        className="absolute top-2 right-2 cursor-pointer flex justify-center items-center z-10"
         onClick={followClicked}
       >
         <Typography
@@ -71,16 +71,11 @@ export const ArtistElement = ({ object }) => {
           styles="hidden xs:flex"
         />
       </div>
+     
       <div
-        className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
-      ${hovered ? "flex animation-pop-glow" : "hidden"}`}
+        className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <RoundButton
-          color="gray"
-          background="gradient"
-          icon={<FaPlay />}
-          margin="pl-1"
-        />
+        <DropDownMenu />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   getPlaylists,
   getSongs,
 } from "../API/MusicApi/MusicApi";
+import { getUsers } from "../API/UserApi/GetUsers";
 import { Layout, List, Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
 
@@ -32,6 +33,11 @@ export const Search = () => {
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
   } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+  const {
+    data: users,
+    isLoading: isLoadingUsers,
+    error: errorUsers,
+  } = useQuery({ queryKey: ["users"], queryFn: getUsers });
 
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setsearchResults] = useState({});
@@ -49,6 +55,7 @@ export const Search = () => {
       !isLoadingAlbums &&
       !isLoadingArtists &&
       !isLoadingPlaylists &&
+      !isLoadingUsers &&
       query
     ) {
       setTimeout(() => {
@@ -63,6 +70,7 @@ export const Search = () => {
     const searchResultsPlaylists = [];
     const searchResultsAlbums = [];
     const searchResultsArtists = [];
+    const searchResultsUsers = [];
 
     songs.forEach((element) => {
       if (
@@ -115,18 +123,29 @@ export const Search = () => {
         searchResultsArtists[element.id] = element;
       }
     });
+    users.forEach((element) => {
+      if (
+        element.fullName
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ) {
+        searchResultsUsers[element.id] = element;
+      }
+    });
 
     setsearchResults({
       searchResultsSongs: searchResultsSongs,
       searchResultsPlaylists: searchResultsPlaylists,
       searchResultsAlbums: searchResultsAlbums,
       searchResultsArtists: searchResultsArtists,
+      searchResultsUsers: searchResultsUsers,
     });
   }
 
   return (
     <Layout>
-      <div className="h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+      <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
         <div className=" flex justify-center p-9">
           <input
             type="text"
@@ -187,6 +206,18 @@ export const Search = () => {
                   object={searchResults.searchResultsPlaylists.filter(Boolean)}
                   sectionTitle="Playlists"
                   dataType="playlist"
+                />
+              ) : null}
+            </div>
+          ) : null}
+          {searchInput.length >= 3 &&
+          searchResults.searchResultsUsers.length > 0 ? (
+            <div className=" w-full md:w-5/6">
+              {searchInput.length >= 3 ? (
+                <List
+                  object={searchResults.searchResultsUsers.filter(Boolean)}
+                  sectionTitle="Users"
+                  dataType="user"
                 />
               ) : null}
             </div>

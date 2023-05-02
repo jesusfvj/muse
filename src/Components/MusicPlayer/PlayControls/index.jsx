@@ -22,14 +22,21 @@ export const PlayControls = ({
   };
 
   const skipBack = () => {
-    const index = track.findIndex((x) => x.name == currentTrack.name);
-    if (index == 0) {
-      setCurrentTrack(track[track.length - 1]);
+    if (currentTrack.progress > 5) {
+      playAudio.current.currentTime = 0;
+      currentTrack.progress = 0;
+      setProgress(0);
+      return;
     } else {
-      setCurrentTrack(track[index - 1]);
+      const index = track.findIndex((x) => x.name == currentTrack.name);
+      if (index == 0) {
+        setCurrentTrack(track[track.length - 1]);
+      } else {
+        setCurrentTrack(track[index - 1]);
+      }
+      playAudio.current.currentTime = 0;
+      setProgress(0);
     }
-    playAudio.current.currentTime = 0;
-    setProgress(0);
   };
 
   const skiptoNext = () => {

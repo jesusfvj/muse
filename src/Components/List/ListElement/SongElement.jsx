@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
-import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { Link } from "react-router-dom";
+import { Typography, RoundButton, DropDownMenu } from "../../index";
+import { AddToPlaylistModal } from "../../AddToPlaylistModal";
 
 export const SongElement = ({ object }) => {
   const { name, artist, thumbnail } = object;
   const [clicked, setClicked] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
@@ -21,6 +23,18 @@ export const SongElement = ({ object }) => {
     setIsDropdownActive(false);
   };
 
+  const likedClicked = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   return (
     <div
       className="relative flex my-4 mx-2 select-none shadow-md"
@@ -33,7 +47,7 @@ export const SongElement = ({ object }) => {
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
         }
       >
-        <div className="w-full mt-2 px-3 truncate">
+        <Link to="/player" className="w-full mt-2 px-3 truncate">
           <Typography
             text={name}
             type="p1"
@@ -48,20 +62,20 @@ export const SongElement = ({ object }) => {
             family="lato"
             styles="truncate"
           />
-        </div>
+        </Link>
         <img
           src={thumbnail}
           className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none"
         />
       </div>
       <div
-        className="absolute bottom-2 left-4 cursor-pointer flex justify-center items-center"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
+        onClick={likedClicked}
       >
         <Typography
-          text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
-          color={!clicked ? "secondary" : "white"}
-          styles="hidden xs:flex"
+          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+          color={clicked ? "white" : "secondary"}
+          styles="hidden xs:flex scale-[2]"
         />
       </div>
       <div
@@ -78,7 +92,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

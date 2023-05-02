@@ -54,6 +54,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
           ref={playAudio}
           onTimeUpdate={onPlaying}
         />
+
         <TrackInfo currentTrack={currentTrack} />
         <PlayControls
           handleProgressChange={handleProgressChange}

@@ -1,4 +1,5 @@
 import { FaPlay } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { Typography } from "../../../Typography";
 
 export const TrackInfo = ({hovered, id, nombre, duration}) => {
@@ -12,9 +13,9 @@ export const TrackInfo = ({hovered, id, nombre, duration}) => {
         <Typography text={<FaPlay />} color="white" />
       </div>
       <Typography text={id} color="white" styles="hidden xs:flex" />
-      <div className="w-[10rem] lg:w-[15rem]">
+      <Link to="/player" className="w-[10rem] lg:w-[15rem]">
         <Typography text={nombre} color="white" styles="truncate" />
-      </div>
+      </Link>
       <Typography text={duration} color="white" styles="hidden xs:flex" />
     </div>
   );
