@@ -54,7 +54,7 @@
 3;
 // const artistToUpload = "William King";
 // const artistImg =
-//   "https://cdn.pixabay.com/user/2023/04/05/09-12-03-607_250x250.jpg";
+//   "https://res.cloudinary.com/dmufnezzd/image/upload/v1683032707/williamImg_ipfq4l.jpg";
 // const albumToUpload = "After end";
 // const albumGenre = "Acoustic";
 // const genreId = 2;
@@ -79,11 +79,11 @@
 //   "https://res.cloudinary.com/dmufnezzd/video/upload/v1683026964/time-to-dream-relaxing-acoustic-nylon-guitar-139242_kfdyqr.mp3",
 // ];
 // const songImage =
-//   "https://usa.yamaha.com/files/CGX122_sp_1a1f74f2833a076e7e26587242d6971f.jpg?impolicy=resize&imwid=770&imhei=770";
-4;
+//   "https://res.cloudinary.com/dmufnezzd/image/upload/v1683032781/discImg_ocpwi9.jpg";
+// 4;
 // const artistToUpload = "William King";
 // const artistImg =
-//   "https://cdn.pixabay.com/user/2023/04/05/09-12-03-607_250x250.jpg";
+//   "https://res.cloudinary.com/dmufnezzd/image/upload/v1683032707/williamImg_ipfq4l.jpg";
 // const albumToUpload = "Still remember";
 // const albumGenre = "Acoustic";
 // const genreId = 2;
@@ -108,68 +108,65 @@
 //   "https://res.cloudinary.com/dmufnezzd/video/upload/v1683027255/the-story-of-elen-147264_cypl1r.mp3",
 // ];
 // const songImage =
-//   "https://www.ohguitar.com/wp-content/uploads/2020/04/Classical-guitar-3.jpg";
+//   "https://res.cloudinary.com/dmufnezzd/image/upload/v1683032898/discImg_fl7aam.jpg";
 
-const user = {
-  email: `${artistToUpload.toLocaleLowerCase()}@gmail.com`,
-  password: "12345",
-  name: artistToUpload,
-  img: artistImg,
-  role: "artist",
-  id: "wdfkjhkj3298rtywugrh",
-  following: [],
-  followedBy: [],
-  albums: [],
-};
+// const user = {
+//   email: `${artistToUpload.toLocaleLowerCase()}@gmail.com`,
+//   password: "12345",
+//   name: artistToUpload,
+//   img: artistImg,
+//   role: "artist",
+//   following: [],
+//   followedBy: [],
+//   albums: [],
+// };
 
-const genre = {
-  name: albumGenre,
-  id: genreId,
-};
+// const genre = {
+//   name: albumGenre,
+//   id: genreId,
+// };
 
-const album = {
-  title: albumToUpload,
-  year: 2024,
-  thumbnail: songImage,
-  totalTracks: songs.length,
-  userId: "",
-  likedBy: [],
-};
+// const album = {
+//   title: albumToUpload,
+//   year: 2024,
+//   thumbnail: songImage,
+//   totalTracks: songs.length,
+//   userId: "",
+//   likedBy: [],
+// };
 
-let track = {
-  name: "",
-  rating: 5,
-  url: "",
-  thumbnail: "",
-  createdAt: Date.now(),
-  releasedAt: Date.now(),
-  userId: "",
-  genre: { id: genreId, name: albumGenre },
-  albums: [],
-  likedBy: [],
-};
+// let track = {
+//   name: "",
+//   rating: 5,
+//   url: "",
+//   thumbnail: "",
+//   createdAt: Date.now(),
+//   releasedAt: Date.now(),
+//   userId: "",
+//   genre: { id: genreId, name: albumGenre },
+//   albums: [],
+//   likedBy: [],
+// };
 
-const data = {
-  user,
-  genre,
-  album,
-  tracks: songs.map((song, i) => {
-    return {
-      name: song,
-      rating: 5,
-      url: songs[i],
-      thumbnail: songImage,
-      createdAt: Date.now(),
-      releasedAt: Date.now(),
-      userId: user.id,
-      genre: { id: genreId, name: albumGenre },
-      albums: [...track.albums, albumToUpload],
-      likedBy: [],
-    };
-  }),
-};
-
-console.log(data);
+// const data = {
+//   user,
+//   genre,
+//   album,
+//   tracks: songs.map((song, i) => {
+//     return {
+//       name: song,
+//       rating: 5,
+//       url: songs[i],
+//       thumbnail: songImage,
+//       createdAt: Date.now(),
+//       releasedAt: Date.now(),
+//       userId: user.id,
+//       genre: { id: genreId, name: albumGenre },
+//       albums: [...track.albums, albumToUpload],
+//       likedBy: [],
+//     };
+//   }),
+// };
 
 // const mongoose = require("mongoose");
 
