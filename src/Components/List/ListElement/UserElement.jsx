@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 import { Typography, RoundButton } from "../../index";
-import { Dropdown } from "../Dropdown";
+import { DropDownMenu } from "../../Dropdown";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export const UserElement = ({ object }) => {
@@ -75,7 +75,7 @@ export const UserElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <Dropdown />
+        <DropDownMenu />
       </div>
     </div>
   );

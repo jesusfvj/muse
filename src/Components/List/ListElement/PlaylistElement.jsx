@@ -3,7 +3,8 @@ import { FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { Dropdown } from "../Dropdown";
+import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
   const [clicked, setClicked] = useState(false);
@@ -34,7 +35,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
   const handleOpenDropdown = (e) => {
-     e.stopPropagation()
+    e.stopPropagation();
     e.preventDefault();
     setIsDropdownActive(true);
   };
@@ -72,7 +73,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
             " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
           }
         >
-          <div className="w-full mt-2 px-3">
+          <Link to="/playlist" className="w-full mt-2 px-3">
             <Typography
               text={name}
               type="p1"
@@ -80,7 +81,8 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               family="lato"
               styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
-          </div>
+          </Link>
+        
           <img
             src={thumbnail}
             className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
@@ -110,11 +112,6 @@ export const PlaylistElement = ({ object, isSwipping }) => {
             margin="pl-1"
           />
         </div>
-      </div>
-      <div
-        className={`${!isDropdownActive && "hidden"} absolute right-12 top-12`}
-      >
-        <Dropdown />
       </div>
     </div>
   );
