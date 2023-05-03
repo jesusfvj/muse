@@ -7,6 +7,7 @@ import editMusicIcon from "../../../public/icons/editSongImg.png"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { FormUploadedSongs } from "../FormUploadedSongs";
 import { FormUploadSongs } from "../FormUploadSongs";
+import { InputWithLabel } from "../InputWithLabel";
 
 export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
     const [selectedFiles, setSelectedFiles] = useState();
@@ -16,6 +17,9 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
     const { user } = useUser()
     const buttonSaveRef = useRef(null);
     const [registerData, setRegisterData] = useState({});
+    const [isAlbumChecked, setIsAlbumChecked] = useState(false);
+    const [albumInputValue, setAlbumInputValue] = useState('');
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -31,14 +35,20 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
             }
             dataFiltered[`formDataFile${num}`][key.replace(/\d+$/, "")] = data[key];
         }
+        if (isAlbumChecked) {
+            for (let key in dataFiltered) {
+                dataFiltered[key].albumName = albumInputValue
+            }
+        }
+        console.log(dataFiltered)
         filesFormData.forEach((fileFormData, index) => {
-            /* console.dir(dataFiltered[`formDataFile${index + 1}`]) */
-            fileFormData.append(`dataFile${index + 1}`, dataFiltered[`formDataFile${index + 1}`])
-            fileFormData.append(`imageFile${index + 1}`, image[index])
+            const stringifiedData = JSON.stringify(dataFiltered[`formDataFile${index + 1}`])
+            fileFormData.set(`dataFile${index + 1}`, stringifiedData)
+            fileFormData.set(`imageFile${index + 1}`, image[index])
         });
         setFilesFormData(filesFormData)
         const response = await uploadSongsAPI(filesFormData);
-        if(response.ok){
+        if (response.ok) {
             //show toaster
             setShowUploadSongsModal(false)
         }
@@ -63,20 +73,27 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
 
     const handleClickHiddenButton = () => {
         buttonSaveRef.current.click();
-      };
+    };
 
+    const handleCheckboxChange = (event) => {
+        setIsAlbumChecked(event.target.checked);
+    };
+
+    const handleTextInputChange = (event) => {
+        setAlbumInputValue(event.target.value);
+    };
 
     useEffect(() => {
         if (selectedFiles) {
-            let copyRegisterData = {...registerData}
+            let copyRegisterData = { ...registerData }
             const arrayFormDatas = Object.values(selectedFiles).map((selectedFile, index) => {
                 copyRegisterData = {
                     ...copyRegisterData,
-                    [`genre${index+1}`]: "",
-                    [`songTitle${index+1}`]: selectedFile.name
+                    [`genre${index + 1}`]: "",
+                    [`songTitle${index + 1}`]: selectedFile.name
                 }
                 const formData = new FormData();
-                formData.append(`file${index + 1}`, selectedFile);
+                formData.set(`file${index + 1}`, selectedFile);
                 return formData;
             });
             if (image.length === 0) {
@@ -107,10 +124,40 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
                 {!filesUploaded
                     ? <FormUploadSongs setSelectedFiles={setSelectedFiles} />
                     : <div className="w-[80%]">
+                        <div className="m-8 flex flex-col items-center">
+                            <label className="flex gap-4">
+                                <input className="mt-1" type="checkbox" checked={isAlbumChecked} onChange={handleCheckboxChange} />
+                                <Typography
+                                    text="Is it an album?"
+                                    type="p1"
+                                    color="white"
+                                />
+                            </label>
+                            {isAlbumChecked && (
+                                <InputWithLabel
+                                    name="albumName"
+                                    label="Album Title"
+                                    type="text"
+                                    value={albumInputValue}
+                                    onInputChange={handleTextInputChange}
+                                    sizeContainer="w-[20vw] mt-10"
+                                    styles="text-xs"
+                                />
+                            )}
+                        </div>
                         <form
-                            className="flex flex-col items-center gap-3 max-h-[40vh] overflow-auto"
+                            className="flex flex-col items-center gap-3 max-h-[10vh] overflow-auto"
                             onSubmit={handleSubmit}
                         >
+                            {isAlbumChecked &&
+                                <InputWithLabel
+                                    /* name="albumName" */
+                                    type="text"
+                                    value={albumInputValue}
+                                    sizeContainer="hidden"
+                                    readonly={true}
+                                />
+                            }
                             {selectedFiles.map(({ name }, index) => {
                                 return <FormUploadedSongs
                                     key={index}

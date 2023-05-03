@@ -5,7 +5,7 @@ export const uploadSongsAPI = async (filesFormData) => {
         const dataFile = fileFormData.get(`dataFile${index + 1}`);
         const imageFile = fileFormData.get(`imageFile${index + 1}`);
         console.dir(file);
-        console.dir(dataFile);
+        console.log(dataFile);
         console.log(imageFile);
     });
     /*  const response = await fetch("http://localhost:4002/uploadsongs/register", {
