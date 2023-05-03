@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const response = await loginUser(user);
-
+console.log(response);
     if (response.length) {
       const { fullName, email } = response[0];
       dispatch({ type: types.login, payload: { email, fullName } });
