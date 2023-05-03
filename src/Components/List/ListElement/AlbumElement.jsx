@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 export const AlbumElement = ({ object }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const { name, imageUrl, artist } = object;
 
   const [isDropdownActive, setIsDropdownActive] = useState(false);
@@ -20,8 +22,19 @@ export const AlbumElement = ({ object }) => {
   const handleMouseLeave = () => {
     setHovered(false);
     setIsDropdownActive(false);
-  };
+  }; 
+  const likedClicked = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
 
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   return (
     <div
       className="relative flex my-4 mx-2 shadow-md"
@@ -56,13 +69,13 @@ export const AlbumElement = ({ object }) => {
         />
       </div>
       <div
-        className="absolute bottom-1 left-2 cursor-pointer flex justify-center items-center"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
+        onClick={likedClicked}
       >
-        <Typography
-          text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
-          color={!clicked ? "secondary" : "white"}
-          styles="hidden xs:flex"
+         <Typography
+          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+          color={clicked ? "white" : "secondary"}
+          styles="hidden xs:flex scale-[2]"
         />
       </div>
       <div

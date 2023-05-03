@@ -8,6 +8,8 @@ import { IoClose } from "react-icons/io5";
 import { BsSearch } from "react-icons/bs";
 import { Typography } from "../Typography";
 import { useUser } from "../../Context/UserContext/UserContext";
+import { UploadSongsModal } from "../UploadSongsModal";
+import { useState } from "react";
 
 const navItems = [
   /* { path: "/", text: "Landing Page" }, */
@@ -24,16 +26,23 @@ const navItems = [
 export const Navbar = () => {
   const { isNavOpen, setIsNavOpen } = useUI();
   const { logout } = useUser();
+  const [showUploadSongsModal, setShowUploadSongsModal] = useState(false)
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  const uploadSongs = () => {
+    setShowUploadSongsModal(true)
+    setIsNavOpen(!isNavOpen);
+  }
 
   const handleLogout = () => {
     logout();
   };
 
   return (
+    <>
     <div
       className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
         isNavOpen
@@ -61,14 +70,26 @@ export const Navbar = () => {
           );
         })}
         {isNavOpen && (
+          <div className="fixed bottom-6 flex flex-col gap-2">
           <div
-            className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md"
+            className="cursor-pointer border border-gray-400 p-3 rounded-md"
+            onClick={uploadSongs}
+          >
+            <Typography text="Upload songs" />
+          </div>
+          <div
+            className="cursor-pointer border border-gray-400 p-3 rounded-md"
             onClick={handleLogout}
           >
             <Typography text="LOGOUT" />
           </div>
+          </div>
         )}
       </div>
     </div>
+    {showUploadSongsModal &&
+    <UploadSongsModal setShowUploadSongsModal={setShowUploadSongsModal}/>
+    }
+    </>
   );
 };

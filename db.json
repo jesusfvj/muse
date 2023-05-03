@@ -2313,62 +2313,160 @@
       "duration": 226
     }
   ],
-  "user": [
+  "users": [
+    {
+      "fullName": "Lander",
+      "email": "m@lander.com",
+      "password": "mas",
+      "repPassword": "masas",
+      "id": 1,
+      "following": [
+        2,
+        3,
+        5
+      ],
+      "followedBy": [
+        5,
+        8
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
+    },
     {
       "fullName": "Miquel",
       "email": "m@m.com",
       "password": "m",
       "repPassword": "m",
-      "id": 2
+      "id": 2,
+      "following": [
+        3,
+        5
+      ],
+      "followedBy": [
+        1,
+        4,
+        6,
+        9
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "a",
       "email": "a@a.com",
       "password": "a",
       "repPassword": "a",
-      "id": 3
+      "id": 3,
+      "following": [
+        5,
+        7
+      ],
+      "followedBy": [
+        1,
+        2
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "u",
       "email": "u@u.com",
       "password": "u",
       "repPassword": "u",
-      "id": 4
+      "id": 4,
+      "following": [
+        2,
+        6,
+        7
+      ],
+      "followedBy": [
+        5,
+        6,
+        8
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "jesus",
       "email": "jesus@velazquez.com",
       "password": "123",
       "repPassword": "123",
-      "id": 3
+      "id": 5,
+      "following": [
+        1,
+        4,
+        8
+      ],
+      "followedBy": [
+        1,
+        2,
+        3,
+        7,
+        8
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "jesus",
       "email": "jesus@velazquez.com",
       "password": "123",
       "repPassword": "123",
-      "id": 4
+      "id": 6,
+      "following": [
+        2,
+        4,
+        7
+      ],
+      "followedBy": [
+        4
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "berta",
       "email": "b@b.com",
       "password": "1234",
       "repPassword": "1234",
-      "id": 5
+      "id": 7,
+      "following": [
+        5,
+        8,
+        9
+      ],
+      "followedBy": [
+        3,
+        4,
+        6
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
       "fullName": "berta",
       "email": "b@b.com",
       "password": "123",
       "repPassword": "123",
-      "id": 6
+      "id": 8,
+      "following": [
+        1,
+        4,
+        5
+      ],
+      "followedBy": [
+        5,
+        7
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     },
     {
-      "fullName": "berta",
+      "fullName": "Berta",
       "email": "b@b.com",
       "password": "1234",
       "repPassword": "1234",
-      "id": 7
+      "id": 9,
+      "following": [
+        2
+      ],
+      "followedBy": [
+        7
+      ],
+      "profilePic": "https://picsum.photos/200/300?random=1"
     }
   ],
   "albums": [
