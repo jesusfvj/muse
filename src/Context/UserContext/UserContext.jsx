@@ -36,8 +36,12 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-    console.log(data);
-    // dispatch({ type: types.register, payload: { email, fullName } });
+
+    if (data.ok) {
+      dispatch({ type: types.register, payload: data.user });
+    } else {
+      console.log("Something happened");
+    }
   };
 
   const logout = () => {

@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:4000/user";
 
 export const registerUser = async (user) => {
   const res = await axios.post(`${BASE_URL}/register`, user);
-  return res;
+  return res.data;
 };
 
 export const loginUser = async (user) => {
