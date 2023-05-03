@@ -40,7 +40,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     playAudio.current.currentTime = currentTime;
     setProgress(currentTime);
   };
-  console.log(currentTrack);
+
   return (
     <div
       className={`${
