@@ -14,7 +14,7 @@ export const useUser = () => {
 const init = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return {
-    user
+    user,
   };
 };
 
@@ -34,10 +34,10 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const register = (user) => {
-    const { email, fullName } = user;
-    registerUser(user);
-    dispatch({ type: types.register, payload: { email, fullName } });
+  const register = async (user) => {
+    const data = await registerUser(user);
+    console.log(data);
+    // dispatch({ type: types.register, payload: { email, fullName } });
   };
 
   const logout = () => {

@@ -10,6 +10,7 @@ export const Register = ({ changeLogRegister }) => {
     email: "",
     password: "",
     repPassword: "",
+    isArtist: false,
   });
 
   const handleRegister = (e) => {
@@ -19,10 +20,11 @@ export const Register = ({ changeLogRegister }) => {
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
+
   return (
     <div className="flex flex-col pt-[25vh] md:pt-32 md:mt-0 md:justify-center h-full w-full 2xl:w-1/4 xl:w-5/12 lg:w-2/5 md:w-2/3 md:ml-24 px-8 gap-8 ">
       <Typography text="Register" color="primary" type="important" />
-      <form className="flex flex-col gap-8">
+      <form className="flex flex-col gap-8"  onSubmit={handleRegister}>
         <InputWithLabel
           name="fullName"
           label="Enter Your Name"
@@ -51,7 +53,26 @@ export const Register = ({ changeLogRegister }) => {
           value={registerData.repPassword}
           onInputChange={handleInputChange}
         />
-        <Button onClick={handleRegister} text="Register" />
+        <div className="w-full flex items-center justify-around">
+          <div className="flex gap-4 items-center">
+            <input
+              type="checkbox"
+              name="role"
+              checked={registerData.isArtist}
+              id="artist"
+              onClick={() => {
+                setRegisterData({
+                  ...registerData,
+                  isArtist: !registerData.isArtist,
+                });
+              }}
+            />
+            <label htmlFor="artist" className="text-gray-400">
+              I am an artist
+            </label>
+          </div>
+        </div>
+        <Button text="Register" />
       </form>
       <div className="flex gap-5">
         <Typography text={"I already have an account"} type="p1" />

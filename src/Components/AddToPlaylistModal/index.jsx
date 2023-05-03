@@ -19,6 +19,7 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
 
   const handleAddToList = (e) => {
     e.stopPropagation();
+    handleToggleCreatePlaylistModal();
   };
 
   const handleCreateList = (e) => {
@@ -44,7 +45,7 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
         {!hovered ? (
           <AiOutlinePlus className="text-5xl font-bold text-white" />
         ) : (
-          <div onClick={handleToggleCreatePlaylistModal}>
+          <div>
             <Typography
               color="white"
               text="Create a new list"
