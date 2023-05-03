@@ -10,10 +10,10 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
     name: "",
     img: "",
     isPrivate: false,
-    img: "",
   });
 
   const [previewImg, setPreviewImg] = useState(null);
+
   const handleAddImage = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
