@@ -26,16 +26,14 @@ export const UserProvider = ({ children }) => {
   }, [userState.user]);
 
   const login = async (user) => {
-    const response = await loginUser(user);
-console.log(response);
-    if (response.length) {
-      const { fullName, email } = response[0];
-      dispatch({ type: types.login, payload: { email, fullName } });
+    const data = await loginUser(user);
+
+    if (data.ok) {
+      dispatch({ type: types.login, payload: data.user });
     }
   };
 
   const register = async (user) => {
-    console.log("hola");
     const data = await registerUser(user);
 
     if (data.ok) {
