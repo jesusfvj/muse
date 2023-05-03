@@ -35,6 +35,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const register = async (user) => {
+    console.log("hola");
     const data = await registerUser(user);
 
     if (data.ok) {
