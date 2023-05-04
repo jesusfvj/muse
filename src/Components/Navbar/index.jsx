@@ -14,13 +14,8 @@ import { CreatePlaylistModal } from "../CreatePlaylistModal";
 import { Button } from "../Button";
 
 const navItems = [
-  /* { path: "/", text: "Landing Page" }, */
   { path: "/main", text: "Home", icon: <FaHome /> },
-  /*  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> }, */
-  // { path: "/album", text: "Album" },
-  { path: "/profile", text: "Profile", icon: <FiUser /> },
-  // { path: "/artist", text: "Artist" },
-  // { path: "/player", text: "Player" },
+  { path: "/user", text: "Profile", icon: <FiUser /> },
   { path: "/search", text: "Search", icon: <BsSearch /> },
   { path: "/mylibrary", text: "Library", icon: <VscLibrary /> },
 ];
@@ -32,7 +27,7 @@ export const Navbar = () => {
     isCreatePlaylistModalOpen,
     handleToggleCreatePlaylistModal,
   } = useUI();
-  const { logout } = useUser();
+  const { logout, user } = useUser();
   const [showUploadSongsModal, setShowUploadSongsModal] = useState(false);
 
   const handleToggleNav = () => {
@@ -70,7 +65,7 @@ export const Navbar = () => {
               <NavItem
                 key={path}
                 text={text}
-                path={path}
+                path={path === "/user" ? `/user/${user._id}` : path}
                 icon={icon}
                 isNavOpen={isNavOpen}
               />

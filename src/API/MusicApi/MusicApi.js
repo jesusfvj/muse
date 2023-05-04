@@ -7,6 +7,7 @@ export const getSongs = async () => {
 export const getArtists = async () => {
   const res = await fetch("http://localhost:3000/artists");
   // throw new Error();
+  console.log('here')
   return res.json();
 };
 export const getAlbums = async () => {
