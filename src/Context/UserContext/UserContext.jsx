@@ -1,6 +1,6 @@
 import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
-import { loginUser, registerUser } from "../../API/UserApi/UserApi";
+import { followUser, loginUser, registerUser } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
 
@@ -43,6 +43,20 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const toggleUserFollowing = async (
+    loggedUserId,
+    followedUserId,
+    isFollowing
+  ) => {
+    const data = await followUser(loggedUserId, followedUserId, isFollowing);
+    if (!data.ok) return;
+    if (data.isFollowing) {
+      dispatch({ type: types.followUser, payload: followedUserId });
+    } else {
+      dispatch({ type: types.unfollowUser, payload: followedUserId });
+    }
+  };
+
   const logout = () => {
     dispatch({ type: types.logout });
   };
@@ -54,6 +68,7 @@ export const UserProvider = ({ children }) => {
         login,
         logout,
         register,
+        toggleUserFollowing,
       }}
     >
       {children}

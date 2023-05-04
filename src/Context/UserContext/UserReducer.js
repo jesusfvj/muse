@@ -10,14 +10,26 @@ export const userReducer = (state = {}, action) => {
     case types.login:
       return {
         ...state,
-        user: {...action.payload},
+        user: { ...action.payload },
       };
     case types.logout:
       return {
         ...state,
         user: null,
       };
-
+    case types.followUser:
+      return {
+        ...state,
+        user: { ...state.user, following: [...state.user.following, action.payload] },
+      };
+    case types.unfollowUser:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: state.user.following.filter((foll) => foll !== action.payload),
+        },
+      };
     default:
       state;
   }

@@ -130,7 +130,7 @@ export const Search = () => {
           .toLowerCase()
           .includes(searchQuery.toLowerCase())
       ) {
-        searchResultsUsers[element.id] = element;
+        searchResultsUsers[element.isOrder] = element;
       }
     });
 

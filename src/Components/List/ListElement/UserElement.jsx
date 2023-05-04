@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
-import { Typography, RoundButton } from "../../index";
+import { Typography } from "../../index";
 import { DropDownMenu } from "../../Dropdown";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const UserElement = ({ object }) => {
+  const { user, toggleUserFollowing } = useUser();
+
   const { fullName, profilePic, id, followedBy } = object;
   const navigate = useNavigate();
-  const loggedUserId = 5 // User logeado
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(user.following.includes(id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const handleNavigate = () => {
-    navigate(`/user/${id}`)
+    navigate(`/user/${id}`);
   };
-  // Aparece siguiendo si le sigue el user logeado
-  useEffect(() => {
-    if (followedBy.includes(loggedUserId)) { setClicked(true) }
-    // lo de abajo no haria falta en si
-    else {
-      setClicked(false)
-    }
-  }, [])
+console.log(user)
   const followClicked = () => {
-    console.log(clicked);
     if (!buttonDisabled) {
+      toggleUserFollowing(user._id, id, !clicked);
       setClicked(!clicked);
-
       setButtonDisabled(true);
       setTimeout(() => {
         console.log(clicked);
@@ -37,9 +30,7 @@ export const UserElement = ({ object }) => {
   };
 
   return (
-    <div
-      className="relative flex my-4 mx-2 select-none shadow-md"
-      >
+    <div className="relative flex my-4 mx-2 select-none shadow-md">
       <div
         className={
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full cursor-pointer "
@@ -71,7 +62,7 @@ export const UserElement = ({ object }) => {
           styles="hidden xs:flex"
         />
       </div>
-     
+
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
