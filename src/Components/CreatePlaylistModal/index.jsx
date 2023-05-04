@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 
 import { InputWithLabel } from "../InputWithLabel";
@@ -21,11 +21,14 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
     reader.onload = () => {
       setPreviewImg(reader.result);
     };
+    setPlaylistData({ ...playlistData, img: e.target.files[0] });
   };
 
   const handleSubmitForm = () => {
     console.log(playlistData);
   };
+
+  const inputRef = useRef();
   return (
     <div
       className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"
@@ -55,9 +58,9 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
             id="file"
             type="file"
             name="img"
-            value={playlistData.img}
             onChange={handleAddImage}
             className="hidden"
+            ref={inputRef}
           />
           <div
             className={`w-64 h-64  relative ${
@@ -65,10 +68,17 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
             } flex items-center justify-center rounded-md`}
           >
             <label
-              htmlFor="file"
+              onClick={() => inputRef.current.click()}
               className="text-6xl text-white cursor-pointer"
             >
-              {previewImg ? <img src={previewImg} className="w-full h-full object-cover shadow-md"/> : <BiImageAdd />}
+              {previewImg ? (
+                <img
+                  src={previewImg}
+                  className="w-full h-full object-cover shadow-md"
+                />
+              ) : (
+                <BiImageAdd />
+              )}
             </label>
           </div>
 
