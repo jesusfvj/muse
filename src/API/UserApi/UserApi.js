@@ -1,20 +1,18 @@
+import axios from "axios";
+
+const BASE_URL = "http://localhost:4000/user";
+
 export const registerUser = async (user) => {
-  const res = await fetch("http://localhost:3000/user", {
-    method: "POST",
-    body: JSON.stringify({
-      ...user,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const res = await axios.post(`${BASE_URL}/register`, user);
+  return res.data;
+};
+export const loginUser = async (user) => {
+  const res = await axios.post(`${BASE_URL}/login`, user);
+  return res.data;
+};
+export const followUser = async (user) => {
+  console.log(user);
+  const res = await axios.post(`${BASE_URL}/followUser`, user);
+  return res;
 };
 
-export const loginUser = async (user) => {
-  const { email, password } = user;
-  const res = await fetch(
-    `http://localhost:3000/user?email=${email}&password=${password}`
-  );
-  const data = await res.json();
-  return data;
-};

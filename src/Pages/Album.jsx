@@ -7,6 +7,7 @@ import { Layout } from "../Components/Layout";
 import { SkeletonTracksGroup } from "../Components/Skeletons";
 
 export const Album = () => {
+  const { albumId = 1 } = useParams();
   const {
     data: songs,
     isLoading: isLoadingSongs,

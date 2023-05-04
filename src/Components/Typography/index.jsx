@@ -8,8 +8,8 @@ export const Typography = ({
   const types = {
     title: `text-xl sm:text-4xl font-bold`,
     subtitle: `text-base sm:text-2xl font-medium`,
-    important: `text-2xl sm:text-5xl font-bold`,
     headline: `text-5xl xs:text-7xl sm:text-8xl font-bold`,
+    important: `text-2xl sm:text-5xl font-bold`,
     big: `text-xl sm:text-4xl font-bold`,
     p0: `text-xl sm:text-2xl font-normal`,
     p1: `text-sm sm:text-lg font-normal`,

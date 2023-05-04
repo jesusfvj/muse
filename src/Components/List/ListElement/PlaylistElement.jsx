@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 export const PlaylistElement = ({ object, isSwipping }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
   const { name, thumbnail, id } = object;
   const colors = {
@@ -45,12 +44,19 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     setHovered(false);
     setIsDropdownActive(false);
   };
-  const handleIconClick = (e) => {
-    e.stopPropagation();
-    setIsClicked(!isClicked);
-  };
-  const iconClicked = isClicked ? <MdOutlinePublicOff /> : <MdOutlinePublic />;
 
+  const likedClicked = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   return (
     <div
       className="relative"
@@ -76,16 +82,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
           </Link>
-          <div className="absolute top-3 right-3">
-            <button onClick={handleIconClick}>
-              <Typography
-                text={iconClicked}
-                type="big"
-                color="white"
-                styles="hidden xs:flex"
-              />
-            </button>
-          </div>
+        
           <img
             src={thumbnail}
             className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
@@ -94,10 +91,10 @@ export const PlaylistElement = ({ object, isSwipping }) => {
       </div>
       <div
         className="absolute bottom-2 left-5 cursor-pointer flex justify-center items-center"
-        onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+        onClick={likedClicked}
       >
         <Typography
-          text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
           type="big"
           color="white"
           styles="hidden xs:flex"

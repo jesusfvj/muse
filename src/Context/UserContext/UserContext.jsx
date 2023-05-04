@@ -14,7 +14,7 @@ export const useUser = () => {
 const init = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return {
-    user
+    user,
   };
 };
 
@@ -26,18 +26,21 @@ export const UserProvider = ({ children }) => {
   }, [userState.user]);
 
   const login = async (user) => {
-    const response = await loginUser(user);
+    const data = await loginUser(user);
 
-    if (response.length) {
-      const { fullName, email } = response[0];
-      dispatch({ type: types.login, payload: { email, fullName } });
+    if (data.ok) {
+      dispatch({ type: types.login, payload: data.user });
     }
   };
 
-  const register = (user) => {
-    const { email, fullName } = user;
-    registerUser(user);
-    dispatch({ type: types.register, payload: { email, fullName } });
+  const register = async (user) => {
+    const data = await registerUser(user);
+
+    if (data.ok) {
+      dispatch({ type: types.register, payload: data.user });
+    } else {
+      console.log("Something happened");
+    }
   };
 
   const logout = () => {

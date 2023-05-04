@@ -199,7 +199,6 @@
 //   url: { type: String, required: true },
 //   thumbnail: { type: String, required: true },
 //   createdAt: { type: Date, default: Date.now },
-//   releasedAt: { type: Date, default: Date.now },
 //   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 //   genre: { type: Schema.Types.ObjectId, ref: "Genre", required: true },
 //   albums: [{ type: Schema.Types.ObjectId, ref: "Album" }],

@@ -8,24 +8,34 @@ import { IoClose } from "react-icons/io5";
 import { BsSearch } from "react-icons/bs";
 import { Typography } from "../Typography";
 import { useUser } from "../../Context/UserContext/UserContext";
+import { UploadSongsModal } from "../UploadSongsModal";
+import { useState } from "react";
+import { CreatePlaylistModal } from "../CreatePlaylistModal";
+import { Button } from "../Button";
 
 const navItems = [
-  /* { path: "/", text: "Landing Page" }, */
   { path: "/main", text: "Home", icon: <FaHome /> },
-  /*  { path: "/playlist", text: "Playlist", icon: <RiPlayListLine /> }, */
-  // { path: "/album", text: "Album" },
-  { path: "/profile", text: "Profile", icon: <FiUser /> },
-  // { path: "/artist", text: "Artist" },
-  // { path: "/player", text: "Player" },
+  { path: "/user", text: "Profile", icon: <FiUser /> },
   { path: "/search", text: "Search", icon: <BsSearch /> },
   { path: "/mylibrary", text: "Library", icon: <VscLibrary /> },
 ];
 
 export const Navbar = () => {
-  const { isNavOpen, setIsNavOpen } = useUI();
-  const { logout } = useUser();
+  const {
+    isNavOpen,
+    setIsNavOpen,
+    isCreatePlaylistModalOpen,
+    handleToggleCreatePlaylistModal,
+  } = useUI();
+  const { logout, user } = useUser();
+  const [showUploadSongsModal, setShowUploadSongsModal] = useState(false);
 
   const handleToggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  const uploadSongs = () => {
+    setShowUploadSongsModal(true);
     setIsNavOpen(!isNavOpen);
   };
 
@@ -34,41 +44,63 @@ export const Navbar = () => {
   };
 
   return (
-    <div
-      className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
-        isNavOpen
-          ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50  duration-300"
-          : "w-0 md:pt-24"
-      } `}
-    >
-      {isNavOpen && (
-        <IoClose
-          className="text-white text-2xl absolute top-5 right-10 cursor-pointer z-50"
-          onClick={handleToggleNav}
+    <>
+      <div
+        className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
+          isNavOpen
+            ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50  duration-300"
+            : "w-0 md:pt-24"
+        } `}
+      >
+        {isNavOpen && (
+          <IoClose
+            className="text-white text-2xl absolute top-5 right-10 cursor-pointer z-50"
+            onClick={handleToggleNav}
+          />
+        )}
+        <div className="flex flex-col gap-8 mt-8">
+          {navItems.map((navItem) => {
+            const { text, path, icon } = navItem;
+            return (
+              <NavItem
+                key={path}
+                text={text}
+                path={path === "/user" ? `/user/${user._id}` : path}
+                icon={icon}
+                isNavOpen={isNavOpen}
+              />
+            );
+          })}
+          {isNavOpen && (
+            <div className="fixed bottom-6 flex flex-col gap-2">
+              <Button
+                text="Create Playlist"
+                onClick={handleToggleCreatePlaylistModal}
+              />
+              <div
+                className="cursor-pointer border border-gray-400 p-3 rounded-md"
+                onClick={uploadSongs}
+              >
+                <Typography text="Upload songs" />
+              </div>
+              <div
+                className="cursor-pointer border border-gray-400 p-3 rounded-md"
+                onClick={handleLogout}
+              >
+                <Typography text="LOGOUT" />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      {showUploadSongsModal && (
+        <UploadSongsModal setShowUploadSongsModal={setShowUploadSongsModal} />
+      )}
+      {isCreatePlaylistModalOpen && (
+        <CreatePlaylistModal
+          handleToggleCreatePlaylistModal={handleToggleCreatePlaylistModal}
         />
       )}
-      <div className="flex flex-col gap-8 mt-8">
-        {navItems.map((navItem) => {
-          const { text, path, icon } = navItem;
-          return (
-            <NavItem
-              key={path}
-              text={text}
-              path={path}
-              icon={icon}
-              isNavOpen={isNavOpen}
-            />
-          );
-        })}
-        {isNavOpen && (
-          <div
-            className="fixed bottom-6 cursor-pointer border border-gray-400 p-3 rounded-md"
-            onClick={handleLogout}
-          >
-            <Typography text="LOGOUT" />
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 };

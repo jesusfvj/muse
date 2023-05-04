@@ -6,8 +6,13 @@ export const Button = ({
   color = "primary",
   outlined = false,
   disabled = false,
+  typeButton = "button",
   onClick,
+  onChange,
   icon,
+  isLabel = false,
+  htmlFor,
+  refElement
 }) => {
   const buttonColors = {
     primary: {
@@ -35,6 +40,11 @@ export const Button = ({
       outlined:
         "border border-gray-500/90 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-gray-900 to-gray-500",
     },
+    transparent: {
+      fill: "transparent",
+      outlined:
+        "",
+    }
   };
 
   const sizes = {
@@ -45,10 +55,15 @@ export const Button = ({
   const type = outlined ? "outlined" : "fill";
   const disabledClass = disabled ? "opacity-50" : "";
 
-  const finalClassName = `w-full lato font-semibold centered rounded flex inline-flex gap-2 justify-center items-center transition ${sizes[size]} ${buttonColors[color][type]} ${disabledClass} hover:${buttonColors[color][type]}/80 active:scale-[0.995] active:translate-y-[0.5px]`;
+  const finalClassName = `w-full h-full lato font-semibold centered rounded flex inline-flex gap-2 justify-center items-center cursor-pointer transition ${sizes[size]} ${buttonColors[color][type]} ${disabledClass} hover:${buttonColors[color][type]}/80 active:scale-[0.995] active:translate-y-[0.5px]`;
   return (
-    <button disabled={disabled} onClick={onClick} className={finalClassName}>
+    isLabel ?
+      (<label htmlFor={htmlFor} disabled={disabled} onClick={onClick} className={finalClassName} type={typeButton}>
       {icon && icon} {text}
-    </button>
+      </label>)
+      :(
+      <button disabled={disabled} onClick={onClick} className={finalClassName} type={typeButton} ref={refElement}>
+      {icon && icon} {text}
+      </button>)
   );
 };

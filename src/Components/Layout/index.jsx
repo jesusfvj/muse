@@ -16,9 +16,6 @@ export const Layout = ({ children }) => {
     handleTogglePlaylistModal,
     isAddToPlaylistModalOpen,
     isCreatePlaylistModalOpen,
-    isEditSongModalOpen,
-    handleToggleSongModal,
-
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -75,7 +72,6 @@ export const Layout = ({ children }) => {
         <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />
       )}
       {isCreatePlaylistModalOpen && <CreatePlaylistModal />}
-      {isEditSongModalOpen && <EditSongForm handleToggleSongModal={handleToggleSongModal}/> }
     </div>
   );
 };

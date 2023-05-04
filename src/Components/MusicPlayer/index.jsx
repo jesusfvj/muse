@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { tracks } from "../../data/SongsData/SongsData";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
-  const [track, setTracks] = useState(tracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[1]);
   const [progress, setProgress] = useState(0);
@@ -59,8 +58,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
         <PlayControls
           handleProgressChange={handleProgressChange}
           progress={progress}
-          track={track}
-          setTracks={setTracks}
+          track={tracks}
           currentTrack={currentTrack}
           setCurrentTrack={setCurrentTrack}
           isPlaying={isPlaying}
