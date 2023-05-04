@@ -7,6 +7,7 @@ import { MusicPlayer } from "../MusicPlayer";
 import { ContextMenu } from "../ContextMenu";
 import { AddToPlaylistModal } from "../AddToPlaylistModal";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
+import EditSongForm from "../Form/EditDeleteSongs";
 
 export const Layout = ({ children }) => {
   const {
@@ -15,6 +16,9 @@ export const Layout = ({ children }) => {
     handleTogglePlaylistModal,
     isAddToPlaylistModalOpen,
     isCreatePlaylistModalOpen,
+    isEditSongModalOpen,
+    handleToggleSongModal,
+
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -71,6 +75,7 @@ export const Layout = ({ children }) => {
         <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />
       )}
       {isCreatePlaylistModalOpen && <CreatePlaylistModal />}
+      {isEditSongModalOpen && <EditSongForm handleToggleSongModal={handleToggleSongModal}/> }
     </div>
   );
 };
