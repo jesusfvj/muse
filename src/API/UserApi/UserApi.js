@@ -11,4 +11,9 @@ export const loginUser = async (user) => {
   const res = await axios.post(`${BASE_URL}/login`, user);
   return res;
 };
+export const followUser = async (user) => {
+  console.log(user);
+  const res = await axios.post(`${BASE_URL}/followUser`, user);
+  return res;
+};
 
