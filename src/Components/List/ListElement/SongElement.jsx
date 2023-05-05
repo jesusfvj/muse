@@ -96,7 +96,7 @@ export const SongElement = ({ object }) => {
       >
         <DropDownMenu />
       </div>
-      <BiEdit className="text-white absolute top-2 right-2 z-40" onClick={handleToggleSongModal} />
+      <BiEdit className="text-white absolute top-2 right-2 z-40" onClick={()=>handleToggleSongModal(object)} />
     </div>
   );
 };
