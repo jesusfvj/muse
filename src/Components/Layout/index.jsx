@@ -7,6 +7,7 @@ import { MusicPlayer } from "../MusicPlayer";
 import { ContextMenu } from "../ContextMenu";
 import { AddToPlaylistModal } from "../AddToPlaylistModal";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
+import EditSongForm from "../Form/EditDeleteSongs";
 
 export const Layout = ({ children }) => {
   const {
@@ -15,7 +16,8 @@ export const Layout = ({ children }) => {
     handleTogglePlaylistModal,
     isAddToPlaylistModalOpen,
     isCreatePlaylistModalOpen,
-    handleToggleCreatePlaylistModal,
+    handleToggleSongModal,
+    isEditSongModalOpen,
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -48,9 +50,8 @@ export const Layout = ({ children }) => {
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
       <div
-        className={`${
-          !isContextMenuVisible || (!isContextMenuOpen && "hidden")
-        }`}
+        className={`${!isContextMenuVisible || (!isContextMenuOpen && "hidden")
+          }`}
       >
         <ContextMenu handleCloseContextMenu={handleCloseContextMenu} />
       </div>
@@ -71,11 +72,9 @@ export const Layout = ({ children }) => {
       {isAddToPlaylistModalOpen && (
         <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />
       )}
-      {isCreatePlaylistModalOpen && (
-        <CreatePlaylistModal
-          handleToggleCreatePlaylistModal={handleToggleCreatePlaylistModal}
-        />
-      )}
+      {isCreatePlaylistModalOpen && <CreatePlaylistModal />}
+      {isEditSongModalOpen && (<EditSongForm handleToggleSongModal={handleToggleSongModal} />)}
+
     </div>
   );
 };
