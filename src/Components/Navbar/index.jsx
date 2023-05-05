@@ -85,7 +85,7 @@ export const Navbar = () => {
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"
                 onClick={uploadSongs}
               >
-                <Typography text="Create Songs" styles="truncate"/>
+                <Typography text="Upload Songs" styles="truncate"/>
               </div>
               <div
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"
