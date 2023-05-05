@@ -46,7 +46,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`bg-black/[97.5%] h-full md:pt-24 fixed  ${
+        className={`bg-black/[97.5%] h-full md:pt-12 fixed  ${
           isNavOpen
             ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50 duration-300"
             : "w-0 md:pt-24"
@@ -74,7 +74,7 @@ export const Navbar = () => {
             })}
           </div>
           {isNavOpen && (
-            <div className="bottom-6 flex flex-col items-center gap-2 w-full bg-gradient-to-b from-[#000000] to-[#0A4148] py-20 px-16 sm:px-0 md:px-6 lg:px-14 xl:px-16">
+            <div className="bottom-6 flex flex-col items-center gap-2 w-full bg-gradient-to-b from-[#000000] to-[#0A4148] pb-4 px-16 sm:px-0 md:px-6 lg:px-14 xl:px-16">
               <div
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"
                 onClick={handleToggleCreatePlaylistModal}
