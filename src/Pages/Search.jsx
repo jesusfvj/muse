@@ -21,7 +21,6 @@ export const Search = () => {
 
   const handleSearch = async (query) => {
     const res = await search(query, _id);
-    console.log(res.results)
     if (res.ok) {
       setSearchResults({ ...res.results });
     }
