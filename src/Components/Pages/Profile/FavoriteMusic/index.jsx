@@ -1,7 +1,6 @@
 import { AlbumTracks } from "../../../AlbumTracks";
 import {
   getAlbums,
-  getArtists,
   getPlaylists,
   getSongs,
 } from "../../../../API/MusicApi/MusicApi";
@@ -12,10 +11,15 @@ import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../../../EmptyDefault";
 import { SkeletonTracksGroup } from "../../../Skeletons";
 import { UserFollowingSection } from "./UserFollowingSection";
+import { getArtists } from "../../../../API/UserApi/UserApi";
+import { useUser } from "../../../../Context/UserContext/UserContext";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
 export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
+  const {
+    user: { _id },
+  } = useUser();
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -30,7 +34,7 @@ export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
-  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+   } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,

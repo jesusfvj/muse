@@ -17,10 +17,10 @@ export const MosaicElements = ({object, dataType, list ="no"}) => {
                     case "artist":
                         return <ArtistElement key={index} object={object} />;
                     case "playlist":
-                        return (<>
-                        {index == 0 && list === "yes" && <CreateListButton />}
-                        <PlaylistElement key={index} object={object} />
-                        </>)
+                        return (<div key={index}>
+                        {index == 0 && list === "yes" && <CreateListButton  />}
+                        <PlaylistElement object={object} />
+                        </div>)
                     case "skeletonPlaylist":
                         return <SkeletonPlaylistElement key={index} object={object} />;
                     case "skeletonAlbum":

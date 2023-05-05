@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import {
   getAlbums,
-  getArtists,
   getPlaylists,
   getSongs,
 } from "../../../../API/MusicApi/MusicApi";
 import { EmptyDefault, List } from "../../../index";
+import { getArtists } from "../../../../API/UserApi/UserApi";
+import { useUser } from "../../../../Context/UserContext/UserContext";
 
 const skeletonData = [
   "",
@@ -42,6 +43,10 @@ const skeletonData = [
 
 export const ArtistBody = () => {
   const {
+    user: { _id },
+  } = useUser();
+
+  const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
@@ -55,7 +60,7 @@ export const ArtistBody = () => {
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
-  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,
