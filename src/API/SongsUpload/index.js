@@ -1,23 +1,19 @@
+import axios from "axios";
+
+const BASE_URL = "http://localhost:4000/uploadsongs";
+
 export const uploadSongsAPI = async (filesFormData) => {
-
-    filesFormData.forEach((fileFormData, index) => {
-        const file = fileFormData.get(`file${index + 1}`);
-        const dataFile = fileFormData.get(`dataFile${index + 1}`);
-        const imageFile = fileFormData.get(`imageFile${index + 1}`);
-        console.dir(file);
-        console.log(dataFile);
-        console.log(imageFile);
-    });
-    /*  const response = await fetch("http://localhost:4002/uploadsongs/register", {
-         method: "POST",
-         headers: {
-           "Content-Type": "multipart/form-data",
-           "x-token": window.localStorage.getItem("token")
-         },
-         body: filesFormData
-       });
-
-       const data = await response.json();
-       const okData = checkTokenExpired(data);
-       return okData && data; */
+  const response = await axios.post(`${BASE_URL}/register`, filesFormData);
+  /* const okData = checkTokenExpired(response);
+  return okData && data; */
+  return response;
 }
+
+/* Object.values(selectedFiles).forEach((selectedFile, index) => {
+  const file = filesFormData.get(`file${index + 1}`);
+  const dataFile = filesFormData.get(`dataFile${index + 1}`);
+  const imageFile = filesFormData.get(`imageFile${index + 1}`);
+  console.dir(file);
+  console.log(dataFile);
+  console.log(imageFile);
+}); */

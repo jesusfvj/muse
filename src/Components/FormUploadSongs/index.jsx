@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Button } from "../Button"
 import { Typography } from "../Typography"
 
-export const FormUploadSongs = ({setSelectedFiles}) => {
+export const FormUploadSongs = ({setFilesUploaded, setSelectedFiles}) => {
     const [dragActive, setDragActive] = useState(false);
 
     const handleFileInputChange = (event) => {
         const arraySelectedFiles = Array.from(event.target.files)
         setSelectedFiles(arraySelectedFiles);
+        setFilesUploaded(true)
     }
 
     const handleDrag = (event) => {
@@ -27,6 +28,7 @@ export const FormUploadSongs = ({setSelectedFiles}) => {
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             const arraySelectedFiles = Array.from(e.dataTransfer.files)
             setSelectedFiles(arraySelectedFiles);
+            setFilesUploaded(true)
         }
     };
   return (

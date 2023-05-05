@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 
 import { InputWithLabel } from "../InputWithLabel";
@@ -16,11 +16,13 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreviewImg(reader.result);
-    };
+    if(file){
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setPreviewImg(reader.result);
+      };
+    }
   };
 
   const handleSubmitForm = () => {
@@ -68,7 +70,9 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
               htmlFor="file"
               className="text-6xl text-white cursor-pointer"
             >
+            <div>
               {previewImg ? <img src={previewImg} className="w-full h-full object-cover shadow-md"/> : <BiImageAdd />}
+            </div>
             </label>
           </div>
 
