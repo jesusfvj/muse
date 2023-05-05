@@ -1,9 +1,11 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "../Button"
 import { FormUploadedSongsComponent } from "../FormUploadedSongsComponent"
 import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
 import editMusicIcon from "../../../public/icons/editSongImg.png"
+import { useUser } from "../../Context/UserContext/UserContext";
+import { uploadSongsAPI } from "../../API/SongsUpload/index";
 
 export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
@@ -64,7 +66,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
         ])
     }
 
-    const handleClickHiddenButton = () => {
+    /* const handleClickHiddenButton = () => {
         buttonSaveRef.current.click();
     };
 
@@ -74,7 +76,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
 
     const handleTextInputChange = (event) => {
         setAlbumInputValue(event.target.value);
-    };
+    }; */
 
     useEffect(() => {
         if (selectedFiles) {
@@ -110,7 +112,11 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
         <div className="w-[80%]">
             <div className="m-8 flex flex-col items-center">
                 <label className="flex gap-4">
-                    <input className="mt-1" type="checkbox" checked={isAlbumChecked} onChange={handleCheckboxChange} />
+                    <input
+                        className="mt-1"
+                        type="checkbox"
+                        checked={isAlbumChecked}
+                        onChange={(event)=>{setIsAlbumChecked(event.target.checked)}} />
                     <Typography
                         text="Is it an album?"
                         type="p1"
@@ -123,7 +129,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                         label="Album Title"
                         type="text"
                         value={albumInputValue}
-                        onInputChange={handleTextInputChange}
+                        onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
                         sizeContainer="w-[20vw] mt-10"
                         styles="text-xs"
                     />
@@ -135,7 +141,6 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
             >
                 {isAlbumChecked &&
                     <InputWithLabel
-                        /* name="albumName" */
                         type="text"
                         value={albumInputValue}
                         sizeContainer="hidden"
@@ -170,7 +175,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                     text="Save"
                     color="black"
                     size="sm"
-                    onClick={handleClickHiddenButton}
+                    onClick={()=>{buttonSaveRef.current.click();}}
                 />
             </div>
         </div>

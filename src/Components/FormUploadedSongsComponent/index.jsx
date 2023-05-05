@@ -76,7 +76,7 @@ export const FormUploadedSongsComponent = (
                 label="Artist name"
                 type="text"
                 value={user.fullName}
-                readonly
+                readonly = {true}
                 sizeContainer="w-1/4"
                 styles="text-xs"
             />
