@@ -11,10 +11,11 @@ import { LovedSection } from "./LovedSection";
 import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../../../EmptyDefault";
 import { SkeletonTracksGroup } from "../../../Skeletons";
+import { UserFollowingSection } from "./UserFollowingSection";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
-export const FavoriteMusic = ({ handleToggleModal }) => {
+export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -42,6 +43,7 @@ export const FavoriteMusic = ({ handleToggleModal }) => {
         <TitleSection titleSection="Following" />
         {!errorArtists ? (
           <FollowingSection
+            isOwner={isLoggedUserProfile}
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
             object1={!isLoadingArtists ? artists : skeletonData}
             title1="Artists"
@@ -58,6 +60,7 @@ export const FavoriteMusic = ({ handleToggleModal }) => {
         <TitleSection titleSection="Loved ones" />
         {!errorAlbums && !errorSongs ? (
           <LovedSection
+            isOwner={isLoggedUserProfile}
             datatype1={!isLoadingAlbums ? "album" : "skeletonAlbum"}
             datatype2={!isLoadingSongs ? "song" : "skeletonSong"}
             object1={!isLoadingAlbums ? albums : skeletonData}
@@ -71,8 +74,12 @@ export const FavoriteMusic = ({ handleToggleModal }) => {
         )}
       </div>
       <div>
-        <TitleSection titleSection="Your playlists" />
-        {!errorPlaylists ? (
+        <TitleSection
+          titleSection={`${
+            isLoggedUserProfile ? "Your playlists" : "Playlists"
+          }`}
+        />
+        {!errorPlaylists && isLoggedUserProfile ? (
           <FollowingSection
             title1="Public"
             datatype1={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
@@ -80,6 +87,13 @@ export const FavoriteMusic = ({ handleToggleModal }) => {
             datatype2={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
             object2={!isLoadingPlaylists ? playlists : skeletonData}
             title2="Private"
+          />
+        ) : !errorPlaylists ? (
+          <UserFollowingSection
+            isOwner={isLoggedUserProfile}
+            title="Public"
+            datatype={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
+            object={!isLoadingPlaylists ? playlists : skeletonData}
           />
         ) : (
           <EmptyDefault error={true} />

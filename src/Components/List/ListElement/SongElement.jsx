@@ -73,7 +73,7 @@ export const SongElement = ({ object }) => {
         onClick={likedClicked}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
           color={clicked ? "white" : "secondary"}
           styles="hidden xs:flex scale-[2]"
         />

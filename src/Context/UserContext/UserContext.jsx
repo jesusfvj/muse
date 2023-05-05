@@ -1,6 +1,10 @@
 import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
-import { followUser, loginUser, registerUser } from "../../API/UserApi/UserApi";
+import {
+  followUser,
+  loginUser,
+  registerUser,
+} from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
 

@@ -14,7 +14,7 @@ export const AlbumElement = ({ object }) => {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
   const handleOpenDropdown = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     e.preventDefault();
     setIsDropdownActive(true);
   };
@@ -22,7 +22,7 @@ export const AlbumElement = ({ object }) => {
   const handleMouseLeave = () => {
     setHovered(false);
     setIsDropdownActive(false);
-  }; 
+  };
   const likedClicked = () => {
     console.log(clicked);
     if (!buttonDisabled) {
@@ -72,8 +72,8 @@ export const AlbumElement = ({ object }) => {
         className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
         onClick={likedClicked}
       >
-         <Typography
-          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+        <Typography
+          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
           color={clicked ? "white" : "secondary"}
           styles="hidden xs:flex scale-[2]"
         />

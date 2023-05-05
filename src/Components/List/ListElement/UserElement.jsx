@@ -7,23 +7,22 @@ import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const UserElement = ({ object }) => {
   const { user, toggleUserFollowing } = useUser();
+  const { fullName, profilePhoto, _id, followedBy } = object;
 
-  const { fullName, profilePic, id, followedBy } = object;
   const navigate = useNavigate();
-  const [clicked, setClicked] = useState(user.following.includes(id));
+  const [isFollowed, setIsFollowed] = useState(user.following.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isDropdownActive, setIsDropdownActive] = useState(false);
+
   const handleNavigate = () => {
-    navigate(`/user/${id}`);
+    navigate(`/user/${_id}`);
   };
-console.log(user)
+
   const followClicked = () => {
     if (!buttonDisabled) {
-      toggleUserFollowing(user._id, id, !clicked);
-      setClicked(!clicked);
+      toggleUserFollowing(user._id, _id, !isFollowed);
+      setIsFollowed(!isFollowed);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
         setButtonDisabled(false);
       }, 1500);
     }
@@ -38,7 +37,7 @@ console.log(user)
         onClick={handleNavigate}
       >
         <img
-          src={profilePic}
+          src={profilePhoto}
           className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none"
         />
         <div className="w-full mb-5 px-3 text-center">
@@ -56,17 +55,11 @@ console.log(user)
         onClick={followClicked}
       >
         <Typography
-          text={clicked ? <RiUserFollowFill /> : <RiUserFollowLine />}
+          text={isFollowed ? <RiUserFollowFill /> : <RiUserFollowLine />}
           type="p0"
-          color={clicked ? "white" : "secondary"}
+          color={isFollowed ? "white" : "secondary"}
           styles="hidden xs:flex"
         />
-      </div>
-
-      <div
-        className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
-      >
-        <DropDownMenu />
       </div>
     </div>
   );

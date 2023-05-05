@@ -1,7 +1,12 @@
-import { HashLink } from 'react-router-hash-link';
-import { List, Typography } from "../../../.."
+import { HashLink } from "react-router-hash-link";
+import { List, Typography } from "../../../..";
 
-export const FavoriteMusicElement = ({ object, sectionTitle, datatype }) => {
+export const FavoriteMusicElement = ({
+  object,
+  sectionTitle,
+  datatype,
+  isOwner = true,
+}) => {
   return (
     <div className="flex flex-col justify-center items-center gap-y-[2rem] relative">
       <div className="w-[95%]">
@@ -12,11 +17,13 @@ export const FavoriteMusicElement = ({ object, sectionTitle, datatype }) => {
           dataType={datatype}
         />
       </div>
-      <HashLink to={`/mylibrary#${sectionTitle}`}>
-      <div className="absolute top-[1rem] right-4 xs:right-[4.75rem] cursor-pointer">
-        <Typography text="Show all" type="p1" color="white" family="lato"/>
-      </div>
-      </HashLink>
+      {isOwner && (
+        <HashLink to={`/mylibrary#${sectionTitle}`}>
+          <div className="absolute top-[1rem] right-4 xs:right-[4.75rem] cursor-pointer">
+            <Typography text="Show all" type="p1" color="white" family="lato" />
+          </div>
+        </HashLink>
+      )}
     </div>
-  )
-}
+  );
+};

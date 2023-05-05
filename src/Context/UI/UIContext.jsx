@@ -31,7 +31,7 @@ export const UIProvider = ({ children }) => {
         handleTogglePlaylistModal,
         isAddToPlaylistModalOpen,
         handleToggleCreatePlaylistModal,
-        isCreatePlaylistModalOpen
+        isCreatePlaylistModalOpen,
       }}
     >
       {children}
