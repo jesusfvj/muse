@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useUser } from "../Context/UserContext/UserContext";
 import { getUserById } from "../API/UserApi/UserApi";
 import { useEffect } from "react";
+import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
+import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
 
 export const User = () => {
   const { userId } = useParams();
@@ -27,7 +29,7 @@ export const User = () => {
 
   useEffect(() => {
     getUserProfile(userId);
-  }, []);
+  }, [userId]);
 
   return (
     <Layout>
@@ -45,9 +47,9 @@ export const User = () => {
           </div>
         </>
       ) : isLoading ? (
-        "Loading"
+        <ProfileLoader />
       ) : (
-        "user not found"
+        <ProfileNotFound />
       )}
     </Layout>
   );
