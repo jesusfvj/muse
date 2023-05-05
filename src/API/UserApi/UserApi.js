@@ -10,9 +10,19 @@ export const loginUser = async (user) => {
   const res = await axios.post(`${BASE_URL}/login`, user);
   return res.data;
 };
-export const followUser = async (user) => {
-  console.log(user);
-  const res = await axios.post(`${BASE_URL}/followUser`, user);
-  return res;
+
+export const followUser = async (loggedUserId, followedUserId, isFollowing) => {
+  const res = await axios.post(`${BASE_URL}/followUser`, {
+    loggedUserId,
+    followedUserId,
+    isFollowing,
+  });
+  return res.data;
 };
 
+export const getUserById = async (userId) => {
+  const res = await axios.get(`${BASE_URL}/${userId}`);
+  if (res.data.ok) {
+    return res.data;
+  }
+};

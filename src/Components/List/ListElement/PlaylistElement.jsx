@@ -82,7 +82,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
             />
           </Link>
-        
+
           <img
             src={thumbnail}
             className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
@@ -94,7 +94,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         onClick={likedClicked}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
           type="big"
           color="white"
           styles="hidden xs:flex"
