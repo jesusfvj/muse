@@ -38,12 +38,12 @@ const EditSongForm = ({ handleToggleSongModal }) => {
 
     return (
         <div className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]" onClick={handleToggleSongModal}>
-            <div className="w-1/2 h-1/2 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] flex flex-row items-center gap-8 p-6 rounded-md place-content-center" onClick={(e) => e.stopPropagation()}>
+            <div className="md:w-2/3 lg:w-1/3 h-1/3 w-4/5 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] flex flex-row items-center gap-8 p-6 rounded-md place-content-center" onClick={(e) => e.stopPropagation()}>
                 <InputWithLabel
                     placeholder="Song name"
                     type="text"
                     value={editSongName.name}
-                    onChange={handleEditSongName}
+                    onInputChange={handleEditSongName}
                     label="song name"
                 />
                 <div className="flex flex-row items-center gap-8 justify-between p-6">
