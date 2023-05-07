@@ -31,6 +31,9 @@ export const Search = () => {
   return (
     <Layout>
       <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+        <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
+          <img src={logo} className="w-[70vw] mix-blend-overlay" />
+        </div>
         <div className=" flex justify-center p-9">
           <input
             type="text"
@@ -102,9 +105,6 @@ export const Search = () => {
               ) : null}
             </div>
           ) : null}
-        </div>
-        <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
-          <img src={logo} className="z-50 w-[70vw] mix-blend-overlay" />
         </div>
       </div>
     </Layout>

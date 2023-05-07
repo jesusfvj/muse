@@ -96,7 +96,12 @@ export const SongElement = ({ object }) => {
       >
         <DropDownMenu />
       </div>
-      <BiEdit className="text-white absolute top-2 right-2 z-40" onClick={()=>handleToggleSongModal(object)} />
+      {hovered && (
+        <BiEdit
+          className="text-white absolute top-2 right-2 z-40 cursor-pointer"
+          onClick={() => handleToggleSongModal(object)}
+        />
+      )}
     </div>
   );
 };

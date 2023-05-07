@@ -16,6 +16,7 @@ export const Layout = ({ children }) => {
     handleTogglePlaylistModal,
     isAddToPlaylistModalOpen,
     isCreatePlaylistModalOpen,
+    handleToggleCreatePlaylistModal,
     handleToggleSongModal,
     isEditSongModalOpen,
   } = useUI();
@@ -72,7 +73,7 @@ export const Layout = ({ children }) => {
       {isAddToPlaylistModalOpen && (
         <AddToPlaylistModal handleToggleModal={handleTogglePlaylistModal} />
       )}
-      {isCreatePlaylistModalOpen && <CreatePlaylistModal />}
+      {isCreatePlaylistModalOpen && <CreatePlaylistModal handleToggleCreatePlaylistModal={handleToggleCreatePlaylistModal}/>}
       {isEditSongModalOpen && (<EditSongForm handleToggleSongModal={handleToggleSongModal} />)}
 
     </div>

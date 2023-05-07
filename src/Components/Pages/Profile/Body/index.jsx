@@ -11,7 +11,10 @@ export const Body = ({ user, isLoggedUserProfile }) => {
       <div className="xs:px-[2rem] sm:px-[5rem]">
         <div className="flex flex-col md:flex-row justify-between items-center xs:pt-[3rem] gap-[3rem]">
           <BodyTitle user={user} isLoggedUserProfile={isLoggedUserProfile} />
-          <EditUserPhoto />
+          <EditUserPhoto
+            user={user}
+            isLoggedUserProfile={isLoggedUserProfile}
+          />
         </div>
         {isLoggedUserProfile && (
           <>
