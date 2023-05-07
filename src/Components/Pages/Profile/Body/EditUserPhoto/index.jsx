@@ -12,7 +12,7 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
     >
       <img
         src={user.profilePhoto}
-        className={`w-full rounded-full`}
+        className={`w-full rounded-full h-full object-cover`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       />

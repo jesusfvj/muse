@@ -29,7 +29,6 @@ export const getUserById = async (userId) => {
 
 export const getArtists = async (id) => {
   const res = await axios.get(`${BASE_URL}/artists/${id}`);
-  console.log(res.data);
   if (res.data?.ok) {
     return res.data.artists;
   }
