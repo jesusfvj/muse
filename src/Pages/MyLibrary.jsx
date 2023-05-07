@@ -3,14 +3,11 @@ import { arrayTodaysHits } from "../../src/data/Profile/Profile";
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
 import { Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
-import {
-  getAlbums,
-  getArtists,
-  getPlaylists,
-  getSongs,
-} from "../API/MusicApi/MusicApi";
+import { getAlbums, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../Components/EmptyDefault";
+import { getArtists } from "../API/UserApi/UserApi";
+import { useUser } from "../Context/UserContext/UserContext";
 
 const skeletonData = [
   "",
@@ -33,6 +30,9 @@ const skeletonData = [
 
 export const MyLibrary = () => {
   const {
+    user: { _id },
+  } = useUser();
+  const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
@@ -46,7 +46,7 @@ export const MyLibrary = () => {
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
-  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
+  } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,

@@ -26,3 +26,11 @@ export const getUserById = async (userId) => {
     return res.data;
   }
 };
+
+export const getArtists = async (id) => {
+  const res = await axios.get(`${BASE_URL}/artists/${id}`);
+  console.log(res.data);
+  if (res.data?.ok) {
+    return res.data.artists;
+  }
+};

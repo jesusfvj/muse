@@ -15,14 +15,12 @@ export const Register = ({ changeLogRegister }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("hola");
     register(registerData);
   };
 
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
-  console.log(registerData);
   return (
     <div className="flex flex-col pt-[25vh] md:pt-32 md:mt-0 md:justify-center h-full w-full 2xl:w-1/4 xl:w-5/12 lg:w-2/5 md:w-2/3 md:ml-24 px-8 gap-8 ">
       <Typography text="Register" color="primary" type="important" />

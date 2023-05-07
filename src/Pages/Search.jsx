@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Layout, List, Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
 import { search } from "../API/SearchApi";
+import { useUser } from "../Context/UserContext/UserContext";
 
 export const Search = () => {
+  const {
+    user: { _id },
+  } = useUser();
+
   const [searchResults, setSearchResults] = useState({
     songs: [],
     albums: [],
@@ -15,7 +20,7 @@ export const Search = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = async (query) => {
-    const res = await search(query);
+    const res = await search(query, _id);
     if (res.ok) {
       setSearchResults({ ...res.results });
     }
