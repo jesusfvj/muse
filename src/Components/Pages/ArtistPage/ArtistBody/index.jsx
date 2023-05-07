@@ -57,11 +57,6 @@ export const ArtistBody = () => {
     error: errorAlbums,
   } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
   const {
-    data: artists,
-    isLoading: isLoadingArtists,
-    error: errorArtists,
-  } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
-  const {
     data: playlists,
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
@@ -120,31 +115,7 @@ export const ArtistBody = () => {
           <EmptyDefault text="Albums" />
         )}
       </div>
-      <div className="w-full md:w-5/6">
-        {artists?.length ? (
-          <List
-            object={artists}
-            sectionTitle="Artists"
-            dataType="artist"
-            itemsNumber={{
-              itemsSuperLarge: 7,
-              itemsDesktop: 5,
-              itemsTablet: 3,
-              itemsMobile: 2,
-            }}
-          />
-        ) : isLoadingArtists ? (
-          <List
-            dataType="skeletonArtist"
-            object={skeletonData}
-            sectionTitle="Artists"
-          />
-        ) : errorArtists ? (
-          <EmptyDefault error text="Artists" />
-        ) : (
-          <EmptyDefault text="Artists" />
-        )}
-      </div>
+     
       <div className="w-full md:w-5/6">
         {playlists?.length ? (
           <List

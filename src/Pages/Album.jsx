@@ -5,6 +5,7 @@ import { AlbumHeader, AlbumTracks } from "../Components";
 import { AddToPlaylistModal } from "../Components/AddToPlaylistModal";
 import { Layout } from "../Components/Layout";
 import { SkeletonTracksGroup } from "../Components/Skeletons";
+import { useParams } from "react-router-dom";
 
 export const Album = () => {
   const { albumId = 1 } = useParams();

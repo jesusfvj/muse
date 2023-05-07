@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { Layout } from "../Components";
 import { ArtistInfo, ArtistBody } from "../Components/Pages/ArtistPage";
 import logo from "../assets/logo/logowhite.png";
