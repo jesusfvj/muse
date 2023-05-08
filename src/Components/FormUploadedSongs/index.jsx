@@ -1,86 +1,166 @@
-import { useEffect } from "react";
-import { AiFillDelete } from "react-icons/ai";
-import { Button } from "../Button";
-import { InputWithLabel } from "../InputWithLabel";
+import { useEffect, useRef, useState } from "react"
+import { Button } from "../Button"
+import { FormUploadedSongsComponent } from "../FormUploadedSongsComponent"
+import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
+import { useUser } from "../../Context/UserContext/UserContext";
+import { uploadSongsAPI } from "../../API/SongsUpload/index";
 
-export const FormUploadedSongs = ({ index, user, handleRemoveFile, image, setImage, registerData, setRegisterData }) => {
-    const handleInputChange = (event) => {
-        setRegisterData({...registerData, [event.target.name] : event.target.value })
+export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
+    const [isAlbumChecked, setIsAlbumChecked] = useState(false);
+    const [albumInputValue, setAlbumInputValue] = useState('');
+    const [previewImage, setPreviewImage] = useState([]);
+    const [registerData, setRegisterData] = useState({});
+    const [filesFormData, setFilesFormData] = useState();
+    const [imageFiles, setImageFiles] = useState([]);
+    const buttonSaveRef = useRef(null);
+    const { user } = useUser()
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formDataForm = new FormData(form);
+        const data = Object.fromEntries(formDataForm.entries());
+        const dataFiltered = {};
+        for (const key in data) {
+            const num = key.match(/\d+$/)[0];
+            if (!dataFiltered[`formDataFile${num}`]) {
+                dataFiltered[`formDataFile${num}`] = {};
+            }
+            dataFiltered[`formDataFile${num}`][key.replace(/\d+$/, "")] = data[key];
+        }
+        if (isAlbumChecked) {
+            for (let key in dataFiltered) {
+                dataFiltered[key].albumName = albumInputValue
+            }
+        }
+        Object.values(selectedFiles).map((selectedFile, index) => {
+            const stringifiedData = JSON.stringify(dataFiltered[`formDataFile${index + 1}`])
+            filesFormData.set(`dataFile${index + 1}`, stringifiedData)
+            filesFormData.set(`imageFile${index + 1}`, imageFiles[index])
+        })
+
+        setFilesFormData(filesFormData)
+        const response = await uploadSongsAPI(filesFormData);
+        /*  if (response.ok) {
+            //show toaster
+            setShowUploadSongsModal(false)
+        } */
     }
 
-    const handleImageChange = (event, index) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                setImage([
-                    ...image.slice(0, index),
-                    reader.result,
-                    ...image.slice(index + 1)
-                ]);
-            };
+    const handleRemoveFile = (indexFileToRemove) => {
+        const arrayFilesFiltered = selectedFiles.filter((selectedFile, index) => {
+            if (index != indexFileToRemove) {
+                return selectedFile
+            }
+        })
+        setSelectedFiles(arrayFilesFiltered)
+        setPreviewImage([
+            ...previewImage.slice(0, indexFileToRemove),
+            ...previewImage.slice(indexFileToRemove + 1)
+        ]);
+        setImageFiles([
+            ...imageFiles.slice(0, indexFileToRemove),
+            ...imageFiles.slice(indexFileToRemove + 1)
+        ])
+    }
+
+    useEffect(() => {
+        if (selectedFiles) {
+            const formData = new FormData();
+            let copyRegisterData = { ...registerData }
+
+            Object.values(selectedFiles).map((selectedFile, index) => {
+                formData.set(`file${index + 1}`, selectedFile);
+                copyRegisterData = {
+                    ...copyRegisterData,
+                    [`genre${index + 1}`]: "",
+                    [`songTitle${index + 1}`]: selectedFile.name
+                }
+            });
+
+            if (previewImage.length === 0) {
+                Object.values(selectedFiles).forEach(() => {
+                    previewImage.push("")
+                    imageFiles.push("")
+                })
+                setPreviewImage(previewImage)
+                setImageFiles(imageFiles)
+            }
+
+            setFilesFormData(formData)
+            setRegisterData(copyRegisterData)
         }
-    };
+    }, [selectedFiles]);
 
     return (
-        <div className="flex items-end gap-5 w-full">
-            <Typography
-                text={index + 1}
-                type="p1"
-                color="white"
-            />
-            <input
-                type="file"
-                accept="image/*"
-                id={`imageFile${index}`}
-                multiple={false}
-                className="hidden"
-                onChange={(event) => handleImageChange(event, index)}
-            />
-            <label htmlFor={`imageFile${index}`}>
-                <img src={image[index]} alt="Selected image" className="w-20 h-20 cursor-pointer" />
-            </label>
-            <InputWithLabel
-                name={`songTitle${index + 1}`}
-                label="Song Title"
-                type="text"
-                value={registerData[`songTitle${index+1}`]}
-                onInputChange={handleInputChange}
-                sizeContainer="w-1/4"
-                styles="text-xs"
-            />
-            <InputWithLabel
-                name={`artistName${index + 1}`}
-                label="Artist name"
-                type="text"
-                value={user.fullName}
-                readonly
-                sizeContainer="w-1/4"
-                styles="text-xs"
-            />
-            <InputWithLabel
-                name={`genre${index + 1}`}
-                label="Genre"
-                type="text"
-                sizeContainer="w-1/4"
-                styles="text-xs"
-                value={registerData[`genre${index+1}`]}
-                onInputChange={handleInputChange}
-            />
-            <div className="w-1/8 h-full">
-                <Button
-                    text={<Typography
-                        text={<AiFillDelete />}
+        <div className="w-[95%] h-full">
+            <div className="m-2 flex justify-center items-center gap-4">
+                <label className="flex gap-4">
+                    <input
+                        className="mt-1"
+                        type="checkbox"
+                        checked={isAlbumChecked}
+                        onChange={(event)=>{setIsAlbumChecked(event.target.checked)}} />
+                    <Typography
+                        text="Is it an album?"
                         type="p1"
                         color="white"
-                        styles="flex justify-center items-center cursor-pointer"
-                    />}
+                    />
+                </label>
+                {isAlbumChecked && (
+                    <InputWithLabel
+                        name="albumName"
+                        label="Album Title"
+                        type="text"
+                        value={albumInputValue}
+                        onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
+                        sizeContainer="w-[20vw]"
+                        styles="text-xs"
+                    />
+                )}
+            </div>
+            <form
+                className="flex flex-col items-center gap-3 max-h-[45vh] overflow-auto"
+                onSubmit={handleSubmit}
+            >
+                {isAlbumChecked &&
+                    <InputWithLabel
+                        type="text"
+                        value={albumInputValue}
+                        sizeContainer="hidden"
+                        readonly={true}
+                    />
+                }
+                {selectedFiles.map(({ name }, index) => {
+                    return <FormUploadedSongsComponent
+                        key={index}
+                        index={index}
+                        songName={name}
+                        user={user}
+                        handleRemoveFile={handleRemoveFile}
+                        previewImage={previewImage}
+                        setPreviewImage={setPreviewImage}
+                        registerData={registerData}
+                        setRegisterData={setRegisterData}
+                        setImageFiles={setImageFiles}
+                        imageFiles={imageFiles}
+                    />
+                })}
+                <div className="hidden">
+                    <Button
+                        typeButton="submit"
+                        refElement={buttonSaveRef}
+                    />
+                </div>
+            </form>
+            <div className="w-[10rem] h-[2rem] self-start my-10">
+                <Button
+                    typeButton="submit"
+                    text="Save"
+                    color="black"
                     size="sm"
-                    color="transparent"
-                    styles="cursor-pointer"
-                    onClick={() => { handleRemoveFile(index) }}
+                    onClick={()=>{buttonSaveRef.current.click();}}
                 />
             </div>
         </div>
