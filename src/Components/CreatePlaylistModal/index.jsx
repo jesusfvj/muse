@@ -4,11 +4,18 @@ import { BiImageAdd } from "react-icons/bi";
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
 import { Button } from "../Button";
+import { createPlaylist } from "../../API/MusicApi/MusicApi";
+import { useUser } from "../../Context/UserContext/UserContext";
 
 export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
+  const {
+    user: { _id },
+    createSinglePlaylist,
+  } = useUser();
+
   const [playlistData, setPlaylistData] = useState({
     name: "",
-    img: "",
+    img: "https://cdn10.phillymag.com/wp-content/uploads/sites/3/2020/09/monthly-playlist.jpg",
     isPrivate: false,
   });
 
@@ -21,11 +28,12 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
     reader.onload = () => {
       setPreviewImg(reader.result);
     };
-    setPlaylistData({ ...playlistData, img: e.target.files[0] });
+    // setPlaylistData({ ...playlistData, img: e.target.files[0] });
   };
 
-  const handleSubmitForm = () => {
-    console.log(playlistData);
+  const handleSubmitForm = async () => {
+    createSinglePlaylist(playlistData, _id);
+    handleToggleCreatePlaylistModal();
   };
 
   const inputRef = useRef();

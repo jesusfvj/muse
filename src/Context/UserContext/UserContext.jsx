@@ -1,12 +1,9 @@
 import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
-import {
-  followUser,
-  loginUser,
-  registerUser,
-} from "../../API/UserApi/UserApi";
+import { followUser, loginUser, registerUser } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
+import { createPlaylist } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
 
@@ -65,6 +62,13 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: types.logout });
   };
 
+  const createSinglePlaylist = async (playlistData, _id) => {
+    const res = await createPlaylist(playlistData, _id);
+    if (res.ok) {
+      dispatch({ type: types.createPlaylist, payload: res.newPlaylist });
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -73,6 +77,7 @@ export const UserProvider = ({ children }) => {
         logout,
         register,
         toggleUserFollowing,
+        createSinglePlaylist,
       }}
     >
       {children}

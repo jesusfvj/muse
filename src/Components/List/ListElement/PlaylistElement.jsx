@@ -11,7 +11,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
-  const { name, thumbnail, id } = object;
+  const { name, thumbnail, _id } = object;
   const colors = {
     bg1: "bg-green-500",
     bg2: "bg-blue-500",
@@ -28,7 +28,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
   const handleNavigate = () => {
     if (!isSwipping) {
-      navigate(`/playlist/${id}`);
+      navigate(`/playlist/${_id}`);
     }
   };
 
@@ -85,7 +85,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
           <img
             src={thumbnail}
-            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
+            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover"
           />
         </div>
       </div>

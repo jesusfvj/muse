@@ -1,47 +1,48 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getPlaylists } from "../API/MusicApi/MusicApi";
-import { Layout } from "../Components/Layout";
+import { getPlaylistsById } from "../API/MusicApi/MusicApi";
+
 import { useEffect, useState } from "react";
 import { PlaylistsHeader } from "../Components/PlaylistsHeader";
 import { PlaylistsTracks } from "../Components/PlaylistsTracks";
+import { useUser } from "../Context/UserContext/UserContext";
 
 export const Playlist = () => {
-  const [songs, setSongs] = useState();
-  const { playlistId = 1 } = useParams();
+  const {
+    user: { _id },
+  } = useUser();
+  const { playlistId } = useParams();
 
   const {
-    data: playlists,
+    data: playlist,
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
-  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
-  useEffect(() => {
-    if (!isLoadingPlaylists && playlistId) {
-      playlists.forEach((element) => {
-        if (element.id == playlistId) {
-          setSongs({
-            name: element.name,
-            tracks: element.tracks,
-            thumbnail: element.thumbnail,
-          });
-        }
-      });
-    }
-  }, [isLoadingPlaylists]);
+  } = useQuery({
+    queryKey: ["playlists", playlistId],
+    queryFn: () => getPlaylistsById(playlistId),
+  });
 
+  const isOwner = _id === playlist?.user;
+  const isFollowed = playlist?.followedBy.includes(_id);
   return (
     <>
-      {songs && (
+      {!isLoadingPlaylists && playlist ? (
         <>
-          <PlaylistsHeader name={songs.name} thumbnail={songs.thumbnail} />
+          <PlaylistsHeader
+            name={playlist.name}
+            thumbnail={playlist.thumbnail}
+          />
           <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen py-20 md:py-48">
             <PlaylistsTracks
-              songs={songs.tracks}
-              isFollowed={songs.isFollowed}
+              isOwner={isOwner}
+              songs={playlist.tracks}
+              isFollowed={isFollowed}
               styles="w-full md:w-4/5"
             />
           </div>
         </>
+      ) : (
+        "This playlist do not exists"
       )}
     </>
   );
