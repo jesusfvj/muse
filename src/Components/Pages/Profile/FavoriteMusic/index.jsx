@@ -41,8 +41,10 @@ export const FavoriteMusic = ({
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
-  } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
-
+  } = useQuery({
+    queryKey: ["artists".userProfile?._id],
+    queryFn: () => getArtists(userProfile?._id),
+  });
 
   return (
     <div className="flex flex-col gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
@@ -52,7 +54,13 @@ export const FavoriteMusic = ({
           <FollowingSection
             isOwner={isLoggedUserProfile}
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
-            object1={!isLoadingArtists ? artists : skeletonData}
+            object1={
+              !isLoadingArtists
+                ? artists.filter((artist) =>
+                    artist.followedBy.includes(userProfile?._id)
+                  )
+                : skeletonData
+            }
             title1="Artists"
             datatype2={"playlist"}
             object2={followedPlaylists}
