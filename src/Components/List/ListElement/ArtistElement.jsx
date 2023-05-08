@@ -50,7 +50,7 @@ export const ArtistElement = ({ object }) => {
       >
         <img
           src={profilePhoto}
-          className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none"
+          className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none object-cover"
         />
         <Link to="/artist" className="w-full mb-5 px-3 text-center">
           <Typography
