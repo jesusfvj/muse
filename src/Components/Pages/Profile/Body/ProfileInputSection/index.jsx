@@ -41,14 +41,6 @@ export const ProfileInputSection = () => {
               type="text"
               input="text"
             />
-            <div className="invisible">
-              <InputElement
-                text="Introduce your bank details"
-                name="Introduce your bank details"
-                type="text"
-                input="text"
-              />
-            </div>
           </form>
         </div>
       </div>
