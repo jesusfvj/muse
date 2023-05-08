@@ -24,6 +24,7 @@ export const Typography = ({
     primary: "text-gray-400",
     secondary: "text-gray-500",
     transparent: "text-gray-500/0",
+    danger: "text-red-400"
   };
 
   const fontFamily = {
@@ -31,7 +32,7 @@ export const Typography = ({
     pilonyc: "pilonyc tracking-widest",
   };
 
-  const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]} ${styles}`;
+  const finalClassName = `${types[type]} ${colors[color]} ${fontFamily[family]} ${styles} transition duration-500`;
 
   switch (type) {
     case "p0":
