@@ -30,7 +30,7 @@ export const Playlist = () => {
   }, [isLoadingPlaylists]);
 
   return (
-    <Layout>
+    <>
       {songs && (
         <>
           <PlaylistsHeader name={songs.name} thumbnail={songs.thumbnail} />
@@ -43,6 +43,6 @@ export const Playlist = () => {
           </div>
         </>
       )}
-    </Layout>
+    </>
   );
 };

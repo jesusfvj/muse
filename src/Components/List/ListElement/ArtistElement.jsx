@@ -2,7 +2,7 @@ import { useState, setState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Typography, RoundButton, DropDownMenu } from "../../index";
+import { Typography, RoundButton } from "../../index";
 import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const ArtistElement = ({ object }) => {
@@ -13,31 +13,27 @@ export const ArtistElement = ({ object }) => {
 
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isDropdownActive, setIsDropdownActive] = useState(false);
 
   const handleOpenDropdown = (e) => {
     e.stopPropagation();
     e.stopPropagation();
     e.preventDefault();
-    setIsDropdownActive(true);
   };
 
   const handleMouseLeave = () => {
     setHovered(false);
     setHovered(false);
-    setIsDropdownActive(false);
   };
 
   const followClicked = () => {
-    const followClicked = () => {
-      if (!buttonDisabled) {
-        setIsFollowed(!isFollowed);
-        setButtonDisabled(true);
-        setTimeout(() => {
-          setButtonDisabled(false);
-        }, 1500);
-      }
-    };
+    if (!buttonDisabled) {
+      setIsFollowed(!isFollowed);
+      setButtonDisabled(true);
+      toggleUserFollowing(user._id, _id, !isFollowed);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1500);
+    }
   };
 
   return (

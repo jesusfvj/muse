@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Layout, List, Typography } from "../Components";
+import React, { useState } from "react";
+import { List, Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
 import { search } from "../API/SearchApi";
 import { useUser } from "../Context/UserContext/UserContext";
@@ -34,7 +34,7 @@ export const Search = () => {
   };
 
   return (
-    <Layout>
+    <>
       <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
         <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
           <img src={logo} className="w-[70vw] mix-blend-overlay" />
@@ -112,6 +112,6 @@ export const Search = () => {
           ) : null}
         </div>
       </div>
-    </Layout>
+    </>
   );
 };

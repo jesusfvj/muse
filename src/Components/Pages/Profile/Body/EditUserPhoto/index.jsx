@@ -19,12 +19,12 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
 
       {isHovered && isLoggedUserProfile && (
         <div
-          className="absolute top-2 right-2 rounded-full p-2 bg-white"
+          className="absolute top-4 right-4 rounded-full p-2 bg-white"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <BiEditAlt
-            className=" text-4xl"
+            className=" text-2xl"
             onClick={() => console.log("edit!")}
           />
         </div>

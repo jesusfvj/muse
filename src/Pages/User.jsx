@@ -32,7 +32,7 @@ export const User = () => {
   }, [userId]);
 
   return (
-    <Layout>
+    <>
       {userProfile && !isLoading ? (
         <>
           <ProfileHeader />
@@ -51,6 +51,6 @@ export const User = () => {
       ) : (
         <ProfileNotFound />
       )}
-    </Layout>
+    </>
   );
 };

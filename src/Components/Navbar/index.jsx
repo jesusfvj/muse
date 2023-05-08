@@ -66,7 +66,7 @@ export const Navbar = () => {
                 <NavItem
                   key={path}
                   text={text}
-                  path={path === "/user" ? `/user/${user._id}` : path}
+                  path={path === "/user" ? `/user/${user?._id}` : path}
                   icon={icon}
                   isNavOpen={isNavOpen}
                 />

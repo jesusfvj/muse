@@ -16,7 +16,7 @@ export const Album = () => {
   } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
 
   return (
-    <Layout>
+    <>
       <AlbumHeader />
       <div className="flex items-start pt-[15vh] justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-screen">
         {songs?.length ? (
@@ -32,6 +32,6 @@ export const Album = () => {
           "No tracks"
         )}
       </div>
-    </Layout>
+    </>
   );
 };
