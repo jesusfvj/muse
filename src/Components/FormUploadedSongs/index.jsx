@@ -3,7 +3,6 @@ import { Button } from "../Button"
 import { FormUploadedSongsComponent } from "../FormUploadedSongsComponent"
 import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
-import editMusicIcon from "../../../public/icons/editSongImg.png"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { uploadSongsAPI } from "../../API/SongsUpload/index";
 
@@ -66,21 +65,8 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
         ])
     }
 
-    /* const handleClickHiddenButton = () => {
-        buttonSaveRef.current.click();
-    };
-
-    const handleCheckboxChange = (event) => {
-        setIsAlbumChecked(event.target.checked);
-    };
-
-    const handleTextInputChange = (event) => {
-        setAlbumInputValue(event.target.value);
-    }; */
-
     useEffect(() => {
         if (selectedFiles) {
-            console.log(selectedFiles)
             const formData = new FormData();
             let copyRegisterData = { ...registerData }
 
@@ -95,7 +81,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
 
             if (previewImage.length === 0) {
                 Object.values(selectedFiles).forEach(() => {
-                    previewImage.push(editMusicIcon)
+                    previewImage.push("")
                     imageFiles.push("")
                 })
                 setPreviewImage(previewImage)
@@ -107,10 +93,9 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
         }
     }, [selectedFiles]);
 
-
     return (
-        <div className="w-[80%]">
-            <div className="m-8 flex flex-col items-center">
+        <div className="w-[95%] h-full">
+            <div className="m-2 flex justify-center items-center gap-4">
                 <label className="flex gap-4">
                     <input
                         className="mt-1"
@@ -130,13 +115,13 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                         type="text"
                         value={albumInputValue}
                         onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
-                        sizeContainer="w-[20vw] mt-10"
+                        sizeContainer="w-[20vw]"
                         styles="text-xs"
                     />
                 )}
             </div>
             <form
-                className="flex flex-col items-center gap-3 max-h-[10vh] overflow-auto"
+                className="flex flex-col items-center gap-3 max-h-[45vh] overflow-auto"
                 onSubmit={handleSubmit}
             >
                 {isAlbumChecked &&
@@ -169,7 +154,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                     />
                 </div>
             </form>
-            <div className="w-[15rem] h-[3rem] self-start mt-10">
+            <div className="w-[10rem] h-[2rem] self-start my-10">
                 <Button
                     typeButton="submit"
                     text="Save"

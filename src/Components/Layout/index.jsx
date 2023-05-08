@@ -29,7 +29,6 @@ export const Layout = ({ children }) => {
 
   const handleOpenContextMenu = (e) => {
     e.preventDefault();
-    console.log(e.target);
     setIsContextMenuOpen(true);
   };
 

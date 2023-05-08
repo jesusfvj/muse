@@ -1,7 +1,9 @@
 import { AiFillDelete } from "react-icons/ai";
 import { Button } from "../Button";
 import { InputWithLabel } from "../InputWithLabel";
-import { Typography } from "../Typography"
+import { Typography } from "../Typography";
+import { BiImageAdd } from "react-icons/bi";
+import { useState } from "react";
 
 export const FormUploadedSongsComponent = (
     {
@@ -16,10 +18,11 @@ export const FormUploadedSongsComponent = (
         imageFiles
     }) => {
 
+    const [isHovering, setIsHovering] = useState(false);
     const handleInputChange = (event) => {
         setRegisterData({
             ...registerData,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
@@ -60,13 +63,27 @@ export const FormUploadedSongsComponent = (
                 onChange={(event) => handleImageChange(event, index)}
             />
             <label htmlFor={`imageFile${index}`}>
-                <img src={previewImage[index]} alt="Selected image" className="w-20 h-20 cursor-pointer" />
+                {previewImage[index]===""
+                    ? <div
+                        className='flex justify-center items-center border border-white border-dashed rounded-md transition duration-500 hover:border-gray-400 w-20 h-20 cursor-pointer'
+                        onMouseOver={()=>setIsHovering(true)}
+                        onMouseOut={()=>setIsHovering(false)}
+                        >
+                        <Typography
+                        text={<BiImageAdd />}
+                        type="big"
+                        color={`${!isHovering ? 'white' : 'primary' }`}
+                        styles="ml-1"
+                    />
+                    </div>
+                    : <img src={previewImage[index]} alt="Selected image" className="w-20 h-20 cursor-pointer" />
+                }
             </label>
             <InputWithLabel
                 name={`songTitle${index + 1}`}
                 label="Song Title"
                 type="text"
-                value={registerData[`songTitle${index+1}`]}
+                value={registerData[`songTitle${index + 1}`]}
                 onInputChange={handleInputChange}
                 sizeContainer="w-1/4"
                 styles="text-xs"
@@ -76,7 +93,7 @@ export const FormUploadedSongsComponent = (
                 label="Artist name"
                 type="text"
                 value={user.fullName}
-                readonly = {true}
+                readonly={true}
                 sizeContainer="w-1/4"
                 styles="text-xs"
             />
@@ -86,7 +103,7 @@ export const FormUploadedSongsComponent = (
                 type="text"
                 sizeContainer="w-1/4"
                 styles="text-xs"
-                value={registerData[`genre${index+1}`]}
+                value={registerData[`genre${index + 1}`]}
                 onInputChange={handleInputChange}
             />
             <div className="w-1/8 h-full">

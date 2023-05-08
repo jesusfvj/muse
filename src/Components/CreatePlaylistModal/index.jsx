@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
-
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
 import { Button } from "../Button";
@@ -34,7 +33,7 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
       onClick={handleToggleCreatePlaylistModal}
     >
       <div
-        className="w-5/6 md:w-1/2 h-2/3 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148]  p-6 rounded-md"
+        className="w-5/6 md:w-1/2 h-2/3 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] p-6 rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
         <form
