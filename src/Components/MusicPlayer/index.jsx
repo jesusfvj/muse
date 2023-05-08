@@ -7,7 +7,6 @@ import { tracks } from "../../data/SongsData/SongsData";
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[1]);
-  const [progress, setProgress] = useState(0);
 
   const playAudio = useRef();
 
@@ -38,7 +37,6 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const handleProgressChange = (e) => {
     const currentTime = e.target.value;
     playAudio.current.currentTime = currentTime;
-    setProgress(currentTime);
   };
 
   return (
@@ -57,14 +55,13 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
         <TrackInfo currentTrack={currentTrack} />
         <PlayControls
           handleProgressChange={handleProgressChange}
-          progress={progress}
           track={tracks}
           currentTrack={currentTrack}
           setCurrentTrack={setCurrentTrack}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
           playAudio={playAudio}
-          setProgress={setProgress}
+         
         />
         <VolumeControls playAudio={playAudio} />
       </div>

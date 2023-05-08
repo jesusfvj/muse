@@ -1,151 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import {
-  getAlbums,
-  getArtists,
-  getPlaylists,
-  getSongs,
-} from "../API/MusicApi/MusicApi";
-import { getUsers } from "../API/UserApi/GetUsers";
-import { Layout, List, Typography } from "../Components";
+import React, { useState } from "react";
+import { List, Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
+import { search } from "../API/SearchApi";
+import { useUser } from "../Context/UserContext/UserContext";
 
 export const Search = () => {
-  const query = "";
   const {
-    data: songs,
-    isLoading: isLoadingSongs,
-    error: errorSongs,
-  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
-  const {
-    data: albums,
-    isLoading: isLoadingAlbums,
-    error: errorAlbums,
-  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
-  const {
-    data: artists,
-    isLoading: isLoadingArtists,
-    error: errorArtists,
-  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
-  const {
-    data: playlists,
-    isLoading: isLoadingPlaylists,
-    error: errorPlaylists,
-  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
-  const {
-    data: users,
-    isLoading: isLoadingUsers,
-    error: errorUsers,
-  } = useQuery({ queryKey: ["users"], queryFn: getUsers });
+    user: { _id },
+  } = useUser();
+
+  const [searchResults, setSearchResults] = useState({
+    songs: [],
+    albums: [],
+    artists: [],
+    users: [],
+    playlists: [],
+  });
 
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, setsearchResults] = useState({});
+
+  const handleSearch = async (query) => {
+    const res = await search(query, _id);
+    if (res.ok) {
+      setSearchResults({ ...res.results });
+    }
+  };
 
   const handleChange = (e) => {
     setSearchInput(e.target.value);
     if (e.target.value.length >= 3) {
-      FilterData(e.target.value);
+      handleSearch(e.target.value);
     }
   };
 
-  useEffect(() => {
-    if (
-      !isLoadingSongs &&
-      !isLoadingAlbums &&
-      !isLoadingArtists &&
-      !isLoadingPlaylists &&
-      !isLoadingUsers &&
-      query
-    ) {
-      setTimeout(() => {
-        setSearchInput(query);
-        FilterData(query);
-      }, 2500);
-    }
-  }, [isLoadingSongs, isLoadingAlbums, isLoadingArtists, isLoadingPlaylists]);
-
-  function FilterData(searchQuery) {
-    const searchResultsSongs = [];
-    const searchResultsPlaylists = [];
-    const searchResultsAlbums = [];
-    const searchResultsArtists = [];
-    const searchResultsUsers = [];
-
-    songs.forEach((element) => {
-      if (
-        element.name
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        element.artist
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      ) {
-        searchResultsSongs[element.id] = element;
-      }
-    });
-
-    playlists.forEach((element) => {
-      if (
-        element.name
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      ) {
-        searchResultsPlaylists[element.id] = element;
-      }
-    });
-
-    albums.forEach((element) => {
-      if (
-        element.name
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        element.artist
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      ) {
-        searchResultsAlbums[element.id] = element;
-      }
-    });
-
-    artists.forEach((element) => {
-      if (
-        element.name
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      ) {
-        searchResultsArtists[element.id] = element;
-      }
-    });
-    users.forEach((element) => {
-      if (
-        element.fullName
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      ) {
-        searchResultsUsers[element.id] = element;
-      }
-    });
-
-    setsearchResults({
-      searchResultsSongs: searchResultsSongs,
-      searchResultsPlaylists: searchResultsPlaylists,
-      searchResultsAlbums: searchResultsAlbums,
-      searchResultsArtists: searchResultsArtists,
-      searchResultsUsers: searchResultsUsers,
-    });
-  }
-
   return (
-    <Layout>
+    <>
       <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+        <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
+          <img src={logo} className="w-[70vw] mix-blend-overlay" />
+        </div>
         <div className=" flex justify-center p-9">
           <input
             type="text"
@@ -164,58 +57,53 @@ export const Search = () => {
               color="white"
             />
           ) : null}
-          {searchInput.length >= 3 &&
-          searchResults.searchResultsSongs.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.songs?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               <List
-                object={searchResults.searchResultsSongs.filter(Boolean)}
+                object={searchResults.songs}
                 sectionTitle="Songs"
                 dataType="song"
               />
             </div>
           ) : null}
-          {searchInput.length >= 3 &&
-          searchResults.searchResultsArtists.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.artists?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               {searchInput.length >= 3 ? (
                 <List
-                  object={searchResults.searchResultsArtists.filter(Boolean)}
+                  object={searchResults.artists}
                   sectionTitle="Artists"
                   dataType="artist"
                 />
               ) : null}
             </div>
           ) : null}
-          {searchInput.length >= 3 &&
-          searchResults.searchResultsAlbums.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.albums?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               {searchInput.length >= 3 ? (
                 <List
-                  object={searchResults.searchResultsAlbums.filter(Boolean)}
+                  object={searchResults.albums}
                   sectionTitle="Albums"
                   dataType="album"
                 />
               ) : null}
             </div>
           ) : null}
-          {searchInput.length >= 3 &&
-          searchResults.searchResultsPlaylists.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.playlists?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               {searchInput.length >= 3 ? (
                 <List
-                  object={searchResults.searchResultsPlaylists.filter(Boolean)}
+                  object={searchResults.playlists}
                   sectionTitle="Playlists"
                   dataType="playlist"
                 />
               ) : null}
             </div>
           ) : null}
-          {searchInput.length >= 3 &&
-          searchResults.searchResultsUsers.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.users?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               {searchInput.length >= 3 ? (
                 <List
-                  object={searchResults.searchResultsUsers.filter(Boolean)}
+                  object={searchResults.users}
                   sectionTitle="Users"
                   dataType="user"
                 />
@@ -223,10 +111,7 @@ export const Search = () => {
             </div>
           ) : null}
         </div>
-        <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
-          <img src={logo} className="z-50 w-[70vw] mix-blend-overlay" />
-        </div>
       </div>
-    </Layout>
+    </>
   );
 };

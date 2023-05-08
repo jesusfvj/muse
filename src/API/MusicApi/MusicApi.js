@@ -1,14 +1,9 @@
 export const getSongs = async () => {
   const res = await fetch("http://localhost:3000/tracks");
-
   // throw new Error();
      return res.json();
 };
-export const getArtists = async () => {
-  const res = await fetch("http://localhost:3000/artists");
-  // throw new Error();
-  return res.json();
-};
+
 export const getAlbums = async () => {
   const res = await fetch("http://localhost:3000/albums");
   //   throw new Error();

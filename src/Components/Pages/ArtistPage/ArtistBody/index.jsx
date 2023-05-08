@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import {
   getAlbums,
-  getArtists,
   getPlaylists,
   getSongs,
 } from "../../../../API/MusicApi/MusicApi";
 import { EmptyDefault, List } from "../../../index";
+import { getArtists } from "../../../../API/UserApi/UserApi";
+import { useUser } from "../../../../Context/UserContext/UserContext";
 
 const skeletonData = [
   "",
@@ -42,6 +43,10 @@ const skeletonData = [
 
 export const ArtistBody = () => {
   const {
+    user: { _id },
+  } = useUser();
+
+  const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
@@ -51,11 +56,6 @@ export const ArtistBody = () => {
     isLoading: isLoadingAlbums,
     error: errorAlbums,
   } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
-  const {
-    data: artists,
-    isLoading: isLoadingArtists,
-    error: errorArtists,
-  } = useQuery({ queryKey: ["artists"], queryFn: getArtists });
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,
@@ -115,31 +115,7 @@ export const ArtistBody = () => {
           <EmptyDefault text="Albums" />
         )}
       </div>
-      <div className="w-full md:w-5/6">
-        {artists?.length ? (
-          <List
-            object={artists}
-            sectionTitle="Artists"
-            dataType="artist"
-            itemsNumber={{
-              itemsSuperLarge: 7,
-              itemsDesktop: 5,
-              itemsTablet: 3,
-              itemsMobile: 2,
-            }}
-          />
-        ) : isLoadingArtists ? (
-          <List
-            dataType="skeletonArtist"
-            object={skeletonData}
-            sectionTitle="Artists"
-          />
-        ) : errorArtists ? (
-          <EmptyDefault error text="Artists" />
-        ) : (
-          <EmptyDefault text="Artists" />
-        )}
-      </div>
+     
       <div className="w-full md:w-5/6">
         {playlists?.length ? (
           <List

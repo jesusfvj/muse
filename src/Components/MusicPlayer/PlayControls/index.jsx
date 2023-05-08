@@ -11,9 +11,7 @@ export const PlayControls = ({
   currentTrack,
   setCurrentTrack,
   track,
-  progress,
   handleProgressChange,
-  setProgress,
 }) => {
   const clickRef = useRef();
 
@@ -25,7 +23,7 @@ export const PlayControls = ({
     if (currentTrack.progress > 5) {
       playAudio.current.currentTime = 0;
       currentTrack.progress = 0;
-      setProgress(0);
+
       return;
     } else {
       const index = track.findIndex((x) => x.name == currentTrack.name);
@@ -35,7 +33,6 @@ export const PlayControls = ({
         setCurrentTrack(track[index - 1]);
       }
       playAudio.current.currentTime = 0;
-      setProgress(0);
     }
   };
 
@@ -48,7 +45,6 @@ export const PlayControls = ({
       setCurrentTrack(track[index + 1]);
     }
     playAudio.current.currentTime = 0;
-    setProgress(0);
   };
 
   const buttonsClassName = "text-white text-2xl cursor-pointer";
@@ -82,7 +78,7 @@ export const PlayControls = ({
         <input
           type="range"
           max={currentTrack.length ? currentTrack.length : 0}
-          value={progress}
+          value={currentTrack.progress || 0}
           onChange={handleProgressChange}
           className="muze-range w-full sm:w-[40vw]"
           ref={clickRef}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
@@ -15,18 +15,19 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
-    if(file){
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setPreviewImg(reader.result);
-      };
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setPreviewImg(reader.result);
+    };
+    setPlaylistData({ ...playlistData, img: e.target.files[0] });
   };
 
   const handleSubmitForm = () => {
     console.log(playlistData);
   };
+
+  const inputRef = useRef();
   return (
     <div
       className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"
@@ -56,9 +57,9 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
             id="file"
             type="file"
             name="img"
-            value={playlistData.img}
             onChange={handleAddImage}
             className="hidden"
+            ref={inputRef}
           />
           <div
             className={`w-64 h-64  relative ${
@@ -66,12 +67,17 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
             } flex items-center justify-center rounded-md`}
           >
             <label
-              htmlFor="file"
+              onClick={() => inputRef.current.click()}
               className="text-6xl text-white cursor-pointer"
             >
-            <div>
-              {previewImg ? <img src={previewImg} className="w-full h-full object-cover shadow-md"/> : <BiImageAdd />}
-            </div>
+              {previewImg ? (
+                <img
+                  src={previewImg}
+                  className="w-full h-full object-cover shadow-md"
+                />
+              ) : (
+                <BiImageAdd />
+              )}
             </label>
           </div>
 

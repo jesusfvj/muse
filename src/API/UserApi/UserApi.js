@@ -6,12 +6,30 @@ export const registerUser = async (user) => {
   const res = await axios.post(`${BASE_URL}/register`, user);
   return res.data;
 };
-
 export const loginUser = async (user) => {
-  const { email, password } = user;
-  const res = await fetch(
-    `http://localhost:3000/user?email=${email}&password=${password}`
-  );
-  const data = await res.json();
-  return data;
+  const res = await axios.post(`${BASE_URL}/login`, user);
+  return res.data;
+};
+
+export const followUser = async (loggedUserId, followedUserId, isFollowing) => {
+  const res = await axios.post(`${BASE_URL}/followUser`, {
+    loggedUserId,
+    followedUserId,
+    isFollowing,
+  });
+  return res.data;
+};
+
+export const getUserById = async (userId) => {
+  const res = await axios.get(`${BASE_URL}/${userId}`);
+  if (res.data.ok) {
+    return res.data;
+  }
+};
+
+export const getArtists = async (id) => {
+  const res = await axios.get(`${BASE_URL}/artists/${id}`);
+  if (res.data?.ok) {
+    return res.data.artists;
+  }
 };

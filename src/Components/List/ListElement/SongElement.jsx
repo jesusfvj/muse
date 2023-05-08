@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
+import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
-import { AddToPlaylistModal } from "../../AddToPlaylistModal";
+import { useUI } from "../../../Context/UI/UIContext";
 
 export const SongElement = ({ object }) => {
+  const { handleToggleSongModal } = useUI();
   const { name, artist, thumbnail } = object;
   const [clicked, setClicked] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -73,7 +75,7 @@ export const SongElement = ({ object }) => {
         onClick={likedClicked}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : <AiOutlineHeart />}
+          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
           color={clicked ? "white" : "secondary"}
           styles="hidden xs:flex scale-[2]"
         />
@@ -94,6 +96,12 @@ export const SongElement = ({ object }) => {
       >
         <DropDownMenu />
       </div>
+      {hovered && (
+        <BiEdit
+          className="text-white absolute top-2 right-2 z-40 cursor-pointer"
+          onClick={() => handleToggleSongModal(object)}
+        />
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ export const FollowingSection = ({
   datatype2,
   title1,
   title2,
+  isOwner,
 }) => {
   return (
     <div className="flex flex-col gap-[5rem]">
@@ -14,11 +15,13 @@ export const FollowingSection = ({
         object={object1}
         sectionTitle={title1}
         datatype={datatype1}
+        isOwner={isOwner}
       />
       <FavoriteMusicElement
         object={object2}
         sectionTitle={title2}
         datatype={datatype2}
+        isOwner={isOwner}
       />
     </div>
   );
