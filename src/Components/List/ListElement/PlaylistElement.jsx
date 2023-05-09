@@ -125,12 +125,7 @@ export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
       </div>
       {isOwner && isPrivate ? (
         <MdOutlinePublic
-          className="absolute top-2 right-4 text-white text-2xl"
-          onClick={handleTogglePlaylistVisibility}
-        />
-      ) : isOwner ? (
-        <MdOutlinePublicOff
-          className="absolute top-2 right-4 text-white text-2xl"
+          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
           onClick={handleTogglePlaylistVisibility}
         />
       ) : null}
