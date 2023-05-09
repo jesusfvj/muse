@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaEdit, FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
+import { EditPlaylistModal } from "../../EditPlaylistModal";
+import { useUI } from "../../../Context/UI/UIContext";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
+  const { handleToggleEditPlaylistModal } = useUI();
   const {
     user: { _id: userId },
     togglePlaylistVisibility,
@@ -78,6 +81,11 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   const handleDeletePlaylist = () => {
     deleteSinglePlaylist(userId, _id);
   };
+
+  const handleOpenEditPlaylist = () => {
+    handleToggleEditPlaylistModal(object);
+  };
+
   return (
     <div
       className="relative"
@@ -149,10 +157,16 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         />
       ) : null}
       {isOwner && hovered ? (
-        <IoTrashOutline
-          className="text-2xl text-white absolute top-10 right-4 cursor-pointer"
-          onClick={handleDeletePlaylist}
-        />
+        <>
+          <IoTrashOutline
+            className="text-2xl text-white absolute top-10 right-4 cursor-pointer"
+            onClick={handleDeletePlaylist}
+          />
+          <FaEdit
+            className="text-2xl text-white absolute -top-1 left-2 cursor-pointer"
+            onClick={handleOpenEditPlaylist}
+          />
+        </>
       ) : null}
     </div>
   );

@@ -22,7 +22,7 @@ export const FavoriteMusic = ({
   userProfile,
 }) => {
   const { playlists, followedPlaylists } = userProfile;
-console.log(userProfile)
+
   const {
     data: songs,
     isLoading: isLoadingSongs,
