@@ -12,7 +12,7 @@ export const getAlbums = async () => {
   const res = await fetch("http://localhost:3000/albums");
   //   throw new Error();
   return res.json();
-}; 
+};
 
 /////PLAYLISTS FETCH
 /////PLAYLISTS FETCH
@@ -59,7 +59,23 @@ export const togglePlaylistIsPrivate = async (
   }
 };
 
-export const toggleFollowPlaylist = async (loggedUserId, playlistId, isAdded) => {
-  const res = await axios.post(`${BASE_URL}/follow`, { loggedUserId, playlistId, isAdded });
+export const toggleFollowPlaylist = async (
+  loggedUserId,
+  playlistId,
+  isAdded
+) => {
+  const res = await axios.post(`${BASE_URL}/follow`, {
+    loggedUserId,
+    playlistId,
+    isAdded,
+  });
+  return res.data;
+};
+
+export const deletePlaylist = async (loggedUserId, playlistId) => {
+  const res = await axios.post(`${BASE_URL}/delete`, {
+    loggedUserId,
+    playlistId,
+  });
   return res.data;
 };

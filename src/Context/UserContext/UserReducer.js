@@ -53,6 +53,15 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
+    case types.deletePlaylist: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: [...action.payload],
+        },
+      };
+    }
     default:
       state;
   }

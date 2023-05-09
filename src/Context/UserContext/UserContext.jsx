@@ -5,6 +5,7 @@ import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
 import {
   createPlaylist,
+  deletePlaylist,
   togglePlaylistIsPrivate,
 } from "../../API/MusicApi/MusicApi";
 
@@ -99,6 +100,16 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const deleteSinglePlaylist = async (loggedUserId, playlistId) => {
+    const res = await deletePlaylist(loggedUserId, playlistId);
+    if (res.ok) {
+      const filteredPlaylists = userState.user.playlists.filter((playlist) => {
+        return playlist._id !== playlistId;
+      });
+      dispatch({ type: types.deletePlaylist, payload: filteredPlaylists });
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -109,6 +120,7 @@ export const UserProvider = ({ children }) => {
         toggleUserFollowing,
         createSinglePlaylist,
         togglePlaylistVisibility,
+        deleteSinglePlaylist,
       }}
     >
       {children}

@@ -7,11 +7,13 @@ import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
+import { IoTrashOutline } from "react-icons/io5";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
   const {
     user: { _id: userId },
     togglePlaylistVisibility,
+    deleteSinglePlaylist,
   } = useUser();
   const { name, thumbnail, _id, isPrivate, user } = object;
 
@@ -72,6 +74,10 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   const handleTogglePlaylistVisibility = () => {
     togglePlaylistVisibility(userId, _id, isPrivate);
   };
+
+  const handleDeletePlaylist = () => {
+    deleteSinglePlaylist(userId, _id);
+  };
   return (
     <div
       className="relative"
@@ -130,6 +136,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           />
         </div>
       </div>
+
       {isOwner && isPrivate ? (
         <MdOutlinePublic
           className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
@@ -139,6 +146,12 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         <MdOutlinePublicOff
           className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
           onClick={handleTogglePlaylistVisibility}
+        />
+      ) : null}
+      {isOwner && hovered ? (
+        <IoTrashOutline
+          className="text-2xl text-white absolute top-10 right-4 cursor-pointer"
+          onClick={handleDeletePlaylist}
         />
       ) : null}
     </div>
