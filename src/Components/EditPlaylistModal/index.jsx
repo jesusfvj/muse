@@ -18,7 +18,6 @@ export const EditPlaylistModal = ({
   const [playlistData, setPlaylistData] = useState({
     name: playlist.name,
     img: playlist.thumbnail,
-    isPrivate: playlist.isPrivate,
   });
 
   const [previewImg, setPreviewImg] = useState(playlist.thumbnail);
@@ -91,23 +90,6 @@ export const EditPlaylistModal = ({
             </label>
           </div>
 
-          <div className="flex items-center gap-4">
-            <label htmlFor="file" className="text-white">
-              <Typography text="Make this playlist private" />
-            </label>
-            <input
-            checked={playlistData.isPrivate}
-              id="checkbox"
-              type="checkbox"
-              name="isPrivate"
-              onChange={() =>
-                setPlaylistData({
-                  ...playlistData,
-                  isPrivate: !playlistData.isPrivate,
-                })
-              }
-            />
-          </div>
           <div className="w-2/3">
             <Button
               text="Edit playlist"
