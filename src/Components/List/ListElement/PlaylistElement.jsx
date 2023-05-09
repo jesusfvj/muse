@@ -6,18 +6,24 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
+import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
 
-export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
+export const PlaylistElement = ({ object, isSwipping }) => {
   const {
     user: { _id: userId },
     togglePlaylistVisibility,
   } = useUser();
-  const { name, thumbnail, _id, isPrivate } = object;
+  const { name, thumbnail, _id, isPrivate, user } = object;
 
-  const [clicked, setClicked] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(
+    object.followedBy.includes(userId)
+  );
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
+
+  const isOwner = userId === user;
+
   const colors = {
     bg1: "bg-green-500",
     bg2: "bg-blue-500",
@@ -51,14 +57,13 @@ export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
     setIsDropdownActive(false);
   };
 
-  const likedClicked = () => {
-    console.log(clicked);
+  const handleAddToFavorites = async () => {
     if (!buttonDisabled) {
-      setClicked(!clicked);
-
+      const res = await toggleFollowPlaylist(userId, _id, !isFollowed);
+      setIsFollowed(!isFollowed);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
+        console.log(isFollowed);
         setButtonDisabled(false);
       }, 1500);
     }
@@ -101,10 +106,12 @@ export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
       </div>
       <div
         className="absolute bottom-2 left-5 cursor-pointer flex justify-center items-center"
-        onClick={likedClicked}
+        onClick={handleAddToFavorites}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
+          text={
+            isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+          }
           type="big"
           color="white"
           styles="hidden xs:flex"
@@ -125,6 +132,11 @@ export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
       </div>
       {isOwner && isPrivate ? (
         <MdOutlinePublic
+          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
+          onClick={handleTogglePlaylistVisibility}
+        />
+      ) : isOwner && !isPrivate ? (
+        <MdOutlinePublicOff
           className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
           onClick={handleTogglePlaylistVisibility}
         />

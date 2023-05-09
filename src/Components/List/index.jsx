@@ -23,7 +23,7 @@ export const List = ({
     itemsTablet: 3,
     itemsMobile: 2,
   },
-  isOwner,
+
 }) => {
   const [isSwipping, setIsSwipping] = useState(false);
 
@@ -53,7 +53,6 @@ export const List = ({
                   key={index}
                   object={object}
                   isSwipping={isSwipping}
-                  isOwner={isOwner}
                 />
               );
             case "user":

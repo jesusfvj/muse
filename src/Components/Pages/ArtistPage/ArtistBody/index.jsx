@@ -53,7 +53,7 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["songs"],
     queryFn: getSongs,
-    refetchInterval: 5000,
+    // refetchInterval: 5000,
   });
   const {
     data: albums,
@@ -62,7 +62,7 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["albums"],
     queryFn: getAlbums,
-    refetchInterval: 5000,
+    // refetchInterval: 5000,
   });
   const {
     data: playlists,
@@ -71,7 +71,7 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["playlists"],
     queryFn: getPlaylists,
-    refetchInterval: 5000,
+    // refetchInterval: 5000,
   });
 
   return (

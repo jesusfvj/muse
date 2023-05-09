@@ -8,7 +8,7 @@ export const FollowingSection = ({
   datatype2,
   title1,
   title2,
-  isOwner,
+  isLoggedUserProfile
 }) => {
   if (!object1.length && !object2.length)
     return <Typography text="Nothing here" />;
@@ -19,7 +19,7 @@ export const FollowingSection = ({
           object={object1}
           sectionTitle={title1}
           datatype={datatype1}
-          isOwner={isOwner}
+          isLoggedUserProfile={isLoggedUserProfile}
         />
       )}
       {object2.length ? (
@@ -27,7 +27,7 @@ export const FollowingSection = ({
           object={object2}
           sectionTitle={title2}
           datatype={datatype2}
-          isOwner={isOwner}
+          isLoggedUserProfile={isLoggedUserProfile}
         />
       ) : (
         <Typography text="No playlists to show" />

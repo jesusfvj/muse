@@ -12,7 +12,12 @@ export const getAlbums = async () => {
   const res = await fetch("http://localhost:3000/albums");
   //   throw new Error();
   return res.json();
-};
+}; 
+
+/////PLAYLISTS FETCH
+/////PLAYLISTS FETCH
+/////PLAYLISTS FETCH
+
 export const getPlaylists = async () => {
   const res = await axios.get(BASE_URL);
   // throw new Error();
@@ -52,4 +57,9 @@ export const togglePlaylistIsPrivate = async (
   } else {
     return null;
   }
+};
+
+export const toggleFollowPlaylist = async (loggedUserId, playlistId, isAdded) => {
+  const res = await axios.post(`${BASE_URL}/follow`, { loggedUserId, playlistId, isAdded });
+  return res.data;
 };

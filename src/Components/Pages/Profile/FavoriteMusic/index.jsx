@@ -22,7 +22,7 @@ export const FavoriteMusic = ({
   userProfile,
 }) => {
   const { playlists, followedPlaylists } = userProfile;
-
+console.log(userProfile)
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -48,7 +48,7 @@ export const FavoriteMusic = ({
         <TitleSection titleSection="Following" />
         {!errorArtists ? (
           <FollowingSection
-            isOwner={isLoggedUserProfile}
+            
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
             object1={
               !isLoadingArtists
@@ -61,6 +61,7 @@ export const FavoriteMusic = ({
             datatype2={"playlist"}
             object2={followedPlaylists}
             title2="Playlists"
+            isLoggedUserProfile={isLoggedUserProfile}
           />
         ) : (
           <EmptyDefault error={true} text="Following" />
