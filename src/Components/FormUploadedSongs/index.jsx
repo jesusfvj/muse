@@ -5,8 +5,11 @@ import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { uploadSongsAPI } from "../../API/SongsUpload/index";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster"
 
-export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploadSongsModal}) => {
+export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUploadSongsModal }) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
     const [albumInputValue, setAlbumInputValue] = useState('');
     const [previewImage, setPreviewImage] = useState([]);
@@ -18,6 +21,9 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploa
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if(!checkForEmptyImageFiles(imageFiles)){
+            console.log("empty images")
+        }
         const form = event.target;
         const formDataForm = new FormData(form);
         const data = Object.fromEntries(formDataForm.entries());
@@ -39,13 +45,16 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploa
             filesFormData.set(`dataFile${index + 1}`, stringifiedData)
             filesFormData.set(`imageFile${index + 1}`, imageFiles[index])
         })
-
         setFilesFormData(filesFormData)
         const response = await uploadSongsAPI(filesFormData, user._id);
         console.log(response)
-         if (response.data.ok) {
-            //show toaster
-            /* setShowUploadSongsModal(false) */
+        if (response.data.ok) {
+            toastMessageSuccess("Song/s successfuly submited.");
+            setTimeout(() => {
+                setShowUploadSongsModal(false)
+            }, 2500);
+        } else {
+            toastMessageError("Something went wrong. Please try again.")
         }
     }
 
@@ -102,7 +111,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploa
                         className="sm:mt-1"
                         type="checkbox"
                         checked={isAlbumChecked}
-                        onChange={(event)=>{setIsAlbumChecked(event.target.checked)}} />
+                        onChange={(event) => { setIsAlbumChecked(event.target.checked) }} />
                     <Typography
                         text="Is it an album?"
                         type="p1"
@@ -115,14 +124,14 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploa
                         label="Album Title"
                         type="text"
                         value={albumInputValue}
-                        onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
+                        onInputChange={(event) => { setAlbumInputValue(event.target.value); }}
                         sizeContainer="w-full sm:w-[20vw]"
                         styles="text-xs"
                     />
                 )}
             </div>
             <form
-                className={`flex flex-col items-center gap-3 ${isAlbumChecked? 'max-h-[57vh]':'max-h-[65vh]'} sm:max-h-[45vh] overflow-auto`}
+                className={`flex flex-col items-center gap-3 ${isAlbumChecked ? 'max-h-[57vh]' : 'max-h-[65vh]'} sm:max-h-[45vh] overflow-auto`}
                 onSubmit={handleSubmit}
             >
                 {isAlbumChecked &&
@@ -161,9 +170,10 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploa
                     text="Save"
                     color="black"
                     size="sm"
-                    onClick={()=>{buttonSaveRef.current.click();}}
+                    onClick={() => { buttonSaveRef.current.click(); }}
                 />
             </div>
+            <ToastContainer />
         </div>
     )
 }
