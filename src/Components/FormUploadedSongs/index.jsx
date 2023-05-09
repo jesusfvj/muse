@@ -27,9 +27,9 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
             const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
             if (response.data.ok) {
                 toastMessageSuccess("Song/s successfuly submited.");
-                setTimeout(() => {
+                /* setTimeout(() => {
                     setShowUploadSongsModal(false)
-                }, 1000);
+                }, 2000); */
             } else {
                 toastMessageError("Something went wrong. Please try again.")
             }

@@ -69,10 +69,10 @@ export const FormUploadedSongsComponent = (
                 className="hidden"
                 onChange={(event) => handleImageChange(event, index)}
             />
-            <label htmlFor={`imageFile${index}`}>
+            <label htmlFor={`imageFile${index}`} className="w-40 h-40 sm:w-24 sm:h-20">
                 {previewImage[index]===""
                     ? <div
-                        className='flex justify-center items-center border border-white border-dashed rounded-md transition duration-500 hover:border-gray-400 w-40 h-40 sm:w-20 sm:h-20 cursor-pointer'
+                        className='h-full w-full flex justify-center items-center border border-white border-dashed rounded-md transition duration-500 hover:border-gray-400 cursor-pointer'
                         onMouseOver={()=>setIsHovering(true)}
                         onMouseOut={()=>setIsHovering(false)}
                         >
@@ -83,7 +83,7 @@ export const FormUploadedSongsComponent = (
                         styles="ml-1"
                     />
                     </div>
-                    : <img src={previewImage[index]} alt="Selected image" className="w-40 h-40 sm:w-[6.5rem] sm:h-20 cursor-pointer object-cover rounded" />
+                    : <img src={previewImage[index]} alt="Selected image" className="w-full h-full cursor-pointer object-cover rounded" />
                 }
             </label>
             <InputWithLabel
@@ -116,7 +116,7 @@ export const FormUploadedSongsComponent = (
                 required={true}
                 onInputChange={handleInputChange}
             />
-            <div className="w-full sm:w-fit h-full sm:h-[5vh] rounded bg-red-400 transition duration-500 hover:bg-red-500 sm:bg-transparent hover:sm:bg-transparent">
+            <div className="w-full sm:w-fit h-8 sm:h-[5vh] rounded bg-red-400 transition duration-500 hover:bg-red-500 sm:bg-transparent hover:sm:bg-transparent">
                 <Button
                     text={<Typography
                         text={<AiFillDelete />}
