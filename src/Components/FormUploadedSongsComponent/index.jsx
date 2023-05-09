@@ -83,7 +83,7 @@ export const FormUploadedSongsComponent = (
                         styles="ml-1"
                     />
                     </div>
-                    : <img src={previewImage[index]} alt="Selected image" className="w-40 h-40 sm:w-20 sm:h-20 cursor-pointer object-cover rounded" />
+                    : <img src={previewImage[index]} alt="Selected image" className="w-40 h-40 sm:w-[6.5rem] sm:h-20 cursor-pointer object-cover rounded" />
                 }
             </label>
             <InputWithLabel

@@ -8,6 +8,7 @@ import { uploadSongsAPI } from "../../API/SongsUpload/index";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster"
+import { checkForEmptyImageFiles, organizeAndSetDataForm } from "../../Utils/uploadSongsFunctions"
 
 export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUploadSongsModal }) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
@@ -21,40 +22,19 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if(!checkForEmptyImageFiles(imageFiles)){
-            console.log("empty images")
-        }
-        const form = event.target;
-        const formDataForm = new FormData(form);
-        const data = Object.fromEntries(formDataForm.entries());
-        const dataFiltered = {};
-        for (const key in data) {
-            const num = key.match(/\d+$/)[0];
-            if (!dataFiltered[`formDataFile${num}`]) {
-                dataFiltered[`formDataFile${num}`] = {};
+        if (!checkForEmptyImageFiles(imageFiles)) {
+            const filesFormDataFiltered = organizeAndSetDataForm(event.target, isAlbumChecked, albumInputValue, selectedFiles, filesFormData, imageFiles)
+            const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
+            if (response.data.ok) {
+                toastMessageSuccess("Song/s successfuly submited.");
+                setTimeout(() => {
+                    setShowUploadSongsModal(false)
+                }, 1000);
+            } else {
+                toastMessageError("Something went wrong. Please try again.")
             }
-            dataFiltered[`formDataFile${num}`][key.replace(/\d+$/, "")] = data[key];
-        }
-        if (isAlbumChecked) {
-            for (let key in dataFiltered) {
-                dataFiltered[key].albumName = albumInputValue
-            }
-        }
-        Object.values(selectedFiles).map((selectedFile, index) => {
-            const stringifiedData = JSON.stringify(dataFiltered[`formDataFile${index + 1}`])
-            filesFormData.set(`dataFile${index + 1}`, stringifiedData)
-            filesFormData.set(`imageFile${index + 1}`, imageFiles[index])
-        })
-        setFilesFormData(filesFormData)
-        const response = await uploadSongsAPI(filesFormData, user._id);
-        console.log(response)
-        if (response.data.ok) {
-            toastMessageSuccess("Song/s successfuly submited.");
-            setTimeout(() => {
-                setShowUploadSongsModal(false)
-            }, 2500);
         } else {
-            toastMessageError("Something went wrong. Please try again.")
+            toastMessageError("Please choose an image for every track.")
         }
     }
 
