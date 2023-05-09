@@ -50,17 +50,29 @@ export const ArtistBody = () => {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
-  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
+  } = useQuery({
+    queryKey: ["songs"],
+    queryFn: getSongs,
+    // refetchInterval: 5000,
+  });
   const {
     data: albums,
     isLoading: isLoadingAlbums,
     error: errorAlbums,
-  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+  } = useQuery({
+    queryKey: ["albums"],
+    queryFn: getAlbums,
+    // refetchInterval: 5000,
+  });
   const {
     data: playlists,
     isLoading: isLoadingPlaylists,
     error: errorPlaylists,
-  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+  } = useQuery({
+    queryKey: ["playlists"],
+    queryFn: getPlaylists,
+    // refetchInterval: 5000,
+  });
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
@@ -115,7 +127,7 @@ export const ArtistBody = () => {
           <EmptyDefault text="Albums" />
         )}
       </div>
-     
+
       <div className="w-full md:w-5/6">
         {playlists?.length ? (
           <List

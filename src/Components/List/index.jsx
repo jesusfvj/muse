@@ -23,6 +23,7 @@ export const List = ({
     itemsTablet: 3,
     itemsMobile: 2,
   },
+
 }) => {
   const [isSwipping, setIsSwipping] = useState(false);
 
@@ -47,7 +48,13 @@ export const List = ({
             case "artist":
               return <ArtistElement key={index} object={object} />;
             case "playlist":
-              return <PlaylistElement key={index} object={object} isSwipping={isSwipping} />;
+              return (
+                <PlaylistElement
+                  key={index}
+                  object={object}
+                  isSwipping={isSwipping}
+                />
+              );
             case "user":
               return <UserElement key={index} object={object} />;
             case "skeletonPlaylist":

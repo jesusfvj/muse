@@ -5,11 +5,7 @@ import { Typography } from "../Typography";
 import { Button } from "../Button";
 import { AddSongsModal } from "../Pages/Playlist";
 
-export const PlaylistsTracks = ({
-  songs,
-  styles,
-  isFollowed,
-}) => {
+export const PlaylistsTracks = ({ songs, styles, isFollowed, isOwner }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isAddSongsModalOpen, setIsAddSongsModalOpen] = useState(false);
   const handleToggleDropdown = (id) => {
@@ -19,43 +15,50 @@ export const PlaylistsTracks = ({
       setActiveDropdown(id);
     }
   };
+
   return (
     <div className={`flex flex-col ${styles}`}>
       <div className="flex items-center justify-end m-4 gap-4">
-        <div>
-          <Button
-            text="Add songs"
-            color="gray"
-            onClick={() => setIsAddSongsModalOpen(true)}
-          />
-        </div>
+        {isOwner && (
+          <div>
+            <Button
+              text="Add songs"
+              color="gray"
+              onClick={() => setIsAddSongsModalOpen(true)}
+            />
+          </div>
+        )}
         <Typography
           text={!isFollowed ? <AiOutlineHeart /> : <AiFillHeart />}
           color="white"
           type="big"
         />
       </div>
-      {songs.map((songs, idx) => {
-        const { id, name, duration, artist } = songs;
-        return (
-          <PlaylistsElements
-            key={`${name}-${idx}`}
-            activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
-            id={id}
-            artist={artist}
-            nombre={name}
-            duration={duration}
-            idx={idx}
-          />
-        );
-      })}
+      {songs.length ? (
+        songs.map((songs, idx) => {
+          const { id, name, duration, artist } = songs;
+          return (
+            <PlaylistsElements
+              key={`${name}-${idx}`}
+              activeDropdown={activeDropdown}
+              handleToggleDropdown={handleToggleDropdown}
+              id={id}
+              artist={artist}
+              nombre={name}
+              duration={duration}
+              idx={idx}
+            />
+          );
+        })
+      ) : (
+        <Typography text="This playlist does not have any song" />
+      )}
       {isAddSongsModalOpen && (
         <div
           className="fixed top-0 bottom-0 left-0 right-0 m-auto bg-black/90 h-screen w-screen backdrop-blur-sm z-40 flex items-center justify-center"
-          onClick={()=>setIsAddSongsModalOpen(false)}
+          onClick={() => setIsAddSongsModalOpen(false)}
         >
-          <AddSongsModal/>
+          <AddSongsModal />
         </div>
       )}
     </div>

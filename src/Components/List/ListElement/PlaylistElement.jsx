@@ -1,17 +1,34 @@
 import { useMemo, useState } from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaEdit, FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../Context/UserContext/UserContext";
+import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
+import { IoTrashOutline } from "react-icons/io5";
+import { EditPlaylistModal } from "../../EditPlaylistModal";
+import { useUI } from "../../../Context/UI/UIContext";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
-  const [clicked, setClicked] = useState(false);
+  const { handleToggleEditPlaylistModal } = useUI();
+  const {
+    user: { _id: userId },
+    togglePlaylistVisibility,
+    deleteSinglePlaylist,
+  } = useUser();
+  const { name, thumbnail, _id, isPrivate, user } = object;
+
+  const [isFollowed, setIsFollowed] = useState(
+    object.followedBy.includes(userId)
+  );
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
-  const { name, thumbnail, id } = object;
+
+  const isOwner = userId === user;
+
   const colors = {
     bg1: "bg-green-500",
     bg2: "bg-blue-500",
@@ -28,7 +45,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
   const handleNavigate = () => {
     if (!isSwipping) {
-      navigate(`/playlist/${id}`);
+      navigate(`/playlist/${_id}`);
     }
   };
 
@@ -45,18 +62,30 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     setIsDropdownActive(false);
   };
 
-  const likedClicked = () => {
-    console.log(clicked);
+  const handleAddToFavorites = async () => {
     if (!buttonDisabled) {
-      setClicked(!clicked);
-
+      const res = await toggleFollowPlaylist(userId, _id, !isFollowed);
+      setIsFollowed(!isFollowed);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
+        console.log(isFollowed);
         setButtonDisabled(false);
       }, 1500);
     }
   };
+
+  const handleTogglePlaylistVisibility = () => {
+    togglePlaylistVisibility(userId, _id, isPrivate);
+  };
+
+  const handleDeletePlaylist = () => {
+    deleteSinglePlaylist(userId, _id);
+  };
+
+  const handleOpenEditPlaylist = () => {
+    handleToggleEditPlaylistModal(object);
+  };
+
   return (
     <div
       className="relative"
@@ -85,16 +114,18 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
           <img
             src={thumbnail}
-            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none"
+            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover"
           />
         </div>
       </div>
       <div
         className="absolute bottom-2 left-5 cursor-pointer flex justify-center items-center"
-        onClick={likedClicked}
+        onClick={handleAddToFavorites}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
+          text={
+            isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+          }
           type="big"
           color="white"
           styles="hidden xs:flex"
@@ -113,6 +144,30 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           />
         </div>
       </div>
+
+      {isOwner && isPrivate ? (
+        <MdOutlinePublic
+          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
+          onClick={handleTogglePlaylistVisibility}
+        />
+      ) : isOwner && !isPrivate ? (
+        <MdOutlinePublicOff
+          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
+          onClick={handleTogglePlaylistVisibility}
+        />
+      ) : null}
+      {isOwner && hovered ? (
+        <>
+          <IoTrashOutline
+            className="text-2xl text-white absolute top-10 right-4 cursor-pointer"
+            onClick={handleDeletePlaylist}
+          />
+          <FaEdit
+            className="text-2xl text-white absolute -top-1 left-2 cursor-pointer"
+            onClick={handleOpenEditPlaylist}
+          />
+        </>
+      ) : null}
     </div>
   );
 };

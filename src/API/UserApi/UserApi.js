@@ -33,3 +33,4 @@ export const getArtists = async (id) => {
     return res.data.artists;
   }
 };
+
