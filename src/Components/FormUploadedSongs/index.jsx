@@ -6,7 +6,7 @@ import { Typography } from "../Typography"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { uploadSongsAPI } from "../../API/SongsUpload/index";
 
-export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
+export const FormUploadedSongs = ({selectedFiles, setSelectedFiles, setShowUploadSongsModal}) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
     const [albumInputValue, setAlbumInputValue] = useState('');
     const [previewImage, setPreviewImage] = useState([]);
@@ -41,11 +41,12 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
         })
 
         setFilesFormData(filesFormData)
-        const response = await uploadSongsAPI(filesFormData);
-        /*  if (response.ok) {
+        const response = await uploadSongsAPI(filesFormData, user._id);
+        console.log(response)
+         if (response.data.ok) {
             //show toaster
-            setShowUploadSongsModal(false)
-        } */
+            /* setShowUploadSongsModal(false) */
+        }
     }
 
     const handleRemoveFile = (indexFileToRemove) => {
@@ -71,7 +72,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
             let copyRegisterData = { ...registerData }
 
             Object.values(selectedFiles).map((selectedFile, index) => {
-                formData.set(`file${index + 1}`, selectedFile);
+                formData.set(`audioFile${index + 1}`, selectedFile);
                 copyRegisterData = {
                     ...copyRegisterData,
                     [`genre${index + 1}`]: "",
@@ -94,11 +95,11 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
     }, [selectedFiles]);
 
     return (
-        <div className="w-[95%] h-full">
-            <div className="m-2 flex justify-center items-center gap-4">
+        <div className="w-[95%] h-full flex flex-col">
+            <div className="m-2 flex flex-col sm:flex-row justify-center items-center gap-4">
                 <label className="flex gap-4">
                     <input
-                        className="mt-1"
+                        className="sm:mt-1"
                         type="checkbox"
                         checked={isAlbumChecked}
                         onChange={(event)=>{setIsAlbumChecked(event.target.checked)}} />
@@ -115,13 +116,13 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                         type="text"
                         value={albumInputValue}
                         onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
-                        sizeContainer="w-[20vw]"
+                        sizeContainer="w-full sm:w-[20vw]"
                         styles="text-xs"
                     />
                 )}
             </div>
             <form
-                className="flex flex-col items-center gap-3 max-h-[45vh] overflow-auto"
+                className={`flex flex-col items-center gap-3 ${isAlbumChecked? 'max-h-[57vh]':'max-h-[65vh]'} sm:max-h-[45vh] overflow-auto`}
                 onSubmit={handleSubmit}
             >
                 {isAlbumChecked &&
@@ -154,7 +155,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                     />
                 </div>
             </form>
-            <div className="w-[10rem] h-[2rem] self-start my-10">
+            <div className="w-full h-[3rem] sm:w-[10rem] sm:h-[2rem] mt-10 self-center sm:self-start">
                 <Button
                     typeButton="submit"
                     text="Save"

@@ -8,7 +8,7 @@ import { BiLibrary } from "react-icons/bi";
 import { useUser } from "../../Context/UserContext/UserContext";
 
 export const ContextMenu = ({handleCloseContextMenu}) => {
-  const { logout, user: {_id} } = useUser();
+  const { logout, user } = useUser();
   
   return (
     <div className="h-screen w-screen flex items-center justify-center top-0 z-[99] fixed backdrop-blur-md" onClick={handleCloseContextMenu}>
@@ -32,7 +32,7 @@ export const ContextMenu = ({handleCloseContextMenu}) => {
           <TbMicrophone2 className="text-gray-600 text-4xl" />
         </NavLink>
         <NavLink
-          to={`/user/${_id}`}
+          to={`/user/${user?._id}`}
           className="text-white col-span-6 h-24 w-24 flex items-center justify-center rounded-full bg-slate-300 hover:bg-gray-100 duration-300"
         >
           <FaUserAlt className="text-gray-600 text-4xl" />
