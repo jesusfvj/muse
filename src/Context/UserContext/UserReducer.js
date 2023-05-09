@@ -44,6 +44,15 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
+    case types.togglePlaylistVisibility: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: [...action.payload],
+        },
+      };
+    }
     default:
       state;
   }

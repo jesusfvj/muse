@@ -5,7 +5,7 @@ export const FavoriteMusicElement = ({
   object,
   sectionTitle,
   datatype,
-  isOwner = true,
+  isOwner = false,
 }) => {
   return (
     <div className="flex flex-col justify-center items-center gap-y-[2rem] relative">
@@ -15,6 +15,7 @@ export const FavoriteMusicElement = ({
           sectionTitle={sectionTitle}
           textType="big"
           dataType={datatype}
+          isOwner={isOwner}
         />
       </div>
       {isOwner && (

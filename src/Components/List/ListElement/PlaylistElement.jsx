@@ -5,13 +5,19 @@ import { Typography, RoundButton } from "../../index";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
-export const PlaylistElement = ({ object, isSwipping }) => {
+export const PlaylistElement = ({ object, isSwipping, isOwner }) => {
+  const {
+    user: { _id: userId },
+    togglePlaylistVisibility,
+  } = useUser();
+  const { name, thumbnail, _id, isPrivate } = object;
+
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
-  const { name, thumbnail, _id } = object;
   const colors = {
     bg1: "bg-green-500",
     bg2: "bg-blue-500",
@@ -56,6 +62,10 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         setButtonDisabled(false);
       }, 1500);
     }
+  };
+
+  const handleTogglePlaylistVisibility = () => {
+    togglePlaylistVisibility(userId, _id, isPrivate);
   };
   return (
     <div
@@ -113,6 +123,17 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           />
         </div>
       </div>
+      {isOwner && isPrivate ? (
+        <MdOutlinePublic
+          className="absolute top-2 right-4 text-white text-2xl"
+          onClick={handleTogglePlaylistVisibility}
+        />
+      ) : isOwner ? (
+        <MdOutlinePublicOff
+          className="absolute top-2 right-4 text-white text-2xl"
+          onClick={handleTogglePlaylistVisibility}
+        />
+      ) : null}
     </div>
   );
 };

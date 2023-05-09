@@ -3,7 +3,10 @@ import { useContext } from "react";
 import { followUser, loginUser, registerUser } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
-import { createPlaylist } from "../../API/MusicApi/MusicApi";
+import {
+  createPlaylist,
+  togglePlaylistIsPrivate,
+} from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
 
@@ -69,6 +72,33 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const togglePlaylistVisibility = async (
+    loggedUserId,
+    playlistId,
+    isPrivate
+  ) => {
+    const res = await togglePlaylistIsPrivate(
+      loggedUserId,
+      playlistId,
+      isPrivate
+    );
+
+    const updatedPlaylistsArray = userState.user.playlists.map((playlist) => {
+      if (playlist._id === playlistId) {
+        return { ...playlist, isPrivate: !res.isPrivate };
+      } else {
+        return playlist;
+      }
+    });
+
+    if (res) {
+      dispatch({
+        type: types.togglePlaylistVisibility,
+        payload: updatedPlaylistsArray,
+      });
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -78,6 +108,7 @@ export const UserProvider = ({ children }) => {
         register,
         toggleUserFollowing,
         createSinglePlaylist,
+        togglePlaylistVisibility,
       }}
     >
       {children}

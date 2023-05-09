@@ -35,3 +35,21 @@ export const createPlaylist = async (playlist, userId) => {
   const res = await axios.post(`${BASE_URL}/create`, { playlist, userId });
   return res.data;
 };
+
+export const togglePlaylistIsPrivate = async (
+  loggedUserId,
+  playlistId,
+  isPrivate
+) => {
+  const res = await axios.put(`${BASE_URL}/togglevisibility`, {
+    loggedUserId,
+    playlistId,
+    isPrivate,
+  });
+
+  if (res.data.ok) {
+    return res.data.playlistToUpdate;
+  } else {
+    return null;
+  }
+};

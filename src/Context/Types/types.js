@@ -6,4 +6,5 @@ export const types = {
   unfollowUser: "UNFOLLOW_USER",
 
   createPlaylist: "CREATE_PLAYLIST",
+  togglePlaylistVisibility: "TOGGLE_PLAYLIST_VISIBILITY"
 };

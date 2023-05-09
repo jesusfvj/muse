@@ -24,10 +24,6 @@ export const FavoriteMusic = ({
   const { playlists, followedPlaylists } = userProfile;
 
   const {
-    user: { _id },
-  } = useUser();
-
-  const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
@@ -106,6 +102,7 @@ export const FavoriteMusic = ({
               (playlist) => playlist.isPrivate === true
             )}
             title2="Private"
+            isOwner={isLoggedUserProfile}
           />
         ) : (
           <UserFollowingSection
