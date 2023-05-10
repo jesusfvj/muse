@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { AddSongsModal } from "../Pages/Playlist";
 
 export const PlaylistsTracks = ({ songs, styles, isFollowed, isOwner }) => {
+  console.log(songs);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isAddSongsModalOpen, setIsAddSongsModalOpen] = useState(false);
   const handleToggleDropdown = (id) => {

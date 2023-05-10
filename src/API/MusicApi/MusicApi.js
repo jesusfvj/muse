@@ -63,3 +63,7 @@ export const toggleFollowPlaylist = async (loggedUserId, playlistId, isAdded) =>
   const res = await axios.post(`${BASE_URL}/follow`, { loggedUserId, playlistId, isAdded });
   return res.data;
 };
+export const duplicatePlaylist = async (loggedUserId, playlistId) => {
+  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId } );
+  return res.data;
+};
