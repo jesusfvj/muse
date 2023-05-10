@@ -66,11 +66,12 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: types.logout });
   };
 
-  const createSinglePlaylist = async (playlistData, _id) => {
-    const res = await createPlaylist(playlistData, _id);
+  const createSinglePlaylist = async (formData, _id) => {
+    const res = await createPlaylist(formData, _id);
     if (res.ok) {
       dispatch({ type: types.createPlaylist, payload: res.newPlaylist });
     }
+    return res
   };
 
   const togglePlaylistVisibility = async (

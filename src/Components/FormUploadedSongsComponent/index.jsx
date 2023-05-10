@@ -28,7 +28,6 @@ export const FormUploadedSongsComponent = (
 
     const handleImageChange = (event, index) => {
         const file = event.target.files[0];
-        console.log(file)
         if (file) {
             const reader = new FileReader();
             reader.readAsDataURL(file);

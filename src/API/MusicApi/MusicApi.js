@@ -36,8 +36,10 @@ export const getPlaylistsById = async (playlistId) => {
   }
 };
 
-export const createPlaylist = async (playlist, userId) => {
-  const res = await axios.post(`${BASE_URL}/create`, { playlist, userId });
+export const createPlaylist = async (formData, userId) => {
+  console.log("API")
+  const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
+  console.log(res)
   return res.data;
 };
 
