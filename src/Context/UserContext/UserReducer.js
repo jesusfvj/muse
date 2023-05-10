@@ -62,6 +62,11 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
+    case types.updateUsername:
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       state;
   }

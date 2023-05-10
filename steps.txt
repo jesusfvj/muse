@@ -1,0 +1,6 @@
+1 Declarar la funcio fent el fetch a usersApi o a la apiQueToqui.js.
+2 Fer una funcio al context per a que cridi a la de usersApi. Quan tinguem la resposta actualitzarem l estat.
+3 Importarem la funcio al handleClick del formulari.
+4 Escriurem un type per poder usar reducer
+5 escriurem la funcio del dispatch al context
+6 actualitzarem l'estat al reducer
