@@ -5,8 +5,12 @@ import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { uploadSongsAPI } from "../../API/SongsUpload/index";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster"
+import { checkForEmptyImageFiles, organizeAndSetDataForm } from "../../Utils/uploadSongsFunctions"
 
-export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
+export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUploadSongsModal }) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
     const [albumInputValue, setAlbumInputValue] = useState('');
     const [previewImage, setPreviewImage] = useState([]);
@@ -18,34 +22,20 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const form = event.target;
-        const formDataForm = new FormData(form);
-        const data = Object.fromEntries(formDataForm.entries());
-        const dataFiltered = {};
-        for (const key in data) {
-            const num = key.match(/\d+$/)[0];
-            if (!dataFiltered[`formDataFile${num}`]) {
-                dataFiltered[`formDataFile${num}`] = {};
+        if (!checkForEmptyImageFiles(imageFiles)) {
+            const filesFormDataFiltered = organizeAndSetDataForm(event.target, isAlbumChecked, albumInputValue, selectedFiles, filesFormData, imageFiles)
+            const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
+            if (response.data.ok) {
+                toastMessageSuccess("Song/s successfuly submited.");
+                /* setTimeout(() => {
+                    setShowUploadSongsModal(false)
+                }, 2000); */
+            } else {
+                toastMessageError("Something went wrong. Please try again.")
             }
-            dataFiltered[`formDataFile${num}`][key.replace(/\d+$/, "")] = data[key];
+        } else {
+            toastMessageError("Please choose an image for every track.")
         }
-        if (isAlbumChecked) {
-            for (let key in dataFiltered) {
-                dataFiltered[key].albumName = albumInputValue
-            }
-        }
-        Object.values(selectedFiles).map((selectedFile, index) => {
-            const stringifiedData = JSON.stringify(dataFiltered[`formDataFile${index + 1}`])
-            filesFormData.set(`dataFile${index + 1}`, stringifiedData)
-            filesFormData.set(`imageFile${index + 1}`, imageFiles[index])
-        })
-
-        setFilesFormData(filesFormData)
-        const response = await uploadSongsAPI(filesFormData);
-        /*  if (response.ok) {
-            //show toaster
-            setShowUploadSongsModal(false)
-        } */
     }
 
     const handleRemoveFile = (indexFileToRemove) => {
@@ -71,7 +61,7 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
             let copyRegisterData = { ...registerData }
 
             Object.values(selectedFiles).map((selectedFile, index) => {
-                formData.set(`file${index + 1}`, selectedFile);
+                formData.set(`audioFile${index + 1}`, selectedFile);
                 copyRegisterData = {
                     ...copyRegisterData,
                     [`genre${index + 1}`]: "",
@@ -94,14 +84,14 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
     }, [selectedFiles]);
 
     return (
-        <div className="w-[95%] h-full">
-            <div className="m-2 flex justify-center items-center gap-4">
+        <div className="w-[95%] h-full flex flex-col">
+            <div className="m-2 flex flex-col sm:flex-row justify-center items-center gap-4">
                 <label className="flex gap-4">
                     <input
-                        className="mt-1"
+                        className="sm:mt-1"
                         type="checkbox"
                         checked={isAlbumChecked}
-                        onChange={(event)=>{setIsAlbumChecked(event.target.checked)}} />
+                        onChange={(event) => { setIsAlbumChecked(event.target.checked) }} />
                     <Typography
                         text="Is it an album?"
                         type="p1"
@@ -114,14 +104,14 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                         label="Album Title"
                         type="text"
                         value={albumInputValue}
-                        onInputChange={(event)=>{setAlbumInputValue(event.target.value);}}
-                        sizeContainer="w-[20vw]"
+                        onInputChange={(event) => { setAlbumInputValue(event.target.value); }}
+                        sizeContainer="w-full sm:w-[20vw]"
                         styles="text-xs"
                     />
                 )}
             </div>
             <form
-                className="flex flex-col items-center gap-3 max-h-[45vh] overflow-auto"
+                className={`flex flex-col items-center gap-3 ${isAlbumChecked ? 'max-h-[57vh]' : 'max-h-[65vh]'} sm:max-h-[45vh] overflow-auto`}
                 onSubmit={handleSubmit}
             >
                 {isAlbumChecked &&
@@ -154,15 +144,16 @@ export const FormUploadedSongs = ({selectedFiles, setSelectedFiles}) => {
                     />
                 </div>
             </form>
-            <div className="w-[10rem] h-[2rem] self-start my-10">
+            <div className="w-full h-[3rem] sm:w-[10rem] sm:h-[2rem] mt-10 self-center sm:self-start">
                 <Button
                     typeButton="submit"
                     text="Save"
                     color="black"
                     size="sm"
-                    onClick={()=>{buttonSaveRef.current.click();}}
+                    onClick={() => { buttonSaveRef.current.click(); }}
                 />
             </div>
+            <ToastContainer />
         </div>
     )
 }

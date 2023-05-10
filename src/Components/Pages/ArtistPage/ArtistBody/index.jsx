@@ -53,7 +53,7 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["songs"],
     queryFn: getSongs,
-    // refetchInterval: 5000,
+    refetchInterval: 5000,
   });
   const {
     data: albums,
@@ -62,7 +62,7 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["albums"],
     queryFn: getAlbums,
-    // refetchInterval: 5000,
+    refetchInterval: 5000,
   });
   const {
     data: playlists,
@@ -71,7 +71,16 @@ export const ArtistBody = () => {
   } = useQuery({
     queryKey: ["playlists"],
     queryFn: getPlaylists,
-    // refetchInterval: 5000,
+    refetchInterval: 5000,
+  });
+  const {
+    data: artists,
+    isLoading: isLoadingArtists,
+    error: errorArtists,
+  } = useQuery({
+    queryKey: ["artists"._id],
+    queryFn: () => getArtists(_id),
+    refetchInterval: 5000,
   });
 
   return (
@@ -125,6 +134,32 @@ export const ArtistBody = () => {
           <EmptyDefault error text="Albums" />
         ) : (
           <EmptyDefault text="Albums" />
+        )}
+      </div>
+     
+      <div className="w-full md:w-5/6">
+        {artists?.length ? (
+          <List
+            object={artists}
+            sectionTitle="Artists"
+            dataType="artist"
+            itemsNumber={{
+              itemsSuperLarge: 7,
+              itemsDesktop: 5,
+              itemsTablet: 3,
+              itemsMobile: 2,
+            }}
+          />
+        ) : isLoadingAlbums ? (
+          <List
+            dataType="skeletonAlbum"
+            object={skeletonData}
+            sectionTitle="Artists"
+          />
+        ) : errorAlbums ? (
+          <EmptyDefault error text="Artists" />
+        ) : (
+          <EmptyDefault text="Artists" />
         )}
       </div>
 

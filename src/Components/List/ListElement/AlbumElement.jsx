@@ -9,7 +9,7 @@ export const AlbumElement = ({ object }) => {
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const { name, imageUrl, artist } = object;
+  const { name, thumbnailUrl, artist } = object;
 
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
@@ -44,7 +44,7 @@ export const AlbumElement = ({ object }) => {
     >
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"
+          " bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"
         }
       >
         <Link to="/album" className="w-full mt-2 px-3">
@@ -56,7 +56,7 @@ export const AlbumElement = ({ object }) => {
             styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
           <Typography
-            text={artist}
+            text={artist.fullName}
             type="p2"
             color="white"
             family="lato"
@@ -64,8 +64,8 @@ export const AlbumElement = ({ object }) => {
           />
         </Link>
         <img
-          src={imageUrl}
-          className="w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem]  bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none"
+          src={thumbnailUrl}
+          className="w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem]  bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none object-cover"
         />
       </div>
       <div

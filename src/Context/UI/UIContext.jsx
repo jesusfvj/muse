@@ -15,11 +15,11 @@ export const UIProvider = ({ children }) => {
 
   const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] =
     useState(false);
+  const [isEditPlaylistModalOpen, setIsEditPlaylistModalOpen] = useState(false);
 
   const [isEditSongModalOpen, setisEditSongModalOpen] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
-
-  
+  const [currentPlaylist, setCurrentPlaylist] = useState(null);
 
   const handleTogglePlaylistModal = () => {
     setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);
@@ -28,10 +28,15 @@ export const UIProvider = ({ children }) => {
     setIsCreatePlaylistModalOpen(!isCreatePlaylistModalOpen);
   };
 
-  const handleToggleSongModal = (song) =>  {
-    setCurrentSong(song)
+  const handleToggleSongModal = (song) => {
+    setCurrentSong(song);
     setisEditSongModalOpen(!isEditSongModalOpen);
-  }; 
+  };
+
+  const handleToggleEditPlaylistModal = (playlist) => {
+    setCurrentPlaylist(playlist);
+    setIsEditPlaylistModalOpen(!isEditPlaylistModalOpen);
+  };
 
   return (
     <UIContext.Provider
@@ -44,7 +49,10 @@ export const UIProvider = ({ children }) => {
         isCreatePlaylistModalOpen,
         handleToggleSongModal,
         isEditSongModalOpen,
-        currentSong
+        currentSong,
+        handleToggleEditPlaylistModal,
+        currentPlaylist,
+        isEditPlaylistModalOpen
       }}
     >
       {children}

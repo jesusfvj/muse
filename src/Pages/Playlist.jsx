@@ -39,6 +39,7 @@ console.log(playlist);
               songs={playlist.tracks}
               isFollowed={isFollowed}
               styles="w-full md:w-4/5"
+              playlist={playlist}
             />
           </div>
         </>
