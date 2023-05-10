@@ -14,7 +14,7 @@ import { useUI } from "../../../Context/UI/UIContext";
 export const PlaylistElement = ({ object, isSwipping }) => {
   const { handleToggleEditPlaylistModal } = useUI();
   const {
-    user: { _id: userId },
+    user: { _id: userId, profilePhoto },
     togglePlaylistVisibility,
     deleteSinglePlaylist,
   } = useUser();
@@ -118,19 +118,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           />
         </div>
       </div>
-      <div
-        className="absolute bottom-2 left-5 cursor-pointer flex justify-center items-center"
-        onClick={handleAddToFavorites}
-      >
-        <Typography
-          text={
-            isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
-          }
-          type="big"
-          color="white"
-          styles="hidden xs:flex"
-        />
-      </div>
+
       <div className="relative">
         <div
           className={`absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
@@ -145,29 +133,50 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         </div>
       </div>
 
-      {isOwner && isPrivate ? (
-        <MdOutlinePublic
-          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
-          onClick={handleTogglePlaylistVisibility}
-        />
-      ) : isOwner && !isPrivate ? (
-        <MdOutlinePublicOff
-          className="absolute top-1 right-4 text-white text-2xl cursor-pointer"
-          onClick={handleTogglePlaylistVisibility}
-        />
-      ) : null}
-      {isOwner && hovered ? (
-        <>
-          <IoTrashOutline
-            className="text-2xl text-white absolute top-10 right-4 cursor-pointer"
-            onClick={handleDeletePlaylist}
-          />
-          <FaEdit
-            className="text-2xl text-white absolute -top-1 left-2 cursor-pointer"
-            onClick={handleOpenEditPlaylist}
-          />
-        </>
-      ) : null}
+      <div
+        className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
+        onClick={handleAddToFavorites}
+      >
+        {isFollowed ? (
+          <AiFillHeart className="text-white text-2xl cursor-pointer" />
+        ) : hovered ? (
+          <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
+        ) : null}
+      </div>
+      <div className="h-6">
+        <div
+          className={`w-full flex h-full items-center justify-around ${
+            !hovered && "hidden"
+          }`}
+        >
+          {isOwner && isPrivate ? (
+            <MdOutlinePublic
+              className="top-1 right-4 text-white text-2xl cursor-pointer"
+              onClick={handleTogglePlaylistVisibility}
+            />
+          ) : isOwner && !isPrivate ? (
+            <MdOutlinePublicOff
+              className="top-1 right-4 text-white text-2xl cursor-pointer"
+              onClick={handleTogglePlaylistVisibility}
+            />
+          ) : null}
+          {isOwner ? (
+            <>
+              <IoTrashOutline
+                className="text-2xl text-white top-10 right-4 cursor-pointer"
+                onClick={handleDeletePlaylist}
+              />
+              <FaEdit
+                className="text-2xl text-white -top-1 left-2 cursor-pointer"
+                onClick={handleOpenEditPlaylist}
+              />
+            </>
+          ) : null}
+        </div>
+      </div>
+      {isOwner && (
+        <img src={profilePhoto} className="h-10 w-10 absolute top-2 right-4  rounded-full" />
+      )}
     </div>
   );
 };
