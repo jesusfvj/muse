@@ -133,7 +133,7 @@ export const UserProvider = ({ children }) => {
         logout,
         register,
         toggleUserFollowing,
-        updateUsername
+        updateUsername,
         createSinglePlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,

@@ -61,12 +61,12 @@ export const userReducer = (state = {}, action) => {
           playlists: [...action.payload],
         },
       };
-      case types.updateUsername:
-      return{
+    }
+    case types.updateUsername:
+      return {
         ...state,
         user: action.payload
       }
-    }
     default:
       state;
   }
