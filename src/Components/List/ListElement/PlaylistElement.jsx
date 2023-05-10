@@ -151,23 +151,23 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         >
           {isOwner && isPrivate ? (
             <MdOutlinePublic
-              className="top-1 right-4 text-white text-2xl cursor-pointer"
+              className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
               onClick={handleTogglePlaylistVisibility}
             />
           ) : isOwner && !isPrivate ? (
             <MdOutlinePublicOff
-              className="top-1 right-4 text-white text-2xl cursor-pointer"
+              className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
               onClick={handleTogglePlaylistVisibility}
             />
           ) : null}
           {isOwner ? (
             <>
               <IoTrashOutline
-                className="text-2xl text-white top-10 right-4 cursor-pointer"
+                className="text-lg md:text-2xl text-white top-10 right-4 cursor-pointer"
                 onClick={handleDeletePlaylist}
               />
               <FaEdit
-                className="text-2xl text-white -top-1 left-2 cursor-pointer"
+                className="text-lg md:text-2xl text-white -top-1 left-2 cursor-pointer"
                 onClick={handleOpenEditPlaylist}
               />
             </>
