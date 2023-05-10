@@ -1,6 +1,7 @@
 import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
 import {
+  changeUsername,
   followUser,
   loginUser,
   registerUser,
@@ -65,6 +66,16 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: types.logout });
   };
 
+  const updateUsername = async (newUsername, userId) => {
+    const data = await changeUsername(newUsername, userId)
+    console.log(data)
+    if (data.ok) {
+      dispatch({ type: types.updateUsername, payload: data.newUser });
+    } else {
+      console.log('Something happened')
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -73,6 +84,7 @@ export const UserProvider = ({ children }) => {
         logout,
         register,
         toggleUserFollowing,
+        updateUsername
       }}
     >
       {children}

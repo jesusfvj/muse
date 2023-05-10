@@ -2,6 +2,7 @@ import { useUser } from "../../../../../Context/UserContext/UserContext";
 import { Typography } from "../../../../index";
 
 export const BodyTitle = ({ user, isLoggedUserProfile }) => {
+  const {user : userFromContext} = useUser()
   const { fullName, following, followedBy, playlists, _id } = user;
 
   const ownedPlaylists = playlists.filter((playlist) => playlist.user === _id);
@@ -12,7 +13,7 @@ export const BodyTitle = ({ user, isLoggedUserProfile }) => {
         <Typography text="Hi!" type="big" color="white" family="lato" />
       )}
       <Typography
-        text={`${fullName}`}
+        text={`${isLoggedUserProfile ? userFromContext.fullName : fullName}`}
         type="headline"
         color="white"
         family="lato"

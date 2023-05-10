@@ -30,6 +30,11 @@ export const userReducer = (state = {}, action) => {
           following: state.user.following.filter((foll) => foll !== action.payload),
         },
       };
+      case types.updateUsername:
+      return{
+        ...state,
+        user: action.payload
+      }
     default:
       state;
   }

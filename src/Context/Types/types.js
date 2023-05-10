@@ -4,4 +4,5 @@ export const types = {
     logout: 'LOG_OUT',
     followUser: "FOLLOW_USER",
     unfollowUser: "UNFOLLOW_USER",
+    updateUsername: "UPDATE_USERNAME"
 }

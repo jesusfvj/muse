@@ -33,3 +33,25 @@ export const getArtists = async (id) => {
     return res.data.artists;
   }
 };
+
+export const changeUsername = async (newUsername, userId) => {
+  const data = await fetch("http://localhost:4000/user/update-username", {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: newUsername,
+      userId: userId,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    }).then((data) => {
+      return data
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  return data
+}

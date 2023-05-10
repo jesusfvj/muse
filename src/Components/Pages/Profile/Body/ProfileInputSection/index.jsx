@@ -1,13 +1,41 @@
 import { Typography } from "../../../../Typography";
 import { FormWithInput } from "../FormWithInput";
-import { arrayInputs } from "../../../../../data/Profile/Profile.js";
 import { Button } from "../../../../Button";
 import { InputElement } from "../FormWithInput/InputElement";
+import { useState } from "react";
+import { useUser } from "../../../../../Context/UserContext/UserContext";
 
 export const ProfileInputSection = () => {
+  const { user, updateUsername } = useUser();
+  const [newUsername, setNewUsername] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
+
+  const arrayInputs = [{
+    text: "Change your username",
+    name: "your username",
+    type: "text",
+    value: user.fullName,
+    nameTwo: "new username",
+    input: "text"
+  },
+  {
+    text: "Change your password",
+    name: "your password",
+    type: "password",
+    value: "your password",
+    nameTwo: "new password",
+    input: "password"
+  }
+  ]
+
   const handleClick = (event) => {
     event.preventDefault();
+    updateUsername(newUsername, user._id)
+
   };
+
+
   return (
     <section>
       <div className="flex flex-col sm:flex-row gap-16 sm:gap-6 lg:gap-16 justify-between items-center">
@@ -20,8 +48,11 @@ export const ProfileInputSection = () => {
                 name={name}
                 nameTwo={nameTwo}
                 type={type}
-                value={value}
+                valueOne={value}
+                valueTwo={newUsername}
                 input={input}
+                onInputChange={(e) => setNewUsername(e.target.value)}
+              // onInputChange={(e) => setNewPassword(e.target.value)}
               />
             );
           }
