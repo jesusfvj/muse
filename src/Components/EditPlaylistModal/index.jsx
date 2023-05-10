@@ -6,19 +6,21 @@ import { Button } from "../Button";
 import { createPlaylist } from "../../API/MusicApi/MusicApi";
 import { useUser } from "../../Context/UserContext/UserContext";
 
-export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
+export const EditPlaylistModal = ({
+  handleToggleEditPlaylistModal,
+  playlist,
+}) => {
   const {
     user: { _id },
     createSinglePlaylist,
   } = useUser();
 
   const [playlistData, setPlaylistData] = useState({
-    name: "",
-    img: "https://cdn10.phillymag.com/wp-content/uploads/sites/3/2020/09/monthly-playlist.jpg",
-    isPrivate: false,
+    name: playlist.name,
+    img: playlist.thumbnail,
   });
 
-  const [previewImg, setPreviewImg] = useState(null);
+  const [previewImg, setPreviewImg] = useState(playlist.thumbnail);
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
@@ -31,15 +33,14 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
   };
 
   const handleSubmitForm = async () => {
-    createSinglePlaylist(playlistData, _id);
-    handleToggleCreatePlaylistModal();
+   console.log(playlistData)
   };
 
   const inputRef = useRef();
   return (
     <div
       className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"
-      onClick={handleToggleCreatePlaylistModal}
+      onClick={handleToggleEditPlaylistModal}
     >
       <div
         className="w-5/6 md:w-1/2 h-2/3 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] p-6 rounded-md"
@@ -89,25 +90,9 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
             </label>
           </div>
 
-          <div className="flex items-center gap-4">
-            <label htmlFor="file" className="text-white">
-              <Typography text="Make this playlist private" />
-            </label>
-            <input
-              id="checkbox"
-              type="checkbox"
-              name="isPrivate"
-              onChange={() =>
-                setPlaylistData({
-                  ...playlistData,
-                  isPrivate: !playlistData.isPrivate,
-                })
-              }
-            />
-          </div>
           <div className="w-2/3">
             <Button
-              text="Create playlist"
+              text="Edit playlist"
               color="gray"
               onClick={handleSubmitForm}
             />

@@ -11,15 +11,18 @@ import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../../../EmptyDefault";
 import { SkeletonTracksGroup } from "../../../Skeletons";
 import { UserFollowingSection } from "./UserFollowingSection";
-import { getArtists } from "../../../../API/UserApi/UserApi";
+import { getFollowedUsers } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
-export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
-  const {
-    user: { _id },
-  } = useUser();
+export const FavoriteMusic = ({
+  handleToggleModal,
+  isLoggedUserProfile,
+  userProfile,
+}) => {
+  const { playlists, followedPlaylists } = userProfile;
+
   const {
     data: songs,
     isLoading: isLoadingSongs,
@@ -34,12 +37,10 @@ export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
-   } = useQuery({ queryKey: ["artists"._id], queryFn: () => getArtists(_id) });
-  const {
-    data: playlists,
-    isLoading: isLoadingPlaylists,
-    error: errorPlaylists,
-  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+  } = useQuery({
+    queryKey: ["artists".userProfile?._id],
+    queryFn: () => getFollowedUsers(userProfile?._id),
+  });
 
   return (
     <div className="flex flex-col gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
@@ -47,13 +48,33 @@ export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
         <TitleSection titleSection="Following" />
         {!errorArtists ? (
           <FollowingSection
-            isOwner={isLoggedUserProfile}
+            section="following"
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
-            object1={!isLoadingArtists ? artists : skeletonData}
+            object1={
+              !isLoadingArtists
+                ? artists.filter(
+                    (artist) =>
+                      artist.followedBy.includes(userProfile?._id) &&
+                      artist.role === "artist"
+                  )
+                : skeletonData
+            }
             title1="Artists"
-            datatype2={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
-            object2={!isLoadingPlaylists ? playlists : skeletonData}
+            datatype2={"playlist"}
+            object2={followedPlaylists}
             title2="Playlists"
+            isLoggedUserProfile={isLoggedUserProfile}
+              datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
+            object3={
+              !isLoadingArtists
+                ? artists.filter(
+                    (artist) =>
+                      artist.followedBy.includes(userProfile?._id) &&
+                      artist.role === "user"
+                  )
+                : skeletonData
+            }
+            title3="Users"
           />
         ) : (
           <EmptyDefault error={true} text="Following" />
@@ -83,24 +104,30 @@ export const FavoriteMusic = ({ handleToggleModal, isLoggedUserProfile }) => {
             isLoggedUserProfile ? "Your playlists" : "Playlists"
           }`}
         />
-        {!errorPlaylists && isLoggedUserProfile ? (
+        {isLoggedUserProfile ? (
           <FollowingSection
+           section="playlists"
             title1="Public"
-            datatype1={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
-            object1={!isLoadingPlaylists ? playlists : skeletonData}
-            datatype2={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
-            object2={!isLoadingPlaylists ? playlists : skeletonData}
+            datatype1={"playlist"}
+            object1={playlists.filter(
+              (playlist) => playlist.isPrivate === false
+            )}
+            datatype2={"playlist"}
+            object2={playlists.filter(
+              (playlist) => playlist.isPrivate === true
+            )}
             title2="Private"
+            isOwner={isLoggedUserProfile}
           />
-        ) : !errorPlaylists ? (
+        ) : (
           <UserFollowingSection
             isOwner={isLoggedUserProfile}
             title="Public"
-            datatype={!isLoadingPlaylists ? "playlist" : "skeletonPlaylist"}
-            object={!isLoadingPlaylists ? playlists : skeletonData}
+            datatype={"playlist"}
+            object={playlists.filter(
+              (playlist) => playlist.isPrivate === false
+            )}
           />
-        ) : (
-          <EmptyDefault error={true} />
         )}
       </div>
 

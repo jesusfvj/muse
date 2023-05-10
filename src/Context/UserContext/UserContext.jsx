@@ -8,6 +8,11 @@ import {
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
+import {
+  createPlaylist,
+  deletePlaylist,
+  togglePlaylistIsPrivate,
+} from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
 
@@ -66,6 +71,50 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: types.logout });
   };
 
+  const createSinglePlaylist = async (playlistData, _id) => {
+    const res = await createPlaylist(playlistData, _id);
+    if (res.ok) {
+      dispatch({ type: types.createPlaylist, payload: res.newPlaylist });
+    }
+  };
+
+  const togglePlaylistVisibility = async (
+    loggedUserId,
+    playlistId,
+    isPrivate
+  ) => {
+    const res = await togglePlaylistIsPrivate(
+      loggedUserId,
+      playlistId,
+      isPrivate
+    );
+
+    const updatedPlaylistsArray = userState.user.playlists.map((playlist) => {
+      if (playlist._id === playlistId) {
+        return { ...playlist, isPrivate: !res.isPrivate };
+      } else {
+        return playlist;
+      }
+    });
+
+    if (res) {
+      dispatch({
+        type: types.togglePlaylistVisibility,
+        payload: updatedPlaylistsArray,
+      });
+    }
+  };
+
+  const deleteSinglePlaylist = async (loggedUserId, playlistId) => {
+    const res = await deletePlaylist(loggedUserId, playlistId);
+    if (res.ok) {
+      const filteredPlaylists = userState.user.playlists.filter((playlist) => {
+        return playlist._id !== playlistId;
+      });
+      dispatch({ type: types.deletePlaylist, payload: filteredPlaylists });
+    }
+  };
+
   const updateUsername = async (newUsername, userId) => {
     const data = await changeUsername(newUsername, userId)
     console.log(data)
@@ -85,6 +134,9 @@ export const UserProvider = ({ children }) => {
         register,
         toggleUserFollowing,
         updateUsername
+        createSinglePlaylist,
+        togglePlaylistVisibility,
+        deleteSinglePlaylist,
       }}
     >
       {children}

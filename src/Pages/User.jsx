@@ -29,7 +29,7 @@ export const User = () => {
 
   useEffect(() => {
     getUserProfile(userId);
-  }, [userId]);
+  }, [userId, user]);
 
   return (
     <>
@@ -43,7 +43,10 @@ export const User = () => {
                 isLoggedUserProfile={isLoggedUserProfile}
               />
             )}
-            <FavoriteMusic isLoggedUserProfile={isLoggedUserProfile} />
+            <FavoriteMusic
+              userProfile={userProfile}
+              isLoggedUserProfile={isLoggedUserProfile}
+            />
           </div>
         </>
       ) : isLoading ? (

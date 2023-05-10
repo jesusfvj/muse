@@ -16,6 +16,7 @@ export const Typography = ({
     p2: `text-xs sm:text-md font-normal`,
     section: `text-2xl sm:text-4xl font-bold`,
     subSection: `text-2xl sm:text-lg font-normal`,
+    icon: `text-5xl sm:text-3xl`
   };
 
   const colors = {
@@ -42,6 +43,7 @@ export const Typography = ({
     case "big":
     case "headline":
     case "section":
+    case "icon":
     case "subSection":
       return <p className={finalClassName}>{text}</p>;
     case "title":

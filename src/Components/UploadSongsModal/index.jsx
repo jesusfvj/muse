@@ -13,7 +13,7 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
                 className="fixed inset-0 bg-black/50 backdrop-blur-md z-[40]"
                 onClick={()=>setShowUploadSongsModal(false)}
             ></div>
-            <div className={`relative flex flex-col items-center gap-8 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] w-[80vw] ${!filesUploaded ? 'h-fit' : 'h-[90vh]'} px-6 py-20 rounded-lg z-[40]`}>
+            <div className={`relative flex flex-col items-center gap-8 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] w-screen sm:w-[80vw] ${!filesUploaded ? 'h-fit' : 'h-screen sm:h-[90vh]'} px-2 sm:px-6 py-10 sm:py-20 rounded-lg z-[40]`}>
                 <Typography
                     text="Upload new songs"
                     type="important"
@@ -26,6 +26,7 @@ export const UploadSongsModal = ({ setShowUploadSongsModal }) => {
                     : <FormUploadedSongs
                         selectedFiles={selectedFiles}
                         setSelectedFiles={setSelectedFiles}
+                        setShowUploadSongsModal={setShowUploadSongsModal}
                         />
                 }
             </div>

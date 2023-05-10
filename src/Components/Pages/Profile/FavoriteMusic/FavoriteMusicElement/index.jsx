@@ -5,7 +5,8 @@ export const FavoriteMusicElement = ({
   object,
   sectionTitle,
   datatype,
-  isOwner = true,
+  isLoggedUserProfile
+ 
 }) => {
   return (
     <div className="flex flex-col justify-center items-center gap-y-[2rem] relative">
@@ -15,9 +16,10 @@ export const FavoriteMusicElement = ({
           sectionTitle={sectionTitle}
           textType="big"
           dataType={datatype}
+      
         />
       </div>
-      {isOwner && (
+      {isLoggedUserProfile && (
         <HashLink to={`/mylibrary#${sectionTitle}`}>
           <div className="absolute top-[1rem] right-4 xs:right-[4.75rem] cursor-pointer">
             <Typography text="Show all" type="p1" color="white" family="lato" />

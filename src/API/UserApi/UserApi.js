@@ -55,3 +55,11 @@ export const changeUsername = async (newUsername, userId) => {
     });
   return data
 }
+export const getFollowedUsers = async (id) => {
+  const res = await axios.get(`${BASE_URL}/followedusers/${id}`);
+  if (res.data?.ok) {
+    return res.data.users;
+  } else{
+    return []
+  }
+};
