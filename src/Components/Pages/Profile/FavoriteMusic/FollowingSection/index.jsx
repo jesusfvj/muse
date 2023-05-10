@@ -2,24 +2,34 @@ import { Typography } from "../../../../Typography";
 import { FavoriteMusicElement } from "../FavoriteMusicElement";
 
 export const FollowingSection = ({
+  section,
   object1,
   object2,
+  object3,
   datatype1,
   datatype2,
+  datatype3,
   title1,
   title2,
-  isLoggedUserProfile
+  title3,
+  isLoggedUserProfile,
 }) => {
-  if (!object1.length && !object2.length)
-    return <Typography text="Nothing here" />;
   return (
     <div className="flex flex-col gap-[5rem]">
-      {object1.length && (
+      {object1.length ? (
         <FavoriteMusicElement
           object={object1}
           sectionTitle={title1}
           datatype={datatype1}
           isLoggedUserProfile={isLoggedUserProfile}
+        />
+      ) : (
+        <Typography
+          text={
+            section === "playlists"
+              ? "You don't have any public playlist"
+              : "You are not following any artist"
+          }
         />
       )}
       {object2.length ? (
@@ -30,7 +40,21 @@ export const FollowingSection = ({
           isLoggedUserProfile={isLoggedUserProfile}
         />
       ) : (
-        <Typography text="No playlists to show" />
+        <Typography
+          text={
+            section === "playlists"
+              ? "You don't have any prvate playlist"
+              : "You are not following any playlist"
+          }
+        />
+      )}
+      {object3?.length && (
+        <FavoriteMusicElement
+          object={object3}
+          sectionTitle={title3}
+          datatype={datatype3}
+          isLoggedUserProfile={isLoggedUserProfile}
+        />
       )}
     </div>
   );

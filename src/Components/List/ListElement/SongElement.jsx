@@ -8,7 +8,7 @@ import { useUI } from "../../../Context/UI/UIContext";
 
 export const SongElement = ({ object }) => {
   const { handleToggleSongModal } = useUI();
-  const { name, artist, thumbnail } = object;
+  const { name, artist, thumbnailUrl } = object;
   const [clicked, setClicked] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -58,7 +58,7 @@ export const SongElement = ({ object }) => {
             styles="max-w-[200px] sm:leading-6 truncate text-ellipsis"
           />
           <Typography
-            text={artist}
+            text={artist?.fullName}
             type="p2"
             color="white"
             family="lato"
@@ -66,8 +66,8 @@ export const SongElement = ({ object }) => {
           />
         </Link>
         <img
-          src={thumbnail}
-          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none"
+          src={thumbnailUrl}
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none object-cover"
         />
       </div>
       <div
