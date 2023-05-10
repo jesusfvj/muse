@@ -45,7 +45,7 @@ export const ArtistElement = ({ object }) => {
     >
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
+          " bg-gradient-to-b from-[#080c28] to-[#0A4148] rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
         }
       >
         <img

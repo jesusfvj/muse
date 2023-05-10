@@ -1,6 +1,11 @@
 import { useEffect, createContext, useReducer } from "react";
 import { useContext } from "react";
-import { followUser, loginUser, registerUser } from "../../API/UserApi/UserApi";
+import {
+  changeUsername,
+  followUser,
+  loginUser,
+  registerUser,
+} from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
 import {
@@ -111,6 +116,16 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUsername = async (newUsername, userId) => {
+    const data = await changeUsername(newUsername, userId)
+    console.log(data)
+    if (data.ok) {
+      dispatch({ type: types.updateUsername, payload: data.newUser });
+    } else {
+      console.log('Something happened')
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -119,6 +134,7 @@ export const UserProvider = ({ children }) => {
         logout,
         register,
         toggleUserFollowing,
+        updateUsername,
         createSinglePlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,

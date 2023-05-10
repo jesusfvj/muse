@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { EmptyDefault } from "../../../EmptyDefault";
 import { SkeletonTracksGroup } from "../../../Skeletons";
 import { UserFollowingSection } from "./UserFollowingSection";
-import { getArtists } from "../../../../API/UserApi/UserApi";
+import { getFollowedUsers } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
@@ -39,7 +39,7 @@ export const FavoriteMusic = ({
     error: errorArtists,
   } = useQuery({
     queryKey: ["artists".userProfile?._id],
-    queryFn: () => getArtists(userProfile?._id),
+    queryFn: () => getFollowedUsers(userProfile?._id),
   });
 
   return (
@@ -48,12 +48,14 @@ export const FavoriteMusic = ({
         <TitleSection titleSection="Following" />
         {!errorArtists ? (
           <FollowingSection
-            
+            section="following"
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
             object1={
               !isLoadingArtists
-                ? artists.filter((artist) =>
-                    artist.followedBy.includes(userProfile?._id)
+                ? artists.filter(
+                    (artist) =>
+                      artist.followedBy.includes(userProfile?._id) &&
+                      artist.role === "artist"
                   )
                 : skeletonData
             }
@@ -62,6 +64,17 @@ export const FavoriteMusic = ({
             object2={followedPlaylists}
             title2="Playlists"
             isLoggedUserProfile={isLoggedUserProfile}
+              datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
+            object3={
+              !isLoadingArtists
+                ? artists.filter(
+                    (artist) =>
+                      artist.followedBy.includes(userProfile?._id) &&
+                      artist.role === "user"
+                  )
+                : skeletonData
+            }
+            title3="Users"
           />
         ) : (
           <EmptyDefault error={true} text="Following" />
@@ -93,6 +106,7 @@ export const FavoriteMusic = ({
         />
         {isLoggedUserProfile ? (
           <FollowingSection
+           section="playlists"
             title1="Public"
             datatype1={"playlist"}
             object1={playlists.filter(

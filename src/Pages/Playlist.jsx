@@ -21,7 +21,7 @@ export const Playlist = () => {
     queryKey: ["playlists", playlistId],
     queryFn: () => getPlaylistsById(playlistId),
   });
-
+console.log(playlist);
   const isOwner = _id === playlist?.user;
   const isFollowed = playlist?.followedBy.includes(_id);
   return (
@@ -31,6 +31,7 @@ export const Playlist = () => {
           <PlaylistsHeader
             name={playlist.name}
             thumbnail={playlist.thumbnail}
+            playlistId={playlistId}
           />
           <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen py-20 md:py-48">
             <PlaylistsTracks
@@ -38,6 +39,7 @@ export const Playlist = () => {
               songs={playlist.tracks}
               isFollowed={isFollowed}
               styles="w-full md:w-4/5"
+              playlist={playlist}
             />
           </div>
         </>

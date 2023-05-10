@@ -34,3 +34,32 @@ export const getArtists = async (id) => {
   }
 };
 
+export const changeUsername = async (newUsername, userId) => {
+  const data = await fetch("http://localhost:4000/user/update-username", {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: newUsername,
+      userId: userId,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    }).then((data) => {
+      return data
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  return data
+}
+export const getFollowedUsers = async (id) => {
+  const res = await axios.get(`${BASE_URL}/followedusers/${id}`);
+  if (res.data?.ok) {
+    return res.data.users;
+  } else{
+    return []
+  }
+};

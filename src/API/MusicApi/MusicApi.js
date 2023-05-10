@@ -1,17 +1,17 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:4000/playlist";
+const BASE_URL_TRACKS = "http://localhost:4000/track";
+const BASE_URL_ALBUMS = "http://localhost:4000/album";
 
 export const getSongs = async () => {
-  const res = await fetch("http://localhost:3000/tracks");
+  const res = await axios.get(BASE_URL_TRACKS);
   // throw new Error();
-  return res.json();
-};
-
-export const getAlbums = async () => {
-  const res = await fetch("http://localhost:3000/albums");
-  //   throw new Error();
-  return res.json();
+  if (res.data.ok) {
+    return res.data.tracks;
+  } else {
+    return [];
+  }
 };
 
 /////PLAYLISTS FETCH
@@ -71,6 +71,10 @@ export const toggleFollowPlaylist = async (
   });
   return res.data;
 };
+export const duplicatePlaylist = async (loggedUserId, playlistId) => {
+  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId } );
+  return res.data;
+};
 
 export const deletePlaylist = async (loggedUserId, playlistId) => {
   const res = await axios.post(`${BASE_URL}/delete`, {
@@ -79,3 +83,15 @@ export const deletePlaylist = async (loggedUserId, playlistId) => {
   });
   return res.data;
 };
+
+export const getAlbums = async () => {
+  const res = await axios.get(BASE_URL_ALBUMS);
+  //   throw new Error();
+
+  if (res.data.ok) {
+    return res.data.albums;
+  } else {
+    return [];
+  }
+};
+

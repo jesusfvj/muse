@@ -24,7 +24,6 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
 
   const handleCreateList = (e) => {
     e.preventDefault();
-    console.log(listName);
   };
 
   const handleInputChange = (e) => {
