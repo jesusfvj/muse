@@ -83,7 +83,7 @@ export const deletePlaylist = async (loggedUserId, playlistId) => {
 export const getAlbums = async () => {
   const res = await axios.get(BASE_URL_ALBUMS);
   //   throw new Error();
-  console.log(res.data);
+
   if (res.data.ok) {
     return res.data.albums;
   } else {
