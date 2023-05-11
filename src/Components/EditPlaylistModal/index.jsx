@@ -13,6 +13,7 @@ export const EditPlaylistModal = ({
   const {
     user: { _id },
     createSinglePlaylist,
+    updateNamePlaylist,
   } = useUser();
 
   const [playlistData, setPlaylistData] = useState({
@@ -21,6 +22,7 @@ export const EditPlaylistModal = ({
   });
 
   const [previewImg, setPreviewImg] = useState(playlist.thumbnail);
+
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
@@ -33,7 +35,7 @@ export const EditPlaylistModal = ({
   };
 
   const handleSubmitForm = async () => {
-   console.log(playlistData)
+    updateNamePlaylist(playlistData.name, playlist._id)
   };
 
   const inputRef = useRef();
@@ -71,9 +73,8 @@ export const EditPlaylistModal = ({
             ref={inputRef}
           />
           <div
-            className={`w-64 h-64  relative ${
-              !previewImg && "border border-white"
-            } flex items-center justify-center rounded-md`}
+            className={`w-64 h-64  relative ${!previewImg && "border border-white"
+              } flex items-center justify-center rounded-md`}
           >
             <label
               onClick={() => inputRef.current.click()}

@@ -5,6 +5,7 @@ import {
   followUser,
   loginUser,
   registerUser,
+  updatePlaylistForm,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -126,6 +127,16 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
+    const data = await updatePlaylistForm(newNamePlaylist, playlistId)
+    console.log(data)
+    if (data.ok) {
+      dispatch({ type: types.updateNamePlaylist, payload: data.newName });
+    } else {
+      console.log('This name can not be changed')
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -138,6 +149,7 @@ export const UserProvider = ({ children }) => {
         createSinglePlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
+        updateNamePlaylist,
       }}
     >
       {children}

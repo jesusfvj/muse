@@ -65,6 +65,7 @@ export const getFollowedUsers = async (id) => {
   }
 };
 
+
 export const getArtistById = async (id) => {
   const res = await axios.get(`${BASE_URL}/artist/${id}`);
 
@@ -75,3 +76,29 @@ export const getArtistById = async (id) => {
     return null;
   }
 };
+
+
+  export const updatePlaylistForm = async (newNamePlaylist, playlistId) => {
+  
+    const data = await fetch(`http://localhost:4000/playlist/update/${playlistId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        namePlaylist: newNamePlaylist,
+        playlistId: playlistId,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    return data;
+  };
+
