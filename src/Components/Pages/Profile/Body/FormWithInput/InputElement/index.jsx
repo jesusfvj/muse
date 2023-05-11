@@ -3,30 +3,31 @@ import { AiFillEye } from "react-icons/ai";
 import { RxEyeClosed } from "react-icons/rx";
 import { useState } from "react";
 
-export const InputElement = ({ name, type, value, input, onInputChange }) => {
-  const [clicked, setClicked] = useState(true);
+export const InputElement = ({ name, type, value, input, onInputChange, readonly }) => {
+  const [inputType, setInputType] = useState(type);
   
   return (
     <div className="relative">
       <InputWithLabel
         name={name}
         label={name}
-        type={type}
+        type={inputType}
         value={value} /* {loginData.username} */
         onInputChange={onInputChange}
+        readonly={readonly}
       />
-      {input == "password" && (
+      {input === "password" && (
         <div className="text-white absolute right-0 top-[1rem] cursor-pointer">
-          {clicked ? (
+          {inputType==="password" ? (
             <RxEyeClosed
               onClick={() => {
-                setClicked(false);
+                setInputType("text");
               }}
             />
           ) : (
             <AiFillEye
               onClick={() => {
-                setClicked(true);
+                setInputType("password");
               }}
             />
           )}

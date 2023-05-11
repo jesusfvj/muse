@@ -24,16 +24,6 @@ export const FavoriteMusic = ({
   const { playlists, followedPlaylists, albums, tracks } = userProfile;
 
   const {
-    data: songs,
-    isLoading: isLoadingSongs,
-    error: errorSongs,
-  } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
-//   const {
-//     data: albums,
-//     isLoading: isLoadingAlbums,
-//     error: errorAlbums,
-//   } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
-  const {
     data: artists,
     isLoading: isLoadingArtists,
     error: errorArtists,
@@ -64,7 +54,7 @@ export const FavoriteMusic = ({
             object2={followedPlaylists}
             title2="Playlists"
             isLoggedUserProfile={isLoggedUserProfile}
-              datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
+            datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
             object3={
               !isLoadingArtists
                 ? artists.filter(
@@ -83,20 +73,14 @@ export const FavoriteMusic = ({
 
       <div>
         <TitleSection titleSection="Loved ones" />
-        { !errorSongs ? (
-          <LovedSection
-            isOwner={isLoggedUserProfile}
-            datatype1={"album"}
-            datatype2={"song"}
-            object1={albums}
-            object2={tracks}
-          />
-        ) : (
-          <>
-            <EmptyDefault error={true} text="Albums" />
-            <EmptyDefault error={true} text="Songs" />
-          </>
-        )}
+
+        <LovedSection
+          isOwner={isLoggedUserProfile}
+          datatype1={"album"}
+          datatype2={"song"}
+          object1={albums}
+          object2={tracks}
+        />
       </div>
       <div>
         <TitleSection
@@ -106,7 +90,7 @@ export const FavoriteMusic = ({
         />
         {isLoggedUserProfile ? (
           <FollowingSection
-           section="playlists"
+            section="playlists"
             title1="Public"
             datatype1={"playlist"}
             object1={playlists.filter(
@@ -133,19 +117,12 @@ export const FavoriteMusic = ({
 
       <div>
         <TitleSection titleSection="Loved songs" />
-        {!isLoadingSongs && songs?.length ? (
-          <AlbumTracks
-            songs={songs}
-            styles="sm:pr-[3rem]"
-            handleToggleModal={handleToggleModal}
-          />
-        ) : errorSongs ? (
-          <EmptyDefault error={true} />
-        ) : isLoadingSongs ? (
-          <SkeletonTracksGroup />
-        ) : (
-          <EmptyDefault />
-        )}
+
+        <AlbumTracks
+          songs={tracks}
+          styles="sm:pr-[3rem]"
+          handleToggleModal={handleToggleModal}
+        />
       </div>
       {/* <div className="pb-12">
         <TitleSection titleSection="Most listened songs this month" />

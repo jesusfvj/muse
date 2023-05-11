@@ -76,6 +76,11 @@ export const userReducer = (state = {}, action) => {
         ...state,
         user: action.payload
       }
+    case types.updateUserProfileImage:
+      return {
+        ...state,
+        user: {...state.user, profilePhoto: action.payload}
+      }
     default:
       state;
   };
