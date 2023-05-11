@@ -6,7 +6,12 @@ import { tracks } from "../../data/SongsData/SongsData";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(tracks[1]);
+  const [currentTrack, setCurrentTrack] = useState({
+      id: 1,
+      name: "Better of alone",
+      artist: "RXBYN",
+      url: "https://res.cloudinary.com/dmufnezzd/video/upload/v1683791067/muze-song_file-folder/f88358519f64bb39e974c38e8cf90703.mp3"
+    });
 
   const playAudio = useRef();
 
