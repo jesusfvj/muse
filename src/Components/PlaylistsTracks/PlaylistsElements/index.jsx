@@ -41,13 +41,9 @@ export const PlaylistsElements = ({
           <Typography text={nombre} color="white" styles="truncate" />
         </Link>
         <Link to="/artist" className="w-[10rem] lg:w-[15rem]">
-          <Typography text={artist} color="white" styles="truncate" />
+          <Typography text={artist.fullName} color="white" styles="truncate" />
         </Link>
-        <Typography
-          text={duration}
-          color="white"
-          styles="hidden xs:flex"
-        />
+        <Typography text={duration} color="white" styles="hidden xs:flex" />
       </div>
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
