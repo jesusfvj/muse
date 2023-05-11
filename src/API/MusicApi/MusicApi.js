@@ -36,8 +36,8 @@ export const getPlaylistsById = async (playlistId) => {
   }
 };
 
-export const createPlaylist = async (playlist, userId) => {
-  const res = await axios.post(`${BASE_URL}/create`, { playlist, userId });
+export const createPlaylist = async (formData, userId) => {
+  const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
   return res.data;
 };
 
@@ -71,6 +71,10 @@ export const toggleFollowPlaylist = async (
   });
   return res.data;
 };
+export const duplicatePlaylist = async (loggedUserId, playlistId) => {
+  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId } );
+  return res.data;
+};
 
 export const deletePlaylist = async (loggedUserId, playlistId) => {
   const res = await axios.post(`${BASE_URL}/delete`, {
@@ -90,3 +94,4 @@ export const getAlbums = async () => {
     return [];
   }
 };
+

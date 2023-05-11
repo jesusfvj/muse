@@ -5,8 +5,6 @@ import { InputWithLabel } from "../../InputWithLabel";
 import { TiTickOutline } from "react-icons/ti";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-
-
 const EditSongForm = ({ handleToggleSongModal }) => {
     const { currentSong } = useUI()
 
@@ -14,7 +12,6 @@ const EditSongForm = ({ handleToggleSongModal }) => {
         name: currentSong.name,
         artist: currentSong.artist
     });
-
 
     function handleEditSongName(e) {
         if (e.target) {
@@ -32,9 +29,6 @@ const EditSongForm = ({ handleToggleSongModal }) => {
     function handleDeleteSong() {
         console.log(`Deleted song with ID ${currentSong.id}`);
     }
-
-
-
 
     return (
         <div className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]" onClick={handleToggleSongModal}>
@@ -54,5 +48,11 @@ const EditSongForm = ({ handleToggleSongModal }) => {
         </div>
     );
 };
+
+/* const EditSongForm = ({ handleToggleSongModal }) => {
+    return (
+    
+)
+} */
 
 export default EditSongForm;
