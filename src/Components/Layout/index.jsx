@@ -1,35 +1,35 @@
-import { useUI } from "../../Context/UI/UIContext";
-import { Navbar } from "../Navbar";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { useLocation } from "react-router";
-import { useEffect, useState } from "react";
-import { MusicPlayer } from "../MusicPlayer";
-import { ContextMenu } from "../ContextMenu";
-import { AddToPlaylistModal } from "../AddToPlaylistModal";
-import { CreatePlaylistModal } from "../CreatePlaylistModal";
-import EditSongForm from "../Form/EditDeleteSongs";
-import { EditPlaylistModal } from "../EditPlaylistModal";
 import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
+import { CreatePlaylistModal } from "../CreatePlaylistModal";
+import { AddToPlaylistModal } from "../AddToPlaylistModal";
+import { EditPlaylistModal } from "../EditPlaylistModal";
+import EditSongForm from "../Form/EditDeleteSongs";
+import { useUI } from "../../Context/UI/UIContext";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ContextMenu } from "../ContextMenu";
+import { MusicPlayer } from "../MusicPlayer";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Navbar } from "../Navbar";
 
 export const Layout = ({ children }) => {
   const {
-    isNavOpen,
-    setIsNavOpen,
-    handleTogglePlaylistModal,
-    isAddToPlaylistModalOpen,
-    isCreatePlaylistModalOpen,
-    handleToggleSongModal,
-    isEditSongModalOpen,
     handleToggleCreatePlaylistModal,
     handleToggleEditPlaylistModal,
-    currentPlaylist,
-    isEditPlaylistModalOpen,
-    messageSuccessToaster,
+    handleTogglePlaylistModal,
+    isCreatePlaylistModalOpen,
+    isAddToPlaylistModalOpen,
     setMessageSuccessToaster,
+    isEditPlaylistModalOpen,
+    setMessageErrorToaster,
+    messageSuccessToaster,
+    handleToggleSongModal,
+    isEditSongModalOpen,
     messageErrorToaster,
-    setMessageErrorToaster
+    currentPlaylist,
+    setIsNavOpen,
+    isNavOpen,
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
