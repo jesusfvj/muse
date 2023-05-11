@@ -37,6 +37,14 @@ export const getPlaylists = async () => {
   }
 };
 
+export const getUserPlaylists = async (userId) =>{
+  const res = await axios.get(`${BASE_URL}/user/${userId}`);
+  // throw new Error();
+  if (res.data.ok) {
+    return res.data.playlists;
+  }
+}
+
 export const getPlaylistsById = async (playlistId) => {
   const res = await axios.get(`${BASE_URL}/id/${playlistId}`);
   // throw new Error();
