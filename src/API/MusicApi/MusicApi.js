@@ -17,9 +17,11 @@ export const getSongs = async () => {
 export const getSongById = async (id) => {
   const res = await axios.get(`${BASE_URL_TRACKS}/id/${id}`);
   // throw new Error();
-  console.log(res)
   if (res.data.ok) {
-    return {track: res.data.track.DBtrack, featuredIn: res.data.track.featuredIn};
+    return {
+      track: res.data.track.DBtrack,
+      featuredIn: res.data.track.featuredIn,
+    };
   } else {
     return [];
   }
@@ -107,4 +109,15 @@ export const getAlbums = async () => {
   } else {
     return [];
   }
+};
+
+export const getAlbumById = async (id) => {
+    const res = await axios.get(`${BASE_URL_ALBUMS}/${id}`);
+    //   throw new Error();
+
+    if (res.data.ok) {
+      return res.data.album;
+    } else {
+      return [];
+    }
 };
