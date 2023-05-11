@@ -3,7 +3,7 @@ import { formatTime } from "../../Utils/formatTime";
 import { AlbumTrackElements } from "./AlbumTrackElements";
 import { Typography } from "../Typography";
 
-export const AlbumTracks = ({ songs, styles }) => {
+export const AlbumTracks = ({ songs, styles, artist }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const handleToggleDropdown = (id) => {
     if (activeDropdown == id) {
@@ -12,16 +12,18 @@ export const AlbumTracks = ({ songs, styles }) => {
       setActiveDropdown(id);
     }
   };
+
   return (
     <div className={`flex flex-col ${styles}`}>
-      {songs.length ? (
+      {songs?.length ? (
         songs.map((songs, idx) => {
-          const { id, name, duration } = songs;
+          const { _id, name, duration } = songs;
           return (
             <AlbumTrackElements
               key={`${name}-${idx}`}
-              id={id}
+              id={_id}
               nombre={name}
+              artist={artist}
               duration={duration}
               idx={idx}
               activeDropdown={activeDropdown}

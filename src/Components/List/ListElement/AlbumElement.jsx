@@ -9,7 +9,7 @@ export const AlbumElement = ({ object }) => {
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const { name, thumbnailUrl, artist } = object;
+  const { name, thumbnailUrl, artist, _id } = object;
 
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
@@ -47,7 +47,7 @@ export const AlbumElement = ({ object }) => {
           " bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"
         }
       >
-        <Link to="/album" className="w-full mt-2 px-3">
+        <Link to={`/album/${_id}`} className="w-full mt-2 px-3">
           <Typography
             text={name}
             type="p1"

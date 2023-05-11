@@ -7,6 +7,7 @@ import {
   loginUser,
   registerUser,
   updateProfileImageAPI,
+  updatePlaylistForm,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -47,6 +48,7 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
+
     if (data.ok) {
       dispatch({ type: types.register, payload: data.user });
     } else {
@@ -107,6 +109,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+
   const addToPlaylist = async (playlistId, trackId) => {
     await handleAddToPlaylist(playlistId, trackId);
   };
@@ -129,6 +132,8 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
+ 
+
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
 
@@ -140,6 +145,19 @@ export const UserProvider = ({ children }) => {
     }
     return data;
   };
+
+  const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
+    const data = await updatePlaylistForm(newNamePlaylist, playlistId)
+    console.log(data)
+    if (data.ok) {
+      dispatch({ type: types.updateNamePlaylist, payload: data.newName });
+    } else {
+      console.log('This name can not be changed')
+    }
+    return data;
+  };
+
+
 
   return (
     <UserContext.Provider
@@ -155,6 +173,7 @@ export const UserProvider = ({ children }) => {
         togglePlaylistVisibility,
         deleteSinglePlaylist,
         updateProfileImage,
+        updateNamePlaylist,
       }}
     >
       {children}

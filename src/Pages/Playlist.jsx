@@ -21,7 +21,7 @@ export const Playlist = () => {
     queryKey: ["playlists", playlistId],
     queryFn: () => getPlaylistsById(playlistId),
   });
-console.log(playlist);
+
   const isOwner = _id === playlist?.user;
   const isFollowed = playlist?.followedBy.includes(_id);
   return (

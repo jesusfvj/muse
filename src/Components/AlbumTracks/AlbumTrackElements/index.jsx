@@ -8,6 +8,7 @@ export const AlbumTrackElements = ({
   id,
   duration,
   nombre,
+  artist,
   idx,
   activeDropdown,
   handleToggleDropdown,
@@ -33,6 +34,7 @@ export const AlbumTrackElements = ({
         hovered={hovered}
         id={id}
         nombre={nombre}
+        artist={artist}
         duration={duration}
       />
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
