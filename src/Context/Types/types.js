@@ -5,6 +5,7 @@ export const types = {
     followUser: "FOLLOW_USER",
     unfollowUser: "UNFOLLOW_USER",
     updateUsername: "UPDATE_USERNAME",
+    updateUserProfileImage: "UPDATE_USER_PROFILE_IMAGE",
 
     createPlaylist: "CREATE_PLAYLIST",
     togglePlaylistVisibility: "TOGGLE_PLAYLIST_VISIBILITY",

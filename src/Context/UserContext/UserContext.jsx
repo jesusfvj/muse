@@ -5,6 +5,7 @@ import {
   followUser,
   loginUser,
   registerUser,
+  updateProfileImageAPI,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -45,7 +46,6 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-
     if (data.ok) {
       dispatch({ type: types.register, payload: data.user });
     } else {
@@ -118,13 +118,19 @@ export const UserProvider = ({ children }) => {
 
   const updateUsername = async (newUsername, userId) => {
     const data = await changeUsername(newUsername, userId)
-    console.log(data)
     if (data.ok) {
       dispatch({ type: types.updateUsername, payload: data.newUser });
-    } else {
-      console.log('Something happened')
     }
+    return data;
   }
+
+  const updateProfileImage = async (formData, userId) => {
+    const data = await updateProfileImageAPI(formData, userId);
+    if (data.ok) {
+      dispatch({ type: types.register, payload: data.user });
+    }
+    return data;
+  };
 
   return (
     <UserContext.Provider
@@ -138,6 +144,7 @@ export const UserProvider = ({ children }) => {
         createSinglePlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
+        updateProfileImage
       }}
     >
       {children}
