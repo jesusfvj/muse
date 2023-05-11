@@ -41,7 +41,7 @@ export const FavoriteMusic = ({
     queryKey: ["artists".userProfile?._id],
     queryFn: () => getFollowedUsers(userProfile?._id),
   });
-console.log(isLoadingAlbums, errorAlbums)
+
   return (
     <div className="flex flex-col gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
       <div>
