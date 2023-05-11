@@ -122,7 +122,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUsername = async (newUsername, userId) => {
-    const data = await changeUsername(newUsername, userId)
+    const data = await changeUsername(newUsername, userId);
     if (data.ok) {
       dispatch({ type: types.updateUsername, payload: data.newUser });
     }
@@ -131,9 +131,12 @@ export const UserProvider = ({ children }) => {
 
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
-    console.log(data)
+
     if (data.ok) {
-      dispatch({ type: types.updateUserProfileImage, payload: data.user });
+      dispatch({
+        type: types.updateUserProfileImage,
+        payload: data.profilePhoto,
+      });
     }
     return data;
   };
@@ -151,7 +154,7 @@ export const UserProvider = ({ children }) => {
         addToPlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
-        updateProfileImage
+        updateProfileImage,
       }}
     >
       {children}
