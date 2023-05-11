@@ -14,6 +14,17 @@ export const getSongs = async () => {
   }
 };
 
+export const getSongById = async (id) => {
+  const res = await axios.get(`${BASE_URL_TRACKS}/id/${id}`);
+  // throw new Error();
+  console.log(res)
+  if (res.data.ok) {
+    return {track: res.data.track.DBtrack, featuredIn: res.data.track.featuredIn};
+  } else {
+    return [];
+  }
+};
+
 /////PLAYLISTS FETCH
 /////PLAYLISTS FETCH
 /////PLAYLISTS FETCH
@@ -72,7 +83,10 @@ export const toggleFollowPlaylist = async (
   return res.data;
 };
 export const duplicatePlaylist = async (loggedUserId, playlistId) => {
-  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId } );
+  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, {
+    loggedUserId,
+    playlistId,
+  });
   return res.data;
 };
 
@@ -94,4 +108,3 @@ export const getAlbums = async () => {
     return [];
   }
 };
-

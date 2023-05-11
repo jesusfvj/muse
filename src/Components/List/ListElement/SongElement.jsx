@@ -8,7 +8,7 @@ import { useUI } from "../../../Context/UI/UIContext";
 
 export const SongElement = ({ object }) => {
   const { handleToggleSongModal } = useUI();
-  const { name, artist, thumbnailUrl } = object;
+  const { name, artist, thumbnailUrl, _id } = object;
   const [clicked, setClicked] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -49,7 +49,7 @@ export const SongElement = ({ object }) => {
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
         }
       >
-        <Link to="/player" className="w-full mt-2 px-3 truncate">
+        <Link to={`/player/${_id}`} className="w-full mt-2 px-3 truncate">
           <Typography
             text={name}
             type="p1"
