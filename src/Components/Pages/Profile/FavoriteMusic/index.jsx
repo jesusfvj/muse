@@ -22,7 +22,7 @@ export const FavoriteMusic = ({
   userProfile,
 }) => {
   const { playlists, followedPlaylists, albums, tracks } = userProfile;
-
+console.log(userProfile)
   const {
     data: artists,
     isLoading: isLoadingArtists,
@@ -117,7 +117,6 @@ export const FavoriteMusic = ({
 
       <div>
         <TitleSection titleSection="Loved songs" />
-
         <AlbumTracks
           songs={tracks}
           styles="sm:pr-[3rem]"

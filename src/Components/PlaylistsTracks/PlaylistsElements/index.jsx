@@ -44,9 +44,7 @@ export const PlaylistsElements = ({
           <Typography text={artist} color="white" styles="truncate" />
         </Link>
         <Typography
-          text={`${Math.floor(duration / 60)}:${
-            duration - Math.floor(duration / 60) * 60
-          }`}
+          text={duration}
           color="white"
           styles="hidden xs:flex"
         />
