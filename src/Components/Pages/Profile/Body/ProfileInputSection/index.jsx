@@ -1,63 +1,71 @@
 import { Typography } from "../../../../Typography";
 import { FormWithInput } from "../FormWithInput";
-import { Button } from "../../../../Button";
 import { InputElement } from "../FormWithInput/InputElement";
 import { useState } from "react";
 import { useUser } from "../../../../../Context/UserContext/UserContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastMessageError, toastMessageSuccess } from "../../../../../Utils/toaster";
 
 export const ProfileInputSection = () => {
   const { user, updateUsername } = useUser();
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [bankDetails, setBankDetails] = useState('');
 
-
-  const arrayInputs = [{
-    text: "Change your username",
-    name: "your username",
-    type: "text",
-    value: user.fullName,
-    nameTwo: "new username",
-    input: "text"
-  },
-  {
-    text: "Change your password",
-    name: "your password",
-    type: "password",
-    value: "your password",
-    nameTwo: "new password",
-    input: "password"
-  }
-  ]
-
-  const handleClick = (event) => {
+  const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
-    updateUsername(newUsername, user._id)
-
+    const response = await updateUsername(newUsername, user._id)
+    if (response.ok) {
+      toastMessageSuccess("Username successfuly saved.");
+      setNewUsername("")
+    } else {
+      toastMessageError("Something went wrong. Please try again.")
+    }
   };
 
+  const handleSubmitPasswordInput = (event) => {
+    event.preventDefault();
+    console.log("hi")
+  };
 
   return (
     <section>
       <div className="flex flex-col sm:flex-row gap-16 sm:gap-6 lg:gap-16 justify-between items-center">
-        {arrayInputs.map(
-          ({ text, name, type, value, nameTwo, input }, index) => {
-            return (
-              <FormWithInput
-                key={`input-${index}`}
-                text={text}
-                name={name}
-                nameTwo={nameTwo}
-                type={type}
-                valueOne={value}
-                valueTwo={newUsername}
-                input={input}
-                onInputChange={(e) => setNewUsername(e.target.value)}
-              // onInputChange={(e) => setNewPassword(e.target.value)}
-              />
-            );
-          }
-        )}
-        <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
+        <FormWithInput
+          text="Change your username"
+          name="your username"
+          nameTwo="new username"
+          type="text"
+          valueOne={user.fullName}
+          valueTwo={newUsername}
+          input="text"
+          onInputChange={(e) => setNewUsername(e.target.value)}
+          handleSubmit={handleSubmitUserNameInput}
+        />
+        <FormWithInput
+          text="Change your password"
+          name="your password"
+          nameTwo="new password"
+          type="password"
+          valueOne="your password"
+          valueTwo={newPassword}
+          input="password"
+          onInputChange={(e) => setNewPassword(e.target.value)}
+          handleSubmit={handleSubmitPasswordInput}
+        />
+        <FormWithInput
+          text="Payment details"
+          name="Introduce your bank details"
+          nameTwo=""
+          type="text"
+          valueOne="your bank details"
+          valueTwo={bankDetails}
+          input="text"
+          onInputChange={(e) => setBankDetails(e.target.value)}
+          handleSubmit={handleSubmitPasswordInput}
+        />
+       {/*  <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
           <Typography
             text="Payment details"
             type="subSection"
@@ -73,13 +81,9 @@ export const ProfileInputSection = () => {
               input="text"
             />
           </form>
-        </div>
+        </div> */}
       </div>
-      <div className="mt-[4rem] flex justify-start">
-        <div className="w-[10rem]">
-          <Button text="Save" color="black" size="sm" onClick={handleClick} />
-        </div>
-      </div>
+      <ToastContainer />
     </section>
   );
 };

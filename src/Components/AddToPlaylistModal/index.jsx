@@ -5,21 +5,26 @@ import { Typography } from "../Typography";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Button } from "../Button";
 import { useUI } from "../../Context/UI/UIContext";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
+import { useUser } from "../../Context/UserContext/UserContext";
 
 export const AddToPlaylistModal = ({ handleToggleModal }) => {
-  const { handleToggleCreatePlaylistModal } = useUI();
-  const {
-    data: playlists,
-    isLoading: isLoadingPlaylists,
-    error: errorPlaylists,
-  } = useQuery({ queryKey: ["playlists"], queryFn: getPlaylists });
+  const { handleTogglePlaylistModal } = useUI();
+  const { currentTrack } = useTracks();
+  const { addToPlaylist } = useUser();
+
+  const { data: playlists } = useQuery({
+    queryKey: ["playlists"],
+    queryFn: getPlaylists,
+  });
 
   const [hovered, setHovered] = useState(false);
   const [listName, setListName] = useState("");
 
-  const handleAddToList = (e) => {
+  const handleAddToList = (e, playlist) => {
     e.stopPropagation();
-    handleToggleCreatePlaylistModal();
+    addToPlaylist(playlist._id, currentTrack._id);
+    handleTogglePlaylistModal()
   };
 
   const handleCreateList = (e) => {
@@ -35,7 +40,7 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
       className="fixed p-[15vw] md:p-20 h-screen w-screen top-0 bg-black/50 z-[99] grid grid-cols-1 md:grid-cols-2 place-items-center lg:grid-cols-3 gap-8 overflow-y-auto backdrop-filter backdrop-blur-md"
       onClick={handleToggleModal}
     >
-      <div
+      {/* <div
         className="w-full h-[40vh] flex justify-center items-center border-[0.1rem] border-gray-600 hover:border-white cursor-pointer "
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -53,14 +58,14 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
             />
           </div>
         )}
-      </div>
+      </div> */}
 
       {playlists &&
         playlists.map((playlist) => {
           const { thumbnail, name } = playlist;
           return (
             <div
-              onClick={handleAddToList}
+              onClick={(e) => handleAddToList(e, playlist)}
               key={name}
               className="w-full h-[40vh] bg-white relative cursor-pointer"
             >

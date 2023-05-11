@@ -3,8 +3,10 @@ import { useContext } from "react";
 import {
   changeUsername,
   followUser,
+  handleAddToPlaylist,
   loginUser,
   registerUser,
+  updateProfileImageAPI,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -45,7 +47,6 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-
     if (data.ok) {
       dispatch({ type: types.register, payload: data.user });
     } else {
@@ -76,7 +77,7 @@ export const UserProvider = ({ children }) => {
     if (res.ok) {
       dispatch({ type: types.createPlaylist, payload: res.newPlaylist });
     }
-    return res
+    return res;
   };
 
   const togglePlaylistVisibility = async (
@@ -106,6 +107,10 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const addToPlaylist = async (playlistId, trackId) => {
+    await handleAddToPlaylist(playlistId, trackId);
+  };
+
   const deleteSinglePlaylist = async (loggedUserId, playlistId) => {
     const res = await deletePlaylist(loggedUserId, playlistId);
     if (res.ok) {
@@ -117,14 +122,24 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUsername = async (newUsername, userId) => {
-    const data = await changeUsername(newUsername, userId)
-    console.log(data)
+    const data = await changeUsername(newUsername, userId);
     if (data.ok) {
       dispatch({ type: types.updateUsername, payload: data.newUser });
-    } else {
-      console.log('Something happened')
     }
-  }
+    return data;
+  };
+
+  const updateProfileImage = async (formData, userId) => {
+    const data = await updateProfileImageAPI(formData, userId);
+
+    if (data.ok) {
+      dispatch({
+        type: types.updateUserProfileImage,
+        payload: data.profilePhoto,
+      });
+    }
+    return data;
+  };
 
   return (
     <UserContext.Provider
@@ -136,8 +151,10 @@ export const UserProvider = ({ children }) => {
         toggleUserFollowing,
         updateUsername,
         createSinglePlaylist,
+        addToPlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
+        updateProfileImage,
       }}
     >
       {children}

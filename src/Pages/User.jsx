@@ -16,7 +16,6 @@ export const User = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const isLoggedUserProfile = userId === user._id;
-
   const getUserProfile = async (id) => {
     const data = await getUserById(id);
     if (data?.ok) {

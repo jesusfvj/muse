@@ -56,7 +56,7 @@ export const SongElement = ({ object }) => {
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
         }
       >
-        <Link to="/player" className="w-full mt-2 px-3 truncate">
+        <Link to={`/player/${_id}`} className="w-full mt-2 px-3 truncate">
           <Typography
             text={name}
             type="p1"
@@ -71,11 +71,11 @@ export const SongElement = ({ object }) => {
             family="lato"
             styles="truncate"
           />
-        </Link>
         <img
           src={thumbnailUrl}
           className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none object-cover"
         />
+        </Link>
       </div>
       <div
         className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
@@ -101,7 +101,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu />
+        <DropDownMenu track={object}/>
       </div>
       {hovered && (
         <BiEdit
