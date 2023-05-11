@@ -56,7 +56,7 @@ export const AlbumElement = ({ object }) => {
             styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis truncate"
           />
           <Typography
-            text={artist.fullName}
+            text={artist?.fullName}
             type="p2"
             color="white"
             family="lato"

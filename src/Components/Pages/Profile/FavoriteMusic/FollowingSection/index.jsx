@@ -48,14 +48,14 @@ export const FollowingSection = ({
           }
         />
       )}
-      {object3?.length && (
+      {object3?.length ? (
         <FavoriteMusicElement
           object={object3}
           sectionTitle={title3}
           datatype={datatype3}
           isLoggedUserProfile={isLoggedUserProfile}
         />
-      )}
+      ) : null}
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const ArtistElement = ({ object }) => {
   const { user, toggleUserFollowing } = useUser();
   const { fullName, profilePhoto, _id, followedBy } = object;
 
-  const [isFollowed, setIsFollowed] = useState(user.following.includes(_id));
+  const [isFollowed, setIsFollowed] = useState(user?.following?.includes(_id));
 
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -48,11 +48,11 @@ export const ArtistElement = ({ object }) => {
           " bg-gradient-to-b from-[#080c28] to-[#0A4148] rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
         }
       >
+        <Link to={`/artist/${_id}`} className="w-full mb-5 px-3 text-center">
         <img
           src={profilePhoto}
           className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none select-none object-cover"
         />
-        <Link to="/artist" className="w-full mb-5 px-3 text-center">
           <Typography
             text={fullName}
             type="p1"

@@ -36,9 +36,9 @@ export const getArtists = async (id) => {
 
 export const changeUsername = async (newUsername, userId) => {
   const data = await fetch("http://localhost:4000/user/update-username", {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: newUsername,
@@ -47,19 +47,31 @@ export const changeUsername = async (newUsername, userId) => {
   })
     .then((response) => {
       return response.json();
-    }).then((data) => {
-      return data
+    })
+    .then((data) => {
+      return data;
     })
     .catch((error) => {
       console.log(error.message);
     });
-  return data
-}
+  return data;
+};
 export const getFollowedUsers = async (id) => {
   const res = await axios.get(`${BASE_URL}/followedusers/${id}`);
   if (res.data?.ok) {
     return res.data.users;
-  } else{
-    return []
+  } else {
+    return [];
+  }
+};
+
+export const getArtistById = async (id) => {
+  const res = await axios.get(`${BASE_URL}/artist/${id}`);
+
+  //   throw new Error();
+  if (res.data.ok) {
+    return res.data.artist;
+  } else {
+    return null;
   }
 };
