@@ -131,6 +131,7 @@ export const UserProvider = ({ children }) => {
 
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
+    console.log(data)
     if (data.ok) {
       dispatch({ type: types.updateUserProfileImage, payload: data.user });
     }
