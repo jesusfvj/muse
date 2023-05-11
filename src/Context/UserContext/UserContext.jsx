@@ -3,6 +3,7 @@ import { useContext } from "react";
 import {
   changeUsername,
   followUser,
+  handleAddToPlaylist,
   loginUser,
   registerUser,
   updateProfileImageAPI,
@@ -76,7 +77,7 @@ export const UserProvider = ({ children }) => {
     if (res.ok) {
       dispatch({ type: types.createPlaylist, payload: res.newPlaylist });
     }
-    return res
+    return res;
   };
 
   const togglePlaylistVisibility = async (
@@ -106,6 +107,10 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const addToPlaylist = async (playlistId, trackId) => {
+    await handleAddToPlaylist(playlistId, trackId);
+  };
+
   const deleteSinglePlaylist = async (loggedUserId, playlistId) => {
     const res = await deletePlaylist(loggedUserId, playlistId);
     if (res.ok) {
@@ -122,7 +127,7 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: types.updateUsername, payload: data.newUser });
     }
     return data;
-  }
+  };
 
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
@@ -142,6 +147,7 @@ export const UserProvider = ({ children }) => {
         toggleUserFollowing,
         updateUsername,
         createSinglePlaylist,
+        addToPlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
         updateProfileImage

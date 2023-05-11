@@ -7,7 +7,9 @@ export const types = {
     updateUsername: "UPDATE_USERNAME",
     updateUserProfileImage: "UPDATE_USER_PROFILE_IMAGE",
 
-    createPlaylist: "CREATE_PLAYLIST",
-    togglePlaylistVisibility: "TOGGLE_PLAYLIST_VISIBILITY",
-    deletePlaylist: "DELETE_PLAYLIST",
+  createPlaylist: "CREATE_PLAYLIST",
+  togglePlaylistVisibility: "TOGGLE_PLAYLIST_VISIBILITY",
+  deletePlaylist: "DELETE_PLAYLIST",
+
+  changeCurrentTrack: "CHANGE_CURRENT_TRACK",
 };

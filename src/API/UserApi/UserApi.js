@@ -77,6 +77,23 @@ export const getArtistById = async (id) => {
   }
 };
 
+export const handleAddToPlaylist = async (playlistId, trackId) => {
+  const res = await axios.post(`${BASE_URL}/playlist/addtrack`, {
+    playlistId,
+    trackId,
+  });
+  console.log(res.data)
+
+  //   throw new Error();
+  if (res.data.ok) {
+    return res.data;
+  } else {
+    return null;
+  }
+};
+
+
+
 export const updateProfileImageAPI = async (formData, userId) => {
   const res = await axios.put(`${BASE_URL}/uploadProfileImage/${userId}`, formData);
   return res.data;

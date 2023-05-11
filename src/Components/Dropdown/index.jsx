@@ -2,6 +2,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Typography } from "../Typography";
 import { DropdownElement } from "./DropdownElement";
 import { useUI } from "../../Context/UI/UIContext";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 const items = [
   {
@@ -22,9 +23,17 @@ export const DropDownMenu = ({
   id,
   activeDropdown,
   handleToggleDropdown,
+  track,
 }) => {
   const isActive = activeDropdown == id;
   const { handleTogglePlaylistModal } = useUI();
+  const { changeCurrentTrack } = useTracks();
+
+  const handleAddToList = () => {
+    handleTogglePlaylistModal();
+    changeCurrentTrack(track)
+  };
+
   return (
     <div className="relative">
       <button
@@ -53,7 +62,7 @@ export const DropDownMenu = ({
         </ul>
         <div className="py-2">
           <button
-            onClick={handleTogglePlaylistModal}
+            onClick={handleAddToList}
             className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
           >
             Add to list
