@@ -13,6 +13,7 @@ export const Body = ({ user, isLoggedUserProfile }) => {
           <BodyTitle user={user} isLoggedUserProfile={isLoggedUserProfile} />
           <EditUserPhoto
             user={user}
+            isLoggedUserProfile={isLoggedUserProfile}
           />
         </div>
         {isLoggedUserProfile && (
