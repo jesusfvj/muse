@@ -1,21 +1,27 @@
-import { Typography } from "../../../../Typography";
 import { FormWithInput } from "../FormWithInput";
-import { InputElement } from "../FormWithInput/InputElement";
 import { useState } from "react";
 import { useUser } from "../../../../../Context/UserContext/UserContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastMessageError, toastMessageSuccess } from "../../../../../Utils/toaster";
+import { ProfileLoader } from "../../ProfileLoader";
 
 export const ProfileInputSection = () => {
-  const { user, updateUsername } = useUser();
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [bankDetails, setBankDetails] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, updateUsername } = useUser();
 
   const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
+    //Set the spinner with a delay of 800ms
+    const timeoutId = setTimeout(() => {
+      setIsLoading(true);
+    }, 800);
     const response = await updateUsername(newUsername, user._id)
+    clearTimeout(timeoutId);
+    setIsLoading(false)
     if (response.ok) {
       toastMessageSuccess("Username successfuly saved.");
       setNewUsername("")
@@ -83,6 +89,7 @@ export const ProfileInputSection = () => {
           </form>
         </div> */}
       </div>
+      {isLoading && <ProfileLoader modal={true} text="Uploading data..."/>}
       <ToastContainer />
     </section>
   );
