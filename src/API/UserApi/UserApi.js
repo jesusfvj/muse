@@ -92,8 +92,6 @@ export const handleAddToPlaylist = async (playlistId, trackId) => {
   }
 };
 
-
-
 export const updateProfileImageAPI = async (formData, userId) => {
   const res = await axios.put(`${BASE_URL}/uploadProfileImage/${userId}`, formData);
   return res.data;

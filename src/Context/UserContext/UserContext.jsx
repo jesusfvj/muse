@@ -132,7 +132,7 @@ export const UserProvider = ({ children }) => {
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
     if (data.ok) {
-      dispatch({ type: types.register, payload: data.user });
+      dispatch({ type: types.updateUserProfileImage, payload: data.user });
     }
     return data;
   };
