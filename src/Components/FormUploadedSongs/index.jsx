@@ -9,10 +9,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster"
 import { checkForEmptyImageFiles, organizeAndSetDataForm } from "../../Utils/uploadSongsFunctions"
+import { ProfileLoader } from "../Pages/Profile/ProfileLoader"
 
 export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUploadSongsModal }) => {
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
     const [albumInputValue, setAlbumInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [previewImage, setPreviewImage] = useState([]);
     const [registerData, setRegisterData] = useState({});
     const [filesFormData, setFilesFormData] = useState();
@@ -23,8 +25,10 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!checkForEmptyImageFiles(imageFiles)) {
+            setIsLoading(true)
             const filesFormDataFiltered = organizeAndSetDataForm(event.target, isAlbumChecked, albumInputValue, selectedFiles, filesFormData, imageFiles)
             const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
+            setIsLoading(false)
             if (response.data.ok) {
                 toastMessageSuccess("Song/s successfuly submited.");
                 setTimeout(() => {
@@ -153,6 +157,7 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
                     onClick={() => { buttonSaveRef.current.click(); }}
                 />
             </div>
+            {isLoading && <ProfileLoader modal={true} text="Uploading data..."/>}
             <ToastContainer />
         </div>
     )

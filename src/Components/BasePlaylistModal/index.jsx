@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
+import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import { Button } from "../Button";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +20,7 @@ export const BasePlaylistModal = (
         setPreviewImg,
         type
     }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const inputRef = useRef();
@@ -42,10 +44,12 @@ export const BasePlaylistModal = (
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         if (previewImg !== null && playlistData.name !== "") {
+            setIsLoading(true)
             const formData = new FormData();
             formData.set(`imagePlaylistFile`, imageFile)
             formData.set(`imagePlaylistData`, JSON.stringify(playlistData))
             const response = await createSinglePlaylist(formData, _id);
+            setIsLoading(false)
             if (response.ok) {
                 toastMessageSuccess("Playlist successfuly submited.");
                 setTimeout(() => {
@@ -193,6 +197,7 @@ export const BasePlaylistModal = (
                     </div>
                 </form>
             </div>
+            {isLoading && <ProfileLoader modal={true} text="Creating playlist..." />}
             <ToastContainer />
         </div>
     );
