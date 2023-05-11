@@ -49,6 +49,7 @@ export const Layout = ({ children }) => {
 
   const isMusicPlayerVisible = location.pathname !== "/";
   const isContextMenuVisible = location.pathname !== "/";
+  const isNavVisible = location.pathname !== "/";
 
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
@@ -61,8 +62,8 @@ export const Layout = ({ children }) => {
         <ContextMenu handleCloseContextMenu={handleCloseContextMenu} />
       </div>
       <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible} />
-      <Navbar />
-      {!isNavOpen && (
+      {isNavVisible ? <Navbar /> : null}
+      {!isNavOpen && isNavVisible && (
         <RxHamburgerMenu
           className="text-white text-3xl fixed top-5 left-10 cursor-pointer z-50"
           onClick={handleToggleNav}

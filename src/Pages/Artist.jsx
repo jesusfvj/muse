@@ -16,7 +16,6 @@ export const Artist = () => {
 
   const getArtist = async (id) => {
     const data = await getArtistById(id);
-    console.log(data)
     setArtist(data);
     setIsLoading(false);
   };
