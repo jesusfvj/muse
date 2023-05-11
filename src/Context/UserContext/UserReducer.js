@@ -62,6 +62,15 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
+    case types.updateNamePlaylist: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: [...action.payload],
+        },
+      };
+    }
     case types.updateUsername:
       return {
         ...state,
@@ -74,7 +83,11 @@ export const userReducer = (state = {}, action) => {
       }
     default:
       state;
-  }
-};
+  };
+}
+
+
+
+
 
 export default userReducer;
