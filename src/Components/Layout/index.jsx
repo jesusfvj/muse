@@ -9,6 +9,9 @@ import { AddToPlaylistModal } from "../AddToPlaylistModal";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
 import EditSongForm from "../Form/EditDeleteSongs";
 import { EditPlaylistModal } from "../EditPlaylistModal";
+import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Layout = ({ children }) => {
   const {
@@ -23,6 +26,10 @@ export const Layout = ({ children }) => {
     handleToggleEditPlaylistModal,
     currentPlaylist,
     isEditPlaylistModalOpen,
+    messageSuccessToaster,
+    setMessageSuccessToaster,
+    messageErrorToaster,
+    setMessageErrorToaster
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -44,6 +51,21 @@ export const Layout = ({ children }) => {
   };
 
   useEffect(() => {
+    if(messageSuccessToaster !== ""){
+      toastMessageSuccess(messageSuccessToaster);
+      setMessageSuccessToaster("")
+    }
+  }, [messageSuccessToaster])
+
+  useEffect(() => {
+    if(messageErrorToaster !==""){
+      toastMessageError(messageErrorToaster);
+      setMessageErrorToaster("")
+    }
+  }, [messageErrorToaster])
+
+
+  useEffect(() => {
     setIsNavOpen(false);
   }, [location]);
 
@@ -54,9 +76,8 @@ export const Layout = ({ children }) => {
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
       <div
-        className={`${
-          !isContextMenuVisible || !isContextMenuOpen ? "hidden" : ""
-        }
+        className={`${!isContextMenuVisible || !isContextMenuOpen ? "hidden" : ""
+          }
         `}
       >
         <ContextMenu handleCloseContextMenu={handleCloseContextMenu} />
@@ -92,6 +113,7 @@ export const Layout = ({ children }) => {
           playlist={currentPlaylist}
         />
       )}
+      <ToastContainer />
     </div>
   );
 };

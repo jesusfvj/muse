@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { GrUploadOption } from "react-icons/gr";
 import { BiEditAlt } from "react-icons/bi";
-import { toastMessageError, toastMessageSuccess } from "../../../../../Utils/toaster";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Typography } from "../../../../Typography";
 import { Button } from "../../../../Button";
 import { useUser } from "../../../../../Context/UserContext/UserContext";
+import { useUI } from "../../../../../Context/UI/UIContext";
+import { ProfileLoader } from "../../ProfileLoader";
 
 export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isHoveredUpload, setIsHoveredUpload] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
+  const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
   const [profileImage, setProfileImage] = useState(user.profilePhoto);
-  const [imageFile, setImageFile] = useState(null);
+  const [isHoveredUpload, setIsHoveredUpload] = useState(false);
   const [showSaveButton, setShowSaveButton] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
   const { updateProfileImage } = useUser()
 
   const handleFileInputChange = async (e) => {
@@ -65,14 +66,19 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+    const timeoutId = setTimeout(() => {
+      setIsLoading(true);
+    }, 800);
     const formData = new FormData();
     formData.set(`profileImageFile`, imageFile)
     const response = await updateProfileImage(formData, user._id);
+    clearTimeout(timeoutId);
+    setIsLoading(false)
     if (response.ok) {
-      toastMessageSuccess("Profile image successfuly saved.");
+      setMessageSuccessToaster("Profile image successfuly saved.");
       setShowSaveButton(false)
     } else {
-      toastMessageError("Something went wrong. Please try again.")
+      setMessageErrorToaster("Something went wrong. Please try again.")
     }
   };
 
@@ -149,7 +155,6 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
                 />
               </div>
             }
-            <ToastContainer />
           </form >
           :
           <div className="flex justify-center items-center w-[10rem] h-[10rem] xs:max-w-[12rem] xs:w-[12rem]
@@ -160,6 +165,7 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
             />
           </div>
       }
+      {isLoading && <ProfileLoader modal={true} text="Uploading data..." />}
     </>
   );
 };

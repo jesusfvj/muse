@@ -5,9 +5,7 @@ import { Typography } from "../Typography";
 import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import { Button } from "../Button";
 import { useUser } from "../../Context/UserContext/UserContext";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
+import { useUI } from "../../Context/UI/UIContext";
 
 export const BasePlaylistModal = (
     {
@@ -20,6 +18,7 @@ export const BasePlaylistModal = (
         setPreviewImg,
         type
     }) => {
+    const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
     const [isLoading, setIsLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
@@ -51,15 +50,15 @@ export const BasePlaylistModal = (
             const response = await createSinglePlaylist(formData, _id);
             setIsLoading(false)
             if (response.ok) {
-                toastMessageSuccess("Playlist successfuly submited.");
+                setMessageSuccessToaster("Playlist successfuly submited.");
                 setTimeout(() => {
                     handleToggleCreatePlaylistModal();
                 }, 1500);
             } else {
-                toastMessageError("Something went wrong. Please try again.")
+                setMessageErrorToaster("Something went wrong. Please try again.")
             }
         } else {
-            toastMessageError("Please choose a name and an image for the playlist.")
+            setMessageErrorToaster("Please choose a name and an image for the playlist.")
         }
     };
 
@@ -198,7 +197,6 @@ export const BasePlaylistModal = (
                 </form>
             </div>
             {isLoading && <ProfileLoader modal={true} text="Creating playlist..." />}
-            <ToastContainer />
         </div>
     );
 };

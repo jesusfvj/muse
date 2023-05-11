@@ -5,19 +5,18 @@ import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
 import { useUser } from "../../Context/UserContext/UserContext";
 import { uploadSongsAPI } from "../../API/SongsUpload/index";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster"
 import { checkForEmptyImageFiles, organizeAndSetDataForm } from "../../Utils/uploadSongsFunctions"
 import { ProfileLoader } from "../Pages/Profile/ProfileLoader"
+import { useUI } from "../../Context/UI/UIContext"
 
 export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUploadSongsModal }) => {
+    const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
     const [isAlbumChecked, setIsAlbumChecked] = useState(false);
     const [albumInputValue, setAlbumInputValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [previewImage, setPreviewImage] = useState([]);
     const [registerData, setRegisterData] = useState({});
     const [filesFormData, setFilesFormData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [imageFiles, setImageFiles] = useState([]);
     const buttonSaveRef = useRef(null);
     const { user } = useUser()
@@ -30,15 +29,15 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
             const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
             setIsLoading(false)
             if (response.data.ok) {
-                toastMessageSuccess("Song/s successfuly submited.");
+                setMessageSuccessToaster("Song/s successfuly submited.");
                 setTimeout(() => {
                     setShowUploadSongsModal(false)
                 }, 2000);
             } else {
-                toastMessageError("Something went wrong. Please try again.")
+                setMessageErrorToaster("Something went wrong. Please try again.")
             }
         } else {
-            toastMessageError("Please choose an image for every track.")
+            setMessageErrorToaster("Please choose an image for every track.")
         }
     }
 
@@ -158,7 +157,6 @@ export const FormUploadedSongs = ({ selectedFiles, setSelectedFiles, setShowUplo
                 />
             </div>
             {isLoading && <ProfileLoader modal={true} text="Uploading data..."/>}
-            <ToastContainer />
         </div>
     )
 }

@@ -8,18 +8,15 @@ export const useUI = () => {
 };
 
 export const UIProvider = ({ children }) => {
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] =
-    useState(false);
-
-  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] =
-    useState(false);
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
+  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] = useState(false);
   const [isEditPlaylistModalOpen, setIsEditPlaylistModalOpen] = useState(false);
-
+  const [messageSuccessToaster, setMessageSuccessToaster] = useState("");
   const [isEditSongModalOpen, setisEditSongModalOpen] = useState(false);
-  const [currentSong, setCurrentSong] = useState(null);
+  const [messageErrorToaster, setMessageErrorToaster] = useState("");
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [currentSong, setCurrentSong] = useState(null);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleTogglePlaylistModal = () => {
     setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);
@@ -52,7 +49,11 @@ export const UIProvider = ({ children }) => {
         currentSong,
         handleToggleEditPlaylistModal,
         currentPlaylist,
-        isEditPlaylistModalOpen
+        isEditPlaylistModalOpen,
+        messageSuccessToaster,
+        setMessageSuccessToaster,
+        messageErrorToaster,
+        setMessageErrorToaster
       }}
     >
       {children}
