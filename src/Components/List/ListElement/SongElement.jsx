@@ -94,7 +94,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu />
+        <DropDownMenu track={object}/>
       </div>
       {hovered && (
         <BiEdit
