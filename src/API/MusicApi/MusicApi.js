@@ -72,7 +72,7 @@ export const toggleFollowPlaylist = async (
   return res.data;
 };
 export const duplicatePlaylist = async (loggedUserId, playlistId) => {
-  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId } );
+  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, { loggedUserId, playlistId });
   return res.data;
 };
 
@@ -86,6 +86,20 @@ export const deletePlaylist = async (loggedUserId, playlistId) => {
 
 export const getAlbums = async () => {
   const res = await axios.get(BASE_URL_ALBUMS);
+  //   throw new Error();
+
+  if (res.data.ok) {
+    return res.data.albums;
+  } else {
+    return [];
+  }
+};
+
+export const likeTracks = async (
+  loggedUserId,
+  trackId,
+  isAdded) => {
+  const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`,{loggedUserId,trackId,isAdded});
   //   throw new Error();
 
   if (res.data.ok) {

@@ -4,6 +4,8 @@ import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
 import { Link } from "react-router-dom";
+import { likeTracks } from "../../../API/MusicApi/MusicApi";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const PlaylistsElements = ({
   id,
@@ -16,7 +18,23 @@ export const PlaylistsElements = ({
 }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const {user: { _id}}= useUser()
 
+  const likeButtonClick = () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+      setTimeout(() => {
+        likeTracks(_id,id,clicked)
+      }, 300);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        console.log(clicked);
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  }
   return (
     <div
       className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${
@@ -54,7 +72,7 @@ export const PlaylistsElements = ({
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"
-          onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+          onClick={likeButtonClick}
         >
           <Typography
             text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
