@@ -91,7 +91,6 @@ export const BasePlaylistModal = (
         }
     };
 
-
     return (
         <div
             className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"

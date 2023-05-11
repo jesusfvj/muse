@@ -6,6 +6,7 @@ import {
   handleAddToPlaylist,
   loginUser,
   registerUser,
+  updateProfileImageAPI,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -46,7 +47,6 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-
     if (data.ok) {
       dispatch({ type: types.register, payload: data.user });
     } else {
@@ -129,6 +129,18 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
+  const updateProfileImage = async (formData, userId) => {
+    const data = await updateProfileImageAPI(formData, userId);
+
+    if (data.ok) {
+      dispatch({
+        type: types.updateUserProfileImage,
+        payload: data.profilePhoto,
+      });
+    }
+    return data;
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -142,6 +154,7 @@ export const UserProvider = ({ children }) => {
         addToPlaylist,
         togglePlaylistVisibility,
         deleteSinglePlaylist,
+        updateProfileImage,
       }}
     >
       {children}
