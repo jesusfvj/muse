@@ -1,38 +1,20 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getPlaylists } from "../../API/MusicApi/MusicApi";
 import { Typography } from "../Typography";
-import { AiOutlinePlus } from "react-icons/ai";
-import { Button } from "../Button";
 import { useUI } from "../../Context/UI/UIContext";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
 import { useUser } from "../../Context/UserContext/UserContext";
 
 export const AddToPlaylistModal = ({ handleToggleModal }) => {
   const { handleTogglePlaylistModal } = useUI();
+  const {
+    user: { playlists },
+  } = useUser();
   const { currentTrack } = useTracks();
   const { addToPlaylist } = useUser();
-
-  const { data: playlists } = useQuery({
-    queryKey: ["playlists"],
-    queryFn: getPlaylists,
-  });
-
-  const [hovered, setHovered] = useState(false);
-  const [listName, setListName] = useState("");
 
   const handleAddToList = (e, playlist) => {
     e.stopPropagation();
     addToPlaylist(playlist._id, currentTrack._id);
-    handleTogglePlaylistModal()
-  };
-
-  const handleCreateList = (e) => {
-    e.preventDefault();
-  };
-
-  const handleInputChange = (e) => {
-    setListName(e.target.value);
+    handleTogglePlaylistModal();
   };
 
   return (

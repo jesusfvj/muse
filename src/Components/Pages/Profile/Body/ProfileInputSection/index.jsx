@@ -1,32 +1,36 @@
-import { Typography } from "../../../../Typography";
 import { FormWithInput } from "../FormWithInput";
-import { InputElement } from "../FormWithInput/InputElement";
 import { useState } from "react";
 import { useUser } from "../../../../../Context/UserContext/UserContext";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { toastMessageError, toastMessageSuccess } from "../../../../../Utils/toaster";
+import { ProfileLoader } from "../../ProfileLoader";
+import { useUI } from "../../../../../Context/UI/UIContext";
 
 export const ProfileInputSection = () => {
-  const { user, updateUsername } = useUser();
+  const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [bankDetails, setBankDetails] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, updateUsername } = useUser();
 
   const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
+    //Set the spinner with a delay of 800ms
+    const timeoutId = setTimeout(() => {
+      setIsLoading(true);
+    }, 800);
     const response = await updateUsername(newUsername, user._id)
+    clearTimeout(timeoutId);
+    setIsLoading(false)
     if (response.ok) {
-      toastMessageSuccess("Username successfuly saved.");
+      setMessageSuccessToaster("Username successfuly saved.")
       setNewUsername("")
     } else {
-      toastMessageError("Something went wrong. Please try again.")
+      setMessageErrorToaster("Something went wrong. Please try again.")
     }
   };
 
   const handleSubmitPasswordInput = (event) => {
     event.preventDefault();
-    console.log("hi")
   };
 
   return (
@@ -65,7 +69,7 @@ export const ProfileInputSection = () => {
           onInputChange={(e) => setBankDetails(e.target.value)}
           handleSubmit={handleSubmitPasswordInput}
         />
-       {/*  <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
+        {/*  <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
           <Typography
             text="Payment details"
             type="subSection"
@@ -83,7 +87,7 @@ export const ProfileInputSection = () => {
           </form>
         </div> */}
       </div>
-      <ToastContainer />
+      {isLoading && <ProfileLoader modal={true} text="Uploading data..." />}
     </section>
   );
 };

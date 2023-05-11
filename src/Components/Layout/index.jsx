@@ -1,28 +1,35 @@
-import { useUI } from "../../Context/UI/UIContext";
-import { Navbar } from "../Navbar";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { useLocation } from "react-router";
-import { useEffect, useState } from "react";
-import { MusicPlayer } from "../MusicPlayer";
-import { ContextMenu } from "../ContextMenu";
-import { AddToPlaylistModal } from "../AddToPlaylistModal";
+import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
-import EditSongForm from "../Form/EditDeleteSongs";
+import { AddToPlaylistModal } from "../AddToPlaylistModal";
 import { EditPlaylistModal } from "../EditPlaylistModal";
+import EditSongForm from "../Form/EditDeleteSongs";
+import { useUI } from "../../Context/UI/UIContext";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ContextMenu } from "../ContextMenu";
+import { MusicPlayer } from "../MusicPlayer";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Navbar } from "../Navbar";
 
 export const Layout = ({ children }) => {
   const {
-    isNavOpen,
-    setIsNavOpen,
-    handleTogglePlaylistModal,
-    isAddToPlaylistModalOpen,
-    isCreatePlaylistModalOpen,
-    handleToggleSongModal,
-    isEditSongModalOpen,
     handleToggleCreatePlaylistModal,
     handleToggleEditPlaylistModal,
-    currentPlaylist,
+    handleTogglePlaylistModal,
+    isCreatePlaylistModalOpen,
+    isAddToPlaylistModalOpen,
+    setMessageSuccessToaster,
     isEditPlaylistModalOpen,
+    setMessageErrorToaster,
+    messageSuccessToaster,
+    handleToggleSongModal,
+    isEditSongModalOpen,
+    messageErrorToaster,
+    currentPlaylist,
+    setIsNavOpen,
+    isNavOpen,
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -44,6 +51,21 @@ export const Layout = ({ children }) => {
   };
 
   useEffect(() => {
+    if(messageSuccessToaster !== ""){
+      toastMessageSuccess(messageSuccessToaster);
+      setMessageSuccessToaster("")
+    }
+  }, [messageSuccessToaster])
+
+  useEffect(() => {
+    if(messageErrorToaster !==""){
+      toastMessageError(messageErrorToaster);
+      setMessageErrorToaster("")
+    }
+  }, [messageErrorToaster])
+
+
+  useEffect(() => {
     setIsNavOpen(false);
   }, [location]);
 
@@ -54,9 +76,8 @@ export const Layout = ({ children }) => {
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
       <div
-        className={`${
-          !isContextMenuVisible || !isContextMenuOpen ? "hidden" : ""
-        }
+        className={`${!isContextMenuVisible || !isContextMenuOpen ? "hidden" : ""
+          }
         `}
       >
         <ContextMenu handleCloseContextMenu={handleCloseContextMenu} />
@@ -92,6 +113,7 @@ export const Layout = ({ children }) => {
           playlist={currentPlaylist}
         />
       )}
+      <ToastContainer />
     </div>
   );
 };
