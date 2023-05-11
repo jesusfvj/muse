@@ -5,7 +5,7 @@ import { SongElement } from "../../../List/ListElement/SongElement";
 import { SkeletonAlbumElement, SkeletonArtistElement, SkeletonPlaylistElement, SkeletonSongElement } from "../../../Skeletons";
 import { CreateListButton } from "../CreateListButton";
 
-export const MosaicElements = ({object, dataType, list ="no"}) => {
+export const MosaicElements = ({object, dataType, list = "no"}) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center gap-[2rem] flex-wrap">
             {object.map((object, index) => {
@@ -18,7 +18,7 @@ export const MosaicElements = ({object, dataType, list ="no"}) => {
                         return <ArtistElement key={index} object={object} />;
                     case "playlist":
                         return (<div key={index}>
-                        {index == 0 && list === "yes" && <CreateListButton  />}
+                        {/* {index == 0 && list === "yes" && <CreateListButton  />} */}
                         <PlaylistElement object={object} />
                         </div>)
                     case "skeletonPlaylist":

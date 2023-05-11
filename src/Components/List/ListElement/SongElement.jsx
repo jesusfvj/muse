@@ -73,7 +73,7 @@ export const SongElement = ({ object }) => {
           />
         <img
           src={thumbnailUrl}
-          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none object-cover"
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] mx-auto my-4 pointer-events-none object-cover"
         />
         </Link>
       </div>

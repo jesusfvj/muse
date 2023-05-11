@@ -1,7 +1,7 @@
 import { Layout } from "../Components/Layout";
 import { arrayTodaysHits } from "../../src/data/Profile/Profile";
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
-import { Typography } from "../Components";
+import { CreateListButton, Typography } from "../Components";
 import logo from "../assets/logo/logowhite.png";
 import { getAlbums, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 import { useQuery } from "@tanstack/react-query";
@@ -225,12 +225,12 @@ export const MyLibrary = () => {
         <section id="Your public lists">
           {isLoadingPlaylists ? (
             <section id="Your Public Lists">
-              <Typography
-                type="big"
-                text="Your public lists"
-                color="white"
-                styles={zStyles}
-              />
+                <Typography
+                  type="big"
+                  text="Your public lists"
+                  color="white"
+                  styles={zStyles}
+                />
               <MosaicElements
                 list="yes"
                 object={skeletonData}
@@ -253,12 +253,15 @@ export const MyLibrary = () => {
             </section>
           ) : playlists?.length && !isLoadingPlaylists ? (
             <section id="Playlists">
-              <Typography
-                type="big"
-                text="Your public lists"
-                color="white"
-                styles={zStyles}
-              />
+              <div className="flex items-center gap-3">
+                <Typography
+                  type="big"
+                  text="Your public lists"
+                  color="white"
+                  styles={zStyles}
+                />
+                <CreateListButton />
+              </div>
               <MosaicElements
                 list="yes"
                 object={playlists}
@@ -301,12 +304,15 @@ export const MyLibrary = () => {
             </section>
           ) : playlists?.length && !isLoadingPlaylists ? (
             <section id="Your private lists">
+              <div className="flex items-center gap-3">
               <Typography
                 type="big"
                 text="Your private lists"
                 color="white"
                 styles={zStyles}
               />
+              <CreateListButton />
+              </div>
               <MosaicElements
                 list="yes"
                 object={playlists}
