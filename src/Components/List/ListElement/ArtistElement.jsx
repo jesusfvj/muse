@@ -9,7 +9,7 @@ export const ArtistElement = ({ object }) => {
   const { user, toggleUserFollowing } = useUser();
   const { fullName, profilePhoto, _id, followedBy } = object;
 
-  const [isFollowed, setIsFollowed] = useState(user.following.includes(_id));
+  const [isFollowed, setIsFollowed] = useState(user?.following?.includes(_id));
 
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);

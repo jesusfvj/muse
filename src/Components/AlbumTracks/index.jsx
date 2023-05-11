@@ -20,7 +20,7 @@ export const AlbumTracks = ({ songs, styles }) => {
             key={`${name}-${idx}`}
             id={id}
             nombre={name}
-            duration={formatTime(duration)}
+            duration={duration}
             idx={idx}
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
