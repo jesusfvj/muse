@@ -21,18 +21,18 @@ export const FavoriteMusic = ({
   isLoggedUserProfile,
   userProfile,
 }) => {
-  const { playlists, followedPlaylists } = userProfile;
+  const { playlists, followedPlaylists, albums, tracks } = userProfile;
 
   const {
     data: songs,
     isLoading: isLoadingSongs,
     error: errorSongs,
   } = useQuery({ queryKey: ["songs"], queryFn: getSongs });
-  const {
-    data: albums,
-    isLoading: isLoadingAlbums,
-    error: errorAlbums,
-  } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
+//   const {
+//     data: albums,
+//     isLoading: isLoadingAlbums,
+//     error: errorAlbums,
+//   } = useQuery({ queryKey: ["albums"], queryFn: getAlbums });
   const {
     data: artists,
     isLoading: isLoadingArtists,
@@ -83,13 +83,13 @@ export const FavoriteMusic = ({
 
       <div>
         <TitleSection titleSection="Loved ones" />
-        {!errorAlbums && !errorSongs ? (
+        { !errorSongs ? (
           <LovedSection
             isOwner={isLoggedUserProfile}
-            datatype1={!isLoadingAlbums ? "album" : "skeletonAlbum"}
-            datatype2={!isLoadingSongs ? "song" : "skeletonSong"}
-            object1={!isLoadingAlbums ? albums : skeletonData}
-            object2={!isLoadingSongs ? songs : skeletonData}
+            datatype1={"album"}
+            datatype2={"song"}
+            object1={albums}
+            object2={tracks}
           />
         ) : (
           <>

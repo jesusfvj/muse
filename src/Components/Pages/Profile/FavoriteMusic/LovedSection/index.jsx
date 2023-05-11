@@ -18,17 +18,17 @@ export const LovedSection = ({
           datatype={datatype1}
         />
       ) : (
-        <Typography text="No uploaded albums" />
+        <Typography text="No albums to show" />
       )}
       {object2.length ? (
         <FavoriteMusicElement
           isOwner={isOwner}
           object={object2}
-          sectionTitle="Uploaded songs"
+          sectionTitle="Songs"
           datatype={datatype2}
         />
       ) : (
-        <Typography text="No uploaded songs" />
+        <Typography text="No songs to show" />
       )}
     </div>
   );
