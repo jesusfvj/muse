@@ -77,9 +77,8 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
   };
 
   useEffect(() => {
-    console.log(isLoggedUserProfile)
-  }, [isLoggedUserProfile])
-
+    setProfileImage(user.profilePhoto);
+  }, [user])
 
   return (
     <>
