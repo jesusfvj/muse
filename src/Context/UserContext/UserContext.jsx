@@ -118,12 +118,10 @@ export const UserProvider = ({ children }) => {
 
   const updateUsername = async (newUsername, userId) => {
     const data = await changeUsername(newUsername, userId)
-    console.log(data)
     if (data.ok) {
       dispatch({ type: types.updateUsername, payload: data.newUser });
-    } else {
-      console.log('Something happened')
     }
+    return data;
   }
 
   return (
