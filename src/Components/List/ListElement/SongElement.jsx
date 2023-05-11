@@ -64,11 +64,11 @@ export const SongElement = ({ object }) => {
             family="lato"
             styles="truncate"
           />
-        </Link>
         <img
           src={thumbnailUrl}
           className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none object-cover"
         />
+        </Link>
       </div>
       <div
         className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { formatTime } from "../../Utils/formatTime";
 import { AlbumTrackElements } from "./AlbumTrackElements";
+import { Typography } from "../Typography";
 
 export const AlbumTracks = ({ songs, styles }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -13,20 +14,26 @@ export const AlbumTracks = ({ songs, styles }) => {
   };
   return (
     <div className={`flex flex-col ${styles}`}>
-      {songs.map((songs, idx) => {
-        const { id, name, duration } = songs;
-        return (
-          <AlbumTrackElements
-            key={`${name}-${idx}`}
-            id={id}
-            nombre={name}
-            duration={duration}
-            idx={idx}
-            activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
-          />
-        );
-      })}
+      {songs.length ? (
+        songs.map((songs, idx) => {
+          const { id, name, duration } = songs;
+          return (
+            <AlbumTrackElements
+              key={`${name}-${idx}`}
+              id={id}
+              nombre={name}
+              duration={duration}
+              idx={idx}
+              activeDropdown={activeDropdown}
+              handleToggleDropdown={handleToggleDropdown}
+            />
+          );
+        })
+      ) : (
+        <div className="pb-12">
+          <Typography text="You are not following any song" />
+        </div>
+      )}
     </div>
   );
 };

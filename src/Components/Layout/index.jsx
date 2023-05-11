@@ -47,8 +47,7 @@ export const Layout = ({ children }) => {
     setIsNavOpen(false);
   }, [location]);
 
-  const isMusicPlayerVisible =
-    location.pathname !== "/" && location.pathname !== "/player";
+  const isMusicPlayerVisible = location.pathname !== "/";
   const isContextMenuVisible = location.pathname !== "/";
 
   return (

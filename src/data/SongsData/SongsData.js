@@ -3,7 +3,7 @@ export const tracks = [
       id: 1,
       name: "Better of alone",
       artist: "RXBYN",
-      url: "https://res.cloudinary.com/dmkdsujzh/video/upload/v1644583924/tracks-dev/Rxbyn_-_better_off_alone_fvhwp8.mp3"
+      url: "https://res.cloudinary.com/dmufnezzd/video/upload/v1683791067/muze-song_file-folder/f88358519f64bb39e974c38e8cf90703.mp3"
     },
     {
       id: 2,
