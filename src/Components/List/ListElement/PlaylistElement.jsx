@@ -10,9 +10,14 @@ import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { EditPlaylistModal } from "../../EditPlaylistModal";
 import { useUI } from "../../../Context/UI/UIContext";
+import { ProfileLoader } from "../../Pages/Profile/ProfileLoader";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
-  const { handleToggleEditPlaylistModal } = useUI();
+  const {
+    handleToggleEditPlaylistModal,
+    setMessageSuccessToaster,
+    setMessageErrorToaster
+  } = useUI();
   const {
     user: { _id: userId, profilePhoto },
     togglePlaylistVisibility,
@@ -25,6 +30,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   );
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const isOwner = userId === user;
@@ -65,8 +71,15 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   };
 
   const handleDeletePlaylist = async () => {
-console.log("hola")
-   /*  const response = await deleteSinglePlaylist(userId, _id); */
+    setIsLoading(true)
+    const response = await deleteSinglePlaylist(userId, _id);
+    console.log(response)
+    setIsLoading(false)
+    if (response.ok) {
+      setMessageSuccessToaster("Playlist deleted successfully")
+    } else {
+      setMessageErrorToaster("There was an error trying to delete the playlist. Please try again.")
+    }
   };
 
   const handleOpenEditPlaylist = () => {
@@ -74,97 +87,99 @@ console.log("hola")
   };
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onContextMenu={handleOpenDropdown}
-    >
+    <>
       <div
-        className={`relative flex my-4 shadow-md overflow-hidden select-none m-2 cursor-pointer`}
-        onClick={handleNavigate}
-        style={{background: `linear-gradient(0deg, ${color} 20%, transparent 100%)`}}
+        className="relative"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={handleMouseLeave}
+        onContextMenu={handleOpenDropdown}
       >
         <div
-          className={
-            " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
-          }
+          className={`relative flex my-4 shadow-md overflow-hidden select-none m-2 cursor-pointer`}
+          onClick={handleNavigate}
+          style={{ background: `linear-gradient(0deg, ${color} 20%, transparent 100%)` }}
         >
-          <Link to="/playlist" className="w-full mt-2 px-3">
-            <Typography
-              text={name}
-              type="p1"
-              color="white"
-              family="lato"
-              styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
+          <div
+            className={
+              " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
+            }
+          >
+            <Link to="/playlist" className="w-full mt-2 px-3">
+              <Typography
+                text={name}
+                type="p1"
+                color="white"
+                family="lato"
+                styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
+              />
+            </Link>
+
+            <img
+              src={thumbnail}
+              className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover"
             />
-          </Link>
-
-          <img
-            src={thumbnail}
-            className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover"
-          />
+          </div>
         </div>
-      </div>
 
-      <div className="relative">
-        <div
-          className={`absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
+        <div className="relative">
+          <div
+            className={`absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
       ${hovered ? "flex animation-pop-glow" : "hidden"}`}
-        >
-          <RoundButton
-            color="gray"
-            background="gradient"
-            icon={<FaPlay />}
-            margin="pl-1"
-          />
+          >
+            <RoundButton
+              color="gray"
+              background="gradient"
+              icon={<FaPlay />}
+              margin="pl-1"
+            />
+          </div>
         </div>
-      </div>
 
-      <div
-        className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
-        onClick={handleAddToFavorites}
-      >
-        {isFollowed ? (
-          <AiFillHeart className="text-white text-2xl cursor-pointer" />
-        ) : hovered ? (
-          <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
-        ) : null}
-      </div>
-      <div className="h-6">
         <div
-          className={`w-full flex h-full items-center justify-around ${
-            !hovered && "hidden"
-          }`}
+          className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
+          onClick={handleAddToFavorites}
         >
-          {isOwner && isPrivate ? (
-            <MdOutlinePublic
-              className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
-              onClick={handleTogglePlaylistVisibility}
-            />
-          ) : isOwner && !isPrivate ? (
-            <MdOutlinePublicOff
-              className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
-              onClick={handleTogglePlaylistVisibility}
-            />
-          ) : null}
-          {isOwner ? (
-            <>
-              <IoTrashOutline
-                className="text-lg md:text-2xl text-white top-10 right-4 cursor-pointer"
-                onClick={handleDeletePlaylist}
-              />
-              <FaEdit
-                className="text-lg md:text-2xl text-white -top-1 left-2 cursor-pointer"
-                onClick={handleOpenEditPlaylist}
-              />
-            </>
+          {isFollowed ? (
+            <AiFillHeart className="text-white text-2xl cursor-pointer" />
+          ) : hovered ? (
+            <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
           ) : null}
         </div>
+        <div className="h-6">
+          <div
+            className={`w-full flex h-full items-center justify-around ${!hovered && "hidden"
+              }`}
+          >
+            {isOwner && isPrivate ? (
+              <MdOutlinePublic
+                className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
+                onClick={handleTogglePlaylistVisibility}
+              />
+            ) : isOwner && !isPrivate ? (
+              <MdOutlinePublicOff
+                className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
+                onClick={handleTogglePlaylistVisibility}
+              />
+            ) : null}
+            {isOwner ? (
+              <>
+                <IoTrashOutline
+                  className="text-lg md:text-2xl text-white top-10 right-4 cursor-pointer"
+                  onClick={handleDeletePlaylist}
+                />
+                <FaEdit
+                  className="text-lg md:text-2xl text-white -top-1 left-2 cursor-pointer"
+                  onClick={handleOpenEditPlaylist}
+                />
+              </>
+            ) : null}
+          </div>
+        </div>
+        {isOwner && (
+          <img src={profilePhoto} className="h-10 w-10 absolute top-2 right-4  rounded-full" />
+        )}
       </div>
-      {isOwner && (
-        <img src={profilePhoto} className="h-10 w-10 absolute top-2 right-4  rounded-full" />
-      )}
-    </div>
+      {isLoading && <ProfileLoader modal={true} text="Deleting playlist..." />}
+    </>
   );
 };

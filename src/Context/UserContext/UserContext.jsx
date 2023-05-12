@@ -120,6 +120,7 @@ export const UserProvider = ({ children }) => {
       });
       dispatch({ type: types.deletePlaylist, payload: filteredPlaylists });
     }
+    return res;
   };
 
   const updateUsername = async (newUsername, userId) => {
