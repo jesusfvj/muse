@@ -2,11 +2,10 @@ import React, { useRef, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
+import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import { Button } from "../Button";
 import { useUser } from "../../Context/UserContext/UserContext";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
+import { useUI } from "../../Context/UI/UIContext";
 
 export const BasePlaylistModal = (
     {
@@ -19,6 +18,8 @@ export const BasePlaylistModal = (
         setPreviewImg,
         type
     }) => {
+    const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
+    const [isLoading, setIsLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const inputRef = useRef();
@@ -42,20 +43,22 @@ export const BasePlaylistModal = (
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         if (previewImg !== null && playlistData.name !== "") {
+            setIsLoading(true)
             const formData = new FormData();
             formData.set(`imagePlaylistFile`, imageFile)
             formData.set(`imagePlaylistData`, JSON.stringify(playlistData))
             const response = await createSinglePlaylist(formData, _id);
+            setIsLoading(false)
             if (response.ok) {
-                toastMessageSuccess("Playlist successfuly submited.");
+                setMessageSuccessToaster("Playlist successfuly submited.");
                 setTimeout(() => {
                     handleToggleCreatePlaylistModal();
                 }, 1500);
             } else {
-                toastMessageError("Something went wrong. Please try again.")
+                setMessageErrorToaster("Something went wrong. Please try again.")
             }
         } else {
-            toastMessageError("Please choose a name and an image for the playlist.")
+            setMessageErrorToaster("Please choose a name and an image for the playlist.")
         }
     };
 
@@ -193,7 +196,7 @@ export const BasePlaylistModal = (
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {isLoading && <ProfileLoader modal={true} text="Creating playlist..." />}
         </div>
     );
 };

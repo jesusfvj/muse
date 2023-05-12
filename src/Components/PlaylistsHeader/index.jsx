@@ -10,18 +10,33 @@ import { useQuery } from "@tanstack/react-query";
 
 export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
   const [newName, setNewName] = useState("")
-  const [hoverMsg, sethoverMsg] = useState(0)
+  const [hoverMsgAppear, sethoverMsgAppear] = useState(0)
+  const [hoverMsg, sethoverMsg] = useState("")
+  const [hoverMsgError, sethoverMsgError] = useState("")
+
   const {
-    user: { _id },
+    user: { _id},
   } = useUser();
 
   const duplicateplaylistbutton = async () => {
-    const res = await duplicatePlaylist(_id, playlistId)
-    sethoverMsg(1)
-    setTimeout(() => {
-      sethoverMsg(0)
-    }, 3000);
-    console.log(res);
+    try {
+      const res = await duplicatePlaylist(_id, playlistId)
+      sethoverMsg(res.msg)
+      sethoverMsgAppear(1)
+      sethoverMsgError("")
+      setTimeout(() => {
+        sethoverMsgAppear(0)
+      }, 3000)
+
+    } catch (error) {
+      sethoverMsg(error.response.data.msg);
+      sethoverMsgAppear(1);
+      sethoverMsgError("border-2 border-red-600")
+      setTimeout(() => {
+        sethoverMsgAppear(0);
+        sethoverMsgError("")
+      }, 3000);
+    }
   }
   return (
     <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
@@ -38,7 +53,7 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
         />
       </div>
       {/* <div className={`bg-cover bg-[url('${thumbnail}')] w-full h-full`}></div> */}
-      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
+      <div className="bg-gradient-to-b  from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
       <div className="flex w-screen h-34 pl-[9.5vw] gap-3 items-center">
         <div className="flex relative">
           <div className="w-[3rem] h-[3rem] xs:w-[3.6rem] xs:h-[3.6rem] md:w-[4.5rem] md:h-[4.5rem]">
@@ -67,13 +82,14 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
             icon={<MdControlPointDuplicate size={40} />}
             margin=""
           />
+          
           <div className="group-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-10 mb-2">
             <p>Duplicate playlist</p>
           </div>
-          {hoverMsg == 1 ? <div className="absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2">
-            <p>The playlist "{name} copy" have been duplicated!</p>
+          {hoverMsgAppear == 1 ? <div className={`absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2 ${hoverMsgError}`}>
+            <p>{hoverMsg}</p>
           </div> : null}
-        
+
         </div>
 
       </div>

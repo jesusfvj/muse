@@ -121,3 +121,18 @@ export const getAlbumById = async (id) => {
       return [];
     }
 };
+
+export const likeTracks = async (
+  loggedUserId,
+  trackId,
+  isAdded) => {
+  const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`,{loggedUserId,trackId,isAdded});
+  //   throw new Error();
+
+  if (res.data.ok) {
+    return res.data.albums;
+  } else {
+    return [];
+  }
+};
+

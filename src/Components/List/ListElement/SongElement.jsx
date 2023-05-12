@@ -1,25 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { useUI } from "../../../Context/UI/UIContext";
+import { useUser } from "../../../Context/UserContext/UserContext";
+import { likeTracks } from "../../../API/MusicApi/MusicApi";
 
 export const SongElement = ({ object }) => {
+  const { user: { _id } } = useUser()
   const { handleToggleSongModal } = useUI();
-  const { name, artist, thumbnailUrl, _id } = object;
-  const [clicked, setClicked] = useState(false);
+  const { name, artist, thumbnailUrl, _id: songId, followedBy } = object;
+  const [clicked, setClicked] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
-
+  // console.log(songId);
   const handleOpenDropdown = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setIsDropdownActive(true);
   };
-
+// console.log(object);
   const handleMouseLeave = () => {
     setHovered(false);
     setIsDropdownActive(false);
@@ -29,10 +32,14 @@ export const SongElement = ({ object }) => {
     console.log(clicked);
     if (!buttonDisabled) {
       setClicked(!clicked);
-
+      setTimeout(() => {
+        console.log(_id);
+        console.log(songId);
+        console.log(!clicked);
+        likeTracks(_id, [songId], !clicked)
+      }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
         setButtonDisabled(false);
       }, 1500);
     }
@@ -66,7 +73,7 @@ export const SongElement = ({ object }) => {
           />
         <img
           src={thumbnailUrl}
-          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] m-4 pointer-events-none object-cover"
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] mx-auto my-4 pointer-events-none object-cover"
         />
         </Link>
       </div>
