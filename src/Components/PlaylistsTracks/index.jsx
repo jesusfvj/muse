@@ -41,16 +41,10 @@ export const PlaylistsTracks = ({
       navigate("/main");
     }, 1000);
   };
-
+console.log(songs.map(song=>song.followedBy));
   return (
     <div className={`flex flex-col ${styles}`}>
       <div className="flex items-center justify-end m-4 gap-4">
-        <Typography
-          text={!isFollowed ? <AiOutlineHeart /> : <AiFillHeart />}
-          color="white"
-          type="big"
-          //handleaddtofavorites
-        />
         {isOwner && (
           <div className="flex gap-4 w-full md:w-1/2">
             <Button
@@ -64,18 +58,19 @@ export const PlaylistsTracks = ({
         )}
       </div>
       {songs.length ? (
-        songs.map((songs, idx) => {
-          const { id, name, duration, artist } = songs;
+        songs.map((song, idx) => {
+          const { name, duration, artist, followedBy } = song;
           return (
             <PlaylistsElements
               key={`${name}-${idx}`}
               activeDropdown={activeDropdown}
               handleToggleDropdown={handleToggleDropdown}
-              id={id}
+              id={song._id}
               artist={artist}
               nombre={name}
               duration={duration}
               idx={idx}
+              followedBy={followedBy}
             />
           );
         })

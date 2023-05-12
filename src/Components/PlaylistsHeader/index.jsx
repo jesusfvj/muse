@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import { AiFillCaretRight } from "react-icons/ai";
+import { AiFillCaretRight, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiShuffleFill } from "react-icons/ri";
 import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
 import { MdControlPointDuplicate } from "react-icons/md"
-import { duplicatePlaylist } from "../../API/MusicApi/MusicApi";
+import { duplicatePlaylist, toggleFollowPlaylist } from "../../API/MusicApi/MusicApi";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { useQuery } from "@tanstack/react-query";
 
-export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
-  const [newName, setNewName] = useState("")
+export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => {
+  const {
+    user: { _id },
+  } = useUser();
+  const [clicked, setClicked] = useState(followedBy.includes(_id))
+  const [buttonDisabled, setButtonDisabled] = useState(false)
   const [hoverMsgAppear, sethoverMsgAppear] = useState(0)
   const [hoverMsg, sethoverMsg] = useState("")
   const [hoverMsgError, sethoverMsgError] = useState("")
 
-  const {
-    user: { _id},
-  } = useUser();
 
   const duplicateplaylistbutton = async () => {
     try {
@@ -38,6 +39,22 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
       }, 3000);
     }
   }
+  const likedClicked = async () => {
+    console.log(clicked);
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+      setTimeout(() => {
+        console.log(_id);
+        console.log(playlistId);
+        console.log(!clicked);
+       toggleFollowPlaylist(_id, [playlistId], !clicked)
+      }, 300);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   return (
     <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
       <div className="w-full h-full relative overflow-hidden">
@@ -54,7 +71,7 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
       </div>
       {/* <div className={`bg-cover bg-[url('${thumbnail}')] w-full h-full`}></div> */}
       <div className="bg-gradient-to-b  from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
-      <div className="flex w-screen h-34 pl-[9.5vw] gap-3 items-center">
+      <div className="flex w-screen h-34 pl-[9.5vw] gap-5 items-center">
         <div className="flex relative">
           <div className="w-[3rem] h-[3rem] xs:w-[3.6rem] xs:h-[3.6rem] md:w-[4.5rem] md:h-[4.5rem]">
             <RoundButton
@@ -82,7 +99,7 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
             icon={<MdControlPointDuplicate size={40} />}
             margin=""
           />
-          
+
           <div className="group-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-10 mb-2">
             <p>Duplicate playlist</p>
           </div>
@@ -90,6 +107,13 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId }) => {
             <p>{hoverMsg}</p>
           </div> : null}
 
+        </div>
+        <div className="flex w-[4rem] h-[4rem] items-center cursor-pointer" onClick={likedClicked}>
+          <Typography
+            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+            color="white"
+            type="important"
+          />
         </div>
 
       </div>

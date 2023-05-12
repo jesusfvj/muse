@@ -137,9 +137,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
         onClick={handleAddToFavorites}
       >
-        {isFollowed ? (
+        {isFollowed && !isOwner ? (
           <AiFillHeart className="text-white text-2xl cursor-pointer" />
-        ) : hovered ? (
+        ) : hovered && !isOwner ? (
           <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
         ) : null}
       </div>
