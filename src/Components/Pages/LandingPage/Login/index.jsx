@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
@@ -51,6 +52,11 @@ export const Login = ({ changeLogRegister }) => {
           value={loginData.password}
           onInputChange={handleLoginInputChange}
         />
+        <div className="flex gap-4 items-center">
+          <p className="cursor-pointer self-end text-white">
+            <Link to="/resetpassword">Forgot Your password?</Link>
+          </p>
+        </div>
         <div className="flex gap-4 items-center">
           <input
             name="rememberEmail"

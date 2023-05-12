@@ -20,6 +20,7 @@ function Router() {
       <ScrollTop />
       <Routes>
         <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+        <Route path="/resetpassword" element={<PublicRoute><ResetPassword /></PublicRoute>} />
         <Route path="/*" element={
           <ProtectedRoutes>
             <Routes>
@@ -41,7 +42,6 @@ function Router() {
                 <Route path=":query" element={<Search />} />
               </Route>
               <Route path="/mylibrary" element={<MyLibrary />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
             </Routes>
           </ProtectedRoutes>
         }
