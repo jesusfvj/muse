@@ -14,7 +14,7 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
 
   return (
     <BasePlaylistModal
-      handleToggleCreatePlaylistModal={handleToggleCreatePlaylistModal}
+      handleToggleModal={handleToggleCreatePlaylistModal}
       imageFile={imageFile}
       setImageFile={setImageFile}
       playlistData={playlistData}

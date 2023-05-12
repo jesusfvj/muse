@@ -27,9 +27,12 @@ export const getSongById = async (id) => {
   }
 };
 
-/////PLAYLISTS FETCH
-/////PLAYLISTS FETCH
-/////PLAYLISTS FETCH
+export const uploadSongsAPI = async (filesFormData, userId) => {
+  const response = await axios.post(`${BASE_URL_TRACKS}/uploadNewSongs/${userId}`, filesFormData);
+  /* const okData = checkTokenExpired(response);
+  return okData && data; */
+  return response;
+}
 
 export const getPlaylists = async () => {
   const res = await axios.get(BASE_URL);
@@ -53,6 +56,12 @@ export const createPlaylist = async (formData, userId) => {
   const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
   return res.data;
 };
+
+export const updatePlaylistForm = async (formData, playlistId) => {
+  const res = await axios.put(`${BASE_URL}/update/${playlistId}`, formData);
+  return res.data;
+};
+
 
 export const togglePlaylistIsPrivate = async (
   loggedUserId,

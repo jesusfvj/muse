@@ -7,7 +7,6 @@ import {
   loginUser,
   registerUser,
   updateProfileImageAPI,
-  updatePlaylistForm,
   handleToggleFollowingAlbum,
   getUserById,
 } from "../../API/UserApi/UserApi";
@@ -17,6 +16,7 @@ import {
   createPlaylist,
   deletePlaylist,
   togglePlaylistIsPrivate,
+  updatePlaylistForm,
 } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
@@ -105,7 +105,6 @@ export const UserProvider = ({ children }) => {
         return playlist;
       }
     });
-
     if (res) {
       dispatch({
         type: types.togglePlaylistVisibility,
@@ -126,6 +125,7 @@ export const UserProvider = ({ children }) => {
       });
       dispatch({ type: types.deletePlaylist, payload: filteredPlaylists });
     }
+    return res;
   };
 
   const updateUsername = async (newUsername, userId) => {
@@ -138,7 +138,6 @@ export const UserProvider = ({ children }) => {
 
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
-
     if (data.ok) {
       dispatch({
         type: types.updateUserProfileImage,
@@ -148,13 +147,10 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
-  const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
-    const data = await updatePlaylistForm(newNamePlaylist, playlistId);
-
+  const updatePlaylist = async (formData, playlistId) => {
+    const data = await updatePlaylistForm(formData, playlistId)
     if (data.ok) {
-      dispatch({ type: types.updateNamePlaylist, payload: data.newName });
-    } else {
-      console.log("This name can not be changed");
+      dispatch({ type: types.updatePlaylist, payload: data.newName });
     }
     return data;
   };
@@ -199,7 +195,7 @@ export const UserProvider = ({ children }) => {
         togglePlaylistVisibility,
         deleteSinglePlaylist,
         updateProfileImage,
-        updateNamePlaylist,
+        updatePlaylist,
         toggleFollowAlbum,
         userProfile,
         isProfileLoading,
