@@ -81,6 +81,11 @@ export const userReducer = (state = {}, action) => {
         ...state,
         user: {...state.user, profilePhoto: action.payload}
       }
+    case types.toggleFollowAlbum:
+      return {
+        ...state,
+        user: {...state.user, albums: action.payload}
+      }
     default:
       state;
   };

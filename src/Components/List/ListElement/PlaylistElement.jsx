@@ -18,7 +18,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     togglePlaylistVisibility,
     deleteSinglePlaylist,
   } = useUser();
-  const { name, thumbnail, _id, isPrivate, user } = object;
+  const { name, thumbnail, _id, isPrivate, user, color } = object;
 
   const [isFollowed, setIsFollowed] = useState(
     object.followedBy.includes(userId)
@@ -28,20 +28,6 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   const navigate = useNavigate();
 
   const isOwner = userId === user;
-
-  const colors = {
-    bg1: "bg-green-500",
-    bg2: "bg-blue-500",
-    bg3: "bg-purple-500",
-    bg4: "bg-pink-500",
-    bg5: "bg-red-500",
-    bg6: "bg-yellow-500",
-    bg7: "bg-orange-500",
-  };
-  function getRandomNumber() {
-    return Math.floor(Math.random() * 7) + 1;
-  }
-  const randomColor = useMemo(() => colors[`bg${getRandomNumber()}`], []);
 
   const handleNavigate = () => {
     if (!isSwipping) {
@@ -64,7 +50,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
   const handleAddToFavorites = async () => {
     if (!buttonDisabled) {
-      const res = await toggleFollowPlaylist(userId, _id, !isFollowed);
+      await toggleFollowPlaylist(userId, _id, !isFollowed);
       setIsFollowed(!isFollowed);
       setButtonDisabled(true);
       setTimeout(() => {
@@ -94,8 +80,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
       onContextMenu={handleOpenDropdown}
     >
       <div
-        className={`relative flex my-4 ${randomColor} shadow-md overflow-hidden select-none m-2 cursor-pointer`}
+        className={`relative flex my-4 shadow-md overflow-hidden select-none m-2 cursor-pointer`}
         onClick={handleNavigate}
+        style={{background: `linear-gradient(0deg, ${color} 20%, transparent 100%)`}}
       >
         <div
           className={

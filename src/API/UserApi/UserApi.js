@@ -7,7 +7,6 @@ export const registerUser = async (user) => {
   return res.data;
 };
 
-
 export const loginUser = async (user) => {
   const res = await axios.post(`${BASE_URL}/login`, user);
   return res.data;
@@ -47,15 +46,15 @@ export const changeUsername = async (newUsername, userId) => {
       userId: userId,
     }),
   })
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    return data;
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
   return data;
 };
 export const getFollowedUsers = async (id) => {
@@ -67,10 +66,9 @@ export const getFollowedUsers = async (id) => {
   }
 };
 
-
 export const getArtistById = async (id) => {
   const res = await axios.get(`${BASE_URL}/artist/${id}`);
-  
+
   //   throw new Error();
   if (res.data.ok) {
     return res.data.artist;
@@ -84,7 +82,7 @@ export const handleAddToPlaylist = async (playlistId, trackId) => {
     playlistId,
     trackId,
   });
-  console.log(res.data)
+  console.log(res.data);
 
   //   throw new Error();
   if (res.data.ok) {
@@ -95,13 +93,17 @@ export const handleAddToPlaylist = async (playlistId, trackId) => {
 };
 
 export const updateProfileImageAPI = async (formData, userId) => {
-  const res = await axios.put(`${BASE_URL}/uploadProfileImage/${userId}`, formData);
+  const res = await axios.put(
+    `${BASE_URL}/uploadProfileImage/${userId}`,
+    formData
+  );
   return res.data;
 };
 
-  export const updatePlaylistForm = async (newNamePlaylist, playlistId) => {
-  
-    const data = await fetch(`http://localhost:4000/playlist/update/${playlistId}`, {
+export const updatePlaylistForm = async (newNamePlaylist, playlistId) => {
+  const data = await fetch(
+    `http://localhost:4000/playlist/update/${playlistId}`,
+    {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -110,16 +112,34 @@ export const updateProfileImageAPI = async (formData, userId) => {
         namePlaylist: newNamePlaylist,
         playlistId: playlistId,
       }),
+    }
+  )
+    .then((response) => {
+      return response.json();
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-    return data;
-  };
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  return data;
+};
 
+export const handleToggleFollowingAlbum = async (
+  albumId,
+  userId,
+  isFollowed
+) => {
+  const res = await axios.put(`${BASE_URL}/toggleFollowPlaylist`, {
+    albumId,
+    userId,
+    isFollowed,
+  });
+
+  if (res.data.ok) {
+    return res.data.ok;
+  } else {
+    return false;
+  }
+};
