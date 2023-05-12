@@ -151,12 +151,9 @@ export const UserProvider = ({ children }) => {
   const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
     const data = await updatePlaylistForm(newNamePlaylist, playlistId);
 
-    const data = await updatePlaylistForm(newNamePlaylist, playlistId);
-
     if (data.ok) {
       dispatch({ type: types.updateNamePlaylist, payload: data.newName });
     } else {
-      console.log("This name can not be changed");
       console.log("This name can not be changed");
     }
     return data;
@@ -177,8 +174,6 @@ export const UserProvider = ({ children }) => {
       console.log("Something went wrong...");
     }
   };
-  const toggleFollowAlbum = async (albumId, userId, isFollowed, album) => {
-    const res = await handleToggleFollowingAlbum(albumId, userId, !isFollowed);
 
    const getUserProfile = async (id) => {
     const data = await getUserById(id);
@@ -187,18 +182,6 @@ export const UserProvider = ({ children }) => {
       setIsProfileLoading(false);
     } else {
       setIsProfileLoading(false);
-    }
-  };
-    if (res && !isFollowed) {
-      const followedAlbums = userState.user.albums.push(album);
-      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
-    } else if (res) {
-      const followedAlbums = userState.user.albums.filter(
-        (album) => album.id !== albumId
-      );
-      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
-    } else {
-      console.log("Something went wrong...");
     }
   };
 
@@ -221,7 +204,6 @@ export const UserProvider = ({ children }) => {
         userProfile,
         isProfileLoading,
         getUserProfile
-        toggleFollowAlbum,
       }}
     >
       {children}
