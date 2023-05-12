@@ -62,7 +62,7 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
-    case types.updateNamePlaylist: {
+    case types.updatePlaylist: {
       return {
         ...state,
         user: {

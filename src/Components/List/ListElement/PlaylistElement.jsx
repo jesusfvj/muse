@@ -64,8 +64,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     togglePlaylistVisibility(userId, _id, isPrivate);
   };
 
-  const handleDeletePlaylist = () => {
-    deleteSinglePlaylist(userId, _id);
+  const handleDeletePlaylist = async () => {
+console.log("hola")
+   /*  const response = await deleteSinglePlaylist(userId, _id); */
   };
 
   const handleOpenEditPlaylist = () => {

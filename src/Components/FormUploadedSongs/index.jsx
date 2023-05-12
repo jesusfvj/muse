@@ -4,7 +4,7 @@ import { FormUploadedSongsComponent } from "../FormUploadedSongsComponent"
 import { InputWithLabel } from "../InputWithLabel"
 import { Typography } from "../Typography"
 import { useUser } from "../../Context/UserContext/UserContext";
-import { uploadSongsAPI } from "../../API/SongsUpload/index";
+import { uploadSongsAPI } from "../../API/MusicApi/MusicApi";
 import { checkForEmptyImageFiles, organizeAndSetDataForm } from "../../Utils/uploadSongsFunctions"
 import { ProfileLoader } from "../Pages/Profile/ProfileLoader"
 import { useUI } from "../../Context/UI/UIContext"
