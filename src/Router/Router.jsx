@@ -12,6 +12,7 @@ import { MainPage } from "../Pages/MainPage";
 import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import PublicRoute from "../PublicRoute";
+import { ResetPassword } from "../Pages/ResetPassword";
 
 function Router() {
   return (
@@ -40,6 +41,7 @@ function Router() {
                 <Route path=":query" element={<Search />} />
               </Route>
               <Route path="/mylibrary" element={<MyLibrary />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
             </Routes>
           </ProtectedRoutes>
         }

@@ -12,6 +12,7 @@ import { UploadSongsModal } from "../UploadSongsModal";
 import { useState } from "react";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
 import { Button } from "../Button";
+import { useLocation } from "react-router-dom";
 
 const navItems = [
   { path: "/main", text: "Home", icon: <FaHome /> },
@@ -29,16 +30,16 @@ export const Navbar = () => {
   } = useUI();
   const { logout, user } = useUser();
   const [showUploadSongsModal, setShowUploadSongsModal] = useState(false);
-
+  
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
-
+  
   const uploadSongs = () => {
     setShowUploadSongsModal(true);
     setIsNavOpen(!isNavOpen);
   };
-
+  
   const handleLogout = () => {
     logout();
   };
@@ -46,11 +47,10 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`bg-black/[97.5%] h-full md:pt-12 fixed  ${
-          isNavOpen
+        className={`bg-black/[97.5%] h-full md:pt-12 fixed  ${isNavOpen
             ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50 duration-300"
             : "w-0 md:pt-24"
-        } `}
+          } `}
       >
         {isNavOpen && (
           <IoClose
@@ -79,13 +79,13 @@ export const Navbar = () => {
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"
                 onClick={handleToggleCreatePlaylistModal}
               >
-                <Typography text="Create Playlist" styles="truncate"/>
+                <Typography text="Create Playlist" styles="truncate" />
               </div>
               <div
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"
                 onClick={uploadSongs}
               >
-                <Typography text="Upload Songs" styles="truncate"/>
+                <Typography text="Upload Songs" styles="truncate" />
               </div>
               <div
                 className="cursor-pointer border duration-200 hover:bg-gray-100/10 hover:border-transparent border-gray-400 p-3 rounded-md flex items-center justify-center w-full sm:w-1/4 md:w-full"

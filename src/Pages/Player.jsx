@@ -9,6 +9,7 @@ import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
 
 export const Player = () => {
+
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [track, setTrack] = useState(null);
