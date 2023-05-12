@@ -11,4 +11,5 @@ export const types = {
     togglePlaylistVisibility: "TOGGLE_PLAYLIST_VISIBILITY",
     deletePlaylist: "DELETE_PLAYLIST",
     changeCurrentTrack: "CHANGE_CURRENT_TRACK",
+    toggleFollowAlbum: "FOLLOW_UNFOLLOW_ALBUM"
 };

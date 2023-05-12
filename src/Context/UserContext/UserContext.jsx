@@ -7,6 +7,7 @@ import {
   loginUser,
   registerUser,
   updateProfileImageAPI,
+  handleToggleFollowingAlbum,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -144,11 +145,26 @@ export const UserProvider = ({ children }) => {
 
   const updatePlaylist = async (formData, playlistId) => {
     const data = await updatePlaylistForm(formData, playlistId)
-    console.log(data)
     if (data.ok) {
       dispatch({ type: types.updatePlaylist, payload: data.newName });
     }
     return data;
+  };
+
+  const toggleFollowAlbum = async (albumId, userId, isFollowed, album) => {
+    const res = await handleToggleFollowingAlbum(albumId, userId, !isFollowed);
+
+    if (res && !isFollowed) {
+      const followedAlbums = userState.user.albums.push(album);
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else if (res) {
+      const followedAlbums = userState.user.albums.filter(
+        (album) => album.id !== albumId
+      );
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else {
+      console.log("Something went wrong...");
+    }
   };
 
   return (
@@ -166,6 +182,7 @@ export const UserProvider = ({ children }) => {
         deleteSinglePlaylist,
         updateProfileImage,
         updatePlaylist,
+        toggleFollowAlbum,
       }}
     >
       {children}
