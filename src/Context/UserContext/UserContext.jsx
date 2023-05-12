@@ -8,6 +8,7 @@ import {
   registerUser,
   updateProfileImageAPI,
   updatePlaylistForm,
+  handleToggleFollowingAlbum,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
@@ -109,7 +110,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-
   const addToPlaylist = async (playlistId, trackId) => {
     await handleAddToPlaylist(playlistId, trackId);
   };
@@ -132,8 +132,6 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
- 
-
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
 
@@ -147,17 +145,31 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
-    const data = await updatePlaylistForm(newNamePlaylist, playlistId)
-    console.log(data)
+    const data = await updatePlaylistForm(newNamePlaylist, playlistId);
+
     if (data.ok) {
       dispatch({ type: types.updateNamePlaylist, payload: data.newName });
     } else {
-      console.log('This name can not be changed')
+      console.log("This name can not be changed");
     }
     return data;
   };
 
+  const toggleFollowAlbum = async (albumId, userId, isFollowed, album) => {
+    const res = await handleToggleFollowingAlbum(albumId, userId, !isFollowed);
 
+    if (res && !isFollowed) {
+      const followedAlbums = userState.user.albums.push(album);
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else if (res) {
+      const followedAlbums = userState.user.albums.filter(
+        (album) => album.id !== albumId
+      );
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else {
+      console.log("Something went wrong...");
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -174,6 +186,7 @@ export const UserProvider = ({ children }) => {
         deleteSinglePlaylist,
         updateProfileImage,
         updateNamePlaylist,
+        toggleFollowAlbum,
       }}
     >
       {children}

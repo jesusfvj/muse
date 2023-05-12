@@ -3,13 +3,18 @@ import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const AlbumElement = ({ object }) => {
-  const [clicked, setClicked] = useState(false);
+  const {
+    toggleFollowAlbum,
+    user: { _id: userId },
+  } = useUser();
+  const { name, thumbnailUrl, artist, _id, followedBy } = object;
+
+  const [isFollowed, setIsFollowed] = useState(followedBy.includes(userId));
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const { name, thumbnailUrl, artist, _id } = object;
 
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
@@ -23,14 +28,12 @@ export const AlbumElement = ({ object }) => {
     setHovered(false);
     setIsDropdownActive(false);
   };
-  const likedClicked = () => {
-    console.log(clicked);
+  const toggleFollowing = () => {
     if (!buttonDisabled) {
-      setClicked(!clicked);
-
+      setIsFollowed(!isFollowed);
+      toggleFollowAlbum(_id, userId, isFollowed, object);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
         setButtonDisabled(false);
       }, 1500);
     }
@@ -70,11 +73,13 @@ export const AlbumElement = ({ object }) => {
       </div>
       <div
         className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
-        onClick={likedClicked}
+        onClick={toggleFollowing}
       >
         <Typography
-          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
-          color={clicked ? "white" : "secondary"}
+          text={
+            isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+          }
+          color={isFollowed ? "white" : "secondary"}
           styles="hidden xs:flex scale-[2]"
         />
       </div>
