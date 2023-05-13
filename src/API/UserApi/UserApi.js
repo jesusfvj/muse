@@ -123,3 +123,11 @@ export const updateProfileImageAPI = async (formData, userId) => {
     return data;
   };
 
+  export const sendEmail = async (email) => {
+    const res = await axios.post(`${BASE_URL}/resetpassword`, {
+      email,
+    });
+    
+  };
+  
+ 

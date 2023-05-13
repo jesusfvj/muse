@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { sendEmail } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
@@ -8,10 +9,13 @@ export const Login = ({ changeLogRegister }) => {
   const navigate = useNavigate();
   const { login } = useUser();
   const [rememberEmail, setRememberEmail] = useState(false);
+  const [isResetPassword, setIsResetPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("rememberEmail");
@@ -33,6 +37,17 @@ export const Login = ({ changeLogRegister }) => {
     login(loginData);
     navigate("/main");
   };
+  const handleToggleResetPasswordModal = (e) => {
+    setIsResetPassword(!isResetPassword);
+  }
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  }
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+    sendEmail(email);
+  }
+
 
   return (
     <div className="flex flex-col pt-[25vh] md:pt-32 md:mt-0 md:justify-center h-full w-full 2xl:w-1/4 xl:w-5/12 lg:w-2/5 md:w-2/3 md:ml-24 px-8 gap-8 ">
@@ -52,10 +67,10 @@ export const Login = ({ changeLogRegister }) => {
           value={loginData.password}
           onInputChange={handleLoginInputChange}
         />
-        <div className="flex gap-4 items-center">
-          <p className="cursor-pointer self-end text-white">
-            <Link to="/resetpassword">Forgot Your password?</Link>
-          </p>
+        <div className="flex gap-4 items-center"
+          onClick={handleToggleResetPasswordModal}>
+          <Typography
+            text="Forgot Your password?" />
         </div>
         <div className="flex gap-4 items-center">
           <input
@@ -77,6 +92,26 @@ export const Login = ({ changeLogRegister }) => {
           Register
         </p>
       </div>
+      {isResetPassword ?
+        <div className="flex justify-center items-center absolute top-0 left-0 h-screen w-screen backdrop-blur-md"
+          onClick={handleToggleResetPasswordModal}
+        >
+          <div className="w-1/3 h-1/3 bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-md"
+            onClick={(e) => e.stopPropagation()}>
+            <form>
+              <input
+                type="email"
+                value={email}
+                onChange={handleChangeEmail}
+              />
+              <Button
+                text="Send Email"
+                onClick={handleSendEmail} />
+            </form>
+          </div>
+        </div>
+        : null
+      }
     </div>
   );
 };

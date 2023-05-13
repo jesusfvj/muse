@@ -69,12 +69,9 @@ export const Layout = ({ children }) => {
     setIsNavOpen(false);
   }, [location]);
 
-  const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/resetpassword";
-  const isContextMenuVisible = location.pathname !== "/" && location.pathname !== "/resetpassword";
-  const isNavVisible = location.pathname !== "/" && location.pathname !== "/resetpassword";
-  
-   
-
+  const isMusicPlayerVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword") ;
+  const isContextMenuVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword");
+  const isNavVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword");
 
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
