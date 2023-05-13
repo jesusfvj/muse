@@ -9,7 +9,10 @@ import { likeTracks } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
 
 export const SongElement = ({ object }) => {
-  const { user: { _id }, deleteSingleSong } = useUser()
+  const {
+    user: { _id },
+    deleteSingleSong,
+  } = useUser();
   const {
     setMessageSuccessToaster,
     setMessageErrorToaster,
@@ -37,14 +40,16 @@ export const SongElement = ({ object }) => {
   };
 
   const handleDeleteSong = async () => {
-    setLoadingMessage("Deleting song..." )
-    setIsLoading(true)
+    setLoadingMessage("Deleting song...");
+    setIsLoading(true);
     const response = await deleteSingleSong(_id, songId);
-    setIsLoading(false)
+    setIsLoading(false);
     if (response.ok) {
-      setMessageSuccessToaster("Song deleted successfully")
+      setMessageSuccessToaster("Song deleted successfully");
     } else {
-      setMessageErrorToaster("There was an error trying deleting the song. Please try again.")
+      setMessageErrorToaster(
+        "There was an error trying deleting the song. Please try again."
+      );
     }
   };
 
@@ -52,7 +57,7 @@ export const SongElement = ({ object }) => {
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-        likeTracks(_id, [songId], !clicked)
+        likeTracks(_id, [songId], !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
@@ -78,26 +83,30 @@ export const SongElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles="max-w-[200px] sm:leading-6 truncate text-ellipsis"
+            styles="max-w-[200px] sm:leading-6 truncate text-ellipsis hover:underline"
           />
+        </Link>
+        <Link to={`/artist/${artist._id}`} className="w-full px-3">
           <Typography
             text={artist?.fullName}
             type="p2"
             color="white"
             family="lato"
-            styles="truncate"
-          />
-          <img
-            src={thumbnailUrl}
-            className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] mx-auto my-4 pointer-events-none object-cover"
+            styles="truncate hover:underline"
           />
         </Link>
+        <img
+          src={thumbnailUrl}
+          className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] mx-auto my-4 pointer-events-none object-cover"
+        />
         <div
           className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
           onClick={likedClicked}
         >
           <Typography
-            text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
+            text={
+              clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+            }
             color={clicked ? "white" : "secondary"}
             styles="hidden xs:flex scale-[2]"
           />
@@ -116,7 +125,9 @@ export const SongElement = ({ object }) => {
       </div>
       <div className="h-6 w-full mt-4 ">
         <div
-          className={`w-full flex h-full items-center justify-around ${!hovered && "hidden"}`}
+          className={`w-full flex h-full items-center justify-around ${
+            !hovered && "hidden"
+          }`}
         >
           {isOwner ? (
             <>

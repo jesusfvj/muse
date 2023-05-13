@@ -48,17 +48,17 @@ export const ArtistElement = ({ object }) => {
           " bg-gradient-to-b from-[#080c28] to-[#0A4148] rounded-[0.5rem] flex flex-col  place-content-between items-center p-2  w-full h-full "
         }
       >
-        <Link to={`/artist/${_id}`} className="w-full mb-5 px-3 text-center">
         <img
           src={profilePhoto}
           className="sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem] w-[4rem] h-[4rem] rounded-full bg-cover bg-center bg-no-repeat lg:min-h-[8rem] mx-auto my-4 pointer-events-none select-none object-cover"
         />
+        <Link to={`/artist/${_id}`} className="w-full mb-5 px-3 text-center">
           <Typography
             text={fullName}
             type="p1"
             color="white"
             family="lato"
-            styles="sm:leading-6 line-clamp-2 text-ellipsis truncate"
+            styles="sm:leading-6 line-clamp-2 text-ellipsis hover:underline truncate"
           />
         </Link>
       </div>
