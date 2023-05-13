@@ -129,5 +129,13 @@ export const updateProfileImageAPI = async (formData, userId) => {
     });
     
   };
+  export const changePasswordData = async (token, newPassword, repeatNewPassword) => {
+    const res = await axios.post(`${BASE_URL}/resetpasswordchange`, {
+      token,
+      newPassword,
+      repeatNewPassword,
+    });
+    console.log(res)
+  };
   
  
