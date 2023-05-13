@@ -1,42 +1,63 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { FaPlay } from "react-icons/fa";
-import { BiEdit } from "react-icons/bi";
+import { FaEdit, FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { useUI } from "../../../Context/UI/UIContext";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { likeTracks } from "../../../API/MusicApi/MusicApi";
+import { IoTrashOutline } from "react-icons/io5";
 
 export const SongElement = ({ object }) => {
-  const { user: { _id } } = useUser()
-  const { handleToggleSongModal } = useUI();
+  const {
+    user: { _id },
+    deleteSingleSong,
+  } = useUser();
+  const {
+    setMessageSuccessToaster,
+    setMessageErrorToaster,
+    handleToggleSongModal,
+    setLoadingMessage,
+    setIsLoading,
+  } = useUI();
   const { name, artist, thumbnailUrl, _id: songId, followedBy } = object;
   const [clicked, setClicked] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
-  // console.log(songId);
+
+  const isOwner = _id === artist._id;
+
   const handleOpenDropdown = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setIsDropdownActive(true);
   };
-// console.log(object);
+
   const handleMouseLeave = () => {
     setHovered(false);
     setIsDropdownActive(false);
   };
 
+  const handleDeleteSong = async () => {
+    setLoadingMessage("Deleting song...");
+    setIsLoading(true);
+    const response = await deleteSingleSong(_id, songId);
+    setIsLoading(false);
+    if (response.ok) {
+      setMessageSuccessToaster("Song deleted successfully");
+    } else {
+      setMessageErrorToaster(
+        "There was an error trying deleting the song. Please try again."
+      );
+    }
+  };
+
   const likedClicked = () => {
-    console.log(clicked);
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-        console.log(_id);
-        console.log(songId);
-        console.log(!clicked);
-        likeTracks(_id, [songId], !clicked)
+        likeTracks(_id, [songId], !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
@@ -46,14 +67,14 @@ export const SongElement = ({ object }) => {
   };
   return (
     <div
-      className="relative flex my-4 mx-2 select-none shadow-md"
+      className="flex flex-col mt-4 mx-2 select-none"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleOpenDropdown}
     >
       <div
         className={
-          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full "
+          " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full shadow-md relative"
         }
       >
         <Link to={`/player/${_id}`} className="w-full mt-2 px-3 truncate">
@@ -62,53 +83,71 @@ export const SongElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles="max-w-[200px] sm:leading-6 truncate text-ellipsis"
+            styles="max-w-[200px] sm:leading-6 truncate text-ellipsis hover:underline"
           />
+        </Link>
+        <Link to={`/artist/${artist._id}`} className="w-full px-3">
           <Typography
             text={artist?.fullName}
             type="p2"
             color="white"
             family="lato"
-            styles="truncate"
+            styles="truncate hover:underline"
           />
+        </Link>
         <img
           src={thumbnailUrl}
           className="w-[8rem] h-[8rem] rounded-full min-h-[8rem] mx-auto my-4 pointer-events-none object-cover"
         />
-        </Link>
-      </div>
-      <div
-        className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
-        onClick={likedClicked}
-      >
-        <Typography
-          text={clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null}
-          color={clicked ? "white" : "secondary"}
-          styles="hidden xs:flex scale-[2]"
-        />
-      </div>
-      <div
-        className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
+        <div
+          className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
+          onClick={likedClicked}
+        >
+          <Typography
+            text={
+              clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+            }
+            color={clicked ? "white" : "secondary"}
+            styles="hidden xs:flex scale-[2]"
+          />
+        </div>
+        <div
+          className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
       ${hovered ? "flex animation-pop-glow" : "hidden"}`}
-      >
-        <RoundButton
-          color="gray"
-          background="gradient"
-          icon={<FaPlay />}
-          margin="pl-1"
-        />
+        >
+          <RoundButton
+            color="gray"
+            background="gradient"
+            icon={<FaPlay />}
+            margin="pl-1"
+          />
+        </div>
+      </div>
+      <div className="h-6 w-full mt-4 ">
+        <div
+          className={`w-full flex h-full items-center justify-around ${
+            !hovered && "hidden"
+          }`}
+        >
+          {isOwner ? (
+            <>
+              <IoTrashOutline
+                className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
+                onClick={handleDeleteSong}
+              />
+              <FaEdit
+                className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
+                onClick={() => handleToggleSongModal(object)}
+              />
+            </>
+          ) : null}
+        </div>
       </div>
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu track={object}/>
+        <DropDownMenu track={object} />
       </div>
-      {hovered && (
-        <BiEdit
-          className="text-white absolute top-2 right-2 z-40 cursor-pointer"
-          onClick={() => handleToggleSongModal(object)}
-        />
-      )}
     </div>
   );
 };

@@ -27,9 +27,12 @@ export const getSongById = async (id) => {
   }
 };
 
-/////PLAYLISTS FETCH
-/////PLAYLISTS FETCH
-/////PLAYLISTS FETCH
+export const uploadSongsAPI = async (filesFormData, userId) => {
+  const response = await axios.post(`${BASE_URL_TRACKS}/uploadNewSongs/${userId}`, filesFormData);
+  /* const okData = checkTokenExpired(response);
+  return okData && data; */
+  return response;
+}
 
 export const getPlaylists = async () => {
   const res = await axios.get(BASE_URL);
@@ -53,6 +56,34 @@ export const createPlaylist = async (formData, userId) => {
   const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
   return res.data;
 };
+
+export const updatePlaylistForm = async (formData, playlistId) => {
+  try {
+    const res = await axios.put(`${BASE_URL}/update/${playlistId}`, formData);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const updateAlbumForm = async (formData, albumId) => {
+  try {
+    const res = await axios.put(`${BASE_URL_ALBUMS}/update/${albumId}`, formData);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const updateSongForm = async (formData, songId) => {
+  try {
+    const res = await axios.put(`${BASE_URL_TRACKS}/update/${songId}`, formData);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 
 export const togglePlaylistIsPrivate = async (
   loggedUserId,
@@ -100,6 +131,30 @@ export const deletePlaylist = async (loggedUserId, playlistId) => {
   return res.data;
 };
 
+export const deleteAlbum = async (loggedUserId, albumId) => {
+  try {
+    const res = await axios.post(`${BASE_URL_ALBUMS}/delete`, {
+      loggedUserId,
+      albumId,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const deleteTrack = async (loggedUserId, trackId) => {
+  try {
+    const res = await axios.post(`${BASE_URL_TRACKS}/delete`, {
+      loggedUserId,
+      trackId,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 export const getAlbums = async () => {
   const res = await axios.get(BASE_URL_ALBUMS);
   //   throw new Error();
@@ -112,21 +167,25 @@ export const getAlbums = async () => {
 };
 
 export const getAlbumById = async (id) => {
-    const res = await axios.get(`${BASE_URL_ALBUMS}/${id}`);
-    //   throw new Error();
+  const res = await axios.get(`${BASE_URL_ALBUMS}/${id}`);
+  //   throw new Error();
 
-    if (res.data.ok) {
-      return res.data.album;
-    } else {
-      return [];
-    }
+  if (res.data.ok) {
+    return res.data.album;
+  } else {
+    return [];
+  }
 };
 
 export const likeTracks = async (
   loggedUserId,
   trackId,
   isAdded) => {
-  const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`,{loggedUserId,trackId,isAdded});
+  const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`, {
+    loggedUserId,
+    trackId,
+    isAdded
+  });
   //   throw new Error();
 
   if (res.data.ok) {
@@ -135,4 +194,3 @@ export const likeTracks = async (
     return [];
   }
 };
-

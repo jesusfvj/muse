@@ -12,15 +12,23 @@ export const CreatePlaylistModal = ({ handleToggleCreatePlaylistModal }) => {
 
   const [previewImg, setPreviewImg] = useState(null);
 
+  const stringObject = {
+    successfulMessage: "Playlist successfuly submitted.",
+    loadingMessage: "Uploading playlist....",
+    buttonText: "Create new playlist",
+    headerInputText: "Name of the playlist",
+  }
+
   return (
     <BasePlaylistModal
-      handleToggleCreatePlaylistModal={handleToggleCreatePlaylistModal}
+      handleToggleModal={handleToggleCreatePlaylistModal}
       imageFile={imageFile}
       setImageFile={setImageFile}
       playlistData={playlistData}
       setPlaylistData={setPlaylistData}
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
+      stringObject={stringObject}
       type="CREATE_PLAYLIST"
     />
   )

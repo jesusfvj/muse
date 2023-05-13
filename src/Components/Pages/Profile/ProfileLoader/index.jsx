@@ -15,5 +15,3 @@ export const ProfileLoader = ({modal = false, text = ""}) => {
     </div>
   );
 };
-
-/* from-[#4A4A4A] to-[#373f3f] */

@@ -1,4 +1,4 @@
-import { useEffect, createContext, useReducer } from "react";
+import { useEffect, createContext, useReducer, useState } from "react";
 import { useContext } from "react";
 import {
   changeUsername,
@@ -7,14 +7,20 @@ import {
   loginUser,
   registerUser,
   updateProfileImageAPI,
-  updatePlaylistForm,
+  handleToggleFollowingAlbum,
+  getUserById,
 } from "../../API/UserApi/UserApi";
 import { types } from "../Types/types";
 import { userReducer } from "./UserReducer";
 import {
   createPlaylist,
   deletePlaylist,
+  deleteTrack,
   togglePlaylistIsPrivate,
+  updatePlaylistForm,
+  updateSongForm,
+  deleteAlbum,
+  updateAlbumForm,
 } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
@@ -33,6 +39,9 @@ const init = () => {
 
 export const UserProvider = ({ children }) => {
   const [userState, dispatch] = useReducer(userReducer, {}, init);
+
+  const [userProfile, setUserProfile] = useState(null);
+  const [isProfileLoading, setIsProfileLoading] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(userState.user));
@@ -100,7 +109,6 @@ export const UserProvider = ({ children }) => {
         return playlist;
       }
     });
-
     if (res) {
       dispatch({
         type: types.togglePlaylistVisibility,
@@ -108,7 +116,6 @@ export const UserProvider = ({ children }) => {
       });
     }
   };
-
 
   const addToPlaylist = async (playlistId, trackId) => {
     await handleAddToPlaylist(playlistId, trackId);
@@ -122,6 +129,29 @@ export const UserProvider = ({ children }) => {
       });
       dispatch({ type: types.deletePlaylist, payload: filteredPlaylists });
     }
+    return res;
+  };
+
+  const deleteSingleSong = async (loggedUserId, trackId) => {
+    const res = await deleteTrack(loggedUserId, trackId);
+    if (res.ok) {
+      const filteredTracks = userState.user.tracks.filter((track) => {
+        return track._id !== trackId;
+      });
+      dispatch({ type: types.deleteTrack, payload: filteredTracks });
+    }
+    return res;
+  };
+
+  const deleteSingleAlbum = async (loggedUserId, albumId) => {
+    const res = await deleteAlbum(loggedUserId, albumId);
+    if (res.ok) {
+      const filteredAlbums = userState.user.albums.filter((album) => {
+        return album._id !== albumId;
+      });
+      dispatch({ type: types.deleteAlbum, payload: filteredAlbums });
+    }
+    return res;
   };
 
   const updateUsername = async (newUsername, userId) => {
@@ -132,11 +162,8 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
- 
-
   const updateProfileImage = async (formData, userId) => {
     const data = await updateProfileImageAPI(formData, userId);
-
     if (data.ok) {
       dispatch({
         type: types.updateUserProfileImage,
@@ -146,18 +173,55 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
-  const updateNamePlaylist = async (newNamePlaylist, playlistId) => {
-    const data = await updatePlaylistForm(newNamePlaylist, playlistId)
-    console.log(data)
+  const updatePlaylist = async (formData, playlistId) => {
+    const data = await updatePlaylistForm(formData, playlistId)
     if (data.ok) {
-      dispatch({ type: types.updateNamePlaylist, payload: data.newName });
-    } else {
-      console.log('This name can not be changed')
+      dispatch({ type: types.updatePlaylist, payload: data.newName });
     }
     return data;
   };
 
+  const updateAlbum = async (formData, albumId) => {
+    const data = await updateAlbumForm(formData, albumId)
+    if (data.ok) {
+      dispatch({ type: types.updateAlbum, payload: data.newName });
+    }
+    return data;
+  };
 
+  const updateSong = async (formData, songId) => {
+    const data = await updateSongForm(formData, songId)
+    if (data.ok) {
+      dispatch({ type: types.updateSong, payload: data.newName });
+    }
+    return data;
+  };
+
+  const toggleFollowAlbum = async (albumId, userId, isFollowed, album) => {
+    const res = await handleToggleFollowingAlbum(albumId, userId, !isFollowed);
+
+    if (res && !isFollowed) {
+      const followedAlbums = userState.user.albums.push(album);
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else if (res) {
+      const followedAlbums = userState.user.albums.filter(
+        (album) => album.id !== albumId
+      );
+      dispatch({ type: types.toggleFollowAlbum, payload: followedAlbums });
+    } else {
+      console.log("Something went wrong...");
+    }
+  };
+
+   const getUserProfile = async (id) => {
+    const data = await getUserById(id);
+    if (data?.ok) {
+      setUserProfile(data.user);
+      setIsProfileLoading(false);
+    } else {
+      setIsProfileLoading(false);
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -171,9 +235,17 @@ export const UserProvider = ({ children }) => {
         createSinglePlaylist,
         addToPlaylist,
         togglePlaylistVisibility,
+        deleteSingleAlbum,
         deleteSinglePlaylist,
         updateProfileImage,
-        updateNamePlaylist,
+        updatePlaylist,
+        toggleFollowAlbum,
+        userProfile,
+        isProfileLoading,
+        getUserProfile,
+        updateSong,
+        deleteSingleSong,
+        updateAlbum
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import { AddSongsModal } from "../Pages/Playlist";
 import { useUI } from "../../Context/UI/UIContext";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { useNavigate } from "react-router";
+import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 
 export const PlaylistsTracks = ({
   songs,
@@ -15,7 +16,11 @@ export const PlaylistsTracks = ({
   isOwner,
   playlist,
 }) => {
-  const { handleToggleEditPlaylistModal } = useUI();
+  const {
+    handleToggleEditPlaylistModal,
+    setMessageSuccessToaster,
+    setMessageErrorToaster
+  } = useUI();
   const {
     deleteSinglePlaylist,
     user: { _id },
@@ -23,6 +28,7 @@ export const PlaylistsTracks = ({
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isAddSongsModalOpen, setIsAddSongsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleToggleDropdown = (id) => {
     if (activeDropdown == id) {
       setActiveDropdown(null);
@@ -35,22 +41,23 @@ export const PlaylistsTracks = ({
     handleToggleEditPlaylistModal(playlist);
   };
   // loggedUserId, playlistId
-  const deletePlaylist = () => {
-    deleteSinglePlaylist(_id, playlist._id);
+  const deletePlaylist = async () => {
+    setIsLoading(true)
+    const response = await deleteSinglePlaylist(_id, playlist._id);
+    setIsLoading(false)
+       if (response.ok) {
+        setMessageSuccessToaster("Playlist deleted successfully")
+       } else {
+        setMessageErrorToaster("There was an error trying to delete the playlist. Please try again.")
+       }
     setTimeout(() => {
       navigate("/main");
     }, 1000);
   };
-
+console.log(songs.map(song=>song.followedBy));
   return (
     <div className={`flex flex-col ${styles}`}>
       <div className="flex items-center justify-end m-4 gap-4">
-        <Typography
-          text={!isFollowed ? <AiOutlineHeart /> : <AiFillHeart />}
-          color="white"
-          type="big"
-          //handleaddtofavorites
-        />
         {isOwner && (
           <div className="flex gap-4 w-full md:w-1/2">
             <Button
@@ -64,18 +71,19 @@ export const PlaylistsTracks = ({
         )}
       </div>
       {songs.length ? (
-        songs.map((songs, idx) => {
-          const { id, name, duration, artist } = songs;
+        songs.map((song, idx) => {
+          const { name, duration, artist, followedBy } = song;
           return (
             <PlaylistsElements
               key={`${name}-${idx}`}
               activeDropdown={activeDropdown}
               handleToggleDropdown={handleToggleDropdown}
-              id={id}
+              id={song._id}
               artist={artist}
               nombre={name}
               duration={duration}
               idx={idx}
+              followedBy={followedBy}
             />
           );
         })
@@ -90,6 +98,7 @@ export const PlaylistsTracks = ({
           <AddSongsModal />
         </div>
       )}
+      {isLoading && <ProfileLoader modal={true} text="Deleting playlist..." />}
     </div>
   );
 };

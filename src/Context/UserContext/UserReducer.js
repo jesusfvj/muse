@@ -62,12 +62,48 @@ export const userReducer = (state = {}, action) => {
         },
       };
     }
-    case types.updateNamePlaylist: {
+    case types.deleteAlbum: {
       return {
         ...state,
         user: {
           ...state.user,
           playlists: [...action.payload],
+        },
+      };
+    }
+    case types.deleteTrack: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          tracks: [...action.payload],
+        },
+      };
+    }
+    case types.updatePlaylist: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: [...action.payload],
+        },
+      };
+    }
+    case types.updateAlbum: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          albums: [...action.payload],
+        },
+      };
+    }
+    case types.updateSong: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          uploadedTracks: [...action.payload],
         },
       };
     }
@@ -80,6 +116,11 @@ export const userReducer = (state = {}, action) => {
       return {
         ...state,
         user: {...state.user, profilePhoto: action.payload}
+      }
+    case types.toggleFollowAlbum:
+      return {
+        ...state,
+        user: {...state.user, albums: action.payload}
       }
     default:
       state;

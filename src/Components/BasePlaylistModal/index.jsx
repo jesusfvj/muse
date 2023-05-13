@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
@@ -6,18 +6,24 @@ import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import { Button } from "../Button";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { useUI } from "../../Context/UI/UIContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastMessageError } from "../../Utils/toaster";
 
 export const BasePlaylistModal = (
     {
-        handleToggleCreatePlaylistModal,
+        handleToggleModal,
         imageFile,
         setImageFile,
         playlistData,
         setPlaylistData,
         previewImg,
         setPreviewImg,
-        type
+        elementId,
+        type,
+        stringObject
     }) => {
+    const {successfulMessage, loadingMessage, buttonText, headerInputText} = stringObject
     const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
     const [isLoading, setIsLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
@@ -27,16 +33,25 @@ export const BasePlaylistModal = (
     const {
         user: { _id },
         createSinglePlaylist,
+        updatePlaylist,
+        updateSong,
+        updateAlbum
     } = useUser();
+
+    const MAX_FILE_SIZE = 10485760;
 
     const handleAddImage = (e) => {
         const file = e.target.files[0];
-        setImageFile(file)
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setPreviewImg(reader.result);
-        };
+        if (file && file.size <= MAX_FILE_SIZE) {
+            setImageFile(file)
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setPreviewImg(reader.result);
+            };
+        } else {
+            toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE/1000000}MB`)
+        }
         // setPlaylistData({ ...playlistData, img: e.target.files[0] });
     };
 
@@ -47,18 +62,32 @@ export const BasePlaylistModal = (
             const formData = new FormData();
             formData.set(`imagePlaylistFile`, imageFile)
             formData.set(`imagePlaylistData`, JSON.stringify(playlistData))
-            const response = await createSinglePlaylist(formData, _id);
+            let response = ""
+            switch (type) {
+                case "CREATE_PLAYLIST":
+                    response = await createSinglePlaylist(formData, _id);
+                    break;
+                case "EDIT_PLAYLIST":
+                    response = await updatePlaylist(formData, elementId);
+                    break;
+                case "EDIT_SONG":
+                    response = await updateSong(formData, elementId);
+                    break;
+                case "EDIT_ALBUM":
+                    response = await updateAlbum(formData, elementId);
+                    break;
+                default:
+                    break;
+            }
             setIsLoading(false)
             if (response.ok) {
-                setMessageSuccessToaster("Playlist successfuly submited.");
-                setTimeout(() => {
-                    handleToggleCreatePlaylistModal();
-                }, 1500);
+                handleToggleModal();
+                setMessageSuccessToaster(`${successfulMessage}`);
             } else {
                 setMessageErrorToaster("Something went wrong. Please try again.")
             }
         } else {
-            setMessageErrorToaster("Please choose a name and an image for the playlist.")
+            toastMessageError("Please choose a name and image for the playlist.")
         }
     };
 
@@ -85,19 +114,23 @@ export const BasePlaylistModal = (
         setDragActive(false);
         if (e.dataTransfer.items[0]) {
             const file = e.dataTransfer.items[0].getAsFile();
-            setImageFile(file)
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                setPreviewImg(reader.result);
-            };
-        }
+            if (file && file.size <= MAX_FILE_SIZE) {
+                setImageFile(file)
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    setPreviewImg(reader.result);
+                }
+            } else {
+                toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE}`)
+            }
+        };
     };
 
     return (
         <div
             className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"
-            onClick={handleToggleCreatePlaylistModal}
+            onClick={handleToggleModal}
         >
             <div
                 className="w-5/6 md:w-1/2 h-2/3 bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] p-6 rounded-md"
@@ -111,7 +144,7 @@ export const BasePlaylistModal = (
                         <InputWithLabel
                             type="text"
                             name="name"
-                            label="Name of the playlist"
+                            label={`${headerInputText}`}
                             value={playlistData.name}
                             onInputChange={(e) =>
                                 setPlaylistData({ ...playlistData, name: e.target.value })
@@ -170,33 +203,35 @@ export const BasePlaylistModal = (
                             onDrop={handleDrop}>
                         </div>}
                     </label>
-
-                    <div className="flex items-center gap-4">
-                        <label htmlFor="file" className="text-white">
-                            <Typography text="Make this playlist private" />
-                        </label>
-                        <input
-                            id="checkbox"
-                            type="checkbox"
-                            name="isPrivate"
-                            onChange={() =>
-                                setPlaylistData({
-                                    ...playlistData,
-                                    isPrivate: !playlistData.isPrivate,
-                                })
-                            }
-                        />
-                    </div>
+                    {type === "CREATE_PLAYILIST" &&
+                        <div className="flex items-center gap-4">
+                            <label htmlFor="file" className="text-white">
+                                <Typography text="Make this playlist private" />
+                            </label>
+                            <input
+                                id="checkbox"
+                                type="checkbox"
+                                name="isPrivate"
+                                onChange={() =>
+                                    setPlaylistData({
+                                        ...playlistData,
+                                        isPrivate: !playlistData.isPrivate,
+                                    })
+                                }
+                            />
+                        </div>
+                    }
                     <div className="w-2/3">
                         <Button
-                            text="Create playlist"
+                            text={`${buttonText}`}
                             color="gray"
-                            onClick={handleSubmitForm}
+                            typeButton="submit"
                         />
                     </div>
                 </form>
             </div>
-            {isLoading && <ProfileLoader modal={true} text="Creating playlist..." />}
+            {isLoading && <ProfileLoader modal={true} text={`${loadingMessage}`} />}
+            <ToastContainer />
         </div>
     );
 };
