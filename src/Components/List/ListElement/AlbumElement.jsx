@@ -53,14 +53,16 @@ export const AlbumElement = ({ object }) => {
   };
 
   const handleDeleteAlbum = async () => {
-    setLoadingMessage("Deleting album..." )
-    setIsLoading(true)
+    setLoadingMessage("Deleting album...");
+    setIsLoading(true);
     const response = await deleteSingleAlbum(userId, _id);
-    setIsLoading(false)
+    setIsLoading(false);
     if (response.ok) {
-      setMessageSuccessToaster("Album deleted successfully")
+      setMessageSuccessToaster("Album deleted successfully");
     } else {
-      setMessageErrorToaster("There was an error trying deleting the album. Please try again.")
+      setMessageErrorToaster(
+        "There was an error trying deleting the album. Please try again."
+      );
     }
   };
 
@@ -82,14 +84,16 @@ export const AlbumElement = ({ object }) => {
             type="p1"
             color="white"
             family="lato"
-            styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis truncate"
+            styles="max-w-[200px] sm:leading-6 line-clamp-2 text-ellipsis truncate hover:underline"
           />
+        </Link>
+        <Link to={`/artist/${artist._id}`} className="w-full px-3">
           <Typography
             text={artist?.fullName}
             type="p2"
             color="white"
             family="lato"
-            styles="truncate"
+            styles="truncate hover:underline"
           />
         </Link>
         <img
@@ -122,7 +126,9 @@ export const AlbumElement = ({ object }) => {
       </div>
       <div className="h-6 w-full mt-4 ">
         <div
-          className={`w-full flex h-full items-center justify-around ${!hovered && "hidden"}`}
+          className={`w-full flex h-full items-center justify-around ${
+            !hovered && "hidden"
+          }`}
         >
           {isOwner ? (
             <>
