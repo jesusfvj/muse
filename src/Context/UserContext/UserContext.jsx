@@ -15,8 +15,12 @@ import { userReducer } from "./UserReducer";
 import {
   createPlaylist,
   deletePlaylist,
+  deleteTrack,
   togglePlaylistIsPrivate,
   updatePlaylistForm,
+  updateSongForm,
+  deleteAlbum,
+  updateAlbumForm,
 } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
@@ -128,6 +132,28 @@ export const UserProvider = ({ children }) => {
     return res;
   };
 
+  const deleteSingleSong = async (loggedUserId, trackId) => {
+    const res = await deleteTrack(loggedUserId, trackId);
+    if (res.ok) {
+      const filteredTracks = userState.user.tracks.filter((track) => {
+        return track._id !== trackId;
+      });
+      dispatch({ type: types.deleteTrack, payload: filteredTracks });
+    }
+    return res;
+  };
+
+  const deleteSingleAlbum = async (loggedUserId, albumId) => {
+    const res = await deleteAlbum(loggedUserId, albumId);
+    if (res.ok) {
+      const filteredAlbums = userState.user.albums.filter((album) => {
+        return album._id !== albumId;
+      });
+      dispatch({ type: types.deleteAlbum, payload: filteredAlbums });
+    }
+    return res;
+  };
+
   const updateUsername = async (newUsername, userId) => {
     const data = await changeUsername(newUsername, userId);
     if (data.ok) {
@@ -151,6 +177,22 @@ export const UserProvider = ({ children }) => {
     const data = await updatePlaylistForm(formData, playlistId)
     if (data.ok) {
       dispatch({ type: types.updatePlaylist, payload: data.newName });
+    }
+    return data;
+  };
+
+  const updateAlbum = async (formData, albumId) => {
+    const data = await updateAlbumForm(formData, albumId)
+    if (data.ok) {
+      dispatch({ type: types.updateAlbum, payload: data.newName });
+    }
+    return data;
+  };
+
+  const updateSong = async (formData, songId) => {
+    const data = await updateSongForm(formData, songId)
+    if (data.ok) {
+      dispatch({ type: types.updateSong, payload: data.newName });
     }
     return data;
   };
@@ -193,13 +235,17 @@ export const UserProvider = ({ children }) => {
         createSinglePlaylist,
         addToPlaylist,
         togglePlaylistVisibility,
+        deleteSingleAlbum,
         deleteSinglePlaylist,
         updateProfileImage,
         updatePlaylist,
         toggleFollowAlbum,
         userProfile,
         isProfileLoading,
-        getUserProfile
+        getUserProfile,
+        updateSong,
+        deleteSingleSong,
+        updateAlbum
       }}
     >
       {children}

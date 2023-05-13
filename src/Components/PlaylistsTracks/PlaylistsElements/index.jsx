@@ -18,16 +18,11 @@ export const PlaylistsElements = ({
   followedBy
 }) => {
   const { user: { _id: userId } } = useUser()
-  console.log("1", followedBy, id, userId);
-
-  console.log(followedBy.includes(userId));
   const [clicked, setClicked] = useState(followedBy.includes(userId));
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const likeButtonClick = () => {
-    console.log(clicked);
-    console.log(id);
     if (!buttonDisabled) {
       setClicked(!clicked);
 

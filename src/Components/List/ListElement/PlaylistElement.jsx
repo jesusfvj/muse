@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { FaEdit, FaPlay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Typography, RoundButton } from "../../index";
@@ -8,15 +8,15 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
-import { EditPlaylistModal } from "../../EditPlaylistModal";
 import { useUI } from "../../../Context/UI/UIContext";
-import { ProfileLoader } from "../../Pages/Profile/ProfileLoader";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
   const {
     handleToggleEditPlaylistModal,
     setMessageSuccessToaster,
-    setMessageErrorToaster
+    setMessageErrorToaster,
+    setLoadingMessage,
+    setIsLoading,
   } = useUI();
   const {
     user: { _id: userId, profilePhoto },
@@ -30,7 +30,6 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   );
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const isOwner = userId === user;
@@ -71,9 +70,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   };
 
   const handleDeletePlaylist = async () => {
+    setLoadingMessage("Deleting playlist..." )
     setIsLoading(true)
     const response = await deleteSinglePlaylist(userId, _id);
-    console.log(response)
     setIsLoading(false)
     if (response.ok) {
       setMessageSuccessToaster("Playlist deleted successfully")
@@ -162,23 +161,23 @@ export const PlaylistElement = ({ object, isSwipping }) => {
             >
               {isOwner && isPrivate ? (
                 <MdOutlinePublic
-                  className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
+                  className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
                   onClick={handleTogglePlaylistVisibility}
                 />
               ) : isOwner && !isPrivate ? (
                 <MdOutlinePublicOff
-                  className="top-1 right-4 text-white text-lg md:text-2xl cursor-pointer"
+                  className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
                   onClick={handleTogglePlaylistVisibility}
                 />
               ) : null}
               {isOwner ? (
                 <>
                   <IoTrashOutline
-                    className="text-lg md:text-2xl text-white top-10 right-4 cursor-pointer"
+                    className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
                     onClick={handleDeletePlaylist}
                   />
                   <FaEdit
-                    className="text-lg md:text-2xl text-white -top-1 left-2 cursor-pointer"
+                    className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
                     onClick={handleOpenEditPlaylist}
                   />
                 </>
@@ -189,7 +188,6 @@ export const PlaylistElement = ({ object, isSwipping }) => {
             <img src={profilePhoto} className="h-10 w-10 absolute top-2 right-4  rounded-full" />
           )}
         </div>
-        {isLoading && <ProfileLoader modal={true} text="Deleting playlist..." />}
       </div>
     </>)
 

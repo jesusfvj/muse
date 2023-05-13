@@ -2,7 +2,7 @@ import { toastMessageError, toastMessageSuccess } from "../../Utils/toaster";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
 import { AddToPlaylistModal } from "../AddToPlaylistModal";
 import { EditPlaylistModal } from "../EditPlaylistModal";
-import EditSongForm from "../Form/EditDeleteSongs";
+import EditSongForm from "../Form/EditSongs";
 import { useUI } from "../../Context/UI/UIContext";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +12,8 @@ import { MusicPlayer } from "../MusicPlayer";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Navbar } from "../Navbar";
+import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
+import EditAlbumForm from "../Form/EditAlbums";
 
 export const Layout = ({ children }) => {
   const {
@@ -22,14 +24,18 @@ export const Layout = ({ children }) => {
     isAddToPlaylistModalOpen,
     setMessageSuccessToaster,
     isEditPlaylistModalOpen,
+    handleToggleAlbumModal,
     setMessageErrorToaster,
     messageSuccessToaster,
     handleToggleSongModal,
+    isEditAlbumModalOpen,
     isEditSongModalOpen,
     messageErrorToaster,
     currentPlaylist,
+    loadingMessage,
     setIsNavOpen,
     isNavOpen,
+    isLoading,
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
@@ -107,12 +113,16 @@ export const Layout = ({ children }) => {
       {isEditSongModalOpen && (
         <EditSongForm handleToggleSongModal={handleToggleSongModal} />
       )}
+      {isEditAlbumModalOpen && (
+        <EditAlbumForm handleToggleAlbumModal={handleToggleAlbumModal} />
+      )}
       {isEditPlaylistModalOpen && (
         <EditPlaylistModal
           handleToggleEditPlaylistModal={handleToggleEditPlaylistModal}
           playlist={currentPlaylist}
         />
       )}
+      {isLoading && <ProfileLoader modal={true} text={loadingMessage}/>}
       <ToastContainer />
     </div>
   );

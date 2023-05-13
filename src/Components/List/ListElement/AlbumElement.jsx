@@ -1,22 +1,35 @@
 import { useState } from "react";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
-import { FaPlay } from "react-icons/fa";
+import { FaEdit, FaPlay } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
+import { useUI } from "../../../Context/UI/UIContext";
+import { IoTrashOutline } from "react-icons/io5";
 
 export const AlbumElement = ({ object }) => {
   const {
     toggleFollowAlbum,
+    deleteSingleAlbum,
     user: { _id: userId },
   } = useUser();
+
+  const {
+    setMessageSuccessToaster,
+    setMessageErrorToaster,
+    handleToggleAlbumModal,
+    setLoadingMessage,
+    setIsLoading,
+  } = useUI();
+
   const { name, thumbnailUrl, artist, _id, followedBy } = object;
 
   const [isFollowed, setIsFollowed] = useState(followedBy.includes(userId));
-  const [hovered, setHovered] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-
   const [isDropdownActive, setIsDropdownActive] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const isOwner = userId === artist._id;
 
   const handleOpenDropdown = (e) => {
     e.stopPropagation();
@@ -38,16 +51,29 @@ export const AlbumElement = ({ object }) => {
       }, 1500);
     }
   };
+
+  const handleDeleteAlbum = async () => {
+    setLoadingMessage("Deleting album..." )
+    setIsLoading(true)
+    const response = await deleteSingleAlbum(userId, _id);
+    setIsLoading(false)
+    if (response.ok) {
+      setMessageSuccessToaster("Album deleted successfully")
+    } else {
+      setMessageErrorToaster("There was an error trying deleting the album. Please try again.")
+    }
+  };
+
   return (
     <div
-      className="relative flex my-4 mx-2 shadow-md"
+      className="flex flex-col my-4 mx-2"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleOpenDropdown}
     >
       <div
         className={
-          " bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none"
+          "relative bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full select-none shadow-md"
         }
       >
         <Link to={`/album/${_id}`} className="w-full mt-2 px-3">
@@ -70,29 +96,47 @@ export const AlbumElement = ({ object }) => {
           src={thumbnailUrl}
           className="w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem]  bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none object-cover"
         />
-      </div>
-      <div
-        className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
-        onClick={toggleFollowing}
-      >
-        <Typography
-          text={
-            isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
-          }
-          color={isFollowed ? "white" : "secondary"}
-          styles="hidden xs:flex scale-[2]"
-        />
-      </div>
-      <div
-        className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
+        <div
+          className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
+          onClick={toggleFollowing}
+        >
+          <Typography
+            text={
+              isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
+            }
+            color={isFollowed ? "white" : "secondary"}
+            styles="hidden xs:flex scale-[2]"
+          />
+        </div>
+        <div
+          className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
       ${hovered ? "flex animation-pop-glow" : "hidden"}`}
-      >
-        <RoundButton
-          color="gray"
-          background="gradient"
-          icon={<FaPlay />}
-          margin="pl-1"
-        />
+        >
+          <RoundButton
+            color="gray"
+            background="gradient"
+            icon={<FaPlay />}
+            margin="pl-1"
+          />
+        </div>
+      </div>
+      <div className="h-6 w-full mt-4 ">
+        <div
+          className={`w-full flex h-full items-center justify-around ${!hovered && "hidden"}`}
+        >
+          {isOwner ? (
+            <>
+              <IoTrashOutline
+                className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
+                onClick={handleDeleteAlbum}
+              />
+              <FaEdit
+                className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
+                onClick={() => handleToggleAlbumModal(object)}
+              />
+            </>
+          ) : null}
+        </div>
       </div>
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}

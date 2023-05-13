@@ -1,5 +1,4 @@
 import { useUI } from "../../Context/UI/UIContext";
-
 import { NavItem } from "./NavItem";
 import { FaHome } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
@@ -11,7 +10,6 @@ import { useUser } from "../../Context/UserContext/UserContext";
 import { UploadSongsModal } from "../UploadSongsModal";
 import { useState } from "react";
 import { CreatePlaylistModal } from "../CreatePlaylistModal";
-import { Button } from "../Button";
 
 const navItems = [
   { path: "/main", text: "Home", icon: <FaHome /> },

@@ -10,6 +10,13 @@ export const EditPlaylistModal = ({ handleToggleEditPlaylistModal, playlist }) =
 
   const [previewImg, setPreviewImg] = useState(playlist.thumbnail);
 
+  const stringObject = {
+    successfulMessage: "Playlist successfuly updated.",
+    loadingMessage: "Editing playlist...",
+    buttonText: "Edit playlist",
+    headerInputText: "Name of the playlist",
+  }
+
   return (
     <BasePlaylistModal
       handleToggleModal={handleToggleEditPlaylistModal}
@@ -19,8 +26,9 @@ export const EditPlaylistModal = ({ handleToggleEditPlaylistModal, playlist }) =
       setPlaylistData={setPlaylistData}
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
-      playilistId= {playlist._id}
+      elementId={playlist._id}
       type="EDIT_PLAYLIST"
+      stringObject={stringObject}
     />
   )
 };

@@ -44,9 +44,7 @@ export const FormUploadedSongs = ({
       setIsLoading(false);
       if (response.data.ok) {
         setMessageSuccessToaster("Song/s successfuly submited.");
-        setTimeout(() => {
-          setShowUploadSongsModal(false);
-        }, 2000);
+        setShowUploadSongsModal(false);
       } else {
         setMessageErrorToaster("Something went wrong. Please try again.");
       }
@@ -129,9 +127,8 @@ export const FormUploadedSongs = ({
         )}
       </div>
       <form
-        className={`flex flex-col items-center gap-3 ${
-          isAlbumChecked ? "max-h-[57vh]" : "max-h-[65vh]"
-        } sm:max-h-[45vh] overflow-auto`}
+        className={`flex flex-col items-center gap-3 ${isAlbumChecked ? "max-h-[57vh]" : "max-h-[65vh]"
+          } sm:max-h-[45vh] overflow-auto`}
         onSubmit={handleSubmit}
       >
         {isAlbumChecked && (

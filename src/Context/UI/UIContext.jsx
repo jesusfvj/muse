@@ -8,26 +8,36 @@ export const useUI = () => {
 };
 
 export const UIProvider = ({ children }) => {
-  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
   const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] = useState(false);
+  const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] = useState(false);
   const [isEditPlaylistModalOpen, setIsEditPlaylistModalOpen] = useState(false);
+  const [isEditAlbumModalOpen, setisEditAlbumModalOpen] = useState(false);
   const [messageSuccessToaster, setMessageSuccessToaster] = useState("");
   const [isEditSongModalOpen, setisEditSongModalOpen] = useState(false);
   const [messageErrorToaster, setMessageErrorToaster] = useState("");
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [loadingMessage, setLoadingMessage] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTogglePlaylistModal = () => {
     setIsAddToPlaylistModalOpen(!isAddToPlaylistModalOpen);
   };
   const handleToggleCreatePlaylistModal = () => {
+    setIsNavOpen(false)
     setIsCreatePlaylistModalOpen(!isCreatePlaylistModalOpen);
   };
 
   const handleToggleSongModal = (song) => {
     setCurrentSong(song);
     setisEditSongModalOpen(!isEditSongModalOpen);
+  };
+
+  const handleToggleAlbumModal = (album) => {
+    setCurrentAlbum(album);
+    setisEditAlbumModalOpen(!isEditAlbumModalOpen);
   };
 
   const handleToggleEditPlaylistModal = (playlist) => {
@@ -38,22 +48,31 @@ export const UIProvider = ({ children }) => {
   return (
     <UIContext.Provider
       value={{
-        isNavOpen,
-        setIsNavOpen,
+        handleToggleCreatePlaylistModal,
+        handleToggleEditPlaylistModal,
+        isCreatePlaylistModalOpen,
         handleTogglePlaylistModal,
         isAddToPlaylistModalOpen,
-        handleToggleCreatePlaylistModal,
-        isCreatePlaylistModalOpen,
-        handleToggleSongModal,
-        isEditSongModalOpen,
-        currentSong,
-        handleToggleEditPlaylistModal,
-        currentPlaylist,
-        isEditPlaylistModalOpen,
-        messageSuccessToaster,
         setMessageSuccessToaster,
+        setisEditAlbumModalOpen,
+        isEditPlaylistModalOpen,
+        setMessageErrorToaster,
+        handleToggleAlbumModal,
+        handleToggleSongModal,
+        messageSuccessToaster,
+        isEditAlbumModalOpen,
         messageErrorToaster,
-        setMessageErrorToaster
+        isEditSongModalOpen,
+        setLoadingMessage,
+        currentPlaylist,
+        setCurrentAlbum,
+        loadingMessage,
+        currentAlbum,
+        setIsLoading,
+        setIsNavOpen,
+        currentSong,
+        isNavOpen,
+        isLoading,
       }}
     >
       {children}

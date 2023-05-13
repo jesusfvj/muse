@@ -18,16 +18,22 @@ export const EditUserPhoto = ({ user, isLoggedUserProfile }) => {
   const [imageFile, setImageFile] = useState(null);
   const { updateProfileImage } = useUser()
 
+  const MAX_FILE_SIZE = 10485760;
+
   const handleFileInputChange = async (e) => {
     if (e.target.files[0]) {
       const file = e.target.files[0];
-      setImageFile(file)
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setProfileImage(reader.result);
-      };
-      setShowSaveButton(true)
+      if (file && file.size <= MAX_FILE_SIZE) {
+        setImageFile(file)
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          setProfileImage(reader.result);
+        };
+        setShowSaveButton(true)
+      }
+    } else {
+      setMessageErrorToaster(`Please choose an image with a size less than: ${MAX_FILE_SIZE / 1000000}MB`)
     }
   }
 

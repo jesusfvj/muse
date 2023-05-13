@@ -19,9 +19,11 @@ export const BasePlaylistModal = (
         setPlaylistData,
         previewImg,
         setPreviewImg,
-        playilistId,
-        type
+        elementId,
+        type,
+        stringObject
     }) => {
+    const {successfulMessage, loadingMessage, buttonText, headerInputText} = stringObject
     const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
     const [isLoading, setIsLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
@@ -31,17 +33,25 @@ export const BasePlaylistModal = (
     const {
         user: { _id },
         createSinglePlaylist,
-        updatePlaylist
+        updatePlaylist,
+        updateSong,
+        updateAlbum
     } = useUser();
+
+    const MAX_FILE_SIZE = 10485760;
 
     const handleAddImage = (e) => {
         const file = e.target.files[0];
-        setImageFile(file)
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setPreviewImg(reader.result);
-        };
+        if (file && file.size <= MAX_FILE_SIZE) {
+            setImageFile(file)
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setPreviewImg(reader.result);
+            };
+        } else {
+            toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE/1000000}MB`)
+        }
         // setPlaylistData({ ...playlistData, img: e.target.files[0] });
     };
 
@@ -58,7 +68,13 @@ export const BasePlaylistModal = (
                     response = await createSinglePlaylist(formData, _id);
                     break;
                 case "EDIT_PLAYLIST":
-                    response = await updatePlaylist(formData, playilistId);
+                    response = await updatePlaylist(formData, elementId);
+                    break;
+                case "EDIT_SONG":
+                    response = await updateSong(formData, elementId);
+                    break;
+                case "EDIT_ALBUM":
+                    response = await updateAlbum(formData, elementId);
                     break;
                 default:
                     break;
@@ -66,7 +82,7 @@ export const BasePlaylistModal = (
             setIsLoading(false)
             if (response.ok) {
                 handleToggleModal();
-                setMessageSuccessToaster(`Playlist successfuly ${type === "CREATE_PLAYLIST" ? 'submitted' : 'updated'}.`);
+                setMessageSuccessToaster(`${successfulMessage}`);
             } else {
                 setMessageErrorToaster("Something went wrong. Please try again.")
             }
@@ -98,13 +114,17 @@ export const BasePlaylistModal = (
         setDragActive(false);
         if (e.dataTransfer.items[0]) {
             const file = e.dataTransfer.items[0].getAsFile();
-            setImageFile(file)
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                setPreviewImg(reader.result);
-            };
-        }
+            if (file && file.size <= MAX_FILE_SIZE) {
+                setImageFile(file)
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    setPreviewImg(reader.result);
+                }
+            } else {
+                toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE}`)
+            }
+        };
     };
 
     return (
@@ -124,7 +144,7 @@ export const BasePlaylistModal = (
                         <InputWithLabel
                             type="text"
                             name="name"
-                            label="Name of the playlist"
+                            label={`${headerInputText}`}
                             value={playlistData.name}
                             onInputChange={(e) =>
                                 setPlaylistData({ ...playlistData, name: e.target.value })
@@ -203,14 +223,14 @@ export const BasePlaylistModal = (
                     }
                     <div className="w-2/3">
                         <Button
-                            text={`${type === "CREATE_PLAYLIST" ? 'Create' : 'Update'} playlist`}
+                            text={`${buttonText}`}
                             color="gray"
                             typeButton="submit"
                         />
                     </div>
                 </form>
             </div>
-            {isLoading && <ProfileLoader modal={true} text={`${type === "CREATE_PLAYLIST" ? 'Creating' : 'Updating'} playlist...`} />}
+            {isLoading && <ProfileLoader modal={true} text={`${loadingMessage}`} />}
             <ToastContainer />
         </div>
     );

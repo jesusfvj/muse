@@ -26,9 +26,11 @@ export const FormUploadedSongsComponent = (
         })
     }
 
+    const MAX_FILE_SIZE = 10485760;
+
     const handleImageChange = (event, index) => {
         const file = event.target.files[0];
-        if (file) {
+        if (file && file.size <= MAX_FILE_SIZE) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
@@ -43,6 +45,8 @@ export const FormUploadedSongsComponent = (
                 file,
                 ...imageFiles.slice(index + 1)
             ])
+        } else {
+            toastMessageError(`Please choose an image with a size less than: ${MAX_FILE_SIZE / 1000000}MB`)
         }
     };
 
@@ -69,18 +73,18 @@ export const FormUploadedSongsComponent = (
                 onChange={(event) => handleImageChange(event, index)}
             />
             <label htmlFor={`imageFile${index}`} className="w-40 h-40 sm:w-24 sm:h-20">
-                {previewImage[index]===""
+                {previewImage[index] === ""
                     ? <div
                         className='h-full w-full flex justify-center items-center border border-white border-dashed rounded-md transition duration-500 hover:border-gray-400 cursor-pointer'
-                        onMouseOver={()=>setIsHovering(true)}
-                        onMouseOut={()=>setIsHovering(false)}
-                        >
+                        onMouseOver={() => setIsHovering(true)}
+                        onMouseOut={() => setIsHovering(false)}
+                    >
                         <Typography
-                        text={<BiImageAdd />}
-                        type="icon"
-                        color={`${!isHovering ? 'white' : 'primary' }`}
-                        styles="ml-1"
-                    />
+                            text={<BiImageAdd />}
+                            type="icon"
+                            color={`${!isHovering ? 'white' : 'primary'}`}
+                            styles="ml-1"
+                        />
                     </div>
                     : <img src={previewImage[index]} alt="Selected image" className="w-full h-full cursor-pointer object-cover rounded" />
                 }

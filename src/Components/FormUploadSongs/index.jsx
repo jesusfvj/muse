@@ -2,15 +2,29 @@ import { useState } from "react";
 import { Button } from "../Button";
 import { Typography } from "../Typography";
 import { BiImageAdd } from "react-icons/bi";
+import { toastMessageError } from "../../Utils/toaster";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
     const [dragActive, setDragActive] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
+    const MAX_FILE_SIZE = 10485760;
+
     const handleFileInputChange = (event) => {
         const arraySelectedFiles = Array.from(event.target.files)
-        setSelectedFiles(arraySelectedFiles);
-        setFilesUploaded(true)
+        let hasOversizedFile = false;
+        arraySelectedFiles.forEach((file) => {
+            if (file.size > MAX_FILE_SIZE) {
+                hasOversizedFile = true;
+                toastMessageError(`Please all files must be less than: ${MAX_FILE_SIZE / 1000000}MB`)
+            }
+        })
+        if (!hasOversizedFile) {
+            setSelectedFiles(arraySelectedFiles);
+            setFilesUploaded(true)
+        }
     }
 
     const handleDrag = (event) => {
@@ -36,8 +50,17 @@ export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
         setDragActive(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             const arraySelectedFiles = Array.from(e.dataTransfer.files)
-            setSelectedFiles(arraySelectedFiles);
-            setFilesUploaded(true)
+            let hasOversizedFile = false;
+            arraySelectedFiles.forEach((file) => {
+                if (file.size > MAX_FILE_SIZE) {
+                    hasOversizedFile = true;
+                    toastMessageError(`Please all files must be less than: ${MAX_FILE_SIZE / 1000000}MB`)
+                }
+            })
+            if (!hasOversizedFile) {
+                setSelectedFiles(arraySelectedFiles);
+                setFilesUploaded(true)
+            }
         }
     };
 
@@ -57,7 +80,7 @@ export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
                 onMouseOver={() => setIsHovering(true)}
                 onMouseOut={() => setIsHovering(false)}
                 className={`relative flex justify-center items-center border-2 border-white border-dashed rounded h-[30vh] cursor-pointer transition duration-500 ${dragActive ? "hover:border-red-400" : "hover:border-gray-400"}`}
-                >
+            >
                 <div className="flex justify-center items-center">
                     {dragActive ?
                         <Typography
@@ -84,6 +107,7 @@ export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
             <div className="w-[20rem] h-[3rem]">
                 <Button text="Choose your files" color="black" size="sm" isLabel={true} htmlFor="fileInput" />
             </div>
+            <ToastContainer />
         </form>
     )
 }
