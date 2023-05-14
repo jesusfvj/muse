@@ -75,17 +75,6 @@ export const ArtistElement = ({ object }) => {
           />
         ) : null}
       </div>
-      <div
-        className={`absolute -bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full
-      ${hovered ? "flex animation-pop-glow" : "hidden"}`}
-      >
-        <RoundButton
-          color="gray"
-          background="gradient"
-          icon={<FaPlay />}
-          margin="pl-1"
-        />
-      </div>
     </div>
   );
 };
