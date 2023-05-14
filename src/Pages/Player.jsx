@@ -39,6 +39,11 @@ export const Player = () => {
           <div className="flex items-start pt-[10vh] justify-center bg-gradient-to-b from-[#02040C] to-[#052226] w-screen min-h-[50vh]">
             {/* <MusicPlayer /> */}
             <div className="flex flex-col items-center gap-4 w-full md:w-5/6">
+              <img src={track.artist.profilePhoto} className="h-40 w-40" />
+              <Typography text={track.artist.fullName} type="big" />
+              <Typography
+                text={`${track.artist.followedBy.length} followers`}
+              />
               {featuredIn.length ? (
                 <List
                   object={featuredIn}
@@ -52,11 +57,6 @@ export const Player = () => {
                   }}
                 />
               ) : null}
-              <img src={track.artist.profilePhoto} className="h-40 w-40" />
-              <Typography text={track.artist.fullName} type="big" />
-              <Typography
-                text={`${track.artist.followedBy.length} followers`}
-              />
             </div>
           </div>
         </>

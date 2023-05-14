@@ -33,7 +33,7 @@ export const AlbumTracks = ({ songs, styles, artist }) => {
         })
       ) : (
         <div className="pb-12">
-          <Typography text="You are not following any song" />
+          <Typography text="Not following any song" />
         </div>
       )}
     </div>

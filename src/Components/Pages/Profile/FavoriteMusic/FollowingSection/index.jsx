@@ -27,8 +27,8 @@ export const FollowingSection = ({
         <Typography
           text={
             section === "playlists"
-              ? "You don't have any public playlist"
-              : "You are not following any artist"
+              ? "Not public playlists"
+              : "Not following any artist"
           }
         />
       )}
@@ -43,8 +43,8 @@ export const FollowingSection = ({
         <Typography
           text={
             section === "playlists"
-              ? "You don't have any private playlist"
-              : "You are not following any playlist"
+              ? "No private playlist"
+              : "Not following any playlist"
           }
         />
       )}
