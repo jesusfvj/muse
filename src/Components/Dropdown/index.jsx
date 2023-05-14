@@ -1,5 +1,3 @@
-import { BsThreeDots } from "react-icons/bs";
-import { Typography } from "../Typography";
 import { DropdownElement } from "./DropdownElement";
 import { useUI } from "../../Context/UI/UIContext";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
@@ -22,7 +20,6 @@ const items = [
 export const DropDownMenu = ({
   id,
   activeDropdown,
-  handleToggleDropdown,
   track,
 }) => {
   const isActive = activeDropdown == id;
@@ -31,19 +28,12 @@ export const DropDownMenu = ({
 
   const handleAddToList = () => {
     handleTogglePlaylistModal();
-    changeCurrentTrack(track)
+    changeCurrentTrack(track);
   };
 
   return (
     <div className="relative">
-      <button
-        onClick={() => handleToggleDropdown(id)}
-        id="dropdownMenuIconHorizontalButton"
-        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none "
-        type="button"
-      >
-        <Typography text={<BsThreeDots />} color="white" />
-      </button>
+   
 
       <div
         id={id}

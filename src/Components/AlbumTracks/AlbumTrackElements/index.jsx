@@ -3,6 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Typography, DropDownMenu } from "../../index";
 
 import { TrackInfo } from "./TrackInfo";
+import { BsThreeDots } from "react-icons/bs";
 
 export const AlbumTrackElements = ({
   id,
@@ -13,7 +14,6 @@ export const AlbumTrackElements = ({
   activeDropdown,
   handleToggleDropdown,
   track,
-  handleToggleModal,
 }) => {
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -54,11 +54,19 @@ export const AlbumTrackElements = ({
             hovered ? "visible" : "sm:invisible"
           }`}
         >
+          <button
+            onClick={() => handleToggleDropdown(id)}
+            id="dropdownMenuIconHorizontalButton"
+            className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none "
+            type="button"
+          >
+            <Typography text={<BsThreeDots />} color="white" />
+          </button>
+
           <DropDownMenu
             id={id}
             color="white"
             activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
             track={track}
           />
         </div>
