@@ -12,6 +12,7 @@ export const AlbumTrackElements = ({
   idx,
   activeDropdown,
   handleToggleDropdown,
+  track,
   handleToggleModal,
 }) => {
   const [clicked, setClicked] = useState(false);
@@ -58,6 +59,7 @@ export const AlbumTrackElements = ({
             color="white"
             activeDropdown={activeDropdown}
             handleToggleDropdown={handleToggleDropdown}
+            track={track}
           />
         </div>
       </div>

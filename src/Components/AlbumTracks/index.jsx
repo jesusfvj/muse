@@ -28,6 +28,7 @@ export const AlbumTracks = ({ songs, styles, artist }) => {
               idx={idx}
               activeDropdown={activeDropdown}
               handleToggleDropdown={handleToggleDropdown}
+              track={songs}
             />
           );
         })
