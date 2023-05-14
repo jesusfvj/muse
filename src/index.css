@@ -21,6 +21,7 @@ body {
 
 .tooltip-trigger:hover .tooltip {
   display: flex !important;
+  z-index: 9999;
 }
 
 input[type="range"] {

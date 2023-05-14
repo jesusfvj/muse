@@ -90,7 +90,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   return (
     <>
       <div
-        className="relative"
+        className="relative z-0"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}
         onContextMenu={handleOpenDropdown}
@@ -139,19 +139,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           </div>
         </div>
 
-        <div
-          className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
-          onClick={handleAddToFavorites}
-        >
-          {isFollowed && !isOwner ? (
-            <AiFillHeart className="text-white text-2xl cursor-pointer" />
-          ) : hovered && !isOwner ? (
-            <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
-          ) : null}
-        </div>
-        <div className="h-6">
+        <div className="h-12">
           <div
-            className="absolute bottom-12 left-5 cursor-pointer flex justify-center items-center"
+            className="absolute bottom-[4.5rem] left-5 cursor-pointer flex justify-center items-center"
             onClick={handleAddToFavorites}
           >
             {isFollowed ? (
@@ -160,9 +150,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               <AiOutlineHeart className="text-white text-2xl cursor-pointer" />
             ) : null}
           </div>
-          <div className="h-6">
+          <div className="h-12">
             <div
-              className={`w-full flex h-full items-center justify-around ${
+              className={`w-full flex h-full items-center justify-around pb-8 ${
                 !hovered && "hidden"
               }`}
             >
@@ -172,7 +162,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                     className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
                     onClick={handleTogglePlaylistVisibility}
                   />
-                  <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                  <div className="absolute -bottom-8 left-2 w-40 h-30 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
                     <Typography text="Make the playlist public" type="p2" />
                   </div>
                 </div>
@@ -182,7 +172,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                     className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
                     onClick={handleTogglePlaylistVisibility}
                   />
-                  <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                  <div className="absolute -bottom-8 left-2 w-40 h-30 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
                     <Typography text="Make the playlist private" type="p2" />
                   </div>
                 </div>
@@ -194,7 +184,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                       className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
                       onClick={handleDeletePlaylist}
                     />
-                    <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                    <div className="absolute -bottom-8 left-2 w-40 h-30 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
                       <Typography text="Delete this playlist" type="p2" />
                     </div>
                   </div>
@@ -203,7 +193,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                       className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
                       onClick={handleOpenEditPlaylist}
                     />
-                    <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                    <div className="absolute -bottom-8 left-2 w-40 h-30 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
                       <Typography text="Edit this playlist" type="p2" />
                     </div>
                   </div>
