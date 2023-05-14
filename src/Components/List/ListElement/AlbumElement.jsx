@@ -98,7 +98,7 @@ export const AlbumElement = ({ object }) => {
         </Link>
         <img
           src={thumbnailUrl}
-          className="w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem]  bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none object-cover"
+          className="w-[4rem] h-[4rem] sm:w-[6rem] sm:h-[6rem] lg:w-[8rem] lg:h-[8rem]  bg-cover bg-center bg-no-repeat lg:min-h-[8rem] m-4 pointer-events-none object-cover rounded-md"
         />
         <div
           className="absolute bottom-2 left-2 cursor-pointer flex justify-center items-center m-3"
