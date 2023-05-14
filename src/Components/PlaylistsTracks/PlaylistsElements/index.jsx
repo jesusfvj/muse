@@ -17,6 +17,7 @@ export const PlaylistsElements = ({
   activeDropdown,
   handleToggleDropdown,
   followedBy,
+  track
 }) => {
   const {
     user: { _id: userId },
@@ -24,6 +25,17 @@ export const PlaylistsElements = ({
   const [clicked, setClicked] = useState(followedBy.includes(userId));
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const dropdownItems = [
+    {
+      text: "Play Next",
+      path: null,
+    },
+    {
+      text: "Go to Artist",
+      path: `/user/${artist._id}`,
+    },
+  ];
 
   const likeButtonClick = () => {
     if (!buttonDisabled) {
@@ -95,7 +107,8 @@ export const PlaylistsElements = ({
             id={id}
             color="white"
             activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
+            track={track}
+            items={dropdownItems}
           />
         </div>
       </div>

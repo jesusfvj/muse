@@ -18,6 +18,17 @@ export const AlbumTrackElements = ({
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+   const dropdownItems = [
+    {
+      text: "Play Next",
+      path: null,
+    },
+    {
+      text: "Go to Artist",
+      path: `/user`,
+    },
+  ];
+
   const hadleMouseOut = () => {
     setHovered(false);
     handleToggleDropdown(null);
@@ -68,6 +79,7 @@ export const AlbumTrackElements = ({
             color="white"
             activeDropdown={activeDropdown}
             track={track}
+            items={dropdownItems}
           />
         </div>
       </div>

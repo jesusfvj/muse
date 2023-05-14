@@ -31,6 +31,21 @@ export const AlbumElement = ({ object }) => {
 
   const isOwner = userId === artist._id;
 
+  const dropdownItems = [
+    {
+      text: "Play Next",
+      path: null,
+    },
+    {
+      text: "Go to Artist",
+      path: `/user`,
+    },
+    {
+      text: "Go to Album",
+      path: "/album",
+    },
+  ];
+
   const handleOpenDropdown = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -147,7 +162,7 @@ export const AlbumElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu />
+        <DropDownMenu items={dropdownItems} isAddToListVisible={false}/>
       </div>
     </div>
   );

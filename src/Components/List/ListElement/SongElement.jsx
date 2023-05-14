@@ -26,6 +26,18 @@ export const SongElement = ({ object }) => {
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
+   const dropdownItems = [
+    {
+      text: "Play Next",
+      path: null,
+    },
+    {
+      text: "Go to Artist",
+      path: `/artist/${artist._id}`,
+    },
+  ];
+
+
   const isOwner = _id === artist._id;
 
   const handleOpenDropdown = (e) => {
@@ -146,7 +158,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu track={object} />
+        <DropDownMenu track={object} items={dropdownItems}/>
       </div>
     </div>
   );
