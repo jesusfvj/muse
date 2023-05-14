@@ -70,14 +70,16 @@ export const PlaylistElement = ({ object, isSwipping }) => {
   };
 
   const handleDeletePlaylist = async () => {
-    setLoadingMessage("Deleting playlist..." )
-    setIsLoading(true)
+    setLoadingMessage("Deleting playlist...");
+    setIsLoading(true);
     const response = await deleteSinglePlaylist(userId, _id);
-    setIsLoading(false)
+    setIsLoading(false);
     if (response.ok) {
-      setMessageSuccessToaster("Playlist deleted successfully")
+      setMessageSuccessToaster("Playlist deleted successfully");
     } else {
-      setMessageErrorToaster("There was an error trying to delete the playlist. Please try again.")
+      setMessageErrorToaster(
+        "There was an error trying to delete the playlist. Please try again."
+      );
     }
   };
 
@@ -96,7 +98,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         <div
           className={`relative flex my-4 shadow-md overflow-hidden select-none m-2 cursor-pointer`}
           onClick={handleNavigate}
-          style={{ background: `linear-gradient(0deg, ${color} 20%, transparent 100%)` }}
+          style={{
+            background: `linear-gradient(0deg, ${color} 20%, transparent 100%)`,
+          }}
         >
           <div
             className={
@@ -122,7 +126,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
 
         <div className="relative">
           <div
-            className={`absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full ${hovered ? "flex animation-pop-glow" : "hidden"}`}
+            className={`absolute bottom-2 -right-2 w-[2.5rem] h-[2.5rem] flex items-center justify-center rounded-full ${
+              hovered ? "flex animation-pop-glow" : "hidden"
+            }`}
           >
             <RoundButton
               color="gray"
@@ -156,40 +162,63 @@ export const PlaylistElement = ({ object, isSwipping }) => {
           </div>
           <div className="h-6">
             <div
-              className={`w-full flex h-full items-center justify-around ${!hovered && "hidden"
-                }`}
+              className={`w-full flex h-full items-center justify-around ${
+                !hovered && "hidden"
+              }`}
             >
               {isOwner && isPrivate ? (
-                <MdOutlinePublic
-                  className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
-                  onClick={handleTogglePlaylistVisibility}
-                />
+                <div className="relative tooltip-trigger">
+                  <MdOutlinePublic
+                    className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
+                    onClick={handleTogglePlaylistVisibility}
+                  />
+                  <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                    <Typography text="Make the playlist public" type="p2" />
+                  </div>
+                </div>
               ) : isOwner && !isPrivate ? (
-                <MdOutlinePublicOff
-                  className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
-                  onClick={handleTogglePlaylistVisibility}
-                />
+                <div className="relative tooltip-trigger">
+                  <MdOutlinePublicOff
+                    className="top-1 right-4 text-md md:text-xl text-gray-400 transition duration-500 hover:text-blue-400 cursor-pointer"
+                    onClick={handleTogglePlaylistVisibility}
+                  />
+                  <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                    <Typography text="Make the playlist private" type="p2" />
+                  </div>
+                </div>
               ) : null}
               {isOwner ? (
                 <>
-                  <IoTrashOutline
-                    className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
-                    onClick={handleDeletePlaylist}
-                  />
-                  <FaEdit
-                    className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
-                    onClick={handleOpenEditPlaylist}
-                  />
+                  <div className="relative tooltip-trigger">
+                    <IoTrashOutline
+                      className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-red-400 cursor-pointer"
+                      onClick={handleDeletePlaylist}
+                    />
+                    <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                      <Typography text="Delete this playlist" type="p2" />
+                    </div>
+                  </div>
+                  <div className="relative tooltip-trigger">
+                    <FaEdit
+                      className="text-md md:text-xl text-gray-400 transition duration-500 hover:text-white cursor-pointer"
+                      onClick={handleOpenEditPlaylist}
+                    />
+                    <div className="absolute -top-10 left-2 w-40 h-30 z-10 bg-gray-900/90 rounded-sm p-2 hidden tooltip">
+                      <Typography text="Edit this playlist" type="p2" />
+                    </div>
+                  </div>
                 </>
               ) : null}
             </div>
           </div>
           {isOwner && (
-            <img src={profilePhoto} className="h-10 w-10 absolute top-2 right-4  rounded-full" />
+            <img
+              src={profilePhoto}
+              className="h-10 w-10 absolute top-2 right-4  rounded-full"
+            />
           )}
         </div>
       </div>
-    </>)
-
-
+    </>
+  );
 };

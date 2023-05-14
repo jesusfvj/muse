@@ -19,6 +19,10 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+.tooltip-trigger:hover .tooltip {
+  display: flex !important;
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   height: 3px;
@@ -138,22 +142,34 @@ input[type="range"] {
 input[type="range"]:focus {
   outline: none !important;
   border: none !important;
-  border-bottom:none !important;
+  border-bottom: none !important;
   box-shadow: 0 0 0 transparent !important;
 }
 
 @keyframes pop {
-  0% {transform: translateY(-1rem); opacity:0}
-  100% {transform: translateY(0rem);opacity:1}
+  0% {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
 }
 
 @keyframes glow {
-  0% {box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);}
-  50% {box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);}
-  100% {box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);}
+  0% {
+    box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.3);
+  }
 }
 
-.animation-pop-glow{
+.animation-pop-glow {
   animation-name: pop, glow;
   animation-duration: 300ms, 3s;
   animation-iteration-count: 1, infinite;
