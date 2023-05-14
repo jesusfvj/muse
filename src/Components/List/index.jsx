@@ -28,7 +28,7 @@ export const List = ({
   const [isSwipping, setIsSwipping] = useState(false);
 
   return (
-    <div>
+    <div className="w-full">
       <div className="ml-8">
         <Typography type={textType} text={sectionTitle} color="white" />
       </div>

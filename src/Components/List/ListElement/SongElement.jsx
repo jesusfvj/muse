@@ -77,7 +77,7 @@ export const SongElement = ({ object }) => {
           " bg-slate-900 rounded-[0.5rem] flex flex-col  place-content-between items-center p-2 w-full h-full shadow-md relative"
         }
       >
-        <Link to={`/player/${_id}`} className="w-full mt-2 px-3 truncate">
+        <Link to={`/player/${songId}`} className="w-full mt-2 px-3 truncate">
           <Typography
             text={name}
             type="p1"

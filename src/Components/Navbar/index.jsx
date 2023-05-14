@@ -46,7 +46,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`bg-black/[97.5%] h-full md:pt-12 fixed  ${isNavOpen
+        className={`bg-black/[97.5%] h-full md:pt-12 fixed z-[999999]  ${isNavOpen
             ? "w-screen md:w-1/4 flex flex-col items-center justify-center md:justify-start md:items-center fixed z-50 duration-300"
             : "w-0 md:pt-24"
           } `}
