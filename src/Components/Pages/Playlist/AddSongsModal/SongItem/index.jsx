@@ -1,9 +1,21 @@
+import { useUser } from "../../../../../Context/UserContext/UserContext";
 import { Typography } from "../../../../Typography";
 
-export const SongItem = ({ img, songName, artist }) => {
+export const SongItem = ({
+  img,
+  songName,
+  artist,
+  playlistId,
+  trackId,
+  setFollowedSongs,
+  followedSongs,
+  track,
+}) => {
+  const { addToPlaylist } = useUser();
   const handleAddToPlaylist = (e) => {
     e.stopPropagation();
-    console.log(img, songName, artist);
+    setFollowedSongs([...followedSongs, track]);
+    addToPlaylist(playlistId, trackId);
   };
 
   return (

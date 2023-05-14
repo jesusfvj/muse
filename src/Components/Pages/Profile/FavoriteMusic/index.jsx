@@ -22,7 +22,7 @@ export const FavoriteMusic = ({
   userProfile,
 }) => {
   const { playlists, followedPlaylists, albums, tracks } = userProfile;
-console.log(userProfile)
+
   const {
     data: artists,
     isLoading: isLoadingArtists,
@@ -31,7 +31,7 @@ console.log(userProfile)
     queryKey: ["artists".userProfile?._id],
     queryFn: () => getFollowedUsers(userProfile?._id),
   });
-
+  console.log(artists);
   return (
     <div className="flex flex-col gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
       <div>
@@ -42,7 +42,8 @@ console.log(userProfile)
             datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
             object1={
               !isLoadingArtists
-                ? artists.filter(
+                ? artists.length &&
+                  artists.filter(
                     (artist) =>
                       artist.followedBy.includes(userProfile?._id) &&
                       artist.role === "artist"

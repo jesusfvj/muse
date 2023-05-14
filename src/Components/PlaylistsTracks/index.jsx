@@ -12,7 +12,7 @@ import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 export const PlaylistsTracks = ({
   songs,
   styles,
-  isFollowed,
+  playlistId,
   isOwner,
   playlist,
 }) => {
@@ -54,7 +54,7 @@ export const PlaylistsTracks = ({
       navigate("/main");
     }, 1000);
   };
-console.log(songs.map(song=>song.followedBy));
+
   return (
     <div className={`flex flex-col ${styles}`}>
       <div className="flex items-center justify-end m-4 gap-4">
@@ -95,7 +95,7 @@ console.log(songs.map(song=>song.followedBy));
           className="fixed top-0 bottom-0 left-0 right-0 m-auto bg-black/90 h-screen w-screen backdrop-blur-sm z-40 flex items-center justify-center"
           onClick={() => setIsAddSongsModalOpen(false)}
         >
-          <AddSongsModal />
+          <AddSongsModal playlistId={playlistId} songs={songs}/>
         </div>
       )}
       {isLoading && <ProfileLoader modal={true} text="Deleting playlist..." />}

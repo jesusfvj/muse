@@ -23,6 +23,7 @@ export const followUser = async (loggedUserId, followedUserId, isFollowing) => {
 
 export const getUserById = async (userId) => {
   const res = await axios.get(`${BASE_URL}/${userId}`);
+
   if (res.data.ok) {
     return res.data;
   }
@@ -82,7 +83,6 @@ export const handleAddToPlaylist = async (playlistId, trackId) => {
     playlistId,
     trackId,
   });
-  console.log(res.data);
 
   //   throw new Error();
   if (res.data.ok) {
@@ -118,19 +118,20 @@ export const handleToggleFollowingAlbum = async (
   }
 };
 
-  export const sendEmail = async (email) => {
-    const res = await axios.post(`${BASE_URL}/resetpassword`, {
-      email,
-    });
-    
-  };
-  export const changePasswordData = async (token, newPassword, repeatNewPassword) => {
-    const res = await axios.post(`${BASE_URL}/resetpasswordchange`, {
-      token,
-      newPassword,
-      repeatNewPassword,
-    });
-    console.log(res)
-  };
-  
- 
+export const sendEmail = async (email) => {
+  const res = await axios.post(`${BASE_URL}/resetpassword`, {
+    email,
+  });
+};
+export const changePasswordData = async (
+  token,
+  newPassword,
+  repeatNewPassword
+) => {
+  const res = await axios.post(`${BASE_URL}/resetpasswordchange`, {
+    token,
+    newPassword,
+    repeatNewPassword,
+  });
+  console.log(res);
+};

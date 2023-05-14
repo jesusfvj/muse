@@ -54,7 +54,6 @@ export const PlaylistsElements = ({
         >
           <Typography text={<FaPlay />} color="white" />
         </div>
-        <Typography text={id} color="white" styles="hidden xs:flex" />
         <Link to="/player" className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
         </Link>

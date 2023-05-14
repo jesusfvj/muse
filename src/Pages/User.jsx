@@ -13,8 +13,6 @@ export const User = () => {
 
   const isLoggedUserProfile = userId === user._id;
 
- 
-
   useEffect(() => {
     getUserProfile(userId);
   }, [userId, user]);

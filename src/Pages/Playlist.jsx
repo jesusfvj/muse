@@ -20,10 +20,11 @@ export const Playlist = () => {
   } = useQuery({
     queryKey: ["playlists", playlistId],
     queryFn: () => getPlaylistsById(playlistId),
+    refetchInterval: 2000,
   });
 
   const isOwner = _id === playlist?.user;
-  const isFollowed = playlist?.followedBy.includes(_id);
+
   return (
     <>
       {!isLoadingPlaylists && playlist ? (
@@ -38,7 +39,7 @@ export const Playlist = () => {
             <PlaylistsTracks
               isOwner={isOwner}
               songs={playlist.tracks}
-              
+              playlistId={playlistId}
               styles="w-full md:w-4/5"
               playlist={playlist}
             />
