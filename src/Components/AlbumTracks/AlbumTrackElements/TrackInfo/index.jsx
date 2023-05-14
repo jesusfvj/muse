@@ -4,7 +4,7 @@ import { Typography } from "../../../Typography";
 
 export const TrackInfo = ({ hovered, id, nombre, duration, artist }) => {
   return (
-    <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
+    <div className="flex items-start justify-start gap-10 md:gap-15 pl-[4vw] md:px-[5vw]">
       <div
         className={`hidden sm:flex cursor-pointer mt-1 ${
           hovered ? "visible" : "invisible"
