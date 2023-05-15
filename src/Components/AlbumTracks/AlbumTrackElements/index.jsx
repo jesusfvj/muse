@@ -4,6 +4,8 @@ import { Typography, DropDownMenu } from "../../index";
 
 import { TrackInfo } from "./TrackInfo";
 import { BsThreeDots } from "react-icons/bs";
+import { likeTracks } from "../../../API/MusicApi/MusicApi";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const AlbumTrackElements = ({
   id,
@@ -14,12 +16,16 @@ export const AlbumTrackElements = ({
   activeDropdown,
   handleToggleDropdown,
   track,
+  followedBy
 }) => {
-  const [clicked, setClicked] = useState(false);
+  const {
+    user: { _id }
+  } = useUser();
+  const [clicked, setClicked] = useState(followedBy.includes(_id));
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
 
 const artistId = track.artist?._id || track.artist
-
    const dropdownItems = [
     {
       text: "Play Next",
@@ -30,7 +36,18 @@ const artistId = track.artist?._id || track.artist
       path: `/artist/${artistId}`,
     },
   ];
-
+  const likedClicked = () => {
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+      setTimeout(() => {
+        likeTracks(_id, [id], !clicked);
+      }, 300);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   const hadleMouseOut = () => {
     setHovered(false);
     handleToggleDropdown(null);
@@ -54,7 +71,7 @@ const artistId = track.artist?._id || track.artist
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"
-          onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+          onClick={likedClicked}
         >
           <Typography
             text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
