@@ -17,6 +17,8 @@ export const PlayControls = ({
   const clickRef = useRef();
   const { handleGoNextSong, handleGoPrevSong, index } = useTracks();
 
+  const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
+
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
   };
@@ -25,19 +27,25 @@ export const PlayControls = ({
     if (currentTrack.progress > 5) {
       playAudio.current.currentTime = 0;
       currentTrack.progress = 0;
-
       return;
-    } else {
-      if (index > 0) {
-        handleGoPrevSong(index);
-      } else {
-        setCurrentTrack(tracks[0]);
-      }
-      playAudio.current.currentTime = 0;
     }
+    if (isRepeatedModeActive) {
+      playAudio.current.currentTime = 0;
+      return;
+    }
+    if (index > 0) {
+      handleGoPrevSong(index);
+    } else {
+      setCurrentTrack(tracks[0]);
+    }
+    playAudio.current.currentTime = 0;
   };
 
   const skiptoNext = () => {
+    if (isRepeatedModeActive) {
+      playAudio.current.currentTime = 0;
+      return;
+    }
     if (index < tracks.length - 1) {
       handleGoNextSong(index);
       playAudio.current.currentTime = 0;
@@ -58,7 +66,17 @@ export const PlayControls = ({
         )}
 
         <MdSkipNext className={buttonsClassName} onClick={skiptoNext} />
-        <BsRepeat className={buttonsClassName} />
+        {isRepeatedModeActive ? (
+          <BsRepeat
+            className="text-green-500 text-2xl cursor-pointer"
+            onClick={() => setIsRepeatedModeActive(!isRepeatedModeActive)}
+          />
+        ) : (
+          <BsRepeat
+            className={buttonsClassName}
+            onClick={() => setIsRepeatedModeActive(!isRepeatedModeActive)}
+          />
+        )}
       </div>
 
       <div className="flex items-center justify-between gap-4 w-3/4 sm:w-auto">

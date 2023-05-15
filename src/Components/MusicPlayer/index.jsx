@@ -10,7 +10,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
 
   const playAudio = useRef();
-  
+
   useEffect(() => {
     if (!currentTrack) return;
     if (isPlaying) {
@@ -27,7 +27,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     if (currentTrack) {
       setIsPlaying(true);
     }
-    console.log(currentTrack)
+    console.log(currentTrack);
   }, [playerQueue, index]);
 
   useEffect(() => {
@@ -75,6 +75,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
             playAudio={playAudio}
+            
           />
           <VolumeControls playAudio={playAudio} />
         </div>
