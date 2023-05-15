@@ -13,6 +13,8 @@ import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import PublicRoute from "../PublicRoute";
 import { ResetPassword } from "../Pages/ResetPassword";
+/* import ProtectedAdminRoute from "../Pages/ProtectedAdminRoute"; */
+import { AdminPage } from "../Pages/AdminPage";
 
 function Router() {
   return (
@@ -46,9 +48,18 @@ function Router() {
           </ProtectedRoutes>
         }
         />
+        <Route path="/admin" element={
+          <Routes>
+            <Route path="/" element={<AdminPage />} />
+          </Routes>
+        }
+        />
       </Routes>
     </>
   );
 }
 
 export default Router;
+
+/*     <ProtectedAdminRoute>
+</ProtectedAdminRoute> */

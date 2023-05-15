@@ -4,6 +4,7 @@ export const Typography = ({
   color = "primary",
   family = "lato",
   styles = "",
+  onClick
 }) => {
   const types = {
     title: `text-xl sm:text-4xl font-bold`,
@@ -45,11 +46,11 @@ export const Typography = ({
     case "section":
     case "icon":
     case "subSection":
-      return <p className={finalClassName}>{text}</p>;
+      return <p className={finalClassName} onClick={onClick}>{text}</p>;
     case "title":
-      return <h1 className={finalClassName}>{text}</h1>;
+      return <h1 className={finalClassName} onClick={onClick}>{text}</h1>;
     case "subtitle":
-      return <h2 className={finalClassName}>{text}</h2>;
+      return <h2 className={finalClassName} onClick={onClick}>{text}</h2>;
     default:
       break;
   }

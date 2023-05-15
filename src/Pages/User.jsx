@@ -1,6 +1,4 @@
-
 import { Body, FavoriteMusic, ProfileHeader } from "../Components";
-
 import { useParams } from "react-router-dom";
 import { useUser } from "../Context/UserContext/UserContext";
 import { useEffect } from "react";
