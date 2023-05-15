@@ -59,7 +59,6 @@ export const PlaylistElement = ({ object, isSwipping }) => {
       setIsFollowed(!isFollowed);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(isFollowed);
         setButtonDisabled(false);
       }, 1500);
     }

@@ -17,7 +17,7 @@ export const PlaylistsElements = ({
   activeDropdown,
   handleToggleDropdown,
   followedBy,
-  track
+  track,
 }) => {
   const {
     user: { _id: userId },
@@ -42,12 +42,10 @@ export const PlaylistsElements = ({
       setClicked(!clicked);
 
       setTimeout(() => {
-        console.log(!clicked);
         likeTracks(userId, [id], !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
-        console.log(clicked);
         setButtonDisabled(false);
       }, 1500);
     }

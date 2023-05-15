@@ -17,7 +17,7 @@ export const Register = ({ changeLogRegister }) => {
     e.preventDefault();
     register(registerData);
   };
-console.log(registerData)
+
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };

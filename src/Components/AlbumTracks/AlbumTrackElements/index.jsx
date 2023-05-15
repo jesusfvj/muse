@@ -25,7 +25,7 @@ export const AlbumTrackElements = ({
     },
     {
       text: "Go to Artist",
-      path: `/user`,
+      path: `/artist/${track.artist}`,
     },
   ];
 

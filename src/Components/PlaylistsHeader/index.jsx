@@ -40,13 +40,9 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => 
     }
   }
   const likedClicked = async () => {
-    console.log(clicked);
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-        console.log(_id);
-        console.log(playlistId);
-        console.log(!clicked);
        toggleFollowPlaylist(_id, [playlistId], !clicked)
       }, 300);
       setButtonDisabled(true);

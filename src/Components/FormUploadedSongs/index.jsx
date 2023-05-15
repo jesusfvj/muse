@@ -140,7 +140,7 @@ export const FormUploadedSongs = ({
           />
         )}
         {selectedFiles.map(({ name }, index) => {
-          console.log(name.substring(0, name.length - 4));
+        //   console.log(name.substring(0, name.length - 4));
           return (
             <FormUploadedSongsComponent
               key={index}
