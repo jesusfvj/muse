@@ -27,6 +27,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     if (currentTrack) {
       setIsPlaying(true);
     }
+    console.log(currentTrack)
   }, [playerQueue, index]);
 
   useEffect(() => {
