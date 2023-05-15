@@ -75,9 +75,15 @@ export const Layout = ({ children }) => {
   }, [location]);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/admin" && ! location.pathname.includes("resetpassword") ;
   const isContextMenuVisible = location.pathname !== "/" && location.pathname !== "/admin" && ! location.pathname.includes("resetpassword");
   const isNavVisible = location.pathname !== "/" && location.pathname !== "/admin" && ! location.pathname.includes("resetpassword");
+=======
+  const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/admin";
+  const isContextMenuVisible = location.pathname !== "/";
+  const isNavVisible = location.pathname !== "/" && location.pathname !== "/admin";
+>>>>>>> Stashed changes
 =======
   const isMusicPlayerVisible = location.pathname !== "/" && location.pathname !== "/admin";
   const isContextMenuVisible = location.pathname !== "/";
