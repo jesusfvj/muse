@@ -4,7 +4,7 @@ import { Typography } from "../../Typography";
 import { AiOutlineHeart } from "react-icons/ai";
 
 export const TrackInfo = ({ currentTrack }) => {
-  const { artist, name, _id, genre } = currentTrack;
+  const { artist, name, _id, thumbnailUrl } = currentTrack;
 
   return (
     <div className="h-full hidden sm:flex gap-4 w-[10vw]">
@@ -12,7 +12,7 @@ export const TrackInfo = ({ currentTrack }) => {
         <div className="flex  items-start justify-between">
           <img
             className="h-[8vh] min-w-[8vh] object-cover z-40"
-            src={testImg}
+            src={thumbnailUrl}
           />
           <div className="flex flex-col h-full items-start justify-around ml-2">
             <div className="w-20 lg:w-44">
