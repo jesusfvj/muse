@@ -3,6 +3,7 @@ import { BsShuffle, BsPlayFill, BsRepeat, BsPauseFill } from "react-icons/bs";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { formatTime } from "../../../Utils/formatTime";
 import { Typography } from "../../index";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const PlayControls = ({
   playAudio,
@@ -10,10 +11,11 @@ export const PlayControls = ({
   setIsPlaying,
   currentTrack,
   setCurrentTrack,
-  track,
+  tracks,
   handleProgressChange,
 }) => {
   const clickRef = useRef();
+  const { handleGoNextSong, handleGoPrevSong, index } = useTracks();
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -26,25 +28,20 @@ export const PlayControls = ({
 
       return;
     } else {
-      const index = track.findIndex((x) => x.name == currentTrack.name);
-      if (index == 0) {
-        setCurrentTrack(track[track.length - 1]);
+      if (index > 0) {
+        handleGoPrevSong(index);
       } else {
-        setCurrentTrack(track[index - 1]);
+        setCurrentTrack(tracks[0]);
       }
       playAudio.current.currentTime = 0;
     }
   };
 
   const skiptoNext = () => {
-    const index = track.findIndex((x) => x.name == currentTrack.name);
-
-    if (index == track.length - 1) {
-      setCurrentTrack(track[0]);
-    } else {
-      setCurrentTrack(track[index + 1]);
+    if (index < tracks.length - 1) {
+      handleGoNextSong(index);
+      playAudio.current.currentTime = 0;
     }
-    playAudio.current.currentTime = 0;
   };
 
   const buttonsClassName = "text-white text-2xl cursor-pointer";

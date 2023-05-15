@@ -2,26 +2,32 @@ import { TrackInfo } from "./TrackInfo";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
-import { tracks } from "../../data/SongsData/SongsData";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
+  const { playerQueue, index } = useTracks();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState({
-      _id: '645c9c92585ed444f38e86e8',
-      name: "Better of alone",
-      artist: "RXBYN",
-      url: "https://res.cloudinary.com/dmufnezzd/video/upload/v1683791067/muze-song_file-folder/f88358519f64bb39e974c38e8cf90703.mp3"
-    });
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   const playAudio = useRef();
-
+  
   useEffect(() => {
+    if (!currentTrack) return;
     if (isPlaying) {
       playAudio.current.play();
     } else {
       playAudio.current.pause();
     }
   }, [isPlaying, currentTrack]);
+
+  useEffect(() => {
+    if (playerQueue[index]) {
+      setCurrentTrack(playerQueue[index]);
+    }
+    if (currentTrack) {
+      setIsPlaying(true);
+    }
+  }, [playerQueue, index]);
 
   useEffect(() => {
     if (!isMusicPlayerVisible) {
@@ -50,26 +56,28 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
         !isMusicPlayerVisible && "hidden"
       } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
     >
-      <div className="h-full flex flex-col sm:flex-row items-center justify-between">
-        <audio
-          src={currentTrack.url}
-          ref={playAudio}
-          onTimeUpdate={onPlaying}
-        />
+      {currentTrack ? (
+        <div className="h-full flex flex-col sm:flex-row items-center justify-between">
+          <audio
+            src={currentTrack.trackUrl}
+            ref={playAudio}
+            onTimeUpdate={onPlaying}
+          />
 
-        <TrackInfo currentTrack={currentTrack} />
-        <PlayControls
-          handleProgressChange={handleProgressChange}
-          track={tracks}
-          currentTrack={currentTrack}
-          setCurrentTrack={setCurrentTrack}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          playAudio={playAudio}
-         
-        />
-        <VolumeControls playAudio={playAudio} />
-      </div>
+          <TrackInfo currentTrack={currentTrack} />
+          <PlayControls
+            handleProgressChange={handleProgressChange}
+            tracks={playerQueue}
+            currentTrack={currentTrack}
+            setCurrentTrack={setCurrentTrack}
+            index={index}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
+            playAudio={playAudio}
+          />
+          <VolumeControls playAudio={playAudio} />
+        </div>
+      ) : null}
     </div>
   );
 };

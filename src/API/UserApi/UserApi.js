@@ -133,5 +133,4 @@ export const changePasswordData = async (
     newPassword,
     repeatNewPassword,
   });
-  console.log(res);
 };

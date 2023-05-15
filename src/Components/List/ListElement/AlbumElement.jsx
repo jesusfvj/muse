@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { useUI } from "../../../Context/UI/UIContext";
 import { IoTrashOutline } from "react-icons/io5";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const AlbumElement = ({ object }) => {
   const {
@@ -21,6 +22,8 @@ export const AlbumElement = ({ object }) => {
     setLoadingMessage,
     setIsLoading,
   } = useUI();
+
+  const { handleCreateQueue } = useTracks();
 
   const { name, thumbnailUrl, artist, _id, followedBy } = object;
 
@@ -136,6 +139,12 @@ export const AlbumElement = ({ object }) => {
             background="gradient"
             icon={<FaPlay />}
             margin="pl-1"
+            onClick={() =>
+              handleCreateQueue(
+                userId,
+                object.songs.map((song) => song._id)
+              )
+            }
           />
         </div>
       </div>
@@ -162,7 +171,7 @@ export const AlbumElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu items={dropdownItems} isAddToListVisible={false}/>
+        <DropDownMenu items={dropdownItems} isAddToListVisible={false} />
       </div>
     </div>
   );
