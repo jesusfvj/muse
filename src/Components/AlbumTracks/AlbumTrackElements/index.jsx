@@ -18,6 +18,8 @@ export const AlbumTrackElements = ({
   const [clicked, setClicked] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+const artistId = track.artist?._id || track.artist
+
    const dropdownItems = [
     {
       text: "Play Next",
@@ -25,7 +27,7 @@ export const AlbumTrackElements = ({
     },
     {
       text: "Go to Artist",
-      path: `/artist/${track.artist}`,
+      path: `/artist/${artistId}`,
     },
   ];
 
