@@ -21,6 +21,7 @@ import {
   updateSongForm,
   deleteAlbum,
   updateAlbumForm,
+  likeTracks,
 } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
@@ -174,7 +175,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updatePlaylist = async (formData, playlistId) => {
-    const data = await updatePlaylistForm(formData, playlistId)
+    const data = await updatePlaylistForm(formData, playlistId);
     if (data.ok) {
       dispatch({ type: types.updatePlaylist, payload: data.newName });
     }
@@ -182,7 +183,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateAlbum = async (formData, albumId) => {
-    const data = await updateAlbumForm(formData, albumId)
+    const data = await updateAlbumForm(formData, albumId);
     if (data.ok) {
       dispatch({ type: types.updateAlbum, payload: data.newName });
     }
@@ -190,7 +191,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateSong = async (formData, songId) => {
-    const data = await updateSongForm(formData, songId)
+    const data = await updateSongForm(formData, songId);
     if (data.ok) {
       dispatch({ type: types.updateSong, payload: data.newName });
     }
@@ -213,13 +214,40 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-   const getUserProfile = async (id) => {
+  //error here
+  const getUserProfile = async (id) => {
     const data = await getUserById(id);
     if (data?.ok) {
       setUserProfile(data.user);
       setIsProfileLoading(false);
     } else {
       setIsProfileLoading(false);
+    }
+  };
+
+  const toggleFollowTrack = async (userId, track, isFollowed) => {
+    const data = await likeTracks(userId, [track._id], isFollowed);
+    if (data.ok) {
+      if (data.isAdded) {
+        const followedTracks = [...userState.user.tracks, track];
+        console.log(followedTracks);
+        dispatch({
+          type: types.toggleFollowingTrack,
+          payload: followedTracks,
+        });
+      } else {
+        console.log("here");
+        console.log(userState.user.tracks);
+
+        const followedTracks = userState.user.tracks.filter((trk) => {
+          return trk !== track._id;
+        });
+        console.log(followedTracks);
+        dispatch({
+          type: types.toggleFollowingTrack,
+          payload: followedTracks,
+        });
+      }
     }
   };
 
@@ -245,7 +273,8 @@ export const UserProvider = ({ children }) => {
         getUserProfile,
         updateSong,
         deleteSingleSong,
-        updateAlbum
+        updateAlbum,
+        toggleFollowTrack,
       }}
     >
       {children}

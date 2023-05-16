@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import testImg from "../../../assets/images/testImages/test.jpg";
 import { Typography } from "../../Typography";
 import { AiOutlineHeart } from "react-icons/ai";
 

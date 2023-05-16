@@ -122,6 +122,11 @@ export const userReducer = (state = {}, action) => {
         ...state,
         user: {...state.user, albums: action.payload}
       }
+    case types.toggleFollowingTrack:
+      return {
+        ...state,
+        user: {...state.user, tracks: action.payload}
+      }
     default:
       state;
   };

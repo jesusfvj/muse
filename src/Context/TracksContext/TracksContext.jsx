@@ -36,7 +36,6 @@ export const TracksProvider = ({ children }) => {
   const initQueue = async () => {
     if (user) {
       const res = await initPlayer(user?._id);
-      console.log(res);
       if (res.ok) {
         dispatch({
           type: types.initQueue,
