@@ -42,7 +42,7 @@ export const AlbumTrackElements = ({
     setHovered(false);
     handleToggleDropdown(null);
   };
- 
+
   const handleAddToFavorites = async () => {
     await toggleFollowTrack(user._id, track, !isFollowed);
     setIsFollowed(!isFollowed);

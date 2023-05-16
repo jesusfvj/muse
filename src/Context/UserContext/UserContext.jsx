@@ -229,20 +229,19 @@ export const UserProvider = ({ children }) => {
     const data = await likeTracks(userId, [track._id], isFollowed);
     if (data.ok) {
       if (data.isAdded) {
-        const followedTracks = [...userState.user.tracks, track];
-        console.log(followedTracks);
+        const followedTracks = [...userState.user.tracks, track._id];
+
         dispatch({
           type: types.toggleFollowingTrack,
           payload: followedTracks,
         });
       } else {
-        console.log("here");
         console.log(userState.user.tracks);
 
         const followedTracks = userState.user.tracks.filter((trk) => {
           return trk !== track._id;
         });
-        console.log(followedTracks);
+
         dispatch({
           type: types.toggleFollowingTrack,
           payload: followedTracks,
@@ -250,7 +249,7 @@ export const UserProvider = ({ children }) => {
       }
     }
   };
-
+  console.log(userState.user?.tracks);
   return (
     <UserContext.Provider
       value={{
