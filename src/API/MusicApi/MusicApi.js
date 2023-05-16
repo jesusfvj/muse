@@ -28,11 +28,14 @@ export const getSongById = async (id) => {
 };
 
 export const uploadSongsAPI = async (filesFormData, userId) => {
-  const response = await axios.post(`${BASE_URL_TRACKS}/uploadNewSongs/${userId}`, filesFormData);
+  const response = await axios.post(
+    `${BASE_URL_TRACKS}/uploadNewSongs/${userId}`,
+    filesFormData
+  );
   /* const okData = checkTokenExpired(response);
   return okData && data; */
   return response;
-}
+};
 
 export const getPlaylists = async () => {
   const res = await axios.get(BASE_URL);
@@ -68,7 +71,10 @@ export const updatePlaylistForm = async (formData, playlistId) => {
 
 export const updateAlbumForm = async (formData, albumId) => {
   try {
-    const res = await axios.put(`${BASE_URL_ALBUMS}/update/${albumId}`, formData);
+    const res = await axios.put(
+      `${BASE_URL_ALBUMS}/update/${albumId}`,
+      formData
+    );
     return res.data;
   } catch (error) {
     return error.response.data;
@@ -77,13 +83,15 @@ export const updateAlbumForm = async (formData, albumId) => {
 
 export const updateSongForm = async (formData, songId) => {
   try {
-    const res = await axios.put(`${BASE_URL_TRACKS}/update/${songId}`, formData);
+    const res = await axios.put(
+      `${BASE_URL_TRACKS}/update/${songId}`,
+      formData
+    );
     return res.data;
   } catch (error) {
     return error.response.data;
   }
 };
-
 
 export const togglePlaylistIsPrivate = async (
   loggedUserId,
@@ -113,6 +121,7 @@ export const toggleFollowPlaylist = async (
     playlistId,
     isAdded,
   });
+  console.log(res);
   return res.data;
 };
 export const duplicatePlaylist = async (loggedUserId, playlistId) => {
@@ -177,19 +186,15 @@ export const getAlbumById = async (id) => {
   }
 };
 
-export const likeTracks = async (
-  loggedUserId,
-  trackId,
-  isAdded) => {
+export const likeTracks = async (loggedUserId, trackId, isAdded) => {
   const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`, {
     loggedUserId,
     trackId,
-    isAdded
+    isAdded,
   });
-  //   throw new Error();
 
   if (res.data.ok) {
-    return res.data.albums;
+    return res.data;
   } else {
     return [];
   }

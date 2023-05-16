@@ -35,7 +35,7 @@ export const ProfileInputSection = () => {
 
   return (
     <section>
-      <div className="flex flex-col sm:flex-row gap-16 sm:gap-6 lg:gap-16 justify-between items-center">
+      <div className="flex flex-col sm:flex-row gap-16 sm:gap-20  lg:gap-16 justify-start items-center">
         <FormWithInput
           text="Change your username"
           name="your username"
@@ -58,7 +58,7 @@ export const ProfileInputSection = () => {
           onInputChange={(e) => setNewPassword(e.target.value)}
           handleSubmit={handleSubmitPasswordInput}
         />
-        <FormWithInput
+        {/* <FormWithInput
           text="Payment details"
           name="Introduce your bank details"
           nameTwo=""
@@ -68,7 +68,7 @@ export const ProfileInputSection = () => {
           input="text"
           onInputChange={(e) => setBankDetails(e.target.value)}
           handleSubmit={handleSubmitPasswordInput}
-        />
+        /> */}
         {/*  <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
           <Typography
             text="Payment details"

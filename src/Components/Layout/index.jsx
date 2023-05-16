@@ -14,6 +14,7 @@ import { useLocation } from "react-router";
 import { Navbar } from "../Navbar";
 import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import EditAlbumForm from "../Form/EditAlbums";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 import { StripeModal } from "../StripeModal/StripeModal";
 
 export const Layout = ({ children }) => {
@@ -42,6 +43,7 @@ export const Layout = ({ children }) => {
   } = useUI();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const location = useLocation();
+  const { playerQueue } = useTracks();
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -77,9 +79,14 @@ export const Layout = ({ children }) => {
     setIsNavOpen(false);
   }, [location]);
 
-  const isMusicPlayerVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword") ;
-  const isContextMenuVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword");
-  const isNavVisible = location.pathname !== "/" && ! location.pathname.includes("resetpassword");
+  const isMusicPlayerVisible =
+    location.pathname !== "/" &&
+    !location.pathname.includes("resetpassword") &&
+    playerQueue?.length > 0;
+  const isContextMenuVisible =
+    location.pathname !== "/" && !location.pathname.includes("resetpassword");
+  const isNavVisible =
+    location.pathname !== "/" && !location.pathname.includes("resetpassword");
 
   return (
     <div className="min-h-screen" onContextMenu={handleOpenContextMenu}>
@@ -91,7 +98,9 @@ export const Layout = ({ children }) => {
       >
         <ContextMenu handleCloseContextMenu={handleCloseContextMenu} />
       </div>
-      <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible} />
+      {isMusicPlayerVisible ? (
+        <MusicPlayer isMusicPlayerVisible={isMusicPlayerVisible} />
+      ) : null}
       {isNavVisible ? <Navbar /> : null}
       {!isNavOpen && isNavVisible && (
         <RxHamburgerMenu
@@ -128,7 +137,7 @@ export const Layout = ({ children }) => {
           playlist={currentPlaylist}
         />
       )}
-      {isLoading && <ProfileLoader modal={true} text={loadingMessage}/>}
+      {isLoading && <ProfileLoader modal={true} text={loadingMessage} />}
       <ToastContainer />
     </div>
   );

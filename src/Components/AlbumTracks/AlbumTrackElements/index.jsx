@@ -4,8 +4,11 @@ import { Typography, DropDownMenu } from "../../index";
 
 import { TrackInfo } from "./TrackInfo";
 import { BsThreeDots } from "react-icons/bs";
-import { likeTracks } from "../../../API/MusicApi/MusicApi";
 import { useUser } from "../../../Context/UserContext/UserContext";
+import {
+  likeTracks,
+  toggleFollowPlaylist,
+} from "../../../API/MusicApi/MusicApi";
 
 export const AlbumTrackElements = ({
   id,
@@ -53,6 +56,11 @@ const artistId = track.artist?._id || track.artist
     handleToggleDropdown(null);
   };
 
+  const handleAddToFavorites = async () => {
+    await toggleFollowTrack(user._id, track, !isFollowed);
+    setIsFollowed(!isFollowed);
+  };
+
   return (
     <div
       className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${
@@ -74,7 +82,13 @@ const artistId = track.artist?._id || track.artist
           onClick={likedClicked}
         >
           <Typography
-            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+            text={
+              !isFollowed ? (
+                <AiOutlineHeart onClick={handleAddToFavorites} />
+              ) : (
+                <AiFillHeart onClick={handleAddToFavorites} />
+              )
+            }
             color="white"
             styles="hidden xs:flex"
           />
