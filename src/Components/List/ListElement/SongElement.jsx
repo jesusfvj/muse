@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { useUI } from "../../../Context/UI/UIContext";
 import { useUser } from "../../../Context/UserContext/UserContext";
-import { likeTracks } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const SongElement = ({ object }) => {
   const {
-    user: { _id },
+    user: { _id, tracks },
     deleteSingleSong,
+    toggleFollowTrack,
   } = useUser();
   const {
     setMessageSuccessToaster,
@@ -24,8 +24,8 @@ export const SongElement = ({ object }) => {
 
   const { handleCreateQueue } = useTracks();
 
-  const { name, artist, thumbnailUrl, _id: songId, followedBy } = object;
-  const [clicked, setClicked] = useState(followedBy.includes(_id));
+  const { name, artist, thumbnailUrl, _id: songId } = object;
+  const [clicked, setClicked] = useState(tracks.includes(songId));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
@@ -72,7 +72,7 @@ export const SongElement = ({ object }) => {
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-        likeTracks(_id, [songId], !clicked);
+        toggleFollowTrack(_id, object, !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
