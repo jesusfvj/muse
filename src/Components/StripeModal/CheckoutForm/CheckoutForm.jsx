@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import {
-    Radio,
-    Card,
-    List,
-    ListItem,
-    ListItemPrefix,
-    Typography
-} from "@material-tailwind/react";
+import {ThreeDots} from 'react-loader-spinner'
 
-export const CheckoutForm = ({handleToggleStripeModal}) => {
+
+export const CheckoutForm = ({ handleToggleStripeModal }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState(null);
@@ -21,7 +15,7 @@ export const CheckoutForm = ({handleToggleStripeModal}) => {
         if (showMessage) {
             const timer = setTimeout(() => {
                 setShowMessage(false);
-                if (PayOK){
+                if (PayOK) {
                     handleToggleStripeModal()
                 }
             }, 3500);
@@ -31,7 +25,7 @@ export const CheckoutForm = ({handleToggleStripeModal}) => {
             };
         }
     }, [showMessage]);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -79,12 +73,21 @@ export const CheckoutForm = ({handleToggleStripeModal}) => {
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
-            <div className='w-full bg-white rounded-lg p-8 center-text m-4'><p className=' text-2xl'>With a donation of €2, the Hopper squad will be able to continue creating amazing projects for humanity.</p></div>
+            <div className='w-full bg-white rounded-lg p-8 center-text my-4'><p className=' text-2xl'>With a donation of €2, the Hopper squad will be able to continue creating amazing projects for humanity.</p></div>
             <PaymentElement id="payment-element" />
 
             <button disabled={isLoading} id="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full my-5">
-                <span id="button-text" className="flex items-center center">
-                    {isLoading ? <div className="spinner " id="spinner"></div> : <p className='text-2xl w-full text-center'>Donate!</p>}
+                <span id="button-text" className="flex flex-wrap items-center text-center justify-center">
+                    {isLoading ? <ThreeDots
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="#ffffff"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName="text-center w-full"
+                        visible={true}
+                    /> : <p className='text-2xl w-full text-center'>Donate!</p>}
                 </span>
             </button>
 
