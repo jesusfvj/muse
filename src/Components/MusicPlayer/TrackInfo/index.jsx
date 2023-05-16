@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import { Typography } from "../../Typography";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useState } from "react";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const TrackInfo = ({ currentTrack }) => {
+  const { user, toggleFollowTrack } = useUser();
   const { artist, name, _id, thumbnailUrl } = currentTrack;
+  const [isFollowed, setIsFollowed] = useState(user.tracks.includes(_id));
+
+  const likedClicked = () => {
+    toggleFollowTrack(user._id, currentTrack, !isFollowed);
+    setIsFollowed(!isFollowed);
+  };
 
   return (
     <div className="h-full hidden sm:flex gap-4 w-[10vw]">
@@ -23,7 +32,17 @@ export const TrackInfo = ({ currentTrack }) => {
               type="p2"
               styles="truncate"
             />
-            <AiOutlineHeart className="text-white text-2xl cursor-pointer mb-1" />
+            {isFollowed ? (
+              <AiFillHeart
+                onClick={likedClicked}
+                className="text-white text-2xl cursor-pointer mb-1"
+              />
+            ) : (
+              <AiOutlineHeart
+                onClick={likedClicked}
+                className="text-white text-2xl cursor-pointer mb-1"
+              />
+            )}
           </div>
         </div>
       </Link>
