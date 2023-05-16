@@ -19,17 +19,19 @@ export const AlbumTrackElements = ({
   activeDropdown,
   handleToggleDropdown,
   track,
-  followedBy
+  followedBy,
 }) => {
   const {
-    user: { _id }
+    user: { _id },
+    user,
+    toggleFollowTrack,
   } = useUser();
-  const [clicked, setClicked] = useState(followedBy.includes(_id));
+  const [isFollowed, setIsFollowed] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-const artistId = track.artist?._id || track.artist
-   const dropdownItems = [
+  const artistId = track.artist?._id || track.artist;
+  const dropdownItems = [
     {
       text: "Play Next",
       path: null,
@@ -41,9 +43,9 @@ const artistId = track.artist?._id || track.artist
   ];
   const likedClicked = () => {
     if (!buttonDisabled) {
-      setClicked(!clicked);
+      setIsFollowed(!isFollowed);
       setTimeout(() => {
-        likeTracks(_id, [id], !clicked);
+        likeTracks(_id, [id], !isFollowed);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
