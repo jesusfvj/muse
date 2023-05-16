@@ -16,7 +16,6 @@ export const Login = ({ changeLogRegister }) => {
     password: "",
   });
 
-
   useEffect(() => {
     const storedEmail = localStorage.getItem("rememberEmail");
     if (storedEmail !== null) {
@@ -39,15 +38,14 @@ export const Login = ({ changeLogRegister }) => {
   };
   const handleToggleResetPasswordModal = (e) => {
     setIsResetPassword(!isResetPassword);
-  }
+  };
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
-  }
+  };
   const handleSendEmail = (e) => {
     e.preventDefault();
     sendEmail(email);
-  }
-
+  };
 
   return (
     <div className="flex flex-col pt-[25vh] md:pt-32 md:mt-0 md:justify-center h-full w-full 2xl:w-1/4 xl:w-5/12 lg:w-2/5 md:w-2/3 md:ml-24 px-8 gap-8 ">
@@ -67,10 +65,11 @@ export const Login = ({ changeLogRegister }) => {
           value={loginData.password}
           onInputChange={handleLoginInputChange}
         />
-        <div className="flex gap-4 items-center"
-          onClick={handleToggleResetPasswordModal}>
-          <Typography
-            text="Forgot Your password?" />
+        <div
+          className="flex gap-4 items-center cursor-pointer"
+          onClick={handleToggleResetPasswordModal}
+        >
+          <Typography text="Forgot Your password?" />
         </div>
         <div className="flex gap-4 items-center">
           <input
@@ -92,26 +91,31 @@ export const Login = ({ changeLogRegister }) => {
           Register
         </p>
       </div>
-      {isResetPassword ?
-        <div className="flex justify-center items-center absolute top-0 left-0 h-screen w-screen backdrop-blur-md"
+      {isResetPassword ? (
+        <div
+          className="flex justify-center items-center absolute top-0 left-0 h-screen w-screen backdrop-blur-md"
           onClick={handleToggleResetPasswordModal}
         >
-          <div className="w-1/3 h-1/3 bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-md"
-            onClick={(e) => e.stopPropagation()}>
-            <form>
-              <input
+          <div
+            className="w-4/5 md:w-2/5 h-1/3 bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <form className="w-full h-full flex flex-col items-center justify-center gap-6 rounded-md">
+              <InputWithLabel
+                name="email"
+                label="Write your email"
                 type="email"
                 value={email}
-                onChange={handleChangeEmail}
+                onInputChange={handleChangeEmail}
+                sizeContainer="w-4/5"
               />
-              <Button
-                text="Send Email"
-                onClick={handleSendEmail} />
+              <div>
+                <Button text="Send Email" onClick={handleSendEmail} />
+              </div>
             </form>
           </div>
         </div>
-        : null
-      }
+      ) : null}
     </div>
   );
 };

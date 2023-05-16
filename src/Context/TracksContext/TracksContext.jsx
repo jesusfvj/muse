@@ -3,6 +3,9 @@ import { useContext } from "react";
 
 import { types } from "../Types/types";
 import tracksReducer from "./TracksReducer";
+import { useUser } from "../UserContext/UserContext";
+import { useEffect } from "react";
+import { createQueue, initPlayer } from "../../API/PlayerApi";
 
 export const TracksContext = createContext();
 
@@ -13,18 +16,72 @@ export const useTracks = () => {
 
 const init = () => {
   const currentTrack = null;
-  const tracksList = [];
+  const index = 0;
+  const playerQueue = [];
   return {
     currentTrack,
-    tracksList,
+    playerQueue,
+    index,
   };
 };
 
 export const TracksProvider = ({ children }) => {
   const [tracksState, dispatch] = useReducer(tracksReducer, {}, init);
+  const { user } = useUser();
 
   const changeCurrentTrack = (track) => {
     dispatch({ type: types.changeCurrentTrack, payload: track });
+  };
+
+  const initQueue = async () => {
+    if (user) {
+      const res = await initPlayer(user?._id);
+      if (res.ok) {
+        dispatch({
+          type: types.initQueue,
+          payload: {
+            playerQueue: res.user.playerQueue?.tracks || [],
+            index: res.user.playerQueue?.index || 0,
+          },
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (user?._id) {
+      initQueue();
+    }
+  }, [user?._id]);
+
+  const handleCreateQueue = async (userId, trackId) => {
+    console.log(userId, trackId);
+
+    const res = await createQueue(userId, trackId);
+    console.log(res);
+    if (res.ok) {
+      dispatch({
+        type: types.createQueue,
+        payload: {
+          tracks: [...res.playQueue.tracks],
+          index: res.playQueue.index,
+        },
+      });
+    }
+  };
+
+  const handleGoNextSong = (index) => {
+    dispatch({
+      type: types.goNextPrevSong,
+      payload: index + 1,
+    });
+  };
+
+  const handleGoPrevSong = (index) => {
+    dispatch({
+      type: types.goNextPrevSong,
+      payload: index - 1,
+    });
   };
 
   return (
@@ -32,6 +89,9 @@ export const TracksProvider = ({ children }) => {
       value={{
         ...tracksState,
         changeCurrentTrack,
+        handleCreateQueue,
+        handleGoNextSong,
+        handleGoPrevSong,
       }}
     >
       {children}

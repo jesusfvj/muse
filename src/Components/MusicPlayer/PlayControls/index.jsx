@@ -3,6 +3,7 @@ import { BsShuffle, BsPlayFill, BsRepeat, BsPauseFill } from "react-icons/bs";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { formatTime } from "../../../Utils/formatTime";
 import { Typography } from "../../index";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const PlayControls = ({
   playAudio,
@@ -10,10 +11,13 @@ export const PlayControls = ({
   setIsPlaying,
   currentTrack,
   setCurrentTrack,
-  track,
+  tracks,
   handleProgressChange,
 }) => {
   const clickRef = useRef();
+  const { handleGoNextSong, handleGoPrevSong, index } = useTracks();
+
+  const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -23,28 +27,29 @@ export const PlayControls = ({
     if (currentTrack.progress > 5) {
       playAudio.current.currentTime = 0;
       currentTrack.progress = 0;
-
       return;
-    } else {
-      const index = track.findIndex((x) => x.name == currentTrack.name);
-      if (index == 0) {
-        setCurrentTrack(track[track.length - 1]);
-      } else {
-        setCurrentTrack(track[index - 1]);
-      }
-      playAudio.current.currentTime = 0;
     }
+    if (isRepeatedModeActive) {
+      playAudio.current.currentTime = 0;
+      return;
+    }
+    if (index > 0) {
+      handleGoPrevSong(index);
+    } else {
+      setCurrentTrack(tracks[0]);
+    }
+    playAudio.current.currentTime = 0;
   };
 
   const skiptoNext = () => {
-    const index = track.findIndex((x) => x.name == currentTrack.name);
-
-    if (index == track.length - 1) {
-      setCurrentTrack(track[0]);
-    } else {
-      setCurrentTrack(track[index + 1]);
+    if (isRepeatedModeActive) {
+      playAudio.current.currentTime = 0;
+      return;
     }
-    playAudio.current.currentTime = 0;
+    if (index < tracks.length - 1) {
+      handleGoNextSong(index);
+      playAudio.current.currentTime = 0;
+    }
   };
 
   const buttonsClassName = "text-white text-2xl cursor-pointer";
@@ -61,7 +66,17 @@ export const PlayControls = ({
         )}
 
         <MdSkipNext className={buttonsClassName} onClick={skiptoNext} />
-        <BsRepeat className={buttonsClassName} />
+        {isRepeatedModeActive ? (
+          <BsRepeat
+            className="text-green-500 text-2xl cursor-pointer"
+            onClick={() => setIsRepeatedModeActive(!isRepeatedModeActive)}
+          />
+        ) : (
+          <BsRepeat
+            className={buttonsClassName}
+            onClick={() => setIsRepeatedModeActive(!isRepeatedModeActive)}
+          />
+        )}
       </div>
 
       <div className="flex items-center justify-between gap-4 w-3/4 sm:w-auto">

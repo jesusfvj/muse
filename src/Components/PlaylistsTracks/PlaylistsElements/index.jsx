@@ -20,9 +20,9 @@ export const PlaylistsElements = ({
   track,
 }) => {
   const {
-    user: { _id: userId },
+    user: { _id: userId, tracks }, toggleFollowTrack,
   } = useUser();
-  const [clicked, setClicked] = useState(followedBy.includes(userId));
+  const [clicked, setClicked] = useState(tracks.includes(id));
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -42,7 +42,7 @@ export const PlaylistsElements = ({
       setClicked(!clicked);
 
       setTimeout(() => {
-        likeTracks(userId, [id], !clicked);
+        toggleFollowTrack(userId, track, !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
