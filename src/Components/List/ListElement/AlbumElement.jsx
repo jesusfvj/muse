@@ -22,7 +22,7 @@ export const AlbumElement = ({ object }) => {
     setLoadingMessage,
     setIsLoading,
   } = useUI();
-
+  //album from profile
   const { handleCreateQueue } = useTracks();
 
   const { name, thumbnailUrl, artist, _id, followedBy } = object;
@@ -84,6 +84,10 @@ export const AlbumElement = ({ object }) => {
     }
   };
 
+  const handleAddToQueue = () => {
+    handleCreateQueue(userId, object.songs, 0);
+  };
+
   return (
     <div
       className="flex flex-col my-4 mx-2"
@@ -139,12 +143,7 @@ export const AlbumElement = ({ object }) => {
             background="gradient"
             icon={<FaPlay />}
             margin="pl-1"
-            onClick={() =>
-              handleCreateQueue(
-                userId,
-                object.songs.map((song) => song._id)
-              )
-            }
+            onClick={handleAddToQueue}
           />
         </div>
       </div>

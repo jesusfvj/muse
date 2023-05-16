@@ -54,11 +54,11 @@ export const TracksProvider = ({ children }) => {
     }
   }, [user?._id]);
 
-  const handleCreateQueue = async (userId, trackId) => {
+  const handleCreateQueue = async (userId, trackId, index) => {
     console.log(userId, trackId);
-
-    const res = await createQueue(userId, trackId);
-    console.log(res);
+//trackId must be an array!
+    const res = await createQueue(userId, trackId, index);
+   
     if (res.ok) {
       dispatch({
         type: types.createQueue,
@@ -69,7 +69,7 @@ export const TracksProvider = ({ children }) => {
       });
     }
   };
-
+//save index to db
   const handleGoNextSong = (index) => {
     dispatch({
       type: types.goNextPrevSong,
