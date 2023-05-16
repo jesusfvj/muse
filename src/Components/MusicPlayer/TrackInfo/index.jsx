@@ -7,7 +7,7 @@ import { useUser } from "../../../Context/UserContext/UserContext";
 export const TrackInfo = ({ currentTrack }) => {
   const { user, toggleFollowTrack } = useUser();
   const { artist, name, _id, thumbnailUrl } = currentTrack;
-  const [isFollowed, setIsFollowed] = useState(user.tracks.includes(_id));
+  const [isFollowed, setIsFollowed] = useState(user?.tracks.includes(_id));
 
   const likedClicked = () => {
     toggleFollowTrack(user._id, currentTrack, !isFollowed);
