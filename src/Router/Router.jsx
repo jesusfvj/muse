@@ -12,13 +12,7 @@ import { MainPage } from "../Pages/MainPage";
 import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import PublicRoute from "../PublicRoute";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 import { ResetPassword } from "../Pages/ResetPassword";
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 /* import ProtectedAdminRoute from "../Pages/ProtectedAdminRoute"; */
 import { AdminPage } from "../Pages/AdminPage";
 
