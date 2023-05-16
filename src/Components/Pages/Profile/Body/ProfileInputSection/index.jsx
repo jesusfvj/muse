@@ -3,14 +3,20 @@ import { useState } from "react";
 import { useUser } from "../../../../../Context/UserContext/UserContext";
 import { ProfileLoader } from "../../ProfileLoader";
 import { useUI } from "../../../../../Context/UI/UIContext";
+import { updateUserPassword } from "../../../../../API/UserApi/UserApi";
 
 export const ProfileInputSection = () => {
   const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
   const [newUsername, setNewUsername] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
   const [bankDetails, setBankDetails] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { user, updateUsername } = useUser();
+  const [resetNewPassword, setResetNewPassword] = useState({
+      oldPassword: "",
+      newPassword: "",
+  })
+  // const { user, updateUsername } = useUser();
+  const {user: {_id: userId}, fullName, updateUsername} = useUser();
 
   const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
@@ -18,7 +24,7 @@ export const ProfileInputSection = () => {
     const timeoutId = setTimeout(() => {
       setIsLoading(true);
     }, 800);
-    const response = await updateUsername(newUsername, user._id)
+    const response = await updateUsername(newUsername, userId)
     clearTimeout(timeoutId);
     setIsLoading(false)
     if (response.ok) {
@@ -33,6 +39,21 @@ export const ProfileInputSection = () => {
     event.preventDefault();
   };
 
+
+    const handleChangeNewPassword = (e) =>{
+        e.preventDefault();
+        updateUserPassword(userId, resetNewPassword.oldPassword, resetNewPassword.newPassword)
+    }
+
+    const handleChangePassword = (e) => {
+        setResetNewPassword({
+            ...resetNewPassword,
+            [e.target.name]: e.target.value
+        })
+    }
+ // chat Gpt per manejar error, input nomes per nova contraseña y repetir la contraseña, que compari les dues y si son iguals que les canvii.
+// error en oninputchange no puc escriure al input.
+
   return (
     <section>
       <div className="flex flex-col sm:flex-row gap-16 sm:gap-6 lg:gap-16 justify-between items-center">
@@ -41,7 +62,7 @@ export const ProfileInputSection = () => {
           name="your username"
           nameTwo="new username"
           type="text"
-          valueOne={user.fullName}
+          valueOne={fullName}
           valueTwo={newUsername}
           input="text"
           onInputChange={(e) => setNewUsername(e.target.value)}
@@ -53,9 +74,9 @@ export const ProfileInputSection = () => {
           nameTwo="new password"
           type="password"
           valueOne="your password"
-          valueTwo={newPassword}
+          valueTwo={resetNewPassword.newPassword}
           input="password"
-          onInputChange={(e) => setNewPassword(e.target.value)}
+          onInputChange={handleChangePassword}
           handleSubmit={handleSubmitPasswordInput}
         />
         <FormWithInput

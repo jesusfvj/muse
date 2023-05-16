@@ -135,3 +135,21 @@ export const changePasswordData = async (
   });
   console.log(res);
 };
+
+export const updateUserPassword = async (
+  userId,
+  oldPassword,
+  newPassword
+) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/resetpasswordprofile`, {
+      userId,
+      oldPassword,
+      newPassword
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
