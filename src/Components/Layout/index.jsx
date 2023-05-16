@@ -14,6 +14,7 @@ import { useLocation } from "react-router";
 import { Navbar } from "../Navbar";
 import { ProfileLoader } from "../Pages/Profile/ProfileLoader";
 import EditAlbumForm from "../Form/EditAlbums";
+import { StripeModal } from "../StripeModal/StripeModal";
 
 export const Layout = ({ children }) => {
   const {
@@ -25,6 +26,8 @@ export const Layout = ({ children }) => {
     setMessageSuccessToaster,
     isEditPlaylistModalOpen,
     handleToggleAlbumModal,
+    isStripeModalOpen,
+    handleToggleStripeModal,
     setMessageErrorToaster,
     messageSuccessToaster,
     handleToggleSongModal,
@@ -115,6 +118,9 @@ export const Layout = ({ children }) => {
       )}
       {isEditAlbumModalOpen && (
         <EditAlbumForm handleToggleAlbumModal={handleToggleAlbumModal} />
+      )}
+      {isStripeModalOpen && (
+        <StripeModal handleToggleStripeModal={handleToggleStripeModal} />
       )}
       {isEditPlaylistModalOpen && (
         <EditPlaylistModal

@@ -8,6 +8,7 @@ import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
 
 export const User = () => {
+ 
   const { userId } = useParams();
   const { user, userProfile, isProfileLoading, getUserProfile } = useUser();
 

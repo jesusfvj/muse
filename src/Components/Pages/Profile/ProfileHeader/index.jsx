@@ -1,8 +1,12 @@
+import { useUI } from "../../../../Context/UI/UIContext";
 import { Typography } from "../../../Typography"
 
 export const ProfileHeader = () => {
+  const {
+    handleToggleStripeModal
+  } = useUI();
   return (
-    <div className="w-screen h-[4rem] xs:h-[8rem] bg-[#96927A] flex flex-col justify-center items-center relative cursor-pointer drop-shadow-xl">
+    <div className="w-screen h-[4rem] xs:h-[8rem] bg-[#96927A] flex flex-col justify-center items-center relative cursor-pointer drop-shadow-xl" onClick={handleToggleStripeModal}>
       <div className="flex flex-col justify-center items-center h-full w-full bg-[url('../../../.././src/assets/images/coffeePattern.png')] bg-cover">
         <Typography text="Donate" type="important" color="white" family="lato"/>
         <Typography text="buy us a coffee!" type="p1" color="white" family="lato" styles="mt-[-0.75rem] pl-[2rem] xs:pl-[6rem]"/>

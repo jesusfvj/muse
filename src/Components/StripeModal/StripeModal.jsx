@@ -1,0 +1,57 @@
+import React, { useEffect, useState } from 'react'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import axios from 'axios';
+import { setStripe, stripePayment } from '../../API/StripePayments/StripePayments';
+import { CheckoutForm } from './CheckoutForm/CheckoutForm';
+
+export const StripeModal = ({ handleToggleStripeModal }) => {
+    const [clientSecret, setClientSecret] = useState("");
+    const [stripePromise, setStripePromise] = useState("");
+
+    // const stripePromise = loadStripe("pk_test_51N80saK8GYiDB5U2dA7gHIgSiGYxbueVVFSsP5W0c4mTIyr2oPqUiYpeW46ijdYrC4MWUNFIIDKAP06hC9IAsY0400tBSO8Ghc");
+    useEffect(() => {
+        async function setStripeF() {
+            const {publishableKey} = await setStripe()
+            console.log(publishableKey);
+            setStripePromise(loadStripe(publishableKey))
+        }
+        setStripeF()
+    }, []);
+    useEffect(() => {
+        async function setStripe() {
+            const {clientSecret} = await stripePayment()
+            console.log(clientSecret);
+            setClientSecret(clientSecret)
+        }
+        setStripe()
+    }, []);
+    const appearance = {
+        theme: 'night',
+      };
+      const options = {
+        clientSecret,
+        appearance,
+        locale: 'en'
+      };
+    return (
+        <div
+            className="w-screen h-screen fixed top-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-[999999]"
+            onClick={handleToggleStripeModal}
+        >
+            <div
+                className="w-4/6 md:w-1/2 h-fit bg-gradient-to-b from-[#4A4A4A] to-[#0A4148] p-6 rounded-md"
+                onClick={(e) => e.stopPropagation()}
+            >
+
+                <div className="App">
+                    {clientSecret && stripePromise && (
+                        <Elements options={options} stripe={stripePromise}>
+                            <CheckoutForm handleToggleStripeModal={handleToggleStripeModal}/>
+                        </Elements>
+                    )}
+                </div>
+            </div>
+        </div>
+    )
+}
