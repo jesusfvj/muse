@@ -35,18 +35,30 @@ export const Player = () => {
         <ProfileLoader />
       ) : track ? (
         <>
-          <PlayerHeader track={track} />
-          <div className="flex items-start pt-[10vh] justify-center bg-gradient-to-b from-[#02040C] to-[#052226] w-screen min-h-[50vh]">
-            {/* <MusicPlayer /> */}
-            <div className="flex flex-col items-center gap-4 w-full md:w-5/6">
+          <div className="w-screen h-screen bg-gradient-to-b from-[#02040C] to-[#052226]">
+
+            <div className="flex flex-col bottom-4 z-50 right-0 left-0 m-auto text-center p-12">
+              <img
+                src={track.thumbnailUrl}
+                className=" object-cover text-center rounded-full w-64 h-64 self-center m-12"
+              />
+              <Typography text={track.name} type="title" styles="truncate" />
+              <Typography text={track.genre} styles="truncate capitalize" />
+              <Typography text={`Duration - ${track.duration}`} styles="truncate capitalize" />
+            
               <img
                 src={track.artist.profilePhoto}
-                className="h-40 w-40 rounded-md"
+                className="h-40 w-40 rounded-full self-center m-6"
               />
               <Typography text={track.artist.fullName} type="big" />
               <Typography
                 text={`${track.artist.followedBy.length} followers`}
               />
+              <div className="text-gray-400 text-2xl mx-36">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
+              Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
+              Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid. Ipsum mollitia temporibus rem pariatur dolor nesciunt debitis veritatis praesentium.
+              Voluptatum natus nihil a consequuntur veritatis voluptatem, similique officiis illo odio, illum earum id totam. A qui ducimus quidem distinctio dicta, quas impedit atque quod veniam. Vel velit consectetur facere.</div>
+              <div className="mx-64 my-10">
               {featuredIn.length ? (
                 <List
                   object={featuredIn}
@@ -59,7 +71,8 @@ export const Player = () => {
                     itemsMobile: 2,
                   }}
                 />
-              ) : null}
+                ) : null}
+                </div>
             </div>
           </div>
         </>
