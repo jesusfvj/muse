@@ -9,6 +9,7 @@ import { useUser } from "../../../Context/UserContext/UserContext";
 import { toggleFollowPlaylist } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
 import { useUI } from "../../../Context/UI/UIContext";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const PlaylistElement = ({ object, isSwipping }) => {
   const {
@@ -23,6 +24,9 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     togglePlaylistVisibility,
     deleteSinglePlaylist,
   } = useUser();
+
+  const { handleCreateQueue } = useTracks();
+
   const { name, thumbnail, _id, isPrivate, user, color } = object;
 
   const [isFollowed, setIsFollowed] = useState(
@@ -86,6 +90,10 @@ export const PlaylistElement = ({ object, isSwipping }) => {
     handleToggleEditPlaylistModal(object);
   };
 
+  const handleAddToQueue = () => {
+    handleCreateQueue(userId, object.tracks);
+  };
+
   return (
     <>
       <div
@@ -134,6 +142,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
               background="gradient"
               icon={<FaPlay />}
               margin="pl-1"
+              onClick={handleAddToQueue}
             />
           </div>
         </div>

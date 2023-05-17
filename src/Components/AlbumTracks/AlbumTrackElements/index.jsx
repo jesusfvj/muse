@@ -4,6 +4,11 @@ import { Typography, DropDownMenu } from "../../index";
 
 import { TrackInfo } from "./TrackInfo";
 import { BsThreeDots } from "react-icons/bs";
+import { useUser } from "../../../Context/UserContext/UserContext";
+import {
+  likeTracks,
+  toggleFollowPlaylist,
+} from "../../../API/MusicApi/MusicApi";
 
 export const AlbumTrackElements = ({
   id,
@@ -14,13 +19,20 @@ export const AlbumTrackElements = ({
   activeDropdown,
   handleToggleDropdown,
   track,
+  trackList,
+  followedBy,
 }) => {
-  const [clicked, setClicked] = useState(false);
+  const {
+    user: { _id },
+    user,
+    toggleFollowTrack,
+  } = useUser();
+  const [isFollowed, setIsFollowed] = useState(followedBy.includes(_id));
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-const artistId = track.artist?._id || track.artist
-
-   const dropdownItems = [
+  const artistId = track.artist?._id || track.artist;
+  const dropdownItems = [
     {
       text: "Play Next",
       path: null,
@@ -30,10 +42,26 @@ const artistId = track.artist?._id || track.artist
       path: `/artist/${artistId}`,
     },
   ];
-
+  const likedClicked = () => {
+    if (!buttonDisabled) {
+      setIsFollowed(!isFollowed);
+      setTimeout(() => {
+        likeTracks(_id, [id], !isFollowed);
+      }, 300);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
   const hadleMouseOut = () => {
     setHovered(false);
     handleToggleDropdown(null);
+  };
+
+  const handleAddToFavorites = async () => {
+    await toggleFollowTrack(user._id, track, !isFollowed);
+    setIsFollowed(!isFollowed);
   };
 
   return (
@@ -50,14 +78,22 @@ const artistId = track.artist?._id || track.artist
         nombre={nombre}
         artist={artist}
         duration={duration}
+        trackList={trackList}
+        idx={idx}
       />
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"
-          onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+          onClick={likedClicked}
         >
           <Typography
-            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+            text={
+              !isFollowed ? (
+                <AiOutlineHeart onClick={handleAddToFavorites} />
+              ) : (
+                <AiFillHeart onClick={handleAddToFavorites} />
+              )
+            }
             color="white"
             styles="hidden xs:flex"
           />

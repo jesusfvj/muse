@@ -8,6 +8,7 @@ export const FavoriteMusicElement = ({
   isLoggedUserProfile
  
 }) => {
+    
   return (
     <div className="flex flex-col justify-center items-center gap-y-[2rem] relative">
       <div className="w-[95%]">

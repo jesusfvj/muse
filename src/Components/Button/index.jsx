@@ -4,6 +4,7 @@ export const Button = ({
   text,
   size = "md",
   color = "primary",
+  textWhite = false,
   outlined = false,
   disabled = false,
   typeButton = "button",
@@ -12,11 +13,12 @@ export const Button = ({
   icon,
   isLabel = false,
   htmlFor,
-  refElement
+  refElement,
+  styles
 }) => {
   const buttonColors = {
     primary: {
-      fill: "bg-gradient-to-tl from-indigo-900 to-blue-500 text-gray-50 enabled:hover:brightness-105",
+      fill: `bg-gradient-to-tl from-indigo-900 to-blue-500 ${textWhite ? 'text-white': 'text-gray-50'} enabled:hover:brightness-105`,
       outlined:
         "border border-blue-500 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-indigo-900 to-blue-500",
     },
@@ -31,9 +33,9 @@ export const Button = ({
         "border border-red-500/90 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-red-900 to-red-500",
     },
     gray: {
-      fill: "bg-gradient-to-tl from-gray-900 to-gray-500 text-gray-300  enabled:hover:brightness-105",
+      fill: `bg-gradient-to-tl from-gray-900 to-gray-500 ${textWhite ? 'text-white': 'text-gray-300'}  enabled:hover:brightness-105`,
       outlined:
-        "border border-gray-500/90 bg-transparent text-gray-300 enabled:hover:bg-gradient-to-tl from-gray-900 to-gray-500",
+        `border border-gray-500/90 bg-transparent ${textWhite ? 'text-white': 'text-gray-300'} enabled:hover:bg-gradient-to-tl from-gray-900 to-gray-500`,
     },
     black: {
       fill: "bg-gradient-to-tl from-[#02050d] to-gray-700 text-gray-300  enabled:hover:brightness-150",
@@ -62,7 +64,7 @@ export const Button = ({
       {icon && icon} {text}
       </label>)
       :(
-      <button disabled={disabled} onClick={onClick} className={finalClassName} type={typeButton} ref={refElement}>
+      <button disabled={disabled} onClick={onClick} className={`${finalClassName} ${styles}`} type={typeButton} ref={refElement}>
       {icon && icon} {text}
       </button>)
   );

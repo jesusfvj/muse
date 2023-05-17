@@ -15,6 +15,7 @@ export const UIProvider = ({ children }) => {
   const [messageSuccessToaster, setMessageSuccessToaster] = useState("");
   const [isEditSongModalOpen, setisEditSongModalOpen] = useState(false);
   const [messageErrorToaster, setMessageErrorToaster] = useState("");
+  const [isStripeModalOpen, setIsStripeModalOpen] = useState(false);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [loadingMessage, setLoadingMessage] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState(null);
@@ -28,6 +29,10 @@ export const UIProvider = ({ children }) => {
   const handleToggleCreatePlaylistModal = () => {
     setIsNavOpen(false)
     setIsCreatePlaylistModalOpen(!isCreatePlaylistModalOpen);
+  };
+  const handleToggleStripeModal = () => {
+    setIsNavOpen(false)
+    setIsStripeModalOpen(!isStripeModalOpen);
   };
 
   const handleToggleSongModal = (song) => {
@@ -56,6 +61,9 @@ export const UIProvider = ({ children }) => {
         setMessageSuccessToaster,
         setisEditAlbumModalOpen,
         isEditPlaylistModalOpen,
+        isStripeModalOpen,
+        handleToggleStripeModal,
+        setIsEditPlaylistModalOpen,
         setMessageErrorToaster,
         handleToggleAlbumModal,
         handleToggleSongModal,

@@ -21,6 +21,7 @@ import {
   updateSongForm,
   deleteAlbum,
   updateAlbumForm,
+  likeTracks,
 } from "../../API/MusicApi/MusicApi";
 
 export const UserContext = createContext();
@@ -30,22 +31,33 @@ export const useUser = () => {
   return state;
 };
 
-const init = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  return {
-    user,
-  };
-};
-
 export const UserProvider = ({ children }) => {
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+
+  const init = async () => {
+    setIsLoginLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      const data = await getUserById(user);
+      const loggedUser = data.user;
+      dispatch({ type: types.login, payload: loggedUser });
+    }
+    setIsLoginLoading(false);
+    return {
+      user,
+    };
+  };
+
   const [userState, dispatch] = useReducer(userReducer, {}, init);
 
   const [userProfile, setUserProfile] = useState(null);
   const [isProfileLoading, setIsProfileLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(userState.user));
-  }, [userState.user]);
+    if (userState?.user) {
+      localStorage.setItem("user", JSON.stringify(userState?.user?._id));
+    }
+  }, [userState.user?._id]);
 
   const login = async (user) => {
     const data = await loginUser(user);
@@ -80,6 +92,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
     dispatch({ type: types.logout });
   };
 
@@ -174,7 +187,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updatePlaylist = async (formData, playlistId) => {
-    const data = await updatePlaylistForm(formData, playlistId)
+    const data = await updatePlaylistForm(formData, playlistId);
     if (data.ok) {
       dispatch({ type: types.updatePlaylist, payload: data.newName });
     }
@@ -182,7 +195,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateAlbum = async (formData, albumId) => {
-    const data = await updateAlbumForm(formData, albumId)
+    const data = await updateAlbumForm(formData, albumId);
     if (data.ok) {
       dispatch({ type: types.updateAlbum, payload: data.newName });
     }
@@ -190,7 +203,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateSong = async (formData, songId) => {
-    const data = await updateSongForm(formData, songId)
+    const data = await updateSongForm(formData, songId);
     if (data.ok) {
       dispatch({ type: types.updateSong, payload: data.newName });
     }
@@ -213,13 +226,37 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-   const getUserProfile = async (id) => {
+  //error here
+  const getUserProfile = async (id) => {
     const data = await getUserById(id);
     if (data?.ok) {
       setUserProfile(data.user);
       setIsProfileLoading(false);
     } else {
       setIsProfileLoading(false);
+    }
+  };
+
+  const toggleFollowTrack = async (userId, track, isFollowed) => {
+    console.log(userId, track, isFollowed);
+    const data = await likeTracks(userId, [track._id], isFollowed);
+    if (data.ok) {
+      if (data.isAdded) {
+        const followedTracks = [...userState.user.tracks, track._id];
+
+        dispatch({
+          type: types.toggleFollowingTrack,
+          payload: followedTracks,
+        });
+      } else {
+        const followedTracks = userState.user.tracks.filter((trk) => {
+          return trk !== track._id;
+        });
+        dispatch({
+          type: types.toggleFollowingTrack,
+          payload: followedTracks,
+        });
+      }
     }
   };
 
@@ -245,7 +282,9 @@ export const UserProvider = ({ children }) => {
         getUserProfile,
         updateSong,
         deleteSingleSong,
-        updateAlbum
+        updateAlbum,
+        toggleFollowTrack,
+        isLoginLoading,
       }}
     >
       {children}

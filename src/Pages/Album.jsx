@@ -16,7 +16,7 @@ export const Album = () => {
     isLoading,
     error,
   } = useQuery({ queryKey: ["songs"], queryFn: () => getAlbumById(albumId) });
-
+console.log(album)
   return (
     <>
       {isLoading ? (

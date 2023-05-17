@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { Typography, RoundButton, DropDownMenu } from "../../index";
 import { useUI } from "../../../Context/UI/UIContext";
 import { useUser } from "../../../Context/UserContext/UserContext";
-import { likeTracks } from "../../../API/MusicApi/MusicApi";
 import { IoTrashOutline } from "react-icons/io5";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const SongElement = ({ object }) => {
   const {
-    user: { _id },
+    user: { _id, tracks },
     deleteSingleSong,
+    toggleFollowTrack,
   } = useUser();
   const {
     setMessageSuccessToaster,
@@ -20,13 +21,16 @@ export const SongElement = ({ object }) => {
     setLoadingMessage,
     setIsLoading,
   } = useUI();
-  const { name, artist, thumbnailUrl, _id: songId, followedBy } = object;
-  const [clicked, setClicked] = useState(followedBy.includes(_id));
+
+  const { handleCreateQueue } = useTracks();
+
+  const { name, artist, thumbnailUrl, _id: songId } = object;
+  const [clicked, setClicked] = useState(tracks.includes(songId));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
 
-   const dropdownItems = [
+  const dropdownItems = [
     {
       text: "Play Next",
       path: null,
@@ -36,7 +40,6 @@ export const SongElement = ({ object }) => {
       path: `/artist/${artist._id}`,
     },
   ];
-
 
   const isOwner = _id === artist._id;
 
@@ -69,13 +72,17 @@ export const SongElement = ({ object }) => {
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-        likeTracks(_id, [songId], !clicked);
+        toggleFollowTrack(_id, object, !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
         setButtonDisabled(false);
       }, 1500);
     }
+  };
+
+  const handleAddToQueue = () => {
+    handleCreateQueue(_id, [songId]);
   };
   return (
     <div
@@ -132,6 +139,7 @@ export const SongElement = ({ object }) => {
             background="gradient"
             icon={<FaPlay />}
             margin="pl-1"
+            onClick={handleAddToQueue}
           />
         </div>
       </div>
@@ -158,7 +166,7 @@ export const SongElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu track={object} items={dropdownItems}/>
+        <DropDownMenu track={object} items={dropdownItems} />
       </div>
     </div>
   );
