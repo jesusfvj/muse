@@ -5,6 +5,7 @@ import { ProfileLoader } from "../../ProfileLoader";
 import { useUI } from "../../../../../Context/UI/UIContext";
 import { updateUserPassword } from "../../../../../API/UserApi/UserApi";
 
+
 export const ProfileInputSection = () => {
   const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
   const [newUsername, setNewUsername] = useState('');
@@ -12,11 +13,11 @@ export const ProfileInputSection = () => {
   const [bankDetails, setBankDetails] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [resetNewPassword, setResetNewPassword] = useState({
-      oldPassword: "",
-      newPassword: "",
+    oldPassword: "",
+    newPassword: "",
   })
   // const { user, updateUsername } = useUser();
-  const {user: {_id: userId}, fullName, updateUsername} = useUser();
+  const { user: { _id: userId }, fullName, updateUsername } = useUser();
 
   const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
@@ -37,22 +38,23 @@ export const ProfileInputSection = () => {
 
   const handleSubmitPasswordInput = (event) => {
     event.preventDefault();
+    setResetNewPassword({
+      ...resetNewPassword,
+      [e.target.name]: e.target.value
+    })
   };
 
 
-    const handleChangeNewPassword = (e) =>{
-        e.preventDefault();
-        updateUserPassword(userId, resetNewPassword.oldPassword, resetNewPassword.newPassword)
-    }
+  const handleChangeNewPassword = (e) => {
+    e.preventDefault();
+    updateUserPassword(userId, resetNewPassword.oldPassword, resetNewPassword.newPassword)
+  }
 
-    const handleChangePassword = (e) => {
-        setResetNewPassword({
-            ...resetNewPassword,
-            [e.target.name]: e.target.value
-        })
-    }
- // chat Gpt per manejar error, input nomes per nova contraseña y repetir la contraseña, que compari les dues y si son iguals que les canvii.
-// error en oninputchange no puc escriure al input.
+  // const handleChangePassword = (e) => {
+  
+  // }
+  // chat Gpt per manejar error, input nomes per nova contraseña y repetir la contraseña, que compari les dues y si son iguals que les canvii.
+  // error en oninputchange no puc escriure al input.
 
   return (
     <section>
@@ -73,10 +75,10 @@ export const ProfileInputSection = () => {
           name="your password"
           nameTwo="new password"
           type="password"
-          valueOne="your password"
+          valueOne={resetNewPassword.oldPassword}
           valueTwo={resetNewPassword.newPassword}
           input="password"
-          onInputChange={handleChangePassword}
+          onInputChange={handleChangeNewPassword}
           handleSubmit={handleSubmitPasswordInput}
         />
         <FormWithInput
