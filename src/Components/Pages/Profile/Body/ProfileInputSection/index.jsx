@@ -5,19 +5,16 @@ import { ProfileLoader } from "../../ProfileLoader";
 import { useUI } from "../../../../../Context/UI/UIContext";
 import { updateUserPassword } from "../../../../../API/UserApi/UserApi";
 
-
 export const ProfileInputSection = () => {
-  const { setMessageSuccessToaster, setMessageErrorToaster } = useUI()
-  const [newUsername, setNewUsername] = useState('');
-  // const [newPassword, setNewPassword] = useState('');
-  const [bankDetails, setBankDetails] = useState('');
+  const [newUsername, setNewUsername] = useState("");
+  const [bankDetails, setBankDetails] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [resetNewPassword, setResetNewPassword] = useState({
-    oldPassword: "",
-    newPassword: "",
-  })
-  // const { user, updateUsername } = useUser();
+    password: "",
+    confirm: "",
+  });
   const { user: { _id: userId }, fullName, updateUsername } = useUser();
+  const { setMessageSuccessToaster, setMessageErrorToaster } = useUI();
 
   const handleSubmitUserNameInput = async (event) => {
     event.preventDefault();
@@ -25,36 +22,41 @@ export const ProfileInputSection = () => {
     const timeoutId = setTimeout(() => {
       setIsLoading(true);
     }, 800);
-    const response = await updateUsername(newUsername, userId)
+    const response = await updateUsername(newUsername, userId);
     clearTimeout(timeoutId);
-    setIsLoading(false)
+    setIsLoading(false);
     if (response.ok) {
-      setMessageSuccessToaster("Username successfuly saved.")
-      setNewUsername("")
+      setMessageSuccessToaster("Username successfully saved.");
+      setNewUsername("");
     } else {
-      setMessageErrorToaster("Something went wrong. Please try again.")
+      setMessageErrorToaster("Something went wrong. Please try again.");
     }
   };
 
-  const handleSubmitPasswordInput = (event) => {
-    event.preventDefault();
-    setResetNewPassword({
-      ...resetNewPassword,
-      [e.target.name]: e.target.value
-    })
-  };
-
-
-  const handleChangeNewPassword = (e) => {
+  const handleSubmitPasswordInput = async (e) => {
     e.preventDefault();
-    updateUserPassword(userId, resetNewPassword.oldPassword, resetNewPassword.newPassword)
-  }
+   
+    if (resetNewPassword.password !== resetNewPassword.confirm) {
+      alert("Passwords do not match. Please try again.");
+      return;
+    }
 
-  // const handleChangePassword = (e) => {
-  
-  // }
-  // chat Gpt per manejar error, input nomes per nova contraseña y repetir la contraseña, que compari les dues y si son iguals que les canvii.
-  // error en oninputchange no puc escriure al input.
+    const response = await updateUserPassword(
+      userId,
+      resetNewPassword.password,
+      resetNewPassword.confirm
+    );
+
+    if (response.ok) {
+      setMessageSuccessToaster("Password successfully updated.");
+      setResetNewPassword({
+        password: "",
+        confirm: "",
+      });
+    } else {
+      setMessageErrorToaster("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <section>
@@ -72,13 +74,15 @@ export const ProfileInputSection = () => {
         />
         <FormWithInput
           text="Change your password"
-          name="your password"
-          nameTwo="new password"
+          name="password"
+          nameTwo="confirm"
           type="password"
-          valueOne={resetNewPassword.oldPassword}
-          valueTwo={resetNewPassword.newPassword}
+          valueOne={resetNewPassword.password}
+          valueTwo={resetNewPassword.confirm}
           input="password"
-          onInputChange={handleChangeNewPassword}
+          onInputChange={(e) => setResetNewPassword({...resetNewPassword,
+            [e.target.name]: e.target.value
+          })}
           handleSubmit={handleSubmitPasswordInput}
         />
         {/* <FormWithInput
