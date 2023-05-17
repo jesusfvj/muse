@@ -13,7 +13,7 @@ import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import PublicRoute from "../PublicRoute";
 import { ResetPassword } from "../Pages/ResetPassword";
-/* import ProtectedAdminRoute from "../Pages/ProtectedAdminRoute"; */
+import ProtectedAdminRoute from "../ProtectedAdminRoute";
 import { AdminPage } from "../Pages/AdminPage";
 
 function Router() {
@@ -23,6 +23,14 @@ function Router() {
       <Routes>
         <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
         <Route path="/resetpassword/:token" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+        <Route path="/admin" element={
+          <ProtectedAdminRoute>
+            <Routes>
+              <Route path="/" element={<AdminPage />} />
+            </Routes>
+          </ProtectedAdminRoute>
+        }
+        />
         <Route path="/*" element={
           <ProtectedRoutes>
             <Routes>
@@ -44,14 +52,9 @@ function Router() {
                 <Route path=":query" element={<Search />} />
               </Route>
               <Route path="/mylibrary" element={<MyLibrary />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </ProtectedRoutes>
-        }
-        />
-        <Route path="/admin" element={
-          <Routes>
-            <Route path="/" element={<AdminPage />} />
-          </Routes>
         }
         />
       </Routes>

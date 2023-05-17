@@ -132,7 +132,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
                                                         onClick={() => handleCopyClipboard(element[key])}
                                                     />
                                                     <Typography
-                                                        text={`${element[key] != "" ? element[key] : 'void'}`}
+                                                        text={`${element[key] != "" || element[key] === false ? element[key] : 'void'}`}
                                                         type="p2"
                                                         color="black"
                                                         family="lato"

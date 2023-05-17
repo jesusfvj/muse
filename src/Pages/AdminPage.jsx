@@ -10,15 +10,17 @@ import { AdminButton } from '../Components/AdminButton'
 import { AdminCard } from '../Components/AdminCard'
 import { AdminFilterSection } from '../Components/AdminFilterSection'
 import { AdminFindSection } from '../Components/AdminFindSection'
+import { useUser } from '../Context/UserContext/UserContext'
 
 export const AdminPage = () => {
     const [showBanModal, setShowBanModal] = useState(false)
-    const [isBanned, setIsBanned] = useState(null)
-    const [currentBan, setCurrentBan] = useState([])
     const [activeButton, setActiveButton] = useState(null);
     const [objectTitle, setObjectTitle] = useState(null)
+    const [currentBan, setCurrentBan] = useState([])
+    const [isBanned, setIsBanned] = useState(null)
     const [found, setFound] = useState("")
     const [data, setData] = useState([])
+    const { logout } = useUser();
 
     const handleClickAdminButton = async (string) => {
         setFound([])
@@ -80,6 +82,10 @@ export const AdminPage = () => {
         setShowBanModal(false)
     }
 
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <div className="w-screen h-screen bg-gradient-to-b from-[#4A4A4A] to-[#0A4148]">
             <div className='ml-[10rem] py-4'>
@@ -92,13 +98,18 @@ export const AdminPage = () => {
                 />
             </div>
             <div className='flex w-screen h-[88vh]'>
-                <div className='flex flex-col items-center w-[12%] pt-10 gap-4'>
-                    <AdminButton text="Stats" active={("stats" === activeButton)} />
-                    <AdminButton text="Users" onClick={() => { handleClickAdminButton("users") }} active={("users" === activeButton)} />
-                    <AdminButton text="Artists" onClick={() => { handleClickAdminButton("artists") }} active={("artists" === activeButton)} />
-                    <AdminButton text="Playlists" onClick={() => { handleClickAdminButton("playlists") }} active={("playlists" === activeButton)} />
-                    <AdminButton text="Albums" onClick={() => { handleClickAdminButton("albums") }} active={("albums" === activeButton)} />
-                    <AdminButton text="Songs" onClick={() => { handleClickAdminButton("songs") }} active={("songs" === activeButton)} />
+                <div className='flex flex-col justify-between items-center mb-8'>
+                    <div className='flex flex-col items-center w-full pt-10 gap-4'>
+                        <AdminButton text="Stats" active={("stats" === activeButton)} />
+                        <AdminButton text="Users" onClick={() => { handleClickAdminButton("users") }} active={("users" === activeButton)} />
+                        <AdminButton text="Artists" onClick={() => { handleClickAdminButton("artists") }} active={("artists" === activeButton)} />
+                        <AdminButton text="Playlists" onClick={() => { handleClickAdminButton("playlists") }} active={("playlists" === activeButton)} />
+                        <AdminButton text="Albums" onClick={() => { handleClickAdminButton("albums") }} active={("albums" === activeButton)} />
+                        <AdminButton text="Songs" onClick={() => { handleClickAdminButton("songs") }} active={("songs" === activeButton)} />
+                    </div>
+                    <div className='flex flex-col items-center w-full gap-4'>
+                        <AdminButton text="LOG OUT" onClick={handleLogout} />
+                    </div>
                 </div>
                 <div className="flex flex-col w-[88%] h-full pt-8 bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
                     {data.length !== 0 &&
