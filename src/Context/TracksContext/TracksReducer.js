@@ -21,6 +21,12 @@ export const tracksReducer = (state = {}, action) => {
         ...state,
         index: action.payload,
       };
+
+    case types.addToQueue:
+      return {
+        ...state,
+        playerQueue: action.payload,
+      };
     default:
       state;
   }

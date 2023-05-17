@@ -5,7 +5,12 @@ import { types } from "../Types/types";
 import tracksReducer from "./TracksReducer";
 import { useUser } from "../UserContext/UserContext";
 import { useEffect } from "react";
-import { changeIndex, createQueue, initPlayer } from "../../API/PlayerApi";
+import {
+  changeIndex,
+  createQueue,
+  initPlayer,
+  playNext,
+} from "../../API/PlayerApi";
 
 export const TracksContext = createContext();
 
@@ -96,6 +101,20 @@ export const TracksProvider = ({ children }) => {
     }
   };
 
+  const handlePlayNext = async (index, tracks, userId) => {
+    let tracksToAdd;
+    if (typeof tracks === "object") {
+      tracksToAdd = [tracks];
+    } else {
+      tracksToAdd = [...tracks];
+    }
+    const res = await playNext(index, tracksToAdd, userId);
+    console.log(res)
+    if (res) {
+      dispatch({ type: types.addToQueue, payload: res });
+    }
+  };
+console.log(tracksState.playerQueue, tracksState.index)
   return (
     <TracksContext.Provider
       value={{
@@ -108,6 +127,7 @@ export const TracksProvider = ({ children }) => {
         setCurrentPlayingSong,
         isMusicPlaying,
         setisMusicPlaying,
+        handlePlayNext,
       }}
     >
       {children}
