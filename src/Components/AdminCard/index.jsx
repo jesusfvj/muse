@@ -1,10 +1,11 @@
 import { AiOutlineCopy } from "react-icons/ai";
 import { getSearchElement } from "../../API/AdminApi";
+import { moveObjectToFirst } from "../../Utils/sortDataArrayOrder";
 import { stringFormatter } from "../../Utils/stringFormatter";
 import { Button } from "../Button";
 import { Typography } from "../Typography"
 
-export const AdminCard = ({ element, found, setFound, setData, collection, setShowBanModal, setCurrentBan, setIsBanned, setActiveButton }) => {
+export const AdminCard = ({ element, found, setFound, setData, collection, setShowBanModal, setCurrentBan, setIsBanned, setActiveButton, divRef }) => {
     const excludedKeys = ["email", "fullName", "role", "duration", "name", "isPrivate", "uploadedAt", "genre", "createdAt"]
     const urlKeys = ["profilePhoto", "thumbnailUrl", "trackUrl"]
     let updatedIndex = 1
@@ -15,7 +16,11 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
             if (response.ok) {
                 setFound(value)
                 setActiveButton(null)
-                setData(response.result)
+                const reArrangeArray = moveObjectToFirst(response.result, value)
+                setData(reArrangeArray)
+                if (divRef.current) {
+                    divRef.current.scrollTop = 0;
+                }
             }
         }
     }
@@ -33,7 +38,12 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
     };
 
     const handleClick = (state) => {
-        const collectionInSingular = collection.slice(0, -1)
+        let collectionInSingular=""
+        if (collection === null) {
+            collectionInSingular = element["collection"]
+        } else {
+            collectionInSingular = collection.slice(0, -1)
+        }
         let name = ""
         if (element["fullName"] !== undefined) {
             name = element["fullName"]
@@ -41,7 +51,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
             name = element["name"]
         }
         setCurrentBan([collectionInSingular.toLowerCase(), name, element["_id"]])
-        if(state==="ban"){
+        if (state === "ban") {
             setIsBanned(false)
         } else {
             setIsBanned(true)
@@ -50,7 +60,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
     }
 
     return (
-        <div className={`flex flex-col gap-3 w-full h-fit ${element["isBanned"] ? 'bg-[#b05b5b] ': 'bg-[#5B83B0] '} rounded-lg p-4`}>
+        <div className={`flex flex-col gap-3 w-full h-fit ${element["collection"] && element["_id"] === found ? 'bg-[#0e8125]' : element["isBanned"] ? 'bg-[#b05b5b]' : 'bg-[#5B83B0] '} rounded-lg p-4`}>
             <div>
                 {Object.keys(element).map((key) => {
                     const isFound = element[key] === found;
@@ -136,7 +146,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
                                                         type="p2"
                                                         color="black"
                                                         family="lato"
-                                                        styles={`text-4xl ${(!excludedKeys.includes(key) && element[key].length !== 0 && typeof element[key] !== "boolean" ) && 'hover:text-blue-400 cursor-pointer'} ${isFound && 'bg-yellow-400'}`}
+                                                        styles={`text-4xl ${(!excludedKeys.includes(key) && element[key].length !== 0 && typeof element[key] !== "boolean") && 'hover:text-blue-400 cursor-pointer'} ${isFound && 'bg-yellow-400'}`}
                                                         onClick={() => handleValueClick(element[key], key)}
                                                     />
                                                 </div>
@@ -154,7 +164,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
                         text={`ban ${element["fullName"] !== undefined ? element["fullName"] : element["name"]}`}
                         color="danger"
                         size="sm"
-                        onClick={()=>handleClick("ban")}
+                        onClick={() => handleClick("ban")}
                     />
                 </div>
                 :
@@ -163,7 +173,7 @@ export const AdminCard = ({ element, found, setFound, setData, collection, setSh
                         text={`remove ban from ${element["fullName"] !== undefined ? element["fullName"] : element["name"]}`}
                         color="primary"
                         size="sm"
-                        onClick={()=>handleClick("removeBan")}
+                        onClick={() => handleClick("removeBan")}
                     />
                 </div>
             }

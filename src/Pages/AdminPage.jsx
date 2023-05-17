@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { RxCross1 } from 'react-icons/rx'
 import {
@@ -10,6 +10,7 @@ import { AdminButton } from '../Components/AdminButton'
 import { AdminCard } from '../Components/AdminCard'
 import { AdminFilterSection } from '../Components/AdminFilterSection'
 import { AdminFindSection } from '../Components/AdminFindSection'
+import { EmptySearchResult } from '../Components/EmptySearchResult'
 import { useUser } from '../Context/UserContext/UserContext'
 
 export const AdminPage = () => {
@@ -21,6 +22,7 @@ export const AdminPage = () => {
     const [found, setFound] = useState("")
     const [data, setData] = useState([])
     const { logout } = useUser();
+    const divRef = useRef(null);
 
     const handleClickAdminButton = async (string) => {
         setFound([])
@@ -68,6 +70,8 @@ export const AdminPage = () => {
         let collectionName = currentBan[0].charAt(0).toUpperCase() + currentBan[0].slice(1);
         if (collectionName === "Song") {
             collectionName = "Track"
+        } else if (collectionName === "Artist"){
+            collectionName = "User"
         }
         const { ok, assetId } = await toggleBanAsset(collectionName, currentBan[2], !isBanned)
         if (ok) {
@@ -112,7 +116,7 @@ export const AdminPage = () => {
                     </div>
                 </div>
                 <div className="flex flex-col w-[88%] h-full pt-8 bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
-                    {data.length !== 0 &&
+                    {activeButton !== null &&
                         <div className='flex flex-col gap-3 justify-center items-start'>
                             <AdminFindSection
                                 setData={setData}
@@ -126,23 +130,29 @@ export const AdminPage = () => {
                             />
                         </div>
                     }
-                    <div className='flex flex-wrap justify-start items-center first-line:h-full my-5 gap-5 overflow-y-auto overflow-x-hidden'>
-                        {data.map((element, index) => {
-                            return (
-                                <AdminCard
-                                    key={index}
-                                    element={element}
-                                    found={found}
-                                    setFound={setFound}
-                                    setData={setData}
-                                    collection={activeButton}
-                                    setShowBanModal={setShowBanModal}
-                                    setCurrentBan={setCurrentBan}
-                                    setIsBanned={setIsBanned}
-                                    setActiveButton={setActiveButton}
-                                />
-                            )
-                        })}
+                    <div className='flex flex-wrap justify-start items-center h-full my-5 gap-5 overflow-y-auto overflow-x-hidden'
+                        ref={divRef}
+                    >
+                        {data.length != 0
+                            ? data.map((element, index) => {
+                                return (
+                                    <AdminCard
+                                        key={index}
+                                        element={element}
+                                        found={found}
+                                        setFound={setFound}
+                                        setData={setData}
+                                        collection={activeButton}
+                                        setShowBanModal={setShowBanModal}
+                                        setCurrentBan={setCurrentBan}
+                                        setIsBanned={setIsBanned}
+                                        setActiveButton={setActiveButton}
+                                        divRef={divRef}
+                                    />
+                                )
+                            })
+                            :
+                            <EmptySearchResult />}
                     </div>
                 </div>
             </div>

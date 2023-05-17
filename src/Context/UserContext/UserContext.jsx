@@ -61,10 +61,10 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const data = await loginUser(user);
-
     if (data.ok) {
       dispatch({ type: types.login, payload: data.user });
     }
+    return data;
   };
 
   const register = async (user) => {

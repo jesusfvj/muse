@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { sendEmail } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
 export const Login = ({ changeLogRegister }) => {
-  const navigate = useNavigate();
+  const [showError, setShowError] = useState("");
   const { login } = useUser();
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -22,18 +20,17 @@ export const Login = ({ changeLogRegister }) => {
     }
   }, []);
 
-  const handleRememberEmailChange = (e) => {
-    setRememberEmail(!rememberEmail);
-  };
-
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login(loginData);
-    navigate("/main");
+    const response = await login(loginData);
+    if (!response.ok) {
+      setShowError(response.msg)
+    }
+    /* navigate("/main"); */
   };
   const handleToggleResetPasswordModal = (e) => {
     setIsResetPassword(!isResetPassword);
@@ -70,7 +67,15 @@ export const Login = ({ changeLogRegister }) => {
         >
           <Typography text="Forgot Your password?" />
         </div>
-
+        {showError !== "" &&
+          <div className="w-full flex justify-start">
+            <Typography
+              text={showError}
+              type="p2"
+              color="danger"
+            />
+          </div>
+        }
         <Button onClick={handleLogin} text="Log In" />
       </form>
       <div className="flex gap-5">

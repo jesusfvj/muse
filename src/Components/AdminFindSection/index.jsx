@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GrUploadOption } from 'react-icons/gr'
-import { stringFormatter } from '../../Utils/stringFormatter'
 import { Button } from '../Button'
 import { Typography } from '../Typography'
 
 export const AdminFindSection = ({ setData, data, setFound }) => {
     const [dataInput, setDataInput] = useState("")
-    const arrayExcludes = ["isPrivate", "createdAt"]
 
     const handleChangeInput = (event) => {
         const inputText = event.target.value;

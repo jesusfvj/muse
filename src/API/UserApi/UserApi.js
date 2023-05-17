@@ -3,50 +3,66 @@ import axios from "axios";
 const BASE_URL = "http://localhost:4000/user";
 
 export const registerUser = async (user) => {
-  const res = await axios.post(`${BASE_URL}/register`, user);
-  return res.data;
-};
-
-export const loginUser = async (user) => {
-  const res = await axios.post(`${BASE_URL}/login`, user);
-  return res.data;
-};
-
-export const followUser = async (loggedUserId, followedUserId, isFollowing) => {
-  const res = await axios.post(`${BASE_URL}/followUser`, {
-    loggedUserId,
-    followedUserId,
-    isFollowing,
-  });
-  return res.data;
-};
-
-export const getUserById = async (userId) => {
-  const res = await axios.get(`${BASE_URL}/${userId}`);
-
-  if (res.data.ok) {
+  try {
+    const res = await axios.post(`${BASE_URL}/register`, user);
     return res.data;
+  } catch (error) {
+    return error.response.data;
   }
 };
 
+export const loginUser = async (user) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/login`, user);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const followUser = async (loggedUserId, followedUserId, isFollowing) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/followUser`, {
+      loggedUserId,
+      followedUserId,
+      isFollowing,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const getUserById = async (userId) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${userId}`);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+
+};
+
 export const getArtists = async (id) => {
-  const res = await axios.get(`${BASE_URL}/artists/${id}`);
-  if (res.data?.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL}/artists/${id}`);
     return res.data.artists;
+  } catch (error) {
+    return error.response.data;
   }
 };
 
 export const changeUsername = async (newUsername, userId) => {
   const data = await fetch("http://localhost:4000/user/update-username", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: newUsername,
-      userId: userId,
-    }),
-  })
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: newUsername,
+        userId: userId,
+      }),
+    })
     .then((response) => {
       return response.json();
     })
@@ -59,45 +75,45 @@ export const changeUsername = async (newUsername, userId) => {
   return data;
 };
 export const getFollowedUsers = async (id) => {
-  const res = await axios.get(`${BASE_URL}/followedusers/${id}`);
-  if (res.data?.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL}/followedusers/${id}`);
     return res.data.users;
-  } else {
+  } catch (error) {
     return [];
   }
 };
 
 export const getArtistById = async (id) => {
-  const res = await axios.get(`${BASE_URL}/artist/${id}`);
-
-  //   throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL}/artist/${id}`);
     return res.data.artist;
-  } else {
+  } catch (error) {
     return null;
   }
 };
 
 export const handleAddToPlaylist = async (playlistId, trackId) => {
-  const res = await axios.post(`${BASE_URL}/playlist/addtrack`, {
-    playlistId,
-    trackId,
-  });
-
-  //   throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.post(`${BASE_URL}/playlist/addtrack`, {
+      playlistId,
+      trackId,
+    });
     return res.data;
-  } else {
+  } catch (error) {
     return null;
   }
 };
 
 export const updateProfileImageAPI = async (formData, userId) => {
-  const res = await axios.put(
-    `${BASE_URL}/uploadProfileImage/${userId}`,
-    formData
-  );
-  return res.data;
+  try {
+    const res = await axios.put(
+      `${BASE_URL}/uploadProfileImage/${userId}`,
+      formData
+    );
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const handleToggleFollowingAlbum = async (
@@ -105,34 +121,44 @@ export const handleToggleFollowingAlbum = async (
   userId,
   isFollowed
 ) => {
-  const res = await axios.put(`${BASE_URL}/toggleFollowPlaylist`, {
-    albumId,
-    userId,
-    isFollowed,
-  });
-
-  if (res.data.ok) {
+  try {
+    const res = await axios.put(`${BASE_URL}/toggleFollowPlaylist`, {
+      albumId,
+      userId,
+      isFollowed,
+    });
     return res.data.ok;
-  } else {
+  } catch (error) {
     return false;
   }
 };
 
 export const sendEmail = async (email) => {
-  const res = await axios.post(`${BASE_URL}/resetpassword`, {
-    email,
-  });
+  try {
+    const res = await axios.post(`${BASE_URL}/resetpassword`, {
+      email,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
+
 export const changePasswordData = async (
   token,
   newPassword,
   repeatNewPassword
 ) => {
+  try {
   const res = await axios.post(`${BASE_URL}/resetpasswordchange`, {
     token,
     newPassword,
     repeatNewPassword,
   });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const updateUserPassword = async (userId, newPassword, confirmPassword) => {

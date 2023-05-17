@@ -5,59 +5,63 @@ const BASE_URL_TRACKS = "http://localhost:4000/track";
 const BASE_URL_ALBUMS = "http://localhost:4000/album";
 
 export const getSongs = async () => {
-  const res = await axios.get(BASE_URL_TRACKS);
-  // throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(BASE_URL_TRACKS);
     return res.data.tracks;
-  } else {
+  } catch (error) {
     return [];
   }
 };
 
 export const getSongById = async (id) => {
-  const res = await axios.get(`${BASE_URL_TRACKS}/id/${id}`);
-  // throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL_TRACKS}/id/${id}`);
     return {
       track: res.data.track.DBtrack,
       featuredIn: res.data.track.featuredIn,
     };
-  } else {
+  } catch (error) {
     return [];
   }
 };
 
 export const uploadSongsAPI = async (filesFormData, userId) => {
-  const response = await axios.post(
-    `${BASE_URL_TRACKS}/uploadNewSongs/${userId}`,
-    filesFormData
-  );
-  /* const okData = checkTokenExpired(response);
-  return okData && data; */
-  return response;
+  try {
+    const res = await axios.post(
+      `${BASE_URL_TRACKS}/uploadNewSongs/${userId}`,
+      filesFormData
+    );
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const getPlaylists = async () => {
-  const res = await axios.get(BASE_URL);
-  // throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(BASE_URL);
     return res.data.playlists;
+  } catch (error) {
+    return error.response.data;
   }
 };
 
 export const getPlaylistsById = async (playlistId) => {
-  const res = await axios.get(`${BASE_URL}/id/${playlistId}`);
-  // throw new Error();
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL}/id/${playlistId}`);
     return res.data.playlist;
-  } else {
+  } catch (error) {
     return null;
   }
 };
 
 export const createPlaylist = async (formData, userId) => {
-  const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
-  return res.data;
+  try {
+    const res = await axios.post(`${BASE_URL}/create/${userId}`, formData);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const updatePlaylistForm = async (formData, playlistId) => {
@@ -103,10 +107,9 @@ export const togglePlaylistIsPrivate = async (
     playlistId,
     isPrivate,
   });
-
-  if (res.data.ok) {
+  try {
     return res.data.playlistToUpdate;
-  } else {
+  } catch (error) {
     return null;
   }
 };
@@ -116,27 +119,39 @@ export const toggleFollowPlaylist = async (
   playlistId,
   isAdded
 ) => {
-  const res = await axios.post(`${BASE_URL}/follow`, {
-    loggedUserId,
-    playlistId,
-    isAdded,
-  });
-  return res.data;
+  try {
+    const res = await axios.post(`${BASE_URL}/follow`, {
+      loggedUserId,
+      playlistId,
+      isAdded,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 export const duplicatePlaylist = async (loggedUserId, playlistId) => {
-  const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, {
-    loggedUserId,
-    playlistId,
-  });
-  return res.data;
+  try {
+    const res = await axios.post(`${BASE_URL}/duplicatePlaylist`, {
+      loggedUserId,
+      playlistId,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const deletePlaylist = async (loggedUserId, playlistId) => {
-  const res = await axios.post(`${BASE_URL}/delete`, {
-    loggedUserId,
-    playlistId,
-  });
-  return res.data;
+  try {
+    const res = await axios.post(`${BASE_URL}/delete`, {
+      loggedUserId,
+      playlistId,
+    });
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const deleteAlbum = async (loggedUserId, albumId) => {
@@ -164,37 +179,32 @@ export const deleteTrack = async (loggedUserId, trackId) => {
 };
 
 export const getAlbums = async () => {
-  const res = await axios.get(BASE_URL_ALBUMS);
-  //   throw new Error();
-
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(BASE_URL_ALBUMS);
     return res.data.albums;
-  } else {
+  } catch (error) {
     return [];
   }
 };
 
 export const getAlbumById = async (id) => {
-  const res = await axios.get(`${BASE_URL_ALBUMS}/${id}`);
-  //   throw new Error();
-
-  if (res.data.ok) {
+  try {
+    const res = await axios.get(`${BASE_URL_ALBUMS}/${id}`);
     return res.data.album;
-  } else {
+  } catch (error) {
     return [];
   }
 };
 
 export const likeTracks = async (loggedUserId, trackId, isAdded) => {
-  const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`, {
-    loggedUserId,
-    trackId,
-    isAdded,
-  });
-
-  if (res.data.ok) {
+  try {
+    const res = await axios.post(`${BASE_URL_TRACKS}/addToLibrary`, {
+      loggedUserId,
+      trackId,
+      isAdded,
+    });
     return res.data;
-  } else {
+  } catch (error) {
     return [];
   }
 };

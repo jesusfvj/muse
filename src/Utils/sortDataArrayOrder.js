@@ -52,3 +52,14 @@ export const sortByKeyLength = (dataArray, key, order) => {
     });
     return sortedArray;
 }
+
+export const moveObjectToFirst = (dataArray, id) => {
+    const index = dataArray.findIndex(obj => obj._id === id);
+
+    if (index !== -1) {
+        const [removed] = dataArray.splice(index, 1);
+        dataArray.unshift(removed);
+    }
+
+    return [...dataArray];
+}
