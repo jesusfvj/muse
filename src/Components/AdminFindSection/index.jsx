@@ -37,8 +37,8 @@ export const AdminFindSection = ({ setData, data, setFound }) => {
     }
 
     return (
-        <div className='flex flex-col justify-center items-start gap-5 w-full'>
-            <div className='w-[20%]'>
+        <div className='flex justify-start items-center gap-1 w-full'>
+            <div className='w-[10%]'>
                 <Typography
                     text="Find by:"
                     type="p2"
@@ -48,14 +48,14 @@ export const AdminFindSection = ({ setData, data, setFound }) => {
                 />
             </div>
             <form
-                className="flex justify-start items-center gap-4 w-[80%]"
+                className="flex justify-start items-center gap-4 w-full"
                 onSubmit={handleSubmit}
             >
                 <input
                     type="text"
                     value={dataInput.filterElement}
                     name="filterElement"
-                    className="bg-transparent text-white w-full"
+                    className="bg-transparent text-white w-[50%]"
                     onChange={handleChangeInput}
                 />
                 <div className="w-10">

@@ -2,45 +2,18 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:4000/admin";
 
-export const getUsers = async () => {
+export const getCollection = async (collection, role=null) => {
     try {
-        const res = await axios.get(`${BASE_URL}/getUsers`);
+        const res = await axios.post(`${BASE_URL}/getCollection`, {collection, role});
         return res.data;
     } catch (error) {
         return error.response.data;
     }
 };
 
-export const getArtists = async () => {
+export const toggleBanAsset = async (collection, assetId, banTheAsset) => {
     try {
-        const res = await axios.get(`${BASE_URL}/getArtists`);
-        return res.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const getPlaylists = async () => {
-    try {
-        const res = await axios.get(`${BASE_URL}/getPlaylists`);
-        return res.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const getAlbums = async () => {
-    try {
-        const res = await axios.get(`${BASE_URL}/getAlbums`);
-        return res.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const getSongs = async () => {
-    try {
-        const res = await axios.get(`${BASE_URL}/getSongs`);
+        const res = await axios.post(`${BASE_URL}/toggleBanAsset`, {collection, assetId, banTheAsset});
         return res.data;
     } catch (error) {
         return error.response.data;

@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Button = ({
   text,
   size = "md",
@@ -52,6 +50,7 @@ export const Button = ({
   const sizes = {
     md: "text-sm lg:text-base px-5 py-2",
     sm: "text-xs lg:text-sm px-4 py-1",
+    xs: "text-xs lg:text-xs px-3 py-1",
   };
 
   const type = outlined ? "outlined" : "fill";
