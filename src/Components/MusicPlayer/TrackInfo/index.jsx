@@ -16,36 +16,38 @@ export const TrackInfo = ({ currentTrack }) => {
 
   return (
     <div className="h-full hidden sm:flex gap-4 w-[10vw]">
-      <Link to={`/player/${_id}`}>
-        <div className="flex  items-start justify-between">
-          <img
-            className="h-[8vh] min-w-[8vh] object-cover z-40"
-            src={thumbnailUrl}
-          />
-          <div className="flex flex-col h-full items-start justify-around ml-2">
-            <div className="w-20 lg:w-44">
-              <Typography color="white" text={name} styles="truncate" />
+      <img
+        className="h-[8vh] min-w-[8vh] object-cover z-40"
+        src={thumbnailUrl}
+      />
+      <div className="flex flex-col">
+        <Link to={`/player/${_id}`}>
+          <div className="flex  items-start justify-between">
+            <div className="flex flex-col h-full items-start justify-around">
+              <div className="w-20 lg:w-44">
+                <Typography color="white" text={name} styles="truncate" />
+              </div>
+              <Typography
+                color="white"
+                text={artist.fullName}
+                type="p2"
+                styles="truncate"
+              />
             </div>
-            <Typography
-              color="white"
-              text={artist.fullName}
-              type="p2"
-              styles="truncate"
-            />
-            {isFollowed ? (
-              <AiFillHeart
-                onClick={likedClicked}
-                className="text-white text-2xl cursor-pointer mb-1"
-              />
-            ) : (
-              <AiOutlineHeart
-                onClick={likedClicked}
-                className="text-white text-2xl cursor-pointer mb-1"
-              />
-            )}
           </div>
-        </div>
-      </Link>
+        </Link>
+        {isFollowed ? (
+          <AiFillHeart
+            onClick={likedClicked}
+            className="text-white text-2xl cursor-pointer mb-1"
+          />
+        ) : (
+          <AiOutlineHeart
+            onClick={likedClicked}
+            className="text-white text-2xl cursor-pointer mb-1"
+          />
+        )}
+      </div>
     </div>
   );
 };

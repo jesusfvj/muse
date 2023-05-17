@@ -41,11 +41,11 @@ export const AlbumElement = ({ object }) => {
     },
     {
       text: "Go to Artist",
-      path: `/user`,
+      path: `/user/${artist._id}`,
     },
     {
       text: "Go to Album",
-      path: "/album",
+      path: `/album/${_id}`,
     },
   ];
 
