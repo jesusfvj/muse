@@ -170,7 +170,7 @@ export const AlbumElement = ({ object }) => {
       <div
         className={`${!isDropdownActive && "hidden"} absolute right-3 top-12`}
       >
-        <DropDownMenu items={dropdownItems} isAddToListVisible={false} />
+        <DropDownMenu track={object.songs} items={dropdownItems} isAddToListVisible={false} />
       </div>
     </div>
   );

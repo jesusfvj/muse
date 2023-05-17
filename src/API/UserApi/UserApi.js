@@ -134,3 +134,18 @@ export const changePasswordData = async (
     repeatNewPassword,
   });
 };
+
+export const updateUserPassword = async (userId, newPassword, confirmPassword) => {
+  console.log(userId, newPassword, confirmPassword)
+  try {
+    const res = await axios.post(`${BASE_URL}/resetpasswordprofile`, {
+      userId,
+      newPassword,
+      confirmPassword
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

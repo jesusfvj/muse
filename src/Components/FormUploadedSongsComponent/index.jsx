@@ -4,6 +4,7 @@ import { InputWithLabel } from "../InputWithLabel";
 import { Typography } from "../Typography";
 import { BiImageAdd } from "react-icons/bi";
 import { useState } from "react";
+import { toastMessageError } from "../../Utils/toaster";
 
 export const FormUploadedSongsComponent = (
     {
@@ -26,10 +27,12 @@ export const FormUploadedSongsComponent = (
         })
     }
 
+    // const MAX_FILE_SIZE = 10485760;
     const MAX_FILE_SIZE = 10485760;
 
     const handleImageChange = (event, index) => {
         const file = event.target.files[0];
+        console.log(file.size)
         if (file && file.size <= MAX_FILE_SIZE) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
