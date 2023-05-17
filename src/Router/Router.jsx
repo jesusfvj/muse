@@ -43,13 +43,13 @@ function Router() {
               }
             />
             <Route path="/admin" element={
-          <ProtectedAdminRoute>
-            <Routes>
-              <Route path="/" element={<AdminPage />} />
-            </Routes>
-          </ProtectedAdminRoute>
-        }
-        />
+              <ProtectedAdminRoute>
+                <Routes>
+                  <Route path="/" element={<AdminPage />} />
+                </Routes>
+              </ProtectedAdminRoute>
+            }
+            />
             <Route
               path="/*"
               element={
