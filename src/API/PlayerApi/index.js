@@ -27,3 +27,14 @@ export const changeIndex = async (index, userId) => {
     return res.data;
   }
 };
+
+export const playNext = async (index, tracksToAdd, userId) => {
+  const res = await axios.post(`${BASE_URL}/addToQueue`, {
+    index,
+    tracksToAdd,
+    userId,
+  });
+  if (res.data.ok) {
+    return res.data.playQueue.tracks;
+  }
+};

@@ -19,5 +19,6 @@ export const types = {
   initQueue: "INIT_QUEUE",
   createQueue: "CREATE_QUEUE",
   goNextPrevSong: "GO_TO_NEXT_SONG",
-  toggleFollowingTrack: "TOGGLE_FOLLOWING_SONG"
+  toggleFollowingTrack: "TOGGLE_FOLLOWING_SONG",
+  addToQueue: "ADD_TO_QUEUE",
 };

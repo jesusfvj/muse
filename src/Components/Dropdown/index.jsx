@@ -1,6 +1,7 @@
 import { DropdownElement } from "./DropdownElement";
 import { useUI } from "../../Context/UI/UIContext";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
+import { useUser } from "../../Context/UserContext/UserContext";
 
 export const DropDownMenu = ({
   id,
@@ -11,13 +12,19 @@ export const DropDownMenu = ({
 }) => {
   const isActive = activeDropdown == id;
   const { handleTogglePlaylistModal } = useUI();
-  const { changeCurrentTrack } = useTracks();
+  const { changeCurrentTrack, index, handlePlayNext } = useTracks();
+  const {
+    user: { _id },
+  } = useUser();
 
   const handleAddToList = () => {
     handleTogglePlaylistModal();
     changeCurrentTrack(track);
   };
-
+  const playNext = () => {
+    handlePlayNext(index, track, _id);
+  };
+ 
   return (
     <div className="relative">
       <div
@@ -32,7 +39,7 @@ export const DropDownMenu = ({
         >
           {items.map((item) => {
             const { text, path } = item;
-            return <DropdownElement key={text} text={text} path={path} />;
+            return <DropdownElement playNext={playNext} key={text} text={text} path={path} />;
           })}
         </ul>
         {isAddToListVisible ? (
