@@ -1,11 +1,11 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { useContext } from "react";
 
 import { types } from "../Types/types";
 import tracksReducer from "./TracksReducer";
 import { useUser } from "../UserContext/UserContext";
 import { useEffect } from "react";
-import { createQueue, initPlayer } from "../../API/PlayerApi";
+import { changeIndex, createQueue, initPlayer } from "../../API/PlayerApi";
 
 export const TracksContext = createContext();
 
@@ -33,6 +33,9 @@ export const TracksProvider = ({ children }) => {
     dispatch({ type: types.changeCurrentTrack, payload: track });
   };
 
+  const [currentPlayingSong, setCurrentPlayingSong] = useState(null);
+  const [isMusicPlaying, setisMusicPlaying] = useState(false);
+
   const initQueue = async () => {
     if (user) {
       const res = await initPlayer(user?._id);
@@ -54,11 +57,11 @@ export const TracksProvider = ({ children }) => {
     }
   }, [user?._id]);
 
-  const handleCreateQueue = async (userId, trackId) => {
+  const handleCreateQueue = async (userId, trackId, index) => {
     console.log(userId, trackId);
+    //trackId must be an array!
+    const res = await createQueue(userId, trackId, index);
 
-    const res = await createQueue(userId, trackId);
-    console.log(res);
     if (res.ok) {
       dispatch({
         type: types.createQueue,
@@ -70,18 +73,27 @@ export const TracksProvider = ({ children }) => {
     }
   };
 
-  const handleGoNextSong = (index) => {
-    dispatch({
-      type: types.goNextPrevSong,
-      payload: index + 1,
-    });
+  //save index to db
+  const handleGoNextSong = async (index, userId) => {
+    const res = await changeIndex(index + 1, userId);
+
+    if (res.ok) {
+      dispatch({
+        type: types.goNextPrevSong,
+        payload: index + 1,
+      });
+    }
   };
 
-  const handleGoPrevSong = (index) => {
-    dispatch({
-      type: types.goNextPrevSong,
-      payload: index - 1,
-    });
+  const handleGoPrevSong = async (index, userId) => {
+    const res = await changeIndex(index - 1, userId);
+
+    if (res.ok) {
+      dispatch({
+        type: types.goNextPrevSong,
+        payload: index - 1,
+      });
+    }
   };
 
   return (
@@ -92,6 +104,10 @@ export const TracksProvider = ({ children }) => {
         handleCreateQueue,
         handleGoNextSong,
         handleGoPrevSong,
+        currentPlayingSong,
+        setCurrentPlayingSong,
+        isMusicPlaying,
+        setisMusicPlaying,
       }}
     >
       {children}

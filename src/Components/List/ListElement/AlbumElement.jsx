@@ -22,7 +22,7 @@ export const AlbumElement = ({ object }) => {
     setLoadingMessage,
     setIsLoading,
   } = useUI();
-
+  //album from profile
   const { handleCreateQueue } = useTracks();
 
   const { name, thumbnailUrl, artist, _id, followedBy } = object;
@@ -41,11 +41,11 @@ export const AlbumElement = ({ object }) => {
     },
     {
       text: "Go to Artist",
-      path: `/user`,
+      path: `/user/${artist._id}`,
     },
     {
       text: "Go to Album",
-      path: "/album",
+      path: `/album/${_id}`,
     },
   ];
 
@@ -82,6 +82,10 @@ export const AlbumElement = ({ object }) => {
         "There was an error trying deleting the album. Please try again."
       );
     }
+  };
+
+  const handleAddToQueue = () => {
+    handleCreateQueue(userId, object.songs, 0);
   };
 
   return (
@@ -139,12 +143,7 @@ export const AlbumElement = ({ object }) => {
             background="gradient"
             icon={<FaPlay />}
             margin="pl-1"
-            onClick={() =>
-              handleCreateQueue(
-                userId,
-                object.songs.map((song) => song._id)
-              )
-            }
+            onClick={handleAddToQueue}
           />
         </div>
       </div>

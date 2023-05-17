@@ -3,12 +3,14 @@ import { NavLink } from "react-router-dom";
 import { Typography } from "../Typography";
 import { AiFillHome, AiOutlineLogout } from "react-icons/ai";
 import { FaSearch, FaUserAlt } from "react-icons/fa";
-import { TbMicrophone2 } from "react-icons/tb";
+import {MdAttachMoney} from 'react-icons/md'
 import { BiLibrary } from "react-icons/bi";
 import { useUser } from "../../Context/UserContext/UserContext";
+import { useUI } from "../../Context/UI/UIContext";
 
 export const ContextMenu = ({handleCloseContextMenu}) => {
   const { logout, user } = useUser();
+  const {handleToggleStripeModal} = useUI()
   
   return (
     <div className="h-screen w-screen flex items-center justify-center top-0 z-[99] fixed backdrop-blur-md" onClick={handleCloseContextMenu}>
@@ -25,12 +27,12 @@ export const ContextMenu = ({handleCloseContextMenu}) => {
         >
           <FaSearch className="text-gray-600 text-4xl" />
         </NavLink>
-        <NavLink
-          to="/album"
+        <button
+          onClick={handleToggleStripeModal}
           className="text-white col-span-6 h-24 w-24 flex items-center justify-center rounded-full bg-slate-300 hover:bg-gray-100 duration-300"
         >
-          <TbMicrophone2 className="text-gray-600 text-4xl" />
-        </NavLink>
+          <MdAttachMoney className="text-gray-600 text-4xl" />
+        </button>
         <NavLink
           to={`/user/${user?._id}`}
           className="text-white col-span-6 h-24 w-24 flex items-center justify-center rounded-full bg-slate-300 hover:bg-gray-100 duration-300"

@@ -4,6 +4,7 @@ import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { formatTime } from "../../../Utils/formatTime";
 import { Typography } from "../../index";
 import { useTracks } from "../../../Context/TracksContext/TracksContext";
+import { useUser } from "../../../Context/UserContext/UserContext";
 
 export const PlayControls = ({
   playAudio,
@@ -16,6 +17,7 @@ export const PlayControls = ({
 }) => {
   const clickRef = useRef();
   const { handleGoNextSong, handleGoPrevSong, index } = useTracks();
+  const { user: _id } = useUser();
 
   const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
 
@@ -34,7 +36,7 @@ export const PlayControls = ({
       return;
     }
     if (index > 0) {
-      handleGoPrevSong(index);
+      handleGoPrevSong(index, _id);
     } else {
       setCurrentTrack(tracks[0]);
     }
@@ -47,7 +49,7 @@ export const PlayControls = ({
       return;
     }
     if (index < tracks.length - 1) {
-      handleGoNextSong(index);
+      handleGoNextSong(index, _id);
       playAudio.current.currentTime = 0;
     }
   };

@@ -31,22 +31,33 @@ export const useUser = () => {
   return state;
 };
 
-const init = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  return {
-    user,
-  };
-};
-
 export const UserProvider = ({ children }) => {
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+
+  const init = async () => {
+    setIsLoginLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      const data = await getUserById(user);
+      const loggedUser = data.user;
+      dispatch({ type: types.login, payload: loggedUser });
+    }
+    setIsLoginLoading(false);
+    return {
+      user,
+    };
+  };
+
   const [userState, dispatch] = useReducer(userReducer, {}, init);
 
   const [userProfile, setUserProfile] = useState(null);
   const [isProfileLoading, setIsProfileLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(userState.user));
-  }, [userState.user]);
+    if (userState?.user) {
+      localStorage.setItem("user", JSON.stringify(userState?.user?._id));
+    }
+  }, [userState.user?._id]);
 
   const login = async (user) => {
     const data = await loginUser(user);
@@ -81,6 +92,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
     dispatch({ type: types.logout });
   };
 
@@ -226,7 +238,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const toggleFollowTrack = async (userId, track, isFollowed) => {
-    console.log(userId, track, isFollowed)
+    console.log(userId, track, isFollowed);
     const data = await likeTracks(userId, [track._id], isFollowed);
     if (data.ok) {
       if (data.isAdded) {
@@ -237,12 +249,9 @@ export const UserProvider = ({ children }) => {
           payload: followedTracks,
         });
       } else {
-        console.log(userState.user.tracks);
-
         const followedTracks = userState.user.tracks.filter((trk) => {
           return trk !== track._id;
         });
-
         dispatch({
           type: types.toggleFollowingTrack,
           payload: followedTracks,
@@ -250,7 +259,7 @@ export const UserProvider = ({ children }) => {
       }
     }
   };
-  console.log(userState.user?.tracks);
+
   return (
     <UserContext.Provider
       value={{
@@ -275,6 +284,7 @@ export const UserProvider = ({ children }) => {
         deleteSingleSong,
         updateAlbum,
         toggleFollowTrack,
+        isLoginLoading,
       }}
     >
       {children}

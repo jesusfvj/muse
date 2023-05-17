@@ -9,9 +9,20 @@ export const initPlayer = async (userId) => {
   }
 };
 
-export const createQueue = async (userId, trackId) => {
-  const res = await axios.post(`${BASE_URL}/createQueue`, { userId, trackId });
+export const createQueue = async (userId, trackId, index = 0) => {
+  const res = await axios.post(`${BASE_URL}/createQueue`, {
+    userId,
+    trackId,
+    index,
+  });
 
+  if (res.data.ok) {
+    return res.data;
+  }
+};
+
+export const changeIndex = async (index, userId) => {
+  const res = await axios.post(`${BASE_URL}/index`, { index, userId });
   if (res.data.ok) {
     return res.data;
   }

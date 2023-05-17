@@ -19,6 +19,7 @@ export const AlbumTrackElements = ({
   activeDropdown,
   handleToggleDropdown,
   track,
+  trackList,
   followedBy,
 }) => {
   const {
@@ -77,6 +78,9 @@ export const AlbumTrackElements = ({
         nombre={nombre}
         artist={artist}
         duration={duration}
+        trackList={trackList}
+        track={track}
+        idx={idx}
       />
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div

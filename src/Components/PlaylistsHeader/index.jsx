@@ -3,53 +3,69 @@ import { AiFillCaretRight, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiShuffleFill } from "react-icons/ri";
 import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
-import { MdControlPointDuplicate } from "react-icons/md"
-import { duplicatePlaylist, toggleFollowPlaylist } from "../../API/MusicApi/MusicApi";
+import { MdControlPointDuplicate } from "react-icons/md";
+import {
+  duplicatePlaylist,
+  toggleFollowPlaylist,
+} from "../../API/MusicApi/MusicApi";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { useQuery } from "@tanstack/react-query";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 
-export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => {
+export const PlaylistsHeader = ({
+  name,
+  thumbnail,
+  playlistId,
+  followedBy,
+  tracks,
+}) => {
   const {
     user: { _id },
   } = useUser();
-  const [clicked, setClicked] = useState(followedBy.includes(_id))
-  const [buttonDisabled, setButtonDisabled] = useState(false)
-  const [hoverMsgAppear, sethoverMsgAppear] = useState(0)
-  const [hoverMsg, sethoverMsg] = useState("")
-  const [hoverMsgError, sethoverMsgError] = useState("")
 
+  const { handleCreateQueue } = useTracks();
+
+  const [clicked, setClicked] = useState(followedBy.includes(_id));
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [hoverMsgAppear, sethoverMsgAppear] = useState(0);
+  const [hoverMsg, sethoverMsg] = useState("");
+  const [hoverMsgError, sethoverMsgError] = useState("");
 
   const duplicateplaylistbutton = async () => {
     try {
-      const res = await duplicatePlaylist(_id, playlistId)
-      sethoverMsg(res.msg)
-      sethoverMsgAppear(1)
-      sethoverMsgError("")
+      const res = await duplicatePlaylist(_id, playlistId);
+      sethoverMsg(res.msg);
+      sethoverMsgAppear(1);
+      sethoverMsgError("");
       setTimeout(() => {
-        sethoverMsgAppear(0)
-      }, 3000)
-
+        sethoverMsgAppear(0);
+      }, 3000);
     } catch (error) {
       sethoverMsg(error.response.data.msg);
       sethoverMsgAppear(1);
-      sethoverMsgError("border-2 border-red-600")
+      sethoverMsgError("border-2 border-red-600");
       setTimeout(() => {
         sethoverMsgAppear(0);
-        sethoverMsgError("")
+        sethoverMsgError("");
       }, 3000);
     }
-  }
+  };
   const likedClicked = async () => {
     if (!buttonDisabled) {
       setClicked(!clicked);
       setTimeout(() => {
-       toggleFollowPlaylist(_id, [playlistId], !clicked)
+        toggleFollowPlaylist(_id, [playlistId], !clicked);
       }, 300);
       setButtonDisabled(true);
       setTimeout(() => {
         setButtonDisabled(false);
       }, 1500);
     }
+  };
+
+  const handleAddToQueue = () => {
+    // userId, trackId, index
+    handleCreateQueue(_id, tracks, 0);
   };
   return (
     <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
@@ -74,6 +90,7 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => 
               color="white"
               background="white"
               icon={<AiFillCaretRight size={40} />}
+              onClick={handleAddToQueue}
             />
           </div>
           <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute bottom-[0.7vh] right-[-1vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
@@ -88,7 +105,10 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => 
         <div className=" flex flex-col ml-12 items-center justify-center">
           <Typography text={name} color="white" type="important" />
         </div>
-        <div className="flex w-[4rem] h-[4rem] items-center relative group" onClick={duplicateplaylistbutton}>
+        <div
+          className="flex w-[4rem] h-[4rem] items-center relative group"
+          onClick={duplicateplaylistbutton}
+        >
           <RoundButton
             color="white"
             background="darkgray"
@@ -99,19 +119,24 @@ export const PlaylistsHeader = ({ name, thumbnail, playlistId, followedBy }) => 
           <div className="group-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-10 mb-2">
             <p>Duplicate playlist</p>
           </div>
-          {hoverMsgAppear == 1 ? <div className={`absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2 ${hoverMsgError}`}>
-            <p>{hoverMsg}</p>
-          </div> : null}
-
+          {hoverMsgAppear == 1 ? (
+            <div
+              className={`absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2 ${hoverMsgError}`}
+            >
+              <p>{hoverMsg}</p>
+            </div>
+          ) : null}
         </div>
-        <div className="flex w-[4rem] h-[4rem] items-center cursor-pointer" onClick={likedClicked}>
+        <div
+          className="flex w-[4rem] h-[4rem] items-center cursor-pointer"
+          onClick={likedClicked}
+        >
           <Typography
             text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
             color="white"
             type="important"
           />
         </div>
-
       </div>
     </div>
   );

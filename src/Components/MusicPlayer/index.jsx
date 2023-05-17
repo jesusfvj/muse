@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
-  const { playerQueue, index } = useTracks();
+  const { playerQueue, index, setCurrentPlayingSong, setisMusicPlaying } =
+    useTracks();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
 
@@ -15,19 +16,21 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     if (!currentTrack) return;
     if (isPlaying) {
       playAudio.current.play();
+      setisMusicPlaying(true);
     } else {
       playAudio.current.pause();
+      setisMusicPlaying(false);
     }
   }, [isPlaying, currentTrack]);
 
   useEffect(() => {
     if (playerQueue[index]) {
       setCurrentTrack(playerQueue[index]);
+      setCurrentPlayingSong(playerQueue[index]._id);
     }
     if (currentTrack) {
       setIsPlaying(true);
     }
-    console.log(currentTrack);
   }, [playerQueue, index]);
 
   useEffect(() => {
@@ -75,7 +78,6 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
             playAudio={playAudio}
-            
           />
           <VolumeControls playAudio={playAudio} />
         </div>

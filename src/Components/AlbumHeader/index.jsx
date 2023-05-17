@@ -4,12 +4,20 @@ import { RiShuffleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
+import { useUser } from "../../Context/UserContext/UserContext";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 export const AlbumHeader = ({ album }) => {
+  const { thumbnailUrl, name } = album;
   const {
-    thumbnailUrl,
-    name,
-  } = album;
+    user: { _id },
+  } = useUser();
+
+  const { handleCreateQueue } = useTracks();
+
+  const handleAddToQueue = () => {
+    handleCreateQueue(_id, album.songs, 0);
+  };
   return (
     <div className="w-screen h-[80vh] relative">
       <div className="bg-cover bg-center w-full h-full">
@@ -23,6 +31,7 @@ export const AlbumHeader = ({ album }) => {
               color="white"
               background="white"
               icon={<AiFillCaretRight size={20} />}
+              onClick={handleAddToQueue}
             />
           </div>
           <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute bottom-[0.7vh] right-[-1vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
@@ -36,7 +45,11 @@ export const AlbumHeader = ({ album }) => {
         </div>
         <div className="h-16 flex flex-col ml-[1rem] sm:ml-[3rem]">
           <Link to={`/artist/${album?.artist?._id}`}>
-            <Typography text={album?.artist?.fullName} color="white" type="important" />
+            <Typography
+              text={album?.artist?.fullName}
+              color="white"
+              type="important"
+            />
           </Link>
           <Typography text={name} color="primary" type="title" />
         </div>

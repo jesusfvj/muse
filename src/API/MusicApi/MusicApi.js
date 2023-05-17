@@ -121,7 +121,6 @@ export const toggleFollowPlaylist = async (
     playlistId,
     isAdded,
   });
-  console.log(res);
   return res.data;
 };
 export const duplicatePlaylist = async (loggedUserId, playlistId) => {

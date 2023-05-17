@@ -22,27 +22,7 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
       className="fixed p-[15vw] md:p-20 h-screen w-screen top-0 bg-black/50 z-[99] grid grid-cols-1 md:grid-cols-2 place-items-center lg:grid-cols-3 gap-8 overflow-y-auto backdrop-filter backdrop-blur-md"
       onClick={handleToggleModal}
     >
-      {/* <div
-        className="w-full h-[40vh] flex justify-center items-center border-[0.1rem] border-gray-600 hover:border-white cursor-pointer "
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={handleAddToList}
-      >
-        {!hovered ? (
-          <AiOutlinePlus className="text-5xl font-bold text-white" />
-        ) : (
-          <div>
-            <Typography
-              color="white"
-              text="Create a new list"
-              styles="z-3 relative"
-              type="big"
-            />
-          </div>
-        )}
-      </div> */}
-
-      {playlists &&
+      {playlists.length ? (
         playlists.map((playlist) => {
           const { thumbnail, name } = playlist;
           return (
@@ -57,7 +37,10 @@ export const AddToPlaylistModal = ({ handleToggleModal }) => {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <Typography text="You do not have any playlist . . ." type="important" color="white"/>
+      )}
     </div>
   );
 };
