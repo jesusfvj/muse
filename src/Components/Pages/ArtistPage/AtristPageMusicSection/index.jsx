@@ -47,7 +47,6 @@ export const ArtistPageMusicSection = ({ artist }) => {
   } = useUser();
 
   const { uploadedTracks, uploadedAlbums } = artist;
-// console.log(uploadedTracks)
   return (
     <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
       <div className="w-full md:w-5/6">

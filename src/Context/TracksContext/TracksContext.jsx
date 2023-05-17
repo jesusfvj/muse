@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { useContext } from "react";
 
 import { types } from "../Types/types";
@@ -32,6 +32,9 @@ export const TracksProvider = ({ children }) => {
   const changeCurrentTrack = (track) => {
     dispatch({ type: types.changeCurrentTrack, payload: track });
   };
+
+  const [currentPlayingSong, setCurrentPlayingSong] = useState(null);
+  const [isMusicPlaying, setisMusicPlaying] = useState(false);
 
   const initQueue = async () => {
     if (user) {
@@ -69,6 +72,7 @@ export const TracksProvider = ({ children }) => {
       });
     }
   };
+
   //save index to db
   const handleGoNextSong = async (index, userId) => {
     const res = await changeIndex(index + 1, userId);
@@ -100,6 +104,10 @@ export const TracksProvider = ({ children }) => {
         handleCreateQueue,
         handleGoNextSong,
         handleGoPrevSong,
+        currentPlayingSong,
+        setCurrentPlayingSong,
+        isMusicPlaying,
+        setisMusicPlaying,
       }}
     >
       {children}

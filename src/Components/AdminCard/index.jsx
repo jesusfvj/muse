@@ -1,20 +1,22 @@
-import { useState } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { getSearchElement } from "../../API/AdminApi";
 import { stringFormatter } from "../../Utils/stringFormatter";
+import { Button } from "../Button";
 import { Typography } from "../Typography"
 
-export const AdminCard = ({ element, found, setFound, setData }) => {
-    const [collection, setCollection] = useState("")
-    const excludedKeys = ["email", "fullName", "role", "duration"]
-    const urlKeys = ["profilePhoto", "thumbnailUrl", "trackUrl",]
+export const AdminCard = ({ element, found, setFound, setData, collection, setShowBanModal, setCurrentBan, setIsBanned, setActiveButton }) => {
+    const excludedKeys = ["email", "fullName", "role", "duration", "name", "isPrivate", "uploadedAt", "genre", "createdAt"]
+    const urlKeys = ["profilePhoto", "thumbnailUrl", "trackUrl"]
+    let updatedIndex = 1
 
-    const handleValueClick = async (value) => {
-        const response = await getSearchElement(value)
-        if (response.ok) {
-            console.log(response.result)
-            setFound(value)
-            setData(response.result)
+    const handleValueClick = async (value, key) => {
+        if (!excludedKeys.includes(key) && element[key].length !== 0 && typeof element[key] !== "boolean") {
+            const response = await getSearchElement(value)
+            if (response.ok) {
+                setFound(value)
+                setActiveButton(null)
+                setData(response.result)
+            }
         }
     }
 
@@ -30,12 +32,33 @@ export const AdminCard = ({ element, found, setFound, setData }) => {
         }
     };
 
+    const handleClick = (state) => {
+        const collectionInSingular = collection.slice(0, -1)
+        let name = ""
+        if (element["fullName"] !== undefined) {
+            name = element["fullName"]
+        } else {
+            name = element["name"]
+        }
+        setCurrentBan([collectionInSingular.toLowerCase(), name, element["_id"]])
+        if(state==="ban"){
+            setIsBanned(false)
+        } else {
+            setIsBanned(true)
+        }
+        setShowBanModal(true)
+    }
+
     return (
-        <div className='flex flex-col gap-3 w-full h-fit bg-[#5B83B0] rounded-lg p-4'>
+        <div className={`flex flex-col gap-3 w-full h-fit ${element["isBanned"] ? 'bg-[#b05b5b] ': 'bg-[#5B83B0] '} rounded-lg p-4`}>
             <div>
-                {Object.keys(element).map((key, index) => {
+                {Object.keys(element).map((key) => {
                     const isFound = element[key] === found;
                     const formattedKey = stringFormatter(key);
+                    updatedIndex++;
+                    if (key === "collection") {
+                        updatedIndex++;
+                    }
                     return (
                         <>
                             {key === "collection"
@@ -47,8 +70,7 @@ export const AdminCard = ({ element, found, setFound, setData }) => {
                                     styles="text-4xl w-[10%] mb-4"
                                 />
                                 :
-
-                                <div key={key} className={`flex justify-start gap-1 px-1 ${index % 2 === 0 && 'bg-gray-600 bg-opacity-30'}`}>
+                                <div key={key} className={`flex justify-start gap-1 px-1 ${updatedIndex % 2 === 0 && 'bg-gray-600 bg-opacity-30'}`}>
                                     <Typography
                                         text={`${formattedKey}:`}
                                         type="p2"
@@ -77,7 +99,7 @@ export const AdminCard = ({ element, found, setFound, setData }) => {
                                                                 color="black"
                                                                 family="lato"
                                                                 styles={`text-4xl ${(!excludedKeys.includes(key)) && 'hover:text-blue-400 cursor-pointer'} ${isFound && 'bg-yellow-400'}`}
-                                                                onClick={() => handleValueClick(element)}
+                                                                onClick={() => handleValueClick(element, key)}
                                                             />
                                                         </li>
                                                     )
@@ -105,17 +127,17 @@ export const AdminCard = ({ element, found, setFound, setData }) => {
                                                     <Typography
                                                         text={<AiOutlineCopy />}
                                                         type="p2"
-                                                        color={`${element[key] != "" ? 'primary' : 'transparent'}`}
-                                                        styles="hover:text-white cursor-pointer"
+                                                        color={`${element[key] != "" && typeof element[key] !== "boolean" ? 'primary' : 'transparent'}`}
+                                                        styles={`${element[key] != "" && typeof element[key] !== "boolean" && 'hover:text-white cursor-pointer'}`}
                                                         onClick={() => handleCopyClipboard(element[key])}
                                                     />
                                                     <Typography
-                                                        text={`${element[key] != "" ? element[key] : 'void'}`}
+                                                        text={`${element[key] != "" || element[key] === false ? element[key] : 'void'}`}
                                                         type="p2"
                                                         color="black"
                                                         family="lato"
-                                                        styles={`text-4xl ${(!excludedKeys.includes(key) && element[key].length !== 0) && 'hover:text-blue-400 cursor-pointer'} ${isFound && 'bg-yellow-400'}`}
-                                                        onClick={() => handleValueClick(element[key])}
+                                                        styles={`text-4xl ${(!excludedKeys.includes(key) && element[key].length !== 0 && typeof element[key] !== "boolean" ) && 'hover:text-blue-400 cursor-pointer'} ${isFound && 'bg-yellow-400'}`}
+                                                        onClick={() => handleValueClick(element[key], key)}
                                                     />
                                                 </div>
                                         }
@@ -126,6 +148,25 @@ export const AdminCard = ({ element, found, setFound, setData }) => {
                     );
                 })}
             </div>
+            {element["isBanned"] === false || element["isBanned"] === undefined
+                ? <div className="w-full h-6">
+                    <Button
+                        text={`ban ${element["fullName"] !== undefined ? element["fullName"] : element["name"]}`}
+                        color="danger"
+                        size="sm"
+                        onClick={()=>handleClick("ban")}
+                    />
+                </div>
+                :
+                <div className="w-full h-6">
+                    <Button
+                        text={`remove ban from ${element["fullName"] !== undefined ? element["fullName"] : element["name"]}`}
+                        color="primary"
+                        size="sm"
+                        onClick={()=>handleClick("removeBan")}
+                    />
+                </div>
+            }
         </div>
     );
 }

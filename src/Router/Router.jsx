@@ -13,7 +13,7 @@ import { ScrollTop } from "../Components/ScrollTop";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import PublicRoute from "../PublicRoute";
 import { ResetPassword } from "../Pages/ResetPassword";
-/* import ProtectedAdminRoute from "../Pages/ProtectedAdminRoute"; */
+import ProtectedAdminRoute from "../ProtectedAdminRoute";
 import { AdminPage } from "../Pages/AdminPage";
 import { useUser } from "../Context/UserContext/UserContext";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
@@ -41,6 +41,14 @@ function Router() {
                   <ResetPassword />
                 </PublicRoute>
               }
+            />
+            <Route path="/admin" element={
+              <ProtectedAdminRoute>
+                <Routes>
+                  <Route path="/" element={<AdminPage />} />
+                </Routes>
+              </ProtectedAdminRoute>
+            }
             />
             <Route
               path="/*"

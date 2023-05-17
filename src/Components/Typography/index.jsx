@@ -26,7 +26,8 @@ export const Typography = ({
     primary: "text-gray-400",
     secondary: "text-gray-500",
     transparent: "text-gray-500/0",
-    danger: "text-red-400"
+    danger: "text-red-400",
+    blue: "text-blue-400"
   };
 
   const fontFamily = {

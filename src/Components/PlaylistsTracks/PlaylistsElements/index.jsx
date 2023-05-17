@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { likeTracks } from "../../../API/MusicApi/MusicApi";
 import { useUser } from "../../../Context/UserContext/UserContext";
 import { BsThreeDots } from "react-icons/bs";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
+import { Audio } from "react-loader-spinner";
 
 export const PlaylistsElements = ({
   id,
@@ -18,13 +20,20 @@ export const PlaylistsElements = ({
   handleToggleDropdown,
   followedBy,
   track,
+  songs = { songs },
 }) => {
   const {
-    user: { _id: userId, tracks }, toggleFollowTrack,
+    user: { _id: userId, tracks },
+    toggleFollowTrack,
   } = useUser();
+
+  const { currentPlayingSong, isMusicPlaying, handleCreateQueue } = useTracks();
+
   const [clicked, setClicked] = useState(tracks.includes(id));
   const [hovered, setHovered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const isActive = currentPlayingSong === track._id;
 
   const dropdownItems = [
     {
@@ -50,6 +59,12 @@ export const PlaylistsElements = ({
       }, 1500);
     }
   };
+
+  const handleAddToQueue = () => {
+    // userId, playlist that track belongs to, index
+    handleCreateQueue(userId, songs, idx);
+  };
+
   return (
     <div
       className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${
@@ -64,15 +79,34 @@ export const PlaylistsElements = ({
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
           className={`hidden sm:flex cursor-pointer mt-1 ${
-            hovered ? "visible" : "invisible"
+            hovered && !isActive ? "visible" : "invisible"
           }`}
         >
-          <Typography text={<FaPlay />} color="white" />
+          <Typography
+            text={<FaPlay />}
+            color="white"
+            onClick={handleAddToQueue}
+          />
         </div>
-        <Link to="/player" className="w-[10rem] lg:w-[15rem]">
+
+        {isActive && isMusicPlaying && (
+          <div className="absolute">
+            <Audio
+              height="20"
+              width="20"
+              color="white"
+              ariaLabel="audio-loading"
+              wrapperStyle={{}}
+              wrapperClass="wrapper-class"
+              visible={true}
+            />
+          </div>
+        )}
+
+        <Link to={`/player/${track._id}`} className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
         </Link>
-        <Link to="/artist" className="w-[10rem] lg:w-[15rem]">
+        <Link to={`/artist/${artist._id}`} className="w-[10rem] lg:w-[15rem]">
           <Typography text={artist.fullName} color="white" styles="truncate" />
         </Link>
         <Typography text={duration} color="white" styles="hidden xs:flex" />

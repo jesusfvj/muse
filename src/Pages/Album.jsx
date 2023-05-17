@@ -8,15 +8,17 @@ import { SkeletonTracksGroup } from "../Components/Skeletons";
 import { useParams } from "react-router-dom";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
+import { useTracks } from "../Context/TracksContext/TracksContext";
 
 export const Album = () => {
   const { albumId = 1 } = useParams();
+
   const {
     data: album,
     isLoading,
     error,
   } = useQuery({ queryKey: ["songs"], queryFn: () => getAlbumById(albumId) });
-console.log(album)
+  console.log(album);
   return (
     <>
       {isLoading ? (
