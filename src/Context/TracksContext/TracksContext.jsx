@@ -5,7 +5,7 @@ import { types } from "../Types/types";
 import tracksReducer from "./TracksReducer";
 import { useUser } from "../UserContext/UserContext";
 import { useEffect } from "react";
-import { createQueue, initPlayer } from "../../API/PlayerApi";
+import { changeIndex, createQueue, initPlayer } from "../../API/PlayerApi";
 
 export const TracksContext = createContext();
 
@@ -56,9 +56,9 @@ export const TracksProvider = ({ children }) => {
 
   const handleCreateQueue = async (userId, trackId, index) => {
     console.log(userId, trackId);
-//trackId must be an array!
+    //trackId must be an array!
     const res = await createQueue(userId, trackId, index);
-   
+
     if (res.ok) {
       dispatch({
         type: types.createQueue,
@@ -69,19 +69,27 @@ export const TracksProvider = ({ children }) => {
       });
     }
   };
-//save index to db
-  const handleGoNextSong = (index) => {
-    dispatch({
-      type: types.goNextPrevSong,
-      payload: index + 1,
-    });
+  //save index to db
+  const handleGoNextSong = async (index, userId) => {
+    const res = await changeIndex(index + 1, userId);
+
+    if (res.ok) {
+      dispatch({
+        type: types.goNextPrevSong,
+        payload: index + 1,
+      });
+    }
   };
 
-  const handleGoPrevSong = (index) => {
-    dispatch({
-      type: types.goNextPrevSong,
-      payload: index - 1,
-    });
+  const handleGoPrevSong = async (index, userId) => {
+    const res = await changeIndex(index - 1, userId);
+
+    if (res.ok) {
+      dispatch({
+        type: types.goNextPrevSong,
+        payload: index - 1,
+      });
+    }
   };
 
   return (
