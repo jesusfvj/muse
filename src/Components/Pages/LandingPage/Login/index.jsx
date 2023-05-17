@@ -8,7 +8,6 @@ import { Button, Typography, InputWithLabel } from "../../../index";
 export const Login = ({ changeLogRegister }) => {
   const navigate = useNavigate();
   const { login } = useUser();
-  const [rememberEmail, setRememberEmail] = useState(false);
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [loginData, setLoginData] = useState({
@@ -71,15 +70,7 @@ export const Login = ({ changeLogRegister }) => {
         >
           <Typography text="Forgot Your password?" />
         </div>
-        <div className="flex gap-4 items-center">
-          <input
-            name="rememberEmail"
-            type="checkbox"
-            onChange={handleRememberEmailChange}
-            className="checkbox"
-          />
-          <Typography text="Remember credentials?" color="primary" type="p1" />
-        </div>
+
         <Button onClick={handleLogin} text="Log In" />
       </form>
       <div className="flex gap-5">

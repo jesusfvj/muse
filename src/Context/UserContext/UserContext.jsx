@@ -31,22 +31,33 @@ export const useUser = () => {
   return state;
 };
 
-const init = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  return {
-    user,
-  };
-};
-
 export const UserProvider = ({ children }) => {
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+
+  const init = async () => {
+    setIsLoginLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      const data = await getUserById(user);
+      const loggedUser = data.user;
+      dispatch({ type: types.login, payload: loggedUser });
+    }
+    setIsLoginLoading(false);
+    return {
+      user,
+    };
+  };
+
   const [userState, dispatch] = useReducer(userReducer, {}, init);
 
   const [userProfile, setUserProfile] = useState(null);
   const [isProfileLoading, setIsProfileLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(userState.user));
-  }, [userState.user]);
+    if (userState?.user) {
+      localStorage.setItem("user", JSON.stringify(userState?.user?._id));
+    }
+  }, [userState.user?._id]);
 
   const login = async (user) => {
     const data = await loginUser(user);
@@ -81,6 +92,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
     dispatch({ type: types.logout });
   };
 
@@ -272,6 +284,7 @@ export const UserProvider = ({ children }) => {
         deleteSingleSong,
         updateAlbum,
         toggleFollowTrack,
+        isLoginLoading,
       }}
     >
       {children}

@@ -15,46 +15,73 @@ import PublicRoute from "../PublicRoute";
 import { ResetPassword } from "../Pages/ResetPassword";
 /* import ProtectedAdminRoute from "../Pages/ProtectedAdminRoute"; */
 import { AdminPage } from "../Pages/AdminPage";
+import { useUser } from "../Context/UserContext/UserContext";
+import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 
 function Router() {
+  const { isLoginLoading } = useUser();
   return (
     <>
-      <ScrollTop />
-      <Routes>
-        <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
-        <Route path="/resetpassword/:token" element={<PublicRoute><ResetPassword /></PublicRoute>} />
-        <Route path="/*" element={
-          <ProtectedRoutes>
-            <Routes>
-              <Route path="/main" element={<MainPage />} />
-              <Route path="/playlist" element={<Playlist />}>
-                <Route path=":playlistId" element={<Playlist />} />
-              </Route>
-              <Route path="/album" element={<Album />} >
-                <Route path=":albumId" element={<Album />} />
-              </Route>
-              <Route path="/user" element={<User />} >
-                <Route path=":userId" element={<User />} />
-              </Route>
-              <Route path="/artist" element={<Artist />} >
-                <Route path=":artistId" element={<Artist />} />
-              </Route>
-              <Route path="/player/:id" element={<Player />} />
-              <Route path="/search" element={<Search />}>
-                <Route path=":query" element={<Search />} />
-              </Route>
-              <Route path="/mylibrary" element={<MyLibrary />} />
-            </Routes>
-          </ProtectedRoutes>
-        }
-        />
-        <Route path="/admin" element={
+      {!isLoginLoading ? (
+        <>
+          <ScrollTop />
           <Routes>
-            <Route path="/" element={<AdminPage />} />
-          </Routes>
-        }
-        />
-      </Routes>
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <LandingPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/resetpassword/:token"
+              element={
+                <PublicRoute>
+                  <ResetPassword />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoutes>
+                  <Routes>
+                    <Route path="/main" element={<MainPage />} />
+                    <Route path="/playlist" element={<Playlist />}>
+                      <Route path=":playlistId" element={<Playlist />} />
+                    </Route>
+                    <Route path="/album" element={<Album />}>
+                      <Route path=":albumId" element={<Album />} />
+                    </Route>
+                    <Route path="/user" element={<User />}>
+                      <Route path=":userId" element={<User />} />
+                    </Route>
+                    <Route path="/artist" element={<Artist />}>
+                      <Route path=":artistId" element={<Artist />} />
+                    </Route>
+                    <Route path="/player/:id" element={<Player />} />
+                    <Route path="/search" element={<Search />}>
+                      <Route path=":query" element={<Search />} />
+                    </Route>
+                    <Route path="/mylibrary" element={<MyLibrary />} />
+                  </Routes>
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <Routes>
+                  <Route path="/" element={<AdminPage />} />
+                </Routes>
+              }
+            />
+          </Routes>{" "}
+        </>
+      ) : (
+        <ProfileLoader />
+      )}
     </>
   );
 }
