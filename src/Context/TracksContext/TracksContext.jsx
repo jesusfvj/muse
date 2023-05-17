@@ -63,7 +63,6 @@ export const TracksProvider = ({ children }) => {
   }, [user?._id]);
 
   const handleCreateQueue = async (userId, trackId, index) => {
-    console.log(userId, trackId);
     //trackId must be an array!
     const res = await createQueue(userId, trackId, index);
 
@@ -102,6 +101,7 @@ export const TracksProvider = ({ children }) => {
   };
 
   const handlePlayNext = async (index, tracks, userId) => {
+    console.log(tracks)
     let tracksToAdd;
     if (typeof tracks === "object") {
       tracksToAdd = [tracks];
@@ -109,12 +109,12 @@ export const TracksProvider = ({ children }) => {
       tracksToAdd = [...tracks];
     }
     const res = await playNext(index, tracksToAdd, userId);
-    console.log(res)
+
     if (res) {
       dispatch({ type: types.addToQueue, payload: res });
     }
   };
-console.log(tracksState.playerQueue, tracksState.index)
+
   return (
     <TracksContext.Provider
       value={{

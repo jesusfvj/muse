@@ -24,6 +24,8 @@ export const DropDownMenu = ({
   const playNext = () => {
     handlePlayNext(index, track, _id);
   };
+
+  
  
   return (
     <div className="relative">
