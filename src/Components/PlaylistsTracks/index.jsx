@@ -85,6 +85,7 @@ export const PlaylistsTracks = ({
               idx={idx}
               followedBy={followedBy}
               track={song}
+              songs={songs}
             />
           );
         })
