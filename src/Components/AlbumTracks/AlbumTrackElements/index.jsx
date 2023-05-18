@@ -9,6 +9,7 @@ import {
   likeTracks,
   toggleFollowPlaylist,
 } from "../../../API/MusicApi/MusicApi";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
 
 export const AlbumTrackElements = ({
   id,
@@ -64,9 +65,13 @@ export const AlbumTrackElements = ({
     setIsFollowed(!isFollowed);
   };
 
+  const { currentPlayingSong, isMusicPlaying } = useTracks();
+
+  const isActive = currentPlayingSong === track._id;
+
   return (
     <div
-      className={`flex flex-row gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 hover:bg-[#07333f] ${
+      className={`flex flex-row gap-3 sm:gap-5 items-center justify-around sm:justify-center border-b-2 ${isActive && isMusicPlaying && 'bg-gray-800'} border-white/20 py-5 hover:bg-[#07333f] ${
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
