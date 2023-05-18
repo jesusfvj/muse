@@ -8,7 +8,7 @@ export const ArtistInfo = ({ artist }) => {
     <div className="flex items-center justify-center">
       <img
         src={profilePhoto}
-        className="h-[25vh] w-[25vh] md:h-full aspect-square object-cover rounded-full"
+        className="h-[20vh] w-[20vh] md:h-full aspect-square object-cover rounded-full"
       />
     </div>
       <div>
