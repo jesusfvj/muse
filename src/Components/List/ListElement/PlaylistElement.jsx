@@ -103,7 +103,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         onContextMenu={handleOpenDropdown}
       >
         <div
-          className={`relative flex my-4 shadow-md overflow-hidden select-none m-2 cursor-pointer`}
+          className={`relative flex my-4 h-48 sm:h-auto shadow-md overflow-hidden select-none m-2 cursor-pointer`}
           onClick={handleNavigate}
           style={{
             background: `linear-gradient(0deg, ${color} 20%, transparent 100%)`,
