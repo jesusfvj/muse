@@ -5,7 +5,8 @@ import { Button, Typography, InputWithLabel } from "../../../index";
 
 export const Login = ({ changeLogRegister }) => {
   const [showError, setShowError] = useState("");
-  const { login } = useUser();
+  const { login, user } = useUser();
+  const token = window.localStorage.getItem("token");
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [loginData, setLoginData] = useState({
@@ -71,6 +72,15 @@ export const Login = ({ changeLogRegister }) => {
           <div className="w-full flex justify-start">
             <Typography
               text={showError}
+              type="p2"
+              color="danger"
+            />
+          </div>
+        }
+        {user && !token &&
+          <div className="w-full flex justify-start">
+            <Typography
+              text="Session has expired, please log in again."
               type="p2"
               color="danger"
             />

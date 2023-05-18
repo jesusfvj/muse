@@ -84,7 +84,7 @@ export const BasePlaylistModal = (
                 handleToggleModal();
                 setMessageSuccessToaster(`${successfulMessage}`);
             } else {
-                setMessageErrorToaster("Something went wrong. Please try again.")
+                setMessageErrorToaster(response.msg)
             }
         } else {
             toastMessageError("Please choose a name and image for the playlist.")

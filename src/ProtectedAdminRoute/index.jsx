@@ -3,8 +3,9 @@ import { useUser } from "../Context/UserContext/UserContext";
 
 const ProtectedAdminRoute = ({ children }) => {
   const { user } = useUser();
+  const token = window.localStorage.getItem("token");
 
-  if(user){
+  if(user && token){
     if(user.role==="admin"){
       return children;
     } else {
