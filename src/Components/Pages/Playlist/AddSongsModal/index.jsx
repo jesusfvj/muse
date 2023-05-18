@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Typography } from "../../../Typography";
-import testImg from "../../../../assets/images/testImages/test.jpg";
 import { SongItem } from "./SongItem";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { useQuery } from "@tanstack/react-query";
@@ -34,7 +33,6 @@ export const AddSongsModal = ({ playlistId, songs }) => {
               return (
                 <SongItem
                   key={track._id}
-                  img={testImg}
                   songName={track.name}
                   artist={track.genre}
                   playlistId={playlistId}

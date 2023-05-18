@@ -92,7 +92,7 @@ export const PlayControls = ({
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-4 w-3/4 sm:w-auto">
+      <div className="flex items-center justify-between gap-4 w-full sm:w-auto">
         <Typography
           text={
             currentTrack.progress

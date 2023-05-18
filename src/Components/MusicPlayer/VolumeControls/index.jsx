@@ -35,18 +35,18 @@ export const VolumeControls = ({ playAudio }) => {
     <div className="px-4 py-[1vh] w-full sm:w-auto flex items-center justify-center h-full gap-2">
       {isMuted ? (
         <IoMdVolumeMute
-          className="text-white text-2xl cursor-pointer"
+          className="hidden sm:flex text-white text-2xl cursor-pointer"
           onClick={handleMutePlayer}
         />
       ) : (
         <IoMdVolumeHigh
-          className="text-white text-2xl cursor-pointer"
+          className="hidden sm:flex text-white text-2xl cursor-pointer"
           onClick={handleMutePlayer}
         />
       )}
       <input
         type="range"
-        className="w-1/2 sm:w-auto muze-range"
+        className="hidden sm:flex w-full sm:w-auto muze-range"
         onChange={handleSetVolume}
         value={isMuted ? 0 : volume}
         min={0}
