@@ -7,7 +7,7 @@ import { CreateListButton } from "../CreateListButton";
 
 export const MosaicElements = ({object, dataType, list = "no"}) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center gap-[2rem] flex-wrap">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center md:gap-[2rem] flex-wrap">
             {object.map((object, index) => {
                 switch (dataType) {
                     case "song":

@@ -35,7 +35,7 @@ export const MyLibrary = () => {
           <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
             <img src='https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png' className="z-50 w-[70vw] mix-blend-overlay" />
           </div>
-          <div className="p-[1rem] sm:p-[4rem] lg:p-[5rem] flex flex-col gap-[2rem]">
+          <div className="pt-[10vh]  p-[1rem] sm:p-[4rem] lg:p-[5rem] flex flex-col gap-[2rem]">
             <Typography
               type="important"
               text="Following"
