@@ -42,7 +42,7 @@ export const FormUploadedSongs = ({
       );
       const response = await uploadSongsAPI(filesFormDataFiltered, user._id);
       setIsLoading(false);
-      if (response.data.ok) {
+      if (response.ok) {
         setMessageSuccessToaster("Song/s successfuly submited.");
         setShowUploadSongsModal(false);
       } else {

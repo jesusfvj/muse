@@ -3,16 +3,13 @@ import { useUser } from "../Context/UserContext/UserContext";
 
 const ProtectedRoutes = ({ children }) => {
   const { user, logout } = useUser();
+  const token = window.localStorage.getItem("token");
 
-  if (user) {
-    if (user.isBanned){
-      logout()
+  if (user && token) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin" />;
     } else {
-      if (user.role === "admin") {
-        return <Navigate to="/admin" />;
-      } else {
-        return children;
-      }
+      return children;
     }
   }
   return <Navigate to="/" />
