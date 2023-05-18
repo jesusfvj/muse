@@ -48,7 +48,7 @@ export const ArtistPageMusicSection = ({ artist }) => {
 
   const { uploadedTracks, uploadedAlbums } = artist;
   return (
-    <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
+    <div className="flex flex-col justify-center items-center sm:gap-y-[4rem] sm:pt-[4rem] pb-[4rem] w-full">
       <div className="w-full md:w-5/6">
         {uploadedTracks?.length ? (
           <List
