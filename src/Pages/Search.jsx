@@ -35,11 +35,11 @@ export const Search = () => {
 
   return (
     <>
-      <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
+      <div className="min-h-screen pt-8 pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
         <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
           <img src={logo} className="w-[70vw] mix-blend-overlay" />
         </div>
-        <div className=" flex justify-center p-9">
+        <div className="flex justify-center p-9">
           <input
             type="text"
             placeholder="Buscar"
@@ -48,14 +48,23 @@ export const Search = () => {
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <div className=" flex flex-col items-center gap-y-[4rem] pt-[4rem] w-full h-full">
+        <div className=" flex flex-col  items-center gap-y-[4rem] pt-[4rem] w-full h-full">
+
           {searchInput.length <= 2 ? (
-            <Typography
-              text="Nothing here, try to search your favorite artist!!"
-              type="big"
-              family="lato"
-              color="white"
-            />
+            <div className="flex flex-col gap-1 sm:flex-row justify-center items-center">
+              <Typography
+                text="Nothing here,"
+                type="p0"
+                family="lato"
+                color="white"
+              />
+              <Typography
+                text="try to search your favorite artist!!"
+                type="p0"
+                family="lato"
+                color="white"
+              />
+            </div>
           ) : null}
           {searchInput.length >= 3 && searchResults.tracks?.length > 0 ? (
             <div className=" w-full md:w-5/6">
