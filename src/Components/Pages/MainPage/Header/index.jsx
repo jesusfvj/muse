@@ -9,20 +9,20 @@ export const Header = () => {
   const arrayTitles = [
     {
       text: `Hi, ${fullName}!`,
-      type: "p1",
+      type: "important",
       color: "white",
       family: "lato",
       styles: "pb-[2rem]",
     },
     {
       text: "Listen to your",
-      type: "title",
+      type: "subHeadline",
       color: "white",
       family: "lato",
     },
     {
       text: "favourite music",
-      type: "p1",
+      type: "important",
       color: "white",
       family: "lato",
       styles: "sm:pl-[6rem] md:pl-[6rem] mt-[-0.3rem]",

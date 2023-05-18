@@ -10,6 +10,7 @@ export const Typography = ({
     title: `text-xl sm:text-4xl font-bold`,
     subtitle: `text-base sm:text-2xl font-medium`,
     headline: `text-5xl xs:text-7xl sm:text-8xl font-bold`,
+    subHeadline: `text-3xl xs:text-5xl sm:text-6xl font-bold`,
     important: `text-2xl sm:text-5xl font-bold`,
     big: `text-xl sm:text-4xl font-bold`,
     p0: `text-xl sm:text-2xl font-normal`,
@@ -44,6 +45,7 @@ export const Typography = ({
     case "important":
     case "big":
     case "headline":
+    case "subHeadline":
     case "section":
     case "icon":
     case "subSection":
