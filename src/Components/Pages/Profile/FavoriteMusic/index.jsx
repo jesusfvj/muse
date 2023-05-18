@@ -13,6 +13,7 @@ import { SkeletonTracksGroup } from "../../../Skeletons";
 import { UserFollowingSection } from "./UserFollowingSection";
 import { getFollowedUsers } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
+import { useEffect, useState } from "react";
 
 const skeletonData = ["", "", "", "", "", "", "", "", "", "", ""];
 
@@ -23,53 +24,63 @@ export const FavoriteMusic = ({
 }) => {
   const { playlists, followedPlaylists, albums, tracks } = userProfile;
 
-  const {
-    data: artists,
-    isLoading: isLoadingArtists,
-    error: errorArtists,
-  } = useQuery({
-    queryKey: ["artists".userProfile?._id],
-    queryFn: () => getFollowedUsers(userProfile?._id),
-  });
+  const [artists, setArtists] = useState(null);
+  const [isLoadingArtists, setIsLoadingArtists] = useState(true);
+
+  useEffect(() => {
+    const getArtists = async () => {
+      const res = await getFollowedUsers(userProfile?._id);
+      //   setArtists(res);
+      setArtists(res);
+      setIsLoadingArtists(false);
+    };
+    getArtists();
+  }, [userProfile]);
+
+  //   const {
+  //     data: artists,
+  //     isLoading: isLoadingArtists,
+  //     error: errorArtists,
+  //   } = useQuery({
+  //     queryKey: ["artistss".userProfile?._id],
+  //     queryFn: () => getFollowedUsers(userProfile?._id),
+  //   });
 
   return (
     <div className="flex flex-col gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
       <div>
         <TitleSection titleSection="Following" />
-        {!errorArtists ? (
-          <FollowingSection
-            section="following"
-            datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
-            object1={
-              !isLoadingArtists
-                ? artists.length &&
-                  artists.filter(
-                    (artist) =>
-                      artist.followedBy.includes(userProfile?._id) &&
-                      artist.role === "artist"
-                  )
-                : skeletonData
-            }
-            title1="Artists"
-            datatype2={"playlist"}
-            object2={followedPlaylists}
-            title2="Playlists"
-            isLoggedUserProfile={isLoggedUserProfile}
-            datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
-            object3={
-              !isLoadingArtists
-                ? artists.filter(
-                    (artist) =>
-                      artist.followedBy.includes(userProfile?._id) &&
-                      artist.role === "user"
-                  )
-                : skeletonData
-            }
-            title3="Users"
-          />
-        ) : (
-          <EmptyDefault error={true} text="Following" />
-        )}
+
+        <FollowingSection
+          section="following"
+          datatype1={!isLoadingArtists ? "artist" : "skeletonArtist"}
+          object1={
+            !isLoadingArtists
+              ? artists.length &&
+                artists.filter(
+                  (artist) =>
+                    artist.followedBy.includes(userProfile?._id) &&
+                    artist.role === "artist"
+                )
+              : skeletonData
+          }
+          title1="Artists"
+          datatype2={"playlist"}
+          object2={followedPlaylists}
+          title2="Playlists"
+          isLoggedUserProfile={isLoggedUserProfile}
+          datatype3={!isLoadingArtists ? "user" : "skeletonArtist"}
+          object3={
+            !isLoadingArtists
+              ? artists.filter(
+                  (artist) =>
+                    artist.followedBy.includes(userProfile?._id) &&
+                    artist.role === "user"
+                )
+              : skeletonData
+          }
+          title3="Users"
+        />
       </div>
 
       <div>

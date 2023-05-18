@@ -62,6 +62,7 @@ export const UserProvider = ({ children }) => {
   const login = async (user) => {
     const data = await loginUser(user);
     if (data.ok) {
+      localStorage.setItem("token", data.user.token);
       dispatch({ type: types.login, payload: data.user });
     }
     return data;
@@ -69,12 +70,11 @@ export const UserProvider = ({ children }) => {
 
   const register = async (user) => {
     const data = await registerUser(user);
-
     if (data.ok) {
+      localStorage.setItem("token", data.user.token);
       dispatch({ type: types.register, payload: data.user });
-    } else {
-      console.log("Something happened");
     }
+    return data;
   };
 
   const toggleUserFollowing = async (

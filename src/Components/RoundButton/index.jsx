@@ -12,6 +12,7 @@ export const RoundButton = ({
   };
 
   const backgrounds = {
+    green: "bg-green-600",
     white: "bg-gray-200",
     gray: "bg-gray-600",
     dgray: "bg-gray-500",

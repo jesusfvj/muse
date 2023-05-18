@@ -1,6 +1,15 @@
-export const getUsers = async () => {
-    const res = await fetch("http://localhost:3000/users");
+import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
 
-    // throw new Error();
-    return res.json();
+export const getUsers = async () => {
+    try {
+        const res = await axios.get("http://localhost:3000/users", {
+            headers: {
+                "x-token": window.localStorage.getItem("token")
+            }
+        });
+        return res.data;
+    } catch (error) {
+        checkTokenExpired(error.response.data)
+        return error.response.data;
+    }
 };

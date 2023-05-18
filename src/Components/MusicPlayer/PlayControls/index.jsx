@@ -14,12 +14,13 @@ export const PlayControls = ({
   setCurrentTrack,
   tracks,
   handleProgressChange,
+  handleShuffleQueue,
+  isRepeatedModeActive,
+  setIsRepeatedModeActive
 }) => {
   const clickRef = useRef();
-  const { handleGoNextSong, handleGoPrevSong, index } = useTracks();
+  const { handleGoNextSong, handleGoPrevSong, index, isShuffled } = useTracks();
   const { user: _id } = useUser();
-
-  const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -59,7 +60,17 @@ export const PlayControls = ({
   return (
     <div className="flex flex-col w-full sm:w-auto items-center justify-center">
       <div className="flex gap-4 mb-4">
-        <BsShuffle className={buttonsClassName} />
+        {isShuffled ? (
+          <BsShuffle
+            className="text-green-500 text-2xl cursor-pointer"
+            onClick={handleShuffleQueue}
+          />
+        ) : (
+          <BsShuffle
+            className={buttonsClassName}
+            onClick={handleShuffleQueue}
+          />
+        )}
         <MdSkipPrevious className={buttonsClassName} onClick={skipBack} />
         {isPlaying ? (
           <BsPauseFill className={buttonsClassName} onClick={PlayPause} />
