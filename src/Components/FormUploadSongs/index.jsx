@@ -65,7 +65,7 @@ export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
     };
 
     return (
-        <form className="flex flex-col space-y-4" onDragEnter={handleDrag}>
+        <form className="p-8 flex flex-col space-y-4 sm:w-[24rem] w-full" onDragEnter={handleDrag}>
             <input
                 type="file"
                 id="fileInput"
@@ -104,7 +104,7 @@ export const FormUploadSongs = ({ setFilesUploaded, setSelectedFiles }) => {
                     onDrop={handleDrop}>
                 </div>}
             </label>
-            <div className="w-[20rem] h-[3rem]">
+            <div className="sm:w-[20rem] w-full  h-[3rem]">
                 <Button text="Choose your files" color="black" size="sm" isLabel={true} htmlFor="fileInput" />
             </div>
             <ToastContainer />
