@@ -1,7 +1,7 @@
 import axios from "axios";
 import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
 
-const BASE_URL = "http://localhost:4000/admin";
+const BASE_URL = "https://muse-back-production.up.railway.app/admin";
 
 export const getCollection = async (collection, role = null) => {
     try {

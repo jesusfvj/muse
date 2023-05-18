@@ -1,6 +1,6 @@
 import axios from "axios";
 import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
-const BASE_URL = "http://localhost:4000/stripe";
+const BASE_URL = "https://muse-back-production.up.railway.app/stripe";
 
 export const setStripe = async () => {
     try {

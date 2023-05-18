@@ -1,11 +1,11 @@
 import axios from "axios";
 import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
 
-const BASE_URL = "http://localhost:4000/queue";
+const BASE_URL = "https://muse-back-production.up.railway.app/queue";
 
 export const initPlayer = async (userId) => {
   try {
-    const res = await axios.get(`http://localhost:4000/user/${userId}`, {
+    const res = await axios.get(`https://muse-back-production.up.railway.app/user/${userId}`, {
       headers: {
         "x-token": window.localStorage.getItem("token")
       }
