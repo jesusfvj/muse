@@ -15,12 +15,12 @@ export const PlayControls = ({
   tracks,
   handleProgressChange,
   handleShuffleQueue,
+  isRepeatedModeActive,
+  setIsRepeatedModeActive
 }) => {
   const clickRef = useRef();
   const { handleGoNextSong, handleGoPrevSong, index, isShuffled } = useTracks();
   const { user: _id } = useUser();
-
-  const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
 
   const PlayPause = () => {
     setIsPlaying(!isPlaying);

@@ -16,12 +16,14 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     setisMusicPlaying,
     shuffleQueue,
     isShuffled,
+    handleGoNextSong,
   } = useTracks();
   const {
     user: { _id },
   } = useUser();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
+  const [isRepeatedModeActive, setIsRepeatedModeActive] = useState(false);
 
   const location = useLocation();
   const listId = location.pathname.split("/")[2];
@@ -95,6 +97,19 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     playAudio.current.currentTime = currentTime;
   };
 
+  const onTrackEnd = () => {
+    if (isRepeatedModeActive) {
+      playAudio.current.currentTime = 0;
+      return;
+    }
+    if (index < playerQueue.length - 1) {
+      handleGoNextSong(index, _id);
+      playAudio.current.currentTime = 0;
+    } else{
+        setIsPlaying(false)
+    }
+  };
+
   return (
     <div
       className={`${
@@ -107,10 +122,13 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
             src={currentTrack.trackUrl}
             ref={playAudio}
             onTimeUpdate={onPlaying}
+            onEnded={onTrackEnd}
           />
 
           <TrackInfo currentTrack={currentTrack} />
           <PlayControls
+            isRepeatedModeActive={isRepeatedModeActive}
+            setIsRepeatedModeActive={setIsRepeatedModeActive}
             handleProgressChange={handleProgressChange}
             tracks={playerQueue}
             currentTrack={currentTrack}
