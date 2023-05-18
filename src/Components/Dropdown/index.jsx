@@ -1,29 +1,34 @@
+import { DropdownElement } from "./DropdownElement";
+import { useUI } from "../../Context/UI/UIContext";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
+import { useUser } from "../../Context/UserContext/UserContext";
+
 export const DropDownMenu = ({
   id,
   activeDropdown,
-  handleToggleDropdown,
-  handleToggleModal,
+  track,
+  items,
+  isAddToListVisible = true,
 }) => {
   const isActive = activeDropdown == id;
+  const { handleTogglePlaylistModal } = useUI();
+  const { changeCurrentTrack, index, handlePlayNext } = useTracks();
+  const {
+    user: { _id },
+  } = useUser();
+
+  const handleAddToList = () => {
+    handleTogglePlaylistModal();
+    changeCurrentTrack(track);
+  };
+  const playNext = () => {
+    handlePlayNext(index, track, _id);
+  };
+
+  
+ 
   return (
     <div className="relative">
-      <button
-        onClick={() => handleToggleDropdown(id)}
-        id="dropdownMenuIconHorizontalButton"
-        className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none "
-        type="button"
-      >
-        <svg
-          className="w-6 h-6 text-white"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
-        </svg>
-      </button>
-
       <div
         id={id}
         className={`z-10 ${
@@ -34,30 +39,21 @@ export const DropDownMenu = ({
           className="py-2 text-sm text-white "
           aria-labelledby="dropdownMenuIconHorizontalButton"
         >
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Play Next
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Go to Artist
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block px-4 py-2  hover:bg-gray-600 ">
-              Go to Album
-            </a>
-          </li>
+          {items.map((item) => {
+            const { text, path } = item;
+            return <DropdownElement playNext={playNext} key={text} text={text} path={path} />;
+          })}
         </ul>
-        <div className="py-2">
-          <button
-            onClick={handleToggleModal}
-            className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
-          >
-            Add to list
-          </button>
-        </div>
+        {isAddToListVisible ? (
+          <div className="py-2">
+            <button
+              onClick={handleAddToList}
+              className="block px-4 py-2 text-sm text-white hover:bg-gray-600 w-full text-start "
+            >
+              Add to list
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

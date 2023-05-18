@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { formatTime } from "../../Utils/formatTime";
 import { AlbumTrackElements } from "./AlbumTrackElements";
+import { Typography } from "../Typography";
 
-export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
+export const AlbumTracks = ({ songs, styles, artist }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const handleToggleDropdown = (id) => {
     if (activeDropdown == id) {
@@ -11,23 +11,33 @@ export const AlbumTracks = ({ songs, styles, handleToggleModal }) => {
       setActiveDropdown(id);
     }
   };
+
   return (
     <div className={`flex flex-col ${styles}`}>
-      {songs.map((songs, idx) => {
-        const { id, name, duration } = songs;
-        return (
-          <AlbumTrackElements
-            key={`${name}-${idx}`}
-            id={id}
-            nombre={name}
-            duration={formatTime(duration)}
-            idx={idx}
-            activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
-          />
-        );
-      })}
+      {songs?.length ? (
+        songs.map((song, idx) => {
+          const { _id, name, duration, followedBy } = song;
+          return (
+            <AlbumTrackElements
+              key={`${name}-${idx}`}
+              id={_id}
+              nombre={name}
+              artist={artist}
+              duration={duration}
+              idx={idx}
+              activeDropdown={activeDropdown}
+              handleToggleDropdown={handleToggleDropdown}
+              track={song}
+              trackList={songs}
+              followedBy={followedBy}
+            />
+          );
+        })
+      ) : (
+        <div className="pb-12">
+          <Typography text="Not following any song" />
+        </div>
+      )}
     </div>
   );
 };

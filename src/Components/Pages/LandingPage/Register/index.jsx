@@ -10,12 +10,14 @@ export const Register = ({ changeLogRegister }) => {
     email: "",
     password: "",
     repPassword: "",
+    isArtist: false,
   });
 
   const handleRegister = (e) => {
     e.preventDefault();
     register(registerData);
   };
+
   const handleInputChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
@@ -51,7 +53,24 @@ export const Register = ({ changeLogRegister }) => {
           value={registerData.repPassword}
           onInputChange={handleInputChange}
         />
-        <Button onClick={handleRegister} text="Register" />
+        <div className="flex items-center gap-4">
+          <label htmlFor="artistCheckbox" className="text-gray-400">
+            I am an artist
+          </label>
+          <input
+            value={registerData.isArtist}
+            name="role"
+            type="checkbox"
+            id="artistCheckbox"
+            onChange={() => {
+              setRegisterData({
+                ...registerData,
+                isArtist: !registerData.isArtist,
+              });
+            }}
+          />
+        </div>
+        <Button text="Register" onClick={handleRegister} />
       </form>
       <div className="flex gap-5">
         <Typography text={"I already have an account"} type="p1" />

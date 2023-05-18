@@ -1,11 +1,21 @@
-import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { useUser } from "../Context/UserContext/UserContext";
 
 const ProtectedRoutes = ({ children }) => {
-  const { isLogged } = useUser();
+  const { user, logout } = useUser();
 
-  return isLogged ? children : <Navigate to="/" />;
+  if (user) {
+    if (user.isBanned){
+      logout()
+    } else {
+      if (user.role === "admin") {
+        return <Navigate to="/admin" />;
+      } else {
+        return children;
+      }
+    }
+  }
+  return <Navigate to="/" />
 };
 
 export default ProtectedRoutes;

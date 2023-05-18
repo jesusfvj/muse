@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { sendEmail } from "../../../../API/UserApi/UserApi";
 import { useUser } from "../../../../Context/UserContext/UserContext";
 import { Button, Typography, InputWithLabel } from "../../../index";
 
 export const Login = ({ changeLogRegister }) => {
-  const navigate = useNavigate();
+  const [showError, setShowError] = useState("");
   const { login } = useUser();
-  const [rememberEmail, setRememberEmail] = useState(false);
+  const [isResetPassword, setIsResetPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -19,18 +20,27 @@ export const Login = ({ changeLogRegister }) => {
     }
   }, []);
 
-  const handleRememberEmailChange = (e) => {
-    setRememberEmail(!rememberEmail);
-  };
-
   const handleLoginInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login(loginData);
-    navigate("/main");
+    const response = await login(loginData);
+    if (!response.ok) {
+      setShowError(response.msg)
+    }
+    /* navigate("/main"); */
+  };
+  const handleToggleResetPasswordModal = (e) => {
+    setIsResetPassword(!isResetPassword);
+  };
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+    sendEmail(email);
   };
 
   return (
@@ -51,15 +61,21 @@ export const Login = ({ changeLogRegister }) => {
           value={loginData.password}
           onInputChange={handleLoginInputChange}
         />
-        <div className="flex gap-4 items-center">
-          <input
-            name="rememberEmail"
-            type="checkbox"
-            onChange={handleRememberEmailChange}
-            className="checkbox"
-          />
-          <Typography text="Remember my email?" color="primary" type="p1" />
+        <div
+          className="flex gap-4 items-center cursor-pointer"
+          onClick={handleToggleResetPasswordModal}
+        >
+          <Typography text="Forgot Your password?" />
         </div>
+        {showError !== "" &&
+          <div className="w-full flex justify-start">
+            <Typography
+              text={showError}
+              type="p2"
+              color="danger"
+            />
+          </div>
+        }
         <Button onClick={handleLogin} text="Log In" />
       </form>
       <div className="flex gap-5">
@@ -71,6 +87,31 @@ export const Login = ({ changeLogRegister }) => {
           Register
         </p>
       </div>
+      {isResetPassword ? (
+        <div
+          className="flex justify-center items-center absolute top-0 left-0 h-screen w-screen backdrop-blur-md"
+          onClick={handleToggleResetPasswordModal}
+        >
+          <div
+            className="w-4/5 md:w-2/5 h-1/3 bg-gradient-to-tl from-cyan-900 to-gray-900 rounded-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <form className="w-full h-full flex flex-col items-center justify-center gap-6 rounded-md">
+              <InputWithLabel
+                name="email"
+                label="Write your email"
+                type="email"
+                value={email}
+                onInputChange={handleChangeEmail}
+                sizeContainer="w-4/5"
+              />
+              <div>
+                <Button text="Send Email" onClick={handleSendEmail} />
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

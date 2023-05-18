@@ -10,6 +10,7 @@ import {
 } from "../Skeletons";
 import { SongElement } from "./ListElement/SongElement";
 import { useState } from "react";
+import { UserElement } from "./ListElement/UserElement";
 
 export const List = ({
   object,
@@ -22,11 +23,12 @@ export const List = ({
     itemsTablet: 3,
     itemsMobile: 2,
   },
+
 }) => {
   const [isSwipping, setIsSwipping] = useState(false);
 
   return (
-    <div>
+    <div className="w-full">
       <div className="ml-8">
         <Typography type={textType} text={sectionTitle} color="white" />
       </div>
@@ -46,7 +48,15 @@ export const List = ({
             case "artist":
               return <ArtistElement key={index} object={object} />;
             case "playlist":
-              return <PlaylistElement key={index} object={object} isSwipping={isSwipping}/>;
+              return (
+                <PlaylistElement
+                  key={index}
+                  object={object}
+                  isSwipping={isSwipping}
+                />
+              );
+            case "user":
+              return <UserElement key={index} object={object} />;
             case "skeletonPlaylist":
               return <SkeletonPlaylistElement key={index} object={object} />;
             case "skeletonAlbum":

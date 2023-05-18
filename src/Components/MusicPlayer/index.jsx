@@ -2,23 +2,36 @@ import { TrackInfo } from "./TrackInfo";
 import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
-import { tracks } from "../../data/SongsData/SongsData";
+import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
-  const [track, setTracks] = useState(tracks);
+  const { playerQueue, index, setCurrentPlayingSong, setisMusicPlaying } =
+    useTracks();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(tracks[1]);
-  const [progress, setProgress] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   const playAudio = useRef();
 
   useEffect(() => {
+    if (!currentTrack) return;
     if (isPlaying) {
       playAudio.current.play();
+      setisMusicPlaying(true);
     } else {
       playAudio.current.pause();
+      setisMusicPlaying(false);
     }
   }, [isPlaying, currentTrack]);
+
+  useEffect(() => {
+    if (playerQueue[index]) {
+      setCurrentTrack(playerQueue[index]);
+      setCurrentPlayingSong(playerQueue[index]._id);
+    }
+    if (currentTrack) {
+      setIsPlaying(true);
+    }
+  }, [playerQueue, index]);
 
   useEffect(() => {
     if (!isMusicPlayerVisible) {
@@ -39,7 +52,6 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   const handleProgressChange = (e) => {
     const currentTime = e.target.value;
     playAudio.current.currentTime = currentTime;
-    setProgress(currentTime);
   };
 
   return (
@@ -48,27 +60,28 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
         !isMusicPlayerVisible && "hidden"
       } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
     >
-      <div className="h-full flex flex-col sm:flex-row items-center justify-between">
-        <audio
-          src={currentTrack.url}
-          ref={playAudio}
-          onTimeUpdate={onPlaying}
-        />
-        <TrackInfo currentTrack={currentTrack} />
-        <PlayControls
-          handleProgressChange={handleProgressChange}
-          progress={progress}
-          track={track}
-          setTracks={setTracks}
-          currentTrack={currentTrack}
-          setCurrentTrack={setCurrentTrack}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          playAudio={playAudio}
-          setProgress={setProgress}
-        />
-        <VolumeControls playAudio={playAudio} />
-      </div>
+      {currentTrack ? (
+        <div className="h-full flex flex-col sm:flex-row items-center justify-between">
+          <audio
+            src={currentTrack.trackUrl}
+            ref={playAudio}
+            onTimeUpdate={onPlaying}
+          />
+
+          <TrackInfo currentTrack={currentTrack} />
+          <PlayControls
+            handleProgressChange={handleProgressChange}
+            tracks={playerQueue}
+            currentTrack={currentTrack}
+            setCurrentTrack={setCurrentTrack}
+            index={index}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
+            playAudio={playAudio}
+          />
+          <VolumeControls playAudio={playAudio} />
+        </div>
+      ) : null}
     </div>
   );
 };

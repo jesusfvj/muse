@@ -3,10 +3,67 @@ import { FaPlay } from "react-icons/fa";
 import { Typography } from "../../Typography";
 import { useState } from "react";
 import { DropDownMenu } from "../../Dropdown";
+import { Link } from "react-router-dom";
+import { likeTracks } from "../../../API/MusicApi/MusicApi";
+import { useUser } from "../../../Context/UserContext/UserContext";
+import { BsThreeDots } from "react-icons/bs";
+import { useTracks } from "../../../Context/TracksContext/TracksContext";
+import { Audio } from "react-loader-spinner";
 
-export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDropdown, handleToggleDropdown, handleToggleModal }) => {
-  const [clicked, setClicked] = useState(false);
+export const PlaylistsElements = ({
+  id,
+  duration,
+  nombre,
+  idx,
+  artist,
+  activeDropdown,
+  handleToggleDropdown,
+  followedBy,
+  track,
+  songs = { songs },
+}) => {
+  const {
+    user: { _id: userId, tracks },
+    toggleFollowTrack,
+  } = useUser();
+
+  const { currentPlayingSong, isMusicPlaying, handleCreateQueue } = useTracks();
+
+  const [clicked, setClicked] = useState(tracks.includes(id));
   const [hovered, setHovered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const isActive = currentPlayingSong === track._id;
+
+  const dropdownItems = [
+    {
+      text: "Play Next",
+      path: null,
+    },
+    {
+      text: "Go to Artist",
+      path: `/user/${artist._id}`,
+    },
+  ];
+
+  const likeButtonClick = () => {
+    if (!buttonDisabled) {
+      setClicked(!clicked);
+
+      setTimeout(() => {
+        toggleFollowTrack(userId, track, !clicked);
+      }, 300);
+      setButtonDisabled(true);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 1500);
+    }
+  };
+
+  const handleAddToQueue = () => {
+    // userId, playlist that track belongs to, index
+    handleCreateQueue(userId, songs, idx);
+  };
 
   return (
     <div
@@ -14,35 +71,50 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => {
+        setHovered(false);
+        handleToggleDropdown();
+      }}
     >
       <div className="flex items-start justify-start gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
         <div
           className={`hidden sm:flex cursor-pointer mt-1 ${
-            hovered ? "visible" : "invisible"
+            hovered && !isActive ? "visible" : "invisible"
           }`}
         >
-          <Typography text={<FaPlay />} color="white" />
+          <Typography
+            text={<FaPlay />}
+            color="white"
+            onClick={handleAddToQueue}
+          />
         </div>
-        <Typography text={id} color="white" styles="hidden xs:flex" />
-        <div className="w-[10rem] lg:w-[15rem]">
+
+        {isActive && isMusicPlaying && (
+          <div className="absolute">
+            <Audio
+              height="20"
+              width="20"
+              color="white"
+              ariaLabel="audio-loading"
+              wrapperStyle={{}}
+              wrapperClass="wrapper-class"
+              visible={true}
+            />
+          </div>
+        )}
+
+        <Link to={`/player/${track._id}`} className="w-[10rem] lg:w-[15rem]">
           <Typography text={nombre} color="white" styles="truncate" />
-        </div>
-        <div className="w-[10rem] lg:w-[15rem]">
-          <Typography text={artist} color="white" styles="truncate" />
-        </div>
-        <Typography
-          text={`${Math.floor(duration / 60)}:${
-            duration - Math.floor(duration / 60) * 60
-          }`}
-          color="white"
-          styles="hidden xs:flex"
-        />
+        </Link>
+        <Link to={`/artist/${artist._id}`} className="w-[10rem] lg:w-[15rem]">
+          <Typography text={artist.fullName} color="white" styles="truncate" />
+        </Link>
+        <Typography text={duration} color="white" styles="hidden xs:flex" />
       </div>
       <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"
-          onClick={() => (clicked ? setClicked(false) : setClicked(true))}
+          onClick={likeButtonClick}
         >
           <Typography
             text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
@@ -55,12 +127,20 @@ export const PlaylistsElements = ({ id, duration, nombre, idx, artist, activeDro
             hovered ? "visible" : "sm:invisible"
           }`}
         >
+          <button
+            onClick={() => handleToggleDropdown(id)}
+            id="dropdownMenuIconHorizontalButton"
+            className="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none "
+            type="button"
+          >
+            <Typography text={<BsThreeDots />} color="white" />
+          </button>
           <DropDownMenu
             id={id}
             color="white"
             activeDropdown={activeDropdown}
-            handleToggleDropdown={handleToggleDropdown}
-            handleToggleModal={handleToggleModal}
+            track={track}
+            items={dropdownItems}
           />
         </div>
       </div>
