@@ -32,7 +32,7 @@ export const VolumeControls = ({ playAudio }) => {
   }, [volume]);
 
   return (
-    <div className="px-4 py-[1vh] w-full sm:w-auto flex items-center justify-center h-full gap-2">
+    <div className="hidden sm:flex px-4 py-[1vh] w-full sm:w-auto items-center justify-center h-full gap-2">
       {isMuted ? (
         <IoMdVolumeMute
           className="hidden sm:flex text-white text-2xl cursor-pointer"

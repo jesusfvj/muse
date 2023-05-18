@@ -114,7 +114,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     <div
       className={`${
         !isMusicPlayerVisible && "hidden"
-      } fixed w-screen bottom-0 min-h-[10vh] z-40 p-[1vh] bg-black`}
+      } fixed w-screen bottom-0 min-h-[10vh] z-40 p-4 sm:p-[1vh] bg-black`}
     >
       {currentTrack ? (
         <div className="h-full flex flex-col sm:flex-row items-center justify-between">
