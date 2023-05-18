@@ -10,7 +10,7 @@ export const Search = () => {
   } = useUser();
 
   const [searchResults, setSearchResults] = useState({
-    songs: [],
+    tracks: [],
     albums: [],
     artists: [],
     users: [],
@@ -57,10 +57,10 @@ export const Search = () => {
               color="white"
             />
           ) : null}
-          {searchInput.length >= 3 && searchResults.songs?.length > 0 ? (
+          {searchInput.length >= 3 && searchResults.tracks?.length > 0 ? (
             <div className=" w-full md:w-5/6">
               <List
-                object={searchResults.songs}
+                object={searchResults.tracks}
                 sectionTitle="Songs"
                 dataType="song"
               />
