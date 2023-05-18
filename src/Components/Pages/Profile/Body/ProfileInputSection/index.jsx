@@ -13,7 +13,7 @@ export const ProfileInputSection = () => {
     password: "",
     confirm: "",
   });
-  const { user: { _id: userId }, fullName, updateUsername } = useUser();
+  const { user: { _id: userId, fullName }, updateUsername } = useUser();
   const { setMessageSuccessToaster, setMessageErrorToaster } = useUI();
 
   const handleSubmitUserNameInput = async (event) => {
