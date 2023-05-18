@@ -11,7 +11,7 @@ export const FormWithInput = ({ text, name, type, valueOne, valueTwo, nameTwo, i
                 onSubmit={handleSubmit}>
                 <InputElement text={text} name={name} type={type} value={valueOne} input={input} onInputChange={onInputChange} />
                 <InputElement text={text} name={nameTwo} type={type} value={valueTwo} input={input} onInputChange={onInputChange} />
-                <div className="mt-[4rem] flex justify-start w-full">
+                <div className="mt-[1rem] md:mt-[4rem] flex justify-start w-full">
                     <Button text="Save" typeButton="submit" color="black" size="md" />
                 </div>
             </form>
