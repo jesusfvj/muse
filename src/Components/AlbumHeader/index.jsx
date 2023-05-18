@@ -6,9 +6,11 @@ import { RoundButton } from "../RoundButton";
 import { Typography } from "../Typography";
 import { useUser } from "../../Context/UserContext/UserContext";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
+import { getAlbumById } from "../../API/MusicApi/MusicApi";
 
 export const AlbumHeader = ({ album }) => {
   const { thumbnailUrl, name } = album;
+  const { index, shuffleQueue, playerQueue, isShuffled } = useTracks();
   const {
     user: { _id },
   } = useUser();
@@ -17,6 +19,15 @@ export const AlbumHeader = ({ album }) => {
 
   const handleAddToQueue = () => {
     handleCreateQueue(_id, album.songs, 0);
+  };
+
+  const handleShuffleQueue = async () => {
+    console.log(isShuffled);
+    if (!isShuffled) {
+      const res = await getAlbumById(album._id);
+      const rand = Math.floor(Math.random() * res.songs.length);
+      shuffleQueue(_id, res.songs, rand, res.songs[rand]);
+    }
   };
   return (
     <div className="w-screen h-[80vh] relative">
@@ -37,9 +48,10 @@ export const AlbumHeader = ({ album }) => {
           <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute bottom-[0.7vh] right-[-1vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
             <RoundButton
               color="white"
-              background="darkgray"
+              background={`${isShuffled ? "green" : "darkgray"}`}
               icon={<RiShuffleFill size={15} />}
               margin="pt-[0.1rem] xs:pt-0"
+              onClick={handleShuffleQueue}
             />
           </div>
         </div>

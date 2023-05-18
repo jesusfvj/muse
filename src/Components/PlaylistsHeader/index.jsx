@@ -6,10 +6,10 @@ import { Typography } from "../Typography";
 import { MdControlPointDuplicate } from "react-icons/md";
 import {
   duplicatePlaylist,
+  getPlaylistsById,
   toggleFollowPlaylist,
 } from "../../API/MusicApi/MusicApi";
 import { useUser } from "../../Context/UserContext/UserContext";
-import { useQuery } from "@tanstack/react-query";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
 
 export const PlaylistsHeader = ({
@@ -23,7 +23,7 @@ export const PlaylistsHeader = ({
     user: { _id },
   } = useUser();
 
-  const { handleCreateQueue } = useTracks();
+  const { handleCreateQueue, index, shuffleQueue, isShuffled } = useTracks();
 
   const [clicked, setClicked] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -67,6 +67,15 @@ export const PlaylistsHeader = ({
     // userId, trackId, index
     handleCreateQueue(_id, tracks, 0);
   };
+
+  const handleShuffleQueue = async () => {
+    if (!isShuffled) {
+      const res = await getPlaylistsById(playlistId);
+      console.log(res);
+      const rand = Math.floor(Math.random() * res.tracks.length);
+      shuffleQueue(_id, res.tracks, rand, res.tracks[rand]);
+    }
+  };
   return (
     <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
       <div className="w-full h-full relative overflow-hidden">
@@ -81,7 +90,7 @@ export const PlaylistsHeader = ({
           className="absolute top-0 bottom-0 left-0 right-0 m-auto z-10 w-2/6"
         />
       </div>
-      {/* <div className={`bg-cover bg-[url('${thumbnail}')] w-full h-full`}></div> */}
+
       <div className="bg-gradient-to-b  from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
       <div className="flex w-screen h-34 pl-[9.5vw] gap-5 items-center">
         <div className="flex relative">
@@ -96,9 +105,10 @@ export const PlaylistsHeader = ({
           <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute bottom-[0.7vh] right-[-1vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
             <RoundButton
               color="white"
-              background="darkgray"
+              background={`${isShuffled ? "green" : "darkGray"}`}
               icon={<RiShuffleFill size={15} />}
               margin="pt-[0.1rem] xs:pt-0"
+              onClick={handleShuffleQueue}
             />
           </div>
         </div>
