@@ -1,6 +1,6 @@
-import { Header, Layout } from "../Components";
+import { Header } from "../Components";
 import { ArtistBody } from "../Components/Pages/ArtistPage";
-import logo from "../assets/logo/logowhite.png";
+import logo from "../../public/logoWhite.png"
 
 export const MainPage = () => {
   return (
