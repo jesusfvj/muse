@@ -15,7 +15,7 @@ export const FollowingSection = ({
   isLoggedUserProfile,
 }) => {
   return (
-    <div className="flex flex-col gap-[5rem]">
+    <div className="flex flex-col md:gap-[5rem]">
       {object1.length ? (
         <FavoriteMusicElement
           object={object1}

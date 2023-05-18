@@ -9,7 +9,7 @@ export const LovedSection = ({
   isOwner,
 }) => {
   return (
-    <div className="flex flex-col gap-[5rem]">
+    <div className="flex flex-col pb-12 md:pb-0 md:gap-[5rem]">
       {object1.length ? (
         <FavoriteMusicElement
           isOwner={isOwner}

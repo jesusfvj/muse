@@ -2,7 +2,7 @@ import { FavoriteMusicElement } from "../FavoriteMusicElement";
 
 export const YourListsSection = ({object}) => {
     return (
-        <div className="flex flex-col gap-[5rem]">
+        <div className="flex flex-col md:gap-[5rem]">
         <FavoriteMusicElement
         object={object}
         sectionTitle="Your public lists"
