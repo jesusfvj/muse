@@ -1,9 +1,9 @@
 import axios from "axios";
 import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
 
-const BASE_URL = "http://localhost:4000/playlist";
-const BASE_URL_TRACKS = "http://localhost:4000/track";
-const BASE_URL_ALBUMS = "http://localhost:4000/album";
+const BASE_URL = "https://muse-back-production.up.railway.app/playlist";
+const BASE_URL_TRACKS = "https://muse-back-production.up.railway.app/track";
+const BASE_URL_ALBUMS = "https://muse-back-production.up.railway.app/album";
 
 export const getSongs = async () => {
   try {

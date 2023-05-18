@@ -3,7 +3,7 @@ import {
   checkTokenExpired
 } from "../../Utils/tokenExpiredValidator";
 
-const BASE_URL = "http://localhost:4000/user";
+const BASE_URL = "https://muse-back-production.up.railway.app/user";
 
 export const registerUser = async (user) => {
   try {
@@ -71,7 +71,7 @@ export const getArtists = async (id) => {
 };
 
 export const changeUsername = async (newUsername, userId) => {
-  const data = await fetch("http://localhost:4000/user/update-username", {
+  const data = await fetch(`${BASE_URL}/user/update-username`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

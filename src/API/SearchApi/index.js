@@ -1,7 +1,7 @@
 import axios from "axios";
 import { checkTokenExpired } from "../../Utils/tokenExpiredValidator";
 
-const BASE_URL = "http://localhost:4000/search";
+const BASE_URL = "https://muse-back-production.up.railway.app/search";
 
 export const search = async (query, uid) => {
   try {
