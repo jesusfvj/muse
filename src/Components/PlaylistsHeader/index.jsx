@@ -92,7 +92,7 @@ export const PlaylistsHeader = ({
       </div>
 
       <div className="bg-gradient-to-b  from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
-      <div className="flex w-screen h-34 pl-[9.5vw] gap-5 items-center">
+      <div className="flex w-screen h-34 gap-5 items-center justify-around">
         <div className="flex relative">
           <div className="w-[3rem] h-[3rem] xs:w-[3.6rem] xs:h-[3.6rem] md:w-[4.5rem] md:h-[4.5rem]">
             <RoundButton
@@ -102,7 +102,7 @@ export const PlaylistsHeader = ({
               onClick={handleAddToQueue}
             />
           </div>
-          <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute bottom-[0.7vh] right-[-1vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
+          <div className="w-[1.8rem] h-[1.8rem] xs:w-[2.1rem] xs:h-[2.1rem] md:w-[2.3rem] md:h-[2.3rem] absolute -bottom-[0.7vh] right-[-3vw] xs:bottom-[-1vh] xs:right-[-1.2vw] lg:right-[-1vw] xl:right-[-0.5vw]">
             <RoundButton
               color="white"
               background={`${isShuffled ? "green" : "darkGray"}`}
@@ -112,40 +112,42 @@ export const PlaylistsHeader = ({
             />
           </div>
         </div>
-        <div className=" flex flex-col ml-12 items-center justify-center">
+        <div className=" flex flex-col text-center items-center justify-center">
           <Typography text={name} color="white" type="important" />
         </div>
-        <div
-          className="flex w-[4rem] h-[4rem] items-center relative group"
-          onClick={duplicateplaylistbutton}
-        >
-          <RoundButton
-            color="white"
-            background="darkgray"
-            icon={<MdControlPointDuplicate size={40} />}
-            margin=""
-          />
+        <div className="flex gap-6">
+          <div
+            className="flex w-[4rem] h-[4rem] items-center relative group"
+            onClick={duplicateplaylistbutton}
+          >
+            <RoundButton
+              color="white"
+              background="darkgray"
+              icon={<MdControlPointDuplicate size={40} />}
+              margin=""
+            />
 
-          <div className="group-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-10 mb-2">
-            <p>Duplicate playlist</p>
-          </div>
-          {hoverMsgAppear == 1 ? (
-            <div
-              className={`absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2 ${hoverMsgError}`}
-            >
-              <p>{hoverMsg}</p>
+            <div className="group-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-10 mb-2">
+              <p>Duplicate playlist</p>
             </div>
-          ) : null}
-        </div>
-        <div
-          className="flex w-[4rem] h-[4rem] items-center cursor-pointer"
-          onClick={likedClicked}
-        >
-          <Typography
-            text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
-            color="white"
-            type="important"
-          />
+            {hoverMsgAppear == 1 ? (
+              <div
+                className={`absolute bottom-full w-36 left-1/2 transform -translate-x-1/2 p-2 bg-gray-800 text-white rounded-md z-20 mb-2 ${hoverMsgError}`}
+              >
+                <p>{hoverMsg}</p>
+              </div>
+            ) : null}
+          </div>
+          <div
+            className="flex w-[4rem] h-[4rem] items-center cursor-pointer"
+            onClick={likedClicked}
+          >
+            <Typography
+              text={!clicked ? <AiOutlineHeart /> : <AiFillHeart />}
+              color="white"
+              type="important"
+            />
+          </div>
         </div>
       </div>
     </div>

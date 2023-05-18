@@ -19,7 +19,7 @@ export const PlaylistsTracks = ({
   const {
     handleToggleEditPlaylistModal,
     setMessageSuccessToaster,
-    setMessageErrorToaster
+    setMessageErrorToaster,
   } = useUI();
   const {
     deleteSinglePlaylist,
@@ -42,14 +42,16 @@ export const PlaylistsTracks = ({
   };
   // loggedUserId, playlistId
   const deletePlaylist = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const response = await deleteSinglePlaylist(_id, playlist._id);
-    setIsLoading(false)
-       if (response.ok) {
-        setMessageSuccessToaster("Playlist deleted successfully")
-       } else {
-        setMessageErrorToaster("There was an error trying to delete the playlist. Please try again.")
-       }
+    setIsLoading(false);
+    if (response.ok) {
+      setMessageSuccessToaster("Playlist deleted successfully");
+    } else {
+      setMessageErrorToaster(
+        "There was an error trying to delete the playlist. Please try again."
+      );
+    }
     setTimeout(() => {
       navigate("/main");
     }, 1000);
@@ -90,14 +92,16 @@ export const PlaylistsTracks = ({
           );
         })
       ) : (
-        <Typography text="This playlist does not have any song" />
+        <div className="flex items-center justify-center text-center">
+          <Typography text="This playlist does not have any song" type="important"/>
+        </div>
       )}
       {isAddSongsModalOpen && (
         <div
           className="fixed top-0 bottom-0 left-0 right-0 m-auto bg-black/90 h-screen w-screen backdrop-blur-sm z-40 flex items-center justify-center"
           onClick={() => setIsAddSongsModalOpen(false)}
         >
-          <AddSongsModal playlistId={playlistId} songs={songs}/>
+          <AddSongsModal playlistId={playlistId} songs={songs} />
         </div>
       )}
       {isLoading && <ProfileLoader modal={true} text="Deleting playlist..." />}
