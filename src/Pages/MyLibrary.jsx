@@ -1,6 +1,5 @@
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
 import { CreateListButton, Typography } from "../Components";
-import logo from "../assets/logo/logowhite.png";
 import { getAlbums, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 
 import { EmptyDefault } from "../Components/EmptyDefault";
@@ -34,7 +33,7 @@ export const MyLibrary = () => {
         <>
           <div className="z-0 fixed top-0 left-0 right-0 h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148]"></div>
           <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
-            <img src={logo} className="z-50 w-[70vw] mix-blend-overlay" />
+            <img src='https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png' className="z-50 w-[70vw] mix-blend-overlay" />
           </div>
           <div className="p-[1rem] sm:p-[4rem] lg:p-[5rem] flex flex-col gap-[2rem]">
             <Typography

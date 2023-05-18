@@ -19,7 +19,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     handleGoNextSong,
   } = useTracks();
   const {
-    user: { _id },
+    user,
   } = useUser();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -36,20 +36,20 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
     if (res) {
       if (!isShuffled) {
         const currentSong = playerQueue[index];
-        shuffleQueue(_id, res.songs, index, currentSong);
+        shuffleQueue(user?._id, res.songs, index, currentSong);
       } else {
         const songIndex = findIndexOfObject(res.songs, playerQueue[index]);
-        shuffleQueue(_id, res.songs, songIndex);
+        shuffleQueue(user?._id, res.songs, songIndex);
       }
     } else {
       const res = await getPlaylistsById(listId);
       if (res) {
         if (!isShuffled) {
           const currentSong = playerQueue[index];
-          shuffleQueue(_id, res.tracks, index, currentSong);
+          shuffleQueue(user?._id, res.tracks, index, currentSong);
         } else {
           const songIndex = findIndexOfObject(res.tracks, playerQueue[index]);
-          shuffleQueue(_id, res.tracks, songIndex);
+          shuffleQueue(user?._id, res.tracks, songIndex);
         }
       }
     }
@@ -69,7 +69,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
   useEffect(() => {
     if (playerQueue[index]) {
       setCurrentTrack(playerQueue[index]);
-      setCurrentPlayingSong(playerQueue[index]._id);
+      setCurrentPlayingSong(playerQueue[index]?._id);
     }
     if (currentTrack) {
       setIsPlaying(true);

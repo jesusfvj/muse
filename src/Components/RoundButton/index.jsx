@@ -17,7 +17,7 @@ export const RoundButton = ({
     gray: "bg-gray-600",
     dgray: "bg-gray-500",
     darkgray: "bg-gray-700",
-    gradient: "bg-[url('../../../src/assets/textures/circularGradient.png')] bg-cover bg-center bg-no-repeat"
+    gradient: "bg-[url('https://res.cloudinary.com/dmufnezzd/image/upload/v1684419649/muze-image_file-folder/circularGradient_uefvg6.png')] bg-cover bg-center bg-no-repeat"
   };
 
   const finalClassName = `w-full h-full rounded-full flex items-center justify-center bg-slate-600 ${colors[color]} ${backgrounds[background]} ${margin}`;
