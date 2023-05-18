@@ -13,7 +13,10 @@ export const ProfileInputSection = () => {
     password: "",
     confirm: "",
   });
-  const { user: { _id: userId, fullName }, updateUsername } = useUser();
+  const {
+    user: { _id: userId, fullName },
+    updateUsername,
+  } = useUser();
   const { setMessageSuccessToaster, setMessageErrorToaster } = useUI();
 
   const handleSubmitUserNameInput = async (event) => {
@@ -35,7 +38,7 @@ export const ProfileInputSection = () => {
 
   const handleSubmitPasswordInput = async (e) => {
     e.preventDefault();
-   
+
     if (resetNewPassword.password !== resetNewPassword.confirm) {
       alert("Passwords do not match. Please try again.");
       return;
@@ -80,39 +83,14 @@ export const ProfileInputSection = () => {
           valueOne={resetNewPassword.password}
           valueTwo={resetNewPassword.confirm}
           input="password"
-          onInputChange={(e) => setResetNewPassword({...resetNewPassword,
-            [e.target.name]: e.target.value
-          })}
+          onInputChange={(e) =>
+            setResetNewPassword({
+              ...resetNewPassword,
+              [e.target.name]: e.target.value,
+            })
+          }
           handleSubmit={handleSubmitPasswordInput}
         />
-        {/* <FormWithInput
-          text="Payment details"
-          name="Introduce your bank details"
-          nameTwo=""
-          type="text"
-          valueOne="your bank details"
-          valueTwo={bankDetails}
-          input="text"
-          onInputChange={(e) => setBankDetails(e.target.value)}
-          handleSubmit={handleSubmitPasswordInput}
-        /> */}
-        {/*  <div className="self-center sm:self-start w-[90%] sm:w-[30%]">
-          <Typography
-            text="Payment details"
-            type="subSection"
-            color="white"
-            family="lato"
-            styles="text-lg mb-[1rem] text-left"
-          />
-          <form className="flex flex-col gap-4 pt-[1rem]">
-            <InputElement
-              text="Introduce your bank details"
-              name="Introduce your bank details"
-              type="text"
-              input="text"
-            />
-          </form>
-        </div> */}
       </div>
       {isLoading && <ProfileLoader modal={true} text="Uploading data..." />}
     </section>
