@@ -3,14 +3,55 @@ import { PlayControls } from "./PlayControls";
 import { VolumeControls } from "./VolumeControls";
 import { useEffect, useRef, useState } from "react";
 import { useTracks } from "../../Context/TracksContext/TracksContext";
+import { useUser } from "../../Context/UserContext/UserContext";
+import { useLocation } from "react-router-dom";
+import { getAlbumById, getPlaylistsById } from "../../API/MusicApi/MusicApi";
+import { findIndexOfObject } from "../../Utils/shuffler";
 
 export const MusicPlayer = ({ isMusicPlayerVisible }) => {
-  const { playerQueue, index, setCurrentPlayingSong, setisMusicPlaying } =
-    useTracks();
+  const {
+    playerQueue,
+    index,
+    setCurrentPlayingSong,
+    setisMusicPlaying,
+    shuffleQueue,
+    isShuffled,
+  } = useTracks();
+  const {
+    user: { _id },
+  } = useUser();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
 
+  const location = useLocation();
+  const listId = location.pathname.split("/")[2];
+
   const playAudio = useRef();
+
+  const handleShuffleQueue = async () => {
+    if (playerQueue.length < 2) return;
+    const res = await getAlbumById(listId);
+    if (res) {
+      if (!isShuffled) {
+        const currentSong = playerQueue[index];
+        shuffleQueue(_id, res.songs, index, currentSong);
+      } else {
+        const songIndex = findIndexOfObject(res.songs, playerQueue[index]);
+        shuffleQueue(_id, res.songs, songIndex);
+      }
+    } else {
+      const res = await getPlaylistsById(listId);
+      if (res) {
+        if (!isShuffled) {
+          const currentSong = playerQueue[index];
+          shuffleQueue(_id, res.tracks, index, currentSong);
+        } else {
+          const songIndex = findIndexOfObject(res.tracks, playerQueue[index]);
+          shuffleQueue(_id, res.tracks, songIndex);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     if (!currentTrack) return;
@@ -78,6 +119,7 @@ export const MusicPlayer = ({ isMusicPlayerVisible }) => {
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
             playAudio={playAudio}
+            handleShuffleQueue={handleShuffleQueue}
           />
           <VolumeControls playAudio={playAudio} />
         </div>

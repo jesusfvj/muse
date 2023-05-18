@@ -11,6 +11,7 @@ import {
   initPlayer,
   playNext,
 } from "../../API/PlayerApi";
+import { findIndexOfObject, shuffle } from "../../Utils/shuffler";
 
 export const TracksContext = createContext();
 
@@ -40,6 +41,7 @@ export const TracksProvider = ({ children }) => {
 
   const [currentPlayingSong, setCurrentPlayingSong] = useState(null);
   const [isMusicPlaying, setisMusicPlaying] = useState(false);
+  const [isShuffled, setIsShuffled] = useState(false);
 
   const initQueue = async () => {
     if (user) {
@@ -64,6 +66,7 @@ export const TracksProvider = ({ children }) => {
 
   const handleCreateQueue = async (userId, trackId, index) => {
     //trackId must be an array!
+    setIsShuffled(false);
     const res = await createQueue(userId, trackId, index);
 
     if (res.ok) {
@@ -101,7 +104,6 @@ export const TracksProvider = ({ children }) => {
   };
 
   const handlePlayNext = async (index, tracks, userId) => {
-    console.log(tracks)
     let tracksToAdd;
     if (typeof tracks === "object") {
       tracksToAdd = [tracks];
@@ -113,6 +115,37 @@ export const TracksProvider = ({ children }) => {
     if (res) {
       dispatch({ type: types.addToQueue, payload: res });
     }
+  };
+
+  const shuffleQueue = async (userId, tracks, index, currentSong) => {
+    if (!isShuffled) {
+      const res = await createQueue(userId, shuffle(tracks), index);
+      console.log(res);
+      const songIndex = findIndexOfObject(res.playQueue.tracks, currentSong);
+
+      if (res.ok) {
+        dispatch({
+          type: types.createQueue,
+          payload: {
+            tracks: [...res.playQueue.tracks],
+            index: songIndex,
+          },
+        });
+      }
+    } else {
+      const res = await createQueue(userId, tracks, index);
+
+      if (res.ok) {
+        dispatch({
+          type: types.createQueue,
+          payload: {
+            tracks: [...res.playQueue.tracks],
+            index: res.playQueue.index,
+          },
+        });
+      }
+    }
+    setIsShuffled(!isShuffled);
   };
 
   return (
@@ -128,6 +161,8 @@ export const TracksProvider = ({ children }) => {
         isMusicPlaying,
         setisMusicPlaying,
         handlePlayNext,
+        shuffleQueue,
+        isShuffled,
       }}
     >
       {children}
