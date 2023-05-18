@@ -30,7 +30,7 @@ export const TrackInfo = ({
   };
 
   return (
-    <div className="flex items-start justify-start gap-10 md:gap-15 pl-[4vw] md:px-[5vw]">
+    <div className="flex items-start justify-around sm:justify-start w-full md:gap-15 pl-[4vw] md:px-[5vw]">
       <div
         className={`hidden sm:flex cursor-pointer mt-1 ${
           hovered && !isActive ? "visible" : "invisible"
@@ -43,7 +43,7 @@ export const TrackInfo = ({
         />
       </div>
       {isActive && isMusicPlaying && (
-        <div className="absolute">
+        <div className="hidden sm:absolute">
           <Audio
             height="20"
             width="20"
@@ -55,13 +55,18 @@ export const TrackInfo = ({
           />
         </div>
       )}
-      <Link to={`/player/${track._id}`} className="w-[10rem] lg:w-[30rem] truncate">
-        <Typography text={nombre} color="white" styles="truncate w-full" />
+      <Link to={`/player/${track._id}`} className="hidden sm:flex sm:w-[10rem] lg:w-[30rem] truncate">
+        <Typography text={nombre} color="white" styles="truncate" />
       </Link>
+      <div className="w-[70%] sm:hidden truncate"
+        onClick={()=>handleCreateQueue(_id, [id], 0)}
+      >
+        <Typography text={nombre} color="white" styles="truncate" />
+      </div>
       <Typography
         text={artist}
         color="white"
-        styles="truncate hidden xs:flex "
+        styles="truncate hidden sm:flex "
       />
       <Typography text={duration} color="white" styles="hidden xs:flex" />
     </div>
