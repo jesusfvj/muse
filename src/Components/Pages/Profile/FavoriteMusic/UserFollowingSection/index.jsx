@@ -12,7 +12,9 @@ export const UserFollowingSection = ({ object, datatype, title, isOwner }) => {
           isOwner={isOwner}
         />
       ) : (
-        <Typography text="This user has no public lists" />
+        <div className="pl-8 pb-8 pt-2">
+          <Typography text="This user has no public lists" />
+        </div>
       )}
     </div>
   );

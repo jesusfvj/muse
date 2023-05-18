@@ -24,6 +24,7 @@ export const FollowingSection = ({
           isLoggedUserProfile={isLoggedUserProfile}
         />
       ) : (
+        <div className="pl-8 pt-2">
         <Typography
           text={
             section === "playlists"
@@ -31,6 +32,7 @@ export const FollowingSection = ({
               : "Not following any artist"
           }
         />
+        </div>
       )}
       {object2.length ? (
         <FavoriteMusicElement
@@ -40,6 +42,7 @@ export const FollowingSection = ({
           isLoggedUserProfile={isLoggedUserProfile}
         />
       ) : (
+         <div className="pl-8 pt-2 pb-8">
         <Typography
           text={
             section === "playlists"
@@ -47,6 +50,7 @@ export const FollowingSection = ({
               : "Not following any playlist"
           }
         />
+        </div>
       )}
       {object3?.length ? (
         <FavoriteMusicElement

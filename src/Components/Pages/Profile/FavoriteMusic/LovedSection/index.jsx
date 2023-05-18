@@ -18,7 +18,9 @@ export const LovedSection = ({
           datatype={datatype1}
         />
       ) : (
-        <Typography text="No albums to show" />
+        <div className="pl-8 ">
+          <Typography text="No albums to show" />
+        </div>
       )}
       {object2.length ? (
         <FavoriteMusicElement
@@ -28,7 +30,9 @@ export const LovedSection = ({
           datatype={datatype2}
         />
       ) : (
-        <Typography text="No songs to show" />
+        <div className="pl-8 pt-2">
+          <Typography text="No songs to show" />
+        </div>
       )}
     </div>
   );

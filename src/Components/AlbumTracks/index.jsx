@@ -34,7 +34,7 @@ export const AlbumTracks = ({ songs, styles, artist }) => {
           );
         })
       ) : (
-        <div className="pb-12">
+        <div className="pl-8 pt-2">
           <Typography text="Not following any song" />
         </div>
       )}
