@@ -84,7 +84,7 @@ export const ArtistBody = () => {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-[4rem] pt-[4rem] pb-[4rem] w-full">
+    <div className="flex flex-col justify-center items-center md:gap-y-[4rem] sm:pt-[4rem] sm:pb-[4rem] w-full">
       <div className="w-full md:w-5/6">
         {songs?.length ? (
           <List
@@ -163,7 +163,7 @@ export const ArtistBody = () => {
         )}
       </div>
 
-      <div className="w-full md:w-5/6">
+      <div className="w-full md:w-5/6 mt-[3rem] sm:mt-0">
         {playlists?.length ? (
           <List
             object={playlists}
