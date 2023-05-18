@@ -29,7 +29,7 @@ export const Login = ({ changeLogRegister }) => {
     e.preventDefault();
     const response = await login(loginData);
     if (!response.ok) {
-      setShowError(response.msg)
+      setShowError(response)
     }
     /* navigate("/main"); */
   };
