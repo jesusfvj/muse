@@ -35,9 +35,9 @@ export const Player = () => {
         <ProfileLoader />
       ) : track ? (
         <>
-          <div className="w-screen h-screen bg-gradient-to-b from-[#02040C] to-[#052226]">
+          <div className="w-screen min-h-screen bg-gradient-to-b from-[#02040C] to-[#052226]">
 
-            <div className="flex flex-col bottom-4 z-50 right-0 left-0 m-auto text-center p-12">
+            <div className="flex flex-col bottom-4 z-50 right-0 left-0 m-auto text-center pt-12 px-12">
               <img
                 src={track.thumbnailUrl}
                 className=" object-cover text-center rounded-full w-64 h-64 self-center m-12"
@@ -54,10 +54,16 @@ export const Player = () => {
               <Typography
                 text={`${track.artist.followedBy.length} followers`}
               />
-              <div className="text-gray-400 text-2xl mx-36">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
+              <Typography
+              text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
+              Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
+              Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid." 
+              type="p2" 
+              styles="pt-4 pb-2"/>
+              {/* <div className="text-gray-400 md:text-2xl sm:w-screen sm:h-screen">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
               Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
               Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid. Ipsum mollitia temporibus rem pariatur dolor nesciunt debitis veritatis praesentium.
-              Voluptatum natus nihil a consequuntur veritatis voluptatem, similique officiis illo odio, illum earum id totam. A qui ducimus quidem distinctio dicta, quas impedit atque quod veniam. Vel velit consectetur facere.</div>
+              Voluptatum natus nihil a consequuntur veritatis voluptatem, similique officiis illo odio, illum earum id totam. A qui ducimus quidem distinctio dicta, quas impedit atque quod veniam. Vel velit consectetur facere.</div> */}
               <div className="mx-64 my-10">
               {featuredIn.length ? (
                 <List
