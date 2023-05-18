@@ -20,7 +20,7 @@ export const Logo = ({
       className={`w-screen flex flex-col justify-center items-center ${extraClassesParent}`}
     >
       <img
-        src="../../../../../src/assets/logo/logoWhite.png"
+        src="https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png"
         alt="muze logo"
         className={size[logoSize]}
       />

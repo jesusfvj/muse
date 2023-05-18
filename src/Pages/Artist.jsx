@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Layout } from "../Components";
 import { ArtistInfo } from "../Components/Pages/ArtistPage";
-import logo from "../../public/logoWhite.png"
 import { useEffect, useState } from "react";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { useUI } from "../Context/UI/UIContext";
@@ -30,7 +29,7 @@ export const Artist = () => {
         <>
           <div className="z-0 fixed top-0 left-0 right-0 h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148]"></div>
           <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
-            <img src={logo} className="z-50 w-[70vw] mix-blend-overlay" />
+            <img src='https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png' className="z-50 w-[70vw] mix-blend-overlay" />
           </div>
           <div className="z-2 relative flex flex-col items-center  min-h-screen gap-8">
             <ArtistInfo artist={artist}/>

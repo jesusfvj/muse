@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { List, Typography } from "../Components";
-import logo from "../../public/logoWhite.png"
 import { search } from "../API/SearchApi";
 import { useUser } from "../Context/UserContext/UserContext";
 
@@ -37,7 +36,7 @@ export const Search = () => {
     <>
       <div className="min-h-screen pb-12 bg-gradient-to-b from-[#02040C] to-[#0A4148] flex flex-col">
         <div className="absolute right-[-25vw] top-[-15vw] hidden md:block">
-          <img src={logo} className="w-[70vw] mix-blend-overlay" />
+          <img src='https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png' className="w-[70vw] mix-blend-overlay" />
         </div>
         <div className=" flex justify-center p-9">
           <input
