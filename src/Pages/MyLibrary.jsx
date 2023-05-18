@@ -1,6 +1,6 @@
 import { MosaicElements } from "../Components/Pages/MyLibrary/MosaicElements";
 import { CreateListButton, Typography } from "../Components";
-import logo from "../assets/logo/logowhite.png";
+import logo from "../../public/logoWhite.png"
 import { getAlbums, getPlaylists, getSongs } from "../API/MusicApi/MusicApi";
 
 import { EmptyDefault } from "../Components/EmptyDefault";

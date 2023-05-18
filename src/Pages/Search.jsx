@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { List, Typography } from "../Components";
-import logo from "../assets/logo/logowhite.png";
+import logo from "../../public/logoWhite.png"
 import { search } from "../API/SearchApi";
 import { useUser } from "../Context/UserContext/UserContext";
 

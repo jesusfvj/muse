@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Layout } from "../Components";
 import { ArtistInfo } from "../Components/Pages/ArtistPage";
-import logo from "../assets/logo/logowhite.png";
+import logo from "../../public/logoWhite.png"
 import { useEffect, useState } from "react";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { useUI } from "../Context/UI/UIContext";
