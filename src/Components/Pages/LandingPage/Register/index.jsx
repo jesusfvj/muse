@@ -31,6 +31,7 @@ export const Register = ({ changeLogRegister }) => {
           type="text"
           value={registerData.fullName}
           onInputChange={handleInputChange}
+          maxLength="10"
         />
         <InputWithLabel
           name="email"

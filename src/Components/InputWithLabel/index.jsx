@@ -1,4 +1,4 @@
-export const InputWithLabel = ({ name, label, type, value, defaultValue, onInputChange, sizeContainer, styles, readonly = false, required = false }) => {
+export const InputWithLabel = ({ name, label, type, value, defaultValue, onInputChange, sizeContainer, styles, readonly = false, required = false, maxLength }) => {
   return (
     <div className={`relative ${sizeContainer}`}>
       <input
@@ -12,6 +12,7 @@ export const InputWithLabel = ({ name, label, type, value, defaultValue, onInput
         placeholder=" "
         readOnly={readonly}
         required={required}
+        maxLength={maxLength}
       />
       <label
         htmlFor={name}
