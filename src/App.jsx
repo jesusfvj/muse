@@ -1,13 +1,25 @@
-function App() {
+import Router from "./Router/Router";
+import { BrowserRouter } from "react-router-dom";
+import { UIProvider } from "./Context/UI/UIContext";
+import { UserProvider } from "./Context/UserContext/UserContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
+
+function App() {
   return (
-    <div className="App">
-      <div className='bg-yellow-300 w-screen h-screen'>
-        <p className='text-center'>Hola inframundo</p>
-      </div>
-    </div>
-  )
+    <>
+      <QueryClientProvider client={queryClient}>
+        <UserProvider>
+          <UIProvider>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </UIProvider>
+        </UserProvider>
+      </QueryClientProvider>
+    </>
+  );
 }
 
-export default App
-
+export default App;

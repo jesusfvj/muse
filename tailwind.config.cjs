@@ -5,7 +5,14 @@ module.exports = {
     "./src/**/*.{js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xs': '450px',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    // require('flowbite/plugin')
+  ],
+//   plugins: [require('@tailwindcss/line-clamp')],
 }
