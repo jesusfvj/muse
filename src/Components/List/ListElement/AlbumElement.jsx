@@ -131,7 +131,7 @@ export const AlbumElement = ({ object }) => {
               isFollowed ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
             }
             color={isFollowed ? "white" : "secondary"}
-            styles="hidden xs:flex scale-[2]"
+            styles="flex scale-[2]"
           />
         </div>
         <div

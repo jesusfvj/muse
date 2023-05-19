@@ -71,7 +71,7 @@ export const ArtistElement = ({ object }) => {
             text={isFollowed ? <RiUserFollowFill /> : <RiUserFollowLine />}
             type="p0"
             color={isFollowed ? "white" : "secondary"}
-            styles="hidden xs:flex"
+            styles="flex"
           />
         ) : null}
       </div>

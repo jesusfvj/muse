@@ -127,7 +127,7 @@ export const SongElement = ({ object }) => {
               clicked ? <AiFillHeart /> : hovered ? <AiOutlineHeart /> : null
             }
             color={clicked ? "white" : "secondary"}
-            styles="hidden xs:flex scale-[2]"
+            styles="flex scale-[2]"
           />
         </div>
         <div
