@@ -6,13 +6,18 @@ const ProtectedRoutes = ({ children }) => {
   const token = window.localStorage.getItem("token");
 
   if (user && token) {
-    if (user.role === "admin") {
-      return <Navigate to="/admin" />;
+    if (user.isBanned){
+      logout()
     } else {
-      return children;
+      if (user.role === "admin") {
+        return <Navigate to="/admin" />;
+      } else {
+        return children;
+      }
     }
   }
   return <Navigate to="/" />
 };
 
 export default ProtectedRoutes;
+
