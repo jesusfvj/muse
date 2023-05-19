@@ -59,8 +59,6 @@ npm run dev
 - JWT (JSON Web Tokens): A standard for securely transmitting information between parties as a JSON object.
 - Axios: A promise-based HTTP client for making requests to the backend.
 
-Sure! Here's the updated README with the dependencies organized in a table:
-
 ## Dependencies
 
 Muze relies on the following dependencies:
@@ -96,4 +94,4 @@ The following GitHub users have contributed to the Muze project:
 
 ## Contributing
 
-We welcome contributions to Muze! If
+We welcome contributions to Muze!
