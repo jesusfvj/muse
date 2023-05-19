@@ -7,6 +7,7 @@ import { PlaylistsHeader } from "../Components/PlaylistsHeader";
 import { PlaylistsTracks } from "../Components/PlaylistsTracks";
 import { useUser } from "../Context/UserContext/UserContext";
 import { Typography } from "@material-tailwind/react";
+import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 
 export const Playlist = () => {
   const {
@@ -28,7 +29,9 @@ export const Playlist = () => {
 
   return (
     <>
-      {!isLoadingPlaylists && playlist ? (
+      {isLoadingPlaylists ? (
+        <ProfileLoader />
+      ) : playlist ? (
         <>
           <div className="h-[40vh] bg-[#02040C]">
             <PlaylistsHeader

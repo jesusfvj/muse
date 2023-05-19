@@ -54,12 +54,6 @@ export const Player = () => {
               <Typography
                 text={`${track.artist.followedBy.length} followers`}
               />
-              <Typography
-              text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
-              Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
-              Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid." 
-              type="p2"
-              styles="pt-4 pb-2"/>
               <div className="w-full my-10">
               {featuredIn.length ? (
                 <List
