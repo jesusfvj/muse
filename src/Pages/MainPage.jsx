@@ -9,7 +9,7 @@ export const MainPage = () => {
         <img src='https://res.cloudinary.com/dmufnezzd/image/upload/v1684419477/muze-image_file-folder/logoWhite_xxtkq5.png' className="z-50 w-[70vw] mix-blend-overlay"/>
       </div>
       <div className="z-2 relative min-h-screen">
-        <div className="pt-[5rem] pl-[2rem] sm:pl-[4rem] md:pl-[6rem] lg:pl-[8rem]">
+        <div className="pt-[5rem] pl-[2rem] pb-15 sm:pb-32 sm:pl-[4rem] md:pl-[6rem] lg:pl-[8rem]">
           <Header />
         </div>
         <ArtistBody />
