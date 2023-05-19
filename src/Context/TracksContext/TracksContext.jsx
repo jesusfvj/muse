@@ -120,7 +120,6 @@ export const TracksProvider = ({ children }) => {
   const shuffleQueue = async (userId, tracks, index, currentSong) => {
     if (!isShuffled) {
       const res = await createQueue(userId, shuffle(tracks), index);
-      console.log(res);
       const songIndex = findIndexOfObject(res.playQueue.tracks, currentSong);
 
       if (res.ok) {

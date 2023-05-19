@@ -238,7 +238,6 @@ export const UserProvider = ({ children }) => {
   };
 
   const toggleFollowTrack = async (userId, track, isFollowed) => {
-    console.log(userId, track, isFollowed);
     const data = await likeTracks(userId, [track._id], isFollowed);
     if (data.ok) {
       if (data.isAdded) {

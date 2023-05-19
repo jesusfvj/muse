@@ -71,7 +71,6 @@ export const PlaylistsHeader = ({
   const handleShuffleQueue = async () => {
     if (!isShuffled) {
       const res = await getPlaylistsById(playlistId);
-      console.log(res);
       const rand = Math.floor(Math.random() * res.tracks.length);
       shuffleQueue(_id, res.tracks, rand, res.tracks[rand]);
     }

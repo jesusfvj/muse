@@ -22,7 +22,6 @@ export const AlbumHeader = ({ album }) => {
   };
 
   const handleShuffleQueue = async () => {
-    console.log(isShuffled);
     if (!isShuffled) {
       const res = await getAlbumById(album._id);
       const rand = Math.floor(Math.random() * res.songs.length);

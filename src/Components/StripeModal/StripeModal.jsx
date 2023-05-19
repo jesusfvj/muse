@@ -13,7 +13,6 @@ export const StripeModal = ({ handleToggleStripeModal }) => {
     useEffect(() => {
         async function setStripeF() {
             const {publishableKey} = await setStripe()
-            console.log(publishableKey);
             setStripePromise(loadStripe(publishableKey))
         }
         setStripeF()
@@ -21,7 +20,6 @@ export const StripeModal = ({ handleToggleStripeModal }) => {
     useEffect(() => {
         async function setStripe() {
             const {clientSecret} = await stripePayment()
-            console.log(clientSecret);
             setClientSecret(clientSecret)
         }
         setStripe()
