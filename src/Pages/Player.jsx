@@ -58,13 +58,9 @@ export const Player = () => {
               text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
               Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
               Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid." 
-              type="p2" 
+              type="p2"
               styles="pt-4 pb-2"/>
-              {/* <div className="text-gray-400 md:text-2xl sm:w-screen sm:h-screen">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, harum obcaecati laboriosam nesciunt hic assumenda iusto nam sequi porro qui facilis maiores, corporis earum natus id culpa, sit tenetur nulla.
-              Dolor enim, error ducimus molestias quisquam consectetur? Quidem sunt placeat natus esse doloremque labore accusantium rem ullam molestiae harum ratione in dolorem beatae eum illum iure, non quos quod ad?
-              Eum aperiam saepe consequuntur maiores neque officia mollitia pariatur sequi quod repellat, ad quasi? Veritatis obcaecati quia quasi est aliquid. Ipsum mollitia temporibus rem pariatur dolor nesciunt debitis veritatis praesentium.
-              Voluptatum natus nihil a consequuntur veritatis voluptatem, similique officiis illo odio, illum earum id totam. A qui ducimus quidem distinctio dicta, quas impedit atque quod veniam. Vel velit consectetur facere.</div> */}
-              <div className="mx-64 my-10">
+              <div className="w-full my-10">
               {featuredIn.length ? (
                 <List
                   object={featuredIn}

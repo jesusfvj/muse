@@ -111,7 +111,7 @@ export const PlaylistElement = ({ object, isSwipping }) => {
         >
           <div
             className={
-              " flex flex-col  place-content-between items-center p-2 w-[5rem] h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
+              " flex flex-col  place-content-between items-center p-2 w-full h-[7rem] sm:w-[9rem] sm:h-[11rem] lg:w-[12rem] lg:h-[15rem]"
             }
           >
             <Link to="/playlist" className="w-full mt-2 px-3">
@@ -120,13 +120,13 @@ export const PlaylistElement = ({ object, isSwipping }) => {
                 type="p1"
                 color="white"
                 family="lato"
-                styles="max-w-[200px] line-clamp-2 text-ellipsis truncate"
+                styles="max-w-[200px] line-clamp-2 sm:text-ellipsis truncate"
               />
             </Link>
 
             <img
               src={thumbnail}
-              className="w-[4rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover rounded-md"
+              className="w-[8rem] h-[4rem] sm:w-[7rem] sm:h-[7rem] lg:w-[10rem] lg:h-[10rem] bg-cover bg-center bg-no-repeat min-h-[8rem] m-4 rotate-[35deg] absolute -bottom-8 -right-5 sm:-right-8 drop-shadow-[0_15px_15px_rgba(0,0,0,0.50)] pointer-events-none object-cover rounded-md"
             />
           </div>
         </div>

@@ -29,7 +29,7 @@ export const List = ({
 
   return (
     <div className="w-full">
-      <div className="ml-8">
+      <div className="flex pl-4">
         <Typography type={textType} text={sectionTitle} color="white" />
       </div>
       <Carousel

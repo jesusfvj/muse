@@ -59,7 +59,7 @@ export const TrackInfo = ({
         <Typography text={nombre} color="white" styles="truncate" />
       </Link>
       <div className="w-[70%] sm:hidden truncate"
-        onClick={()=>handleCreateQueue(_id, [id], 0)}
+        onClick={()=>handleCreateQueue(_id, trackList, idx)}
       >
         <Typography text={nombre} color="white" styles="truncate" />
       </div>
@@ -68,7 +68,7 @@ export const TrackInfo = ({
         color="white"
         styles="truncate hidden sm:flex "
       />
-      <Typography text={duration} color="white" styles="hidden xs:flex" />
+      <Typography text={duration} color="white" styles="flex" />
     </div>
   );
 };

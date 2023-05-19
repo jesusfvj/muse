@@ -91,7 +91,7 @@ export const PlaylistsHeader = ({
         />
       </div>
 
-      <div className="bg-gradient-to-b  from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
+      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-full absolute top-0"></div>
       <div className="flex w-screen h-34 gap-5 items-center justify-around">
         <div className="flex relative">
           <div className="w-[3rem] h-[3rem] xs:w-[3.6rem] xs:h-[3.6rem] md:w-[4.5rem] md:h-[4.5rem]">
@@ -115,15 +115,15 @@ export const PlaylistsHeader = ({
         <div className=" flex flex-col text-center items-center justify-center">
           <Typography text={name} color="white" type="important" />
         </div>
-        <div className="flex gap-6">
+        <div className="flex items-center gap-6">
           <div
-            className="flex w-[4rem] h-[4rem] items-center relative group"
+            className="flex w-10 h-10 sm:w-[4rem] sm:h-[4rem] items-center justify-center relative group"
             onClick={duplicateplaylistbutton}
           >
             <RoundButton
               color="white"
               background="darkgray"
-              icon={<MdControlPointDuplicate size={40} />}
+              icon={<MdControlPointDuplicate size={25} />}
               margin=""
             />
 
@@ -139,7 +139,7 @@ export const PlaylistsHeader = ({
             ) : null}
           </div>
           <div
-            className="flex w-[4rem] h-[4rem] items-center cursor-pointer"
+            className="flex w-[2rem] h-[2rem] items-center cursor-pointer"
             onClick={likedClicked}
           >
             <Typography

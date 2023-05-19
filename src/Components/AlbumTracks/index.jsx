@@ -13,7 +13,7 @@ export const AlbumTracks = ({ songs, styles, artist }) => {
   };
 
   return (
-    <div className={`flex flex-col ${styles}`}>
+    <div className={`flex flex-col ${styles} pb-5`}>
       {songs?.length ? (
         songs.map((song, idx) => {
           const { _id, name, duration, followedBy } = song;

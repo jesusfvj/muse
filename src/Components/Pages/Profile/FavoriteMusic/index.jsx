@@ -47,7 +47,7 @@ export const FavoriteMusic = ({
   //   });
 
   return (
-    <div className="flex flex-col  md:gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[4rem] sm:mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
+    <div className="flex flex-col md:gap-[5rem] min-h-screen bg-gradient-to-b from-[#02040C] to-[#0A4148] xs:ml-[1rem] sm:ml-[3rem] lg:ml-[5rem] pt-[4rem] mt-[4rem] sm:mt-[8rem] xs:rounded-tl-[3rem] sm:pl-[4rem] sm:pr-[3rem]">
       <div>
         <TitleSection titleSection="Following" />
 
@@ -131,7 +131,7 @@ export const FavoriteMusic = ({
         <TitleSection titleSection="Loved songs" />
         <AlbumTracks
           songs={tracks}
-          styles="sm:pr-[3rem]"
+          styles="mt-10 sm:mt-0 sm:pr-[3rem]"
           handleToggleModal={handleToggleModal}
         />
       </div>

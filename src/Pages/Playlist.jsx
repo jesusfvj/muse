@@ -30,14 +30,16 @@ export const Playlist = () => {
     <>
       {!isLoadingPlaylists && playlist ? (
         <>
-          <PlaylistsHeader
-            name={playlist.name}
-            thumbnail={playlist.thumbnail}
-            playlistId={playlistId}
-            followedBy={playlist.followedBy}
-            tracks={playlist.tracks}
-          />
-          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-[70vh] sm:py-20 md:py-48">
+          <div className="h-[40vh] bg-[#02040C]">
+            <PlaylistsHeader
+              name={playlist.name}
+              thumbnail={playlist.thumbnail}
+              playlistId={playlistId}
+              followedBy={playlist.followedBy}
+              tracks={playlist.tracks}
+            />
+          </div>
+          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-[60vh] sm:py-20 md:py-48">
             <PlaylistsTracks
               isOwner={isOwner}
               songs={playlist.tracks}

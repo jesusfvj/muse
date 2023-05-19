@@ -58,10 +58,9 @@ export const PlaylistsTracks = ({
   };
 
   return (
-    <div className={`flex flex-col ${styles}`}>
-      <div className="flex items-center justify-end m-4 gap-4">
+    <div className={`flex flex-col items-between ${styles}`}>
         {isOwner && (
-          <div className="flex gap-4 w-full md:w-1/2">
+          <div className="flex gap-4 w-full items-center justify-end m-4 md:w-1/2">
             <Button
               text="Add songs"
               color="primary"
@@ -71,31 +70,32 @@ export const PlaylistsTracks = ({
             <Button text="Delete" color="danger" onClick={deletePlaylist} />
           </div>
         )}
+      <div className="mb-10">
+        {songs.length ? (
+          songs.map((song, idx) => {
+            const { name, duration, artist, followedBy } = song;
+            return (
+              <PlaylistsElements
+                key={`${name}-${idx}`}
+                activeDropdown={activeDropdown}
+                handleToggleDropdown={handleToggleDropdown}
+                id={song._id}
+                artist={artist}
+                nombre={name}
+                duration={duration}
+                idx={idx}
+                followedBy={followedBy}
+                track={song}
+                songs={songs}
+              />
+            );
+          })
+        ) : (
+          <div className="flex items-center justify-center text-center">
+            <Typography text="This playlist does not have any song" type="important" />
+          </div>
+        )}
       </div>
-      {songs.length ? (
-        songs.map((song, idx) => {
-          const { name, duration, artist, followedBy } = song;
-          return (
-            <PlaylistsElements
-              key={`${name}-${idx}`}
-              activeDropdown={activeDropdown}
-              handleToggleDropdown={handleToggleDropdown}
-              id={song._id}
-              artist={artist}
-              nombre={name}
-              duration={duration}
-              idx={idx}
-              followedBy={followedBy}
-              track={song}
-              songs={songs}
-            />
-          );
-        })
-      ) : (
-        <div className="flex items-center justify-center text-center">
-          <Typography text="This playlist does not have any song" type="important"/>
-        </div>
-      )}
       {isAddSongsModalOpen && (
         <div
           className="fixed top-0 bottom-0 left-0 right-0 m-auto bg-black/90 h-screen w-screen backdrop-blur-sm z-40 flex items-center justify-center"

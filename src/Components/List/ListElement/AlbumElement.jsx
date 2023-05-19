@@ -90,7 +90,7 @@ export const AlbumElement = ({ object }) => {
 
   return (
     <div
-      className="flex flex-col my-4 mx-2 h-52 sm:h-auto"
+      className="flex flex-col my-4 mb-7 mx-2 h-52 sm:h-auto"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleOpenDropdown}

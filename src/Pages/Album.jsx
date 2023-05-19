@@ -30,7 +30,7 @@ export const Album = () => {
           {album && (
             <>
               <AlbumHeader album={album} />
-              <div className="flex items-start pt-[20vh] pb-5 justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen h-fit">
+              <div className="flex items-start pt-[10vh] pb-5 justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-[50vh]">
                 <AlbumTracks
                   songs={album?.songs}
                   artist={album?.artist?.fullName}

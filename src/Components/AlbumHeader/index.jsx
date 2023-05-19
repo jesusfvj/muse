@@ -30,12 +30,12 @@ export const AlbumHeader = ({ album }) => {
     }
   };
   return (
-    <div className="w-screen h-[80vh] relative">
+    <div className="w-screen h-[50vh] relative">
       <div className="bg-cover bg-center w-full h-full">
         <img className="h-full w-full object-cover" src={thumbnailUrl} />
       </div>
-      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-[80vh] absolute top-0"></div>
-      <div className="flex w-screen h-34 pl-[9.5vw]">
+      <div className="bg-gradient-to-b from-[rgba(125,125,125,0)] to-[#02040C] w-screen h-[50vh] absolute top-0"></div>
+      <div className="flex gap-8 w-screen h-34 pl-[9.5vw]">
         <div className="flex relative">
           <div className="w-[3rem] h-[3rem] xs:w-[3.6rem] xs:h-[3.6rem] md:w-[4.5rem] md:h-[4.5rem]">
             <RoundButton
@@ -63,7 +63,7 @@ export const AlbumHeader = ({ album }) => {
               type="important"
             />
           </Link>
-          <Typography text={name} color="primary" type="title" />
+          <Typography text={name} color="primary" type="title" styles="m-0 p-0"/>
         </div>
       </div>
     </div>

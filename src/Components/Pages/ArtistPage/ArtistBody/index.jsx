@@ -163,7 +163,7 @@ export const ArtistBody = () => {
         )}
       </div>
 
-      <div className="w-full md:w-5/6 mt-[3rem] sm:mt-0">
+      <div className="w-full md:w-5/6 mt-[2rem] sm:mt-0">
         {playlists?.length ? (
           <List
             object={playlists}

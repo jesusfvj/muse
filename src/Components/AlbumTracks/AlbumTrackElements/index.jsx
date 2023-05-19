@@ -31,7 +31,8 @@ export const AlbumTrackElements = ({
   const [isFollowed, setIsFollowed] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
-
+  const lastSong = trackList.length -1 === idx;
+  const isActiveDropdown = activeDropdown == id;
   const artistId = track.artist?._id || track.artist;
   const dropdownItems = [
     {
@@ -71,7 +72,7 @@ export const AlbumTrackElements = ({
 
   return (
     <div
-      className={`flex flex-row gap-3 sm:gap-5 items-center justify-around sm:justify-center border-b-2 ${isActive && isMusicPlaying && 'bg-gray-800'} border-white/20 py-5 hover:bg-[#07333f] ${
+      className={`${lastSong && isActiveDropdown && 'mb-40'} flex flex-row gap-3 sm:gap-5 items-center justify-around sm:justify-center border-b-2 ${isActive && isMusicPlaying && 'bg-gray-800'} border-white/20 py-5 hover:bg-[#07333f] ${
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}
@@ -87,7 +88,7 @@ export const AlbumTrackElements = ({
         track={track}
         idx={idx}
       />
-      <div className="flex flex-row gap-2 sm:gap-10 pr-[6vw]">
+      <div className="flex flex-row gap-5 sm:gap-10 pr-[6vw]">
         <div
           className="cursor-pointer flex justify-center items-center"
           onClick={likedClicked}
@@ -101,7 +102,7 @@ export const AlbumTrackElements = ({
               )
             }
             color="white"
-            styles="hidden xs:flex"
+            styles="flex"
           />
         </div>
         <div
