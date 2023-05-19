@@ -25,7 +25,7 @@ export const SongElement = ({ object }) => {
   const { handleCreateQueue } = useTracks();
 
   const { name, artist, thumbnailUrl, _id: songId } = object;
-  const [clicked, setClicked] = useState(tracks.includes(songId));
+  const [clicked, setClicked] = useState(object.followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
