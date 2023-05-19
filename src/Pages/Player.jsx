@@ -1,8 +1,5 @@
 import { useParams } from "react-router-dom";
 import { List, Typography } from "../Components";
-import { Layout } from "../Components/Layout";
-import { MusicPlayer } from "../Components/Pages/Player/MusicPlayer";
-import { PlayerHeader } from "../Components/Pages/Player/PlayerHeader";
 import { useEffect, useState } from "react";
 import { getSongById } from "../API/MusicApi/MusicApi";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";

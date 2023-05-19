@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Layout } from "../Components";
 import { ArtistInfo } from "../Components/Pages/ArtistPage";
 import { useEffect, useState } from "react";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
-import { useUI } from "../Context/UI/UIContext";
 import { getArtistById } from "../API/UserApi/UserApi";
 import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
 import { ArtistPageMusicSection } from "../Components/Pages/ArtistPage/AtristPageMusicSection";

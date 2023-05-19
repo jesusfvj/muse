@@ -1,14 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { getAlbumById, getSongs } from "../API/MusicApi/MusicApi";
 import { AlbumHeader, AlbumTracks } from "../Components";
-import { AddToPlaylistModal } from "../Components/AddToPlaylistModal";
-import { Layout } from "../Components/Layout";
-import { SkeletonTracksGroup } from "../Components/Skeletons";
 import { useParams } from "react-router-dom";
 import { ProfileLoader } from "../Components/Pages/Profile/ProfileLoader";
 import { ProfileNotFound } from "../Components/Pages/Profile/ProfileNotFound";
-import { useTracks } from "../Context/TracksContext/TracksContext";
+
 
 export const Album = () => {
   const { albumId = 1 } = useParams();
