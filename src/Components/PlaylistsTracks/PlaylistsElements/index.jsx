@@ -68,7 +68,7 @@ export const PlaylistsElements = ({
 
   return (
     <div
-      className={`${lastSong && isActiveDropdown && 'mb-40'} flex flex-row w-full gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 ${isActive && isMusicPlaying && 'bg-gray-800'} hover:bg-[#07333f] ${idx === 0 && "border-t-2"
+      className={`${lastSong && isActiveDropdown && 'mb-24'} flex flex-row w-full gap-3 sm:gap-5 items-center justify-between border-b-2 border-white/20 py-5 ${isActive && isMusicPlaying && 'bg-gray-800'} hover:bg-[#07333f] ${idx === 0 && "border-t-2"
         }`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
@@ -76,7 +76,7 @@ export const PlaylistsElements = ({
         handleToggleDropdown();
       }}
     >
-      <div className="flex items-center w-full justify-between gap-10 md:gap-20 pl-[4vw] md:px-[5vw]">
+      <div className="flex items-center w-full justify-between gap-10 sm:gap-5 pl-[4vw] md:px-[5vw]">
         <div
           className={`hidden sm:flex cursor-pointer mt-1 ${hovered && !isActive ? "visible" : "invisible"
             }`}
@@ -102,7 +102,7 @@ export const PlaylistsElements = ({
           </div>
         )}
 
-        <Link to={`/player/${track._id}`} className="hidden sm:flex w-[10rem] lg:w-[15rem]">
+        <Link to={`/player/${track._id}`} className="hidden sm:flex w-[10rem] sm:w-[15rem] lg:w-[40vw]">
           <Typography text={nombre} color="white" styles="truncate" />
         </Link>
         <div className="w-2/3 sm:hidden truncate"
@@ -110,7 +110,7 @@ export const PlaylistsElements = ({
         >
           <Typography text={nombre} color="white" styles="w-[50vw] truncate" />
         </div>
-        <Link to={`/artist/${artist._id}`} className="hidden sm:flex w-[10rem] lg:w-[15rem]">
+        <Link to={`/artist/${artist._id}`} className="hidden sm:flex w-[10rem] sm:w-[10rem]">
           <Typography text={artist.fullName} color="white" styles="truncate" />
         </Link>
 

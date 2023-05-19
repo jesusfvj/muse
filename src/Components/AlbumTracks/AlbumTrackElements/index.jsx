@@ -32,6 +32,7 @@ export const AlbumTrackElements = ({
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const lastSong = trackList.length -1 === idx;
+  const beforeLastSong = trackList.length -2 === idx;
   const isActiveDropdown = activeDropdown == id;
   const artistId = track.artist?._id || track.artist;
   const dropdownItems = [
@@ -72,7 +73,7 @@ export const AlbumTrackElements = ({
 
   return (
     <div
-      className={`${lastSong && isActiveDropdown && 'mb-40'} flex flex-row gap-3 sm:gap-5 items-center justify-around sm:justify-center border-b-2 ${isActive && isMusicPlaying && 'bg-gray-800'} border-white/20 py-5 hover:bg-[#07333f] ${
+      className={`${lastSong && isActiveDropdown && 'mb-24'} flex flex-row gap-3 sm:gap-5 items-center justify-around sm:justify-center border-b-2 ${isActive && isMusicPlaying && 'bg-gray-800'} border-white/20 py-5 hover:bg-[#07333f] ${
         idx === 0 && "border-t-2"
       }`}
       onMouseEnter={() => setHovered(true)}

@@ -33,7 +33,7 @@ export const Playlist = () => {
         <ProfileLoader />
       ) : playlist ? (
         <>
-          <div className="h-[40vh] bg-[#02040C]">
+          <div className="h-[40vh] sm:h-[50vh] lg:h-[70vh] bg-[#02040C]">
             <PlaylistsHeader
               name={playlist.name}
               thumbnail={playlist.thumbnail}
@@ -42,12 +42,12 @@ export const Playlist = () => {
               tracks={playlist.tracks}
             />
           </div>
-          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-[60vh] sm:py-20 md:py-48">
+          <div className="flex items-center justify-center bg-gradient-to-b from-[#02040C] to-[#0A4148] w-screen min-h-[60vh] sm:min-h-[50vh] lg:min-h-[70vh] sm:py-20 md:py-48">
             <PlaylistsTracks
               isOwner={isOwner}
               songs={playlist.tracks}
               playlistId={playlistId}
-              styles="w-full md:w-4/5"
+              styles="w-full sm:mt-10"
               playlist={playlist}
             />
           </div>

@@ -59,18 +59,24 @@ export const PlaylistsTracks = ({
 
   return (
     <div className={`flex flex-col items-between ${styles}`}>
-        {isOwner && (
-          <div className="flex gap-4 w-full items-center justify-end m-4 md:w-1/2">
+      {isOwner && (
+        <div className="flex gap-4 w-screen items-center justify-center mt-4 mb-4 sm:mb-12 px-5">
+          <div className="w-1/3 md:w-1/4">
             <Button
               text="Add songs"
               color="primary"
               onClick={() => setIsAddSongsModalOpen(true)}
             />
+          </div>
+          <div className="w-1/3 md:w-1/4">
             <Button text="Edit" color="gray" onClick={openEditModal} />
+          </div>
+          <div className="w-1/3 md:w-1/4">
             <Button text="Delete" color="danger" onClick={deletePlaylist} />
           </div>
-        )}
-      <div className="mb-10">
+        </div>
+      )}
+      <div className="mb-16 sm:mb-0">
         {songs.length ? (
           songs.map((song, idx) => {
             const { name, duration, artist, followedBy } = song;

@@ -61,7 +61,7 @@ export const TrackInfo = ({
       <div className="w-[70%] sm:hidden truncate"
         onClick={()=>handleCreateQueue(_id, trackList, idx)}
       >
-        <Typography text={nombre} color="white" styles="truncate" />
+        <Typography text={nombre} color="white" styles="w-[50vw] truncate" />
       </div>
       <Typography
         text={artist}

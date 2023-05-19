@@ -24,6 +24,7 @@ export const PlaylistsHeader = ({
   } = useUser();
 
   const { handleCreateQueue, index, shuffleQueue, isShuffled } = useTracks();
+  console.log(isShuffled)
 
   const [clicked, setClicked] = useState(followedBy.includes(_id));
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -77,7 +78,7 @@ export const PlaylistsHeader = ({
   };
   return (
     <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] relative">
-      <div className="w-full h-full relative overflow-hidden">
+      <div className="w-full h-full relative overflow-hidden md:mb-10">
         <img
           src={thumbnail}
           alt={name}
@@ -86,7 +87,7 @@ export const PlaylistsHeader = ({
         <img
           src={thumbnail}
           alt={name}
-          className="absolute top-0 bottom-0 left-0 right-0 m-auto z-10 w-2/6"
+          className="absolute top-0 bottom-0 left-0 right-0 m-auto z-10 w-2/6 xs:my-5 sm:my-10 md:my-20"
         />
       </div>
 
@@ -121,7 +122,7 @@ export const PlaylistsHeader = ({
           >
             <RoundButton
               color="white"
-              background="darkgray"
+              background="transparent"
               icon={<MdControlPointDuplicate size={25} />}
               margin=""
             />
