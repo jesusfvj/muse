@@ -30,7 +30,7 @@ export const TrackInfo = ({
   };
 
   return (
-    <div className="flex items-start justify-around sm:justify-start w-full md:gap-15 pl-[4vw] md:px-[5vw]">
+    <div className="flex items-start justify-around sm:justify-between w-full sm:gap-5 pl-[4vw] md:px-[5vw]">
       <div
         className={`hidden sm:flex cursor-pointer mt-1 ${
           hovered && !isActive ? "visible" : "invisible"
@@ -43,7 +43,7 @@ export const TrackInfo = ({
         />
       </div>
       {isActive && isMusicPlaying && (
-        <div className="hidden sm:absolute">
+        <div className="hidden sm:flex absolute">
           <Audio
             height="20"
             width="20"
@@ -55,7 +55,7 @@ export const TrackInfo = ({
           />
         </div>
       )}
-      <Link to={`/player/${track._id}`} className="hidden sm:flex sm:w-[10rem] lg:w-[30rem] truncate">
+      <Link to={`/player/${track._id}`} className="hidden sm:flex sm:w-[25rem] lg:w-[40rem] truncate">
         <Typography text={nombre} color="white" styles="truncate" />
       </Link>
       <div className="w-[70%] sm:hidden truncate"

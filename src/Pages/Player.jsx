@@ -51,101 +51,101 @@ export const Player = () => {
               <Typography
                 text={`${track.artist.followedBy.length} followers`}
               />
-              
+
               <div className="my-10">
-              <Typography
-                text="(Verse 1)"/>
-                 <Typography
-                text="
+                <Typography
+                  text="(Verse 1)" />
+                <Typography
+                  text="
                 In a virtual classroom, where dreams take flight,"/>
                 <Typography
-                text="Thirty students gathered, their futures shining bright."/>
+                  text="Thirty students gathered, their futures shining bright." />
                 <Typography
-                text="An online master, a journey to embark,"/>
+                  text="An online master, a journey to embark," />
                 <Typography
-                text="Software development, igniting their spark."/>
-                
-                <Typography
-                text="(Chorus)"/>
-                 <Typography
-                text="For seven months, they've come together,"/>
-                <Typography
-                text="In this digital realm, where knowledge knows no tether."/>
-                <Typography
-                text="More than 1200 hours, they've spent coding strong,"/>
-                <Typography
-                text="Building their skills, where passion belongs."/>
-                
-                <Typography
-                text="(Verse 2)"/>
+                  text="Software development, igniting their spark." />
 
-                 <Typography
-                text="Thirty minds eager, ready to explore,"/>
                 <Typography
-                text="In projects aplenty, they'll learn and soar."/>
+                  text="(Chorus)" />
                 <Typography
-                text="JavaScript, PHP, and Node.js they embrace,"/>
+                  text="For seven months, they've come together," />
                 <Typography
-                text="With MongoDB and MySQL, they find their place."/>
+                  text="In this digital realm, where knowledge knows no tether." />
                 <Typography
-                text="HTML and CSS, the foundations they lay,"/>
+                  text="More than 1200 hours, they've spent coding strong," />
                 <Typography
-                text="React, their companion, guiding the way."/>
-                
-                 <Typography
-                text="(Chorus)"/>
-                 <Typography
-                text="For seven months, they've come together,"/>
+                  text="Building their skills, where passion belongs." />
+
                 <Typography
-                text="In this digital realm, where knowledge knows no tether."/>
+                  text="(Verse 2)" />
+
                 <Typography
-                text="More than 1200 hours, they've spent coding strong,"/>
+                  text="Thirty minds eager, ready to explore," />
                 <Typography
-                text="Building their skills, where passion belongs."/>
-                
-                 <Typography
-                text="(Bridge)"/>
-                 <Typography
-                text="Through challenges faced, they support one another,"/>
+                  text="In projects aplenty, they'll learn and soar." />
                 <Typography
-                text="Sharing knowledge and insights like no other."/>
+                  text="JavaScript, PHP, and Node.js they embrace," />
                 <Typography
-                text="Late-night coding sessions, their determination clear,"/>
+                  text="With MongoDB and MySQL, they find their place." />
                 <Typography
-                text="United as classmates, overcoming every fear."/>
-                
-                 <Typography
-                text="(Verse 3)"/>
-                 <Typography
-                text="Thirty individuals, on a common quest,"/>
+                  text="HTML and CSS, the foundations they lay," />
                 <Typography
-                text="Mastering the art, striving for the best."/>
+                  text="React, their companion, guiding the way." />
+
                 <Typography
-                text="With each project they touch, new skills they gain,"/>
+                  text="(Chorus)" />
                 <Typography
-                text="Collaborating and innovating, breaking every chain."/>
-                
-                 <Typography
-                text="(Chorus)"/>
-                 <Typography
-                text="For seven months, they've come together,"/>
+                  text="For seven months, they've come together," />
                 <Typography
-                text="In this digital realm, where knowledge knows no tether."/>
+                  text="In this digital realm, where knowledge knows no tether." />
                 <Typography
-                text="More than 1200 hours, they've spent coding strong,"/>
+                  text="More than 1200 hours, they've spent coding strong," />
                 <Typography
-                text="Building their skills, where passion belongs."/>
-                
-                 <Typography
-                text="(Outro)"/>
-                 <Typography
-                text="As the program concludes, their journey not yet done,"/>
+                  text="Building their skills, where passion belongs." />
+
                 <Typography
-                text="Thirty students transformed, ready to shine as one."/>
+                  text="(Bridge)" />
                 <Typography
-                text="In the world of software development, they leave their mark,"/>
+                  text="Through challenges faced, they support one another," />
                 <Typography
-                text="Forever bonded as classmates, embarking on a new arc."/>
+                  text="Sharing knowledge and insights like no other." />
+                <Typography
+                  text="Late-night coding sessions, their determination clear," />
+                <Typography
+                  text="United as classmates, overcoming every fear." />
+
+                <Typography
+                  text="(Verse 3)" />
+                <Typography
+                  text="Thirty individuals, on a common quest," />
+                <Typography
+                  text="Mastering the art, striving for the best." />
+                <Typography
+                  text="With each project they touch, new skills they gain," />
+                <Typography
+                  text="Collaborating and innovating, breaking every chain." />
+
+                <Typography
+                  text="(Chorus)" />
+                <Typography
+                  text="For seven months, they've come together," />
+                <Typography
+                  text="In this digital realm, where knowledge knows no tether." />
+                <Typography
+                  text="More than 1200 hours, they've spent coding strong," />
+                <Typography
+                  text="Building their skills, where passion belongs." />
+
+                <Typography
+                  text="(Outro)" />
+                <Typography
+                  text="As the program concludes, their journey not yet done," />
+                <Typography
+                  text="Thirty students transformed, ready to shine as one." />
+                <Typography
+                  text="In the world of software development, they leave their mark," />
+                <Typography
+                  text="Forever bonded as classmates, embarking on a new arc." />
               </div>
 
               <div className="w-full my-10">

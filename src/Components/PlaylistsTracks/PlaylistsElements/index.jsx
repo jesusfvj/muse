@@ -89,7 +89,7 @@ export const PlaylistsElements = ({
         </div>
 
         {isActive && isMusicPlaying && (
-          <div className="hidden sm:absolute">
+          <div className="hidden sm:flex absolute">
             <Audio
               height="20"
               width="20"
